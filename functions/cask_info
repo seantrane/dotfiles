@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#
+# Homebrew Cask Info
+
+cask_info () {
+    echo "\nHomebrew Cask Info...\n"
+    for c in $(brew cask list); do
+        brew cask info $c
+        echo "\nContents of /opt/homebrew-cask/Caskroom/$c/..."
+        ls -1 /opt/homebrew-cask/Caskroom/$c
+        echo ""
+    done
+    echo ""
+}

@@ -1,0 +1,118 @@
+# seantrane dotfiles
+
+## .dotfiles
+
+These are my dotfiles, the child of many influences, primarily 
+[Zach Holmans](https://github.com/holman)' [dotfiles](https://github.com/holman/dotfiles), who I owe a great deal of credit to.
+
+See [Thanks section](https://github.com/seantrane/dotfiles#thanks) for full credits.
+
+This is a highly organized and adaptive _dotfiles_ approach. Instead of using a limited  set of bloated files, this approach is topic-centric and uses a folder-file structure to allow more effective customization, and diff-tracking.
+
+## Installation
+
+### Step 1
+
+Extract the contents of this repository to `~/.dotfiles`.
+
+1(a). If you are starting from a fresh OS install, without Git, run this:
+
+```sh
+cd; curl -LOk https://github.com/seantrane/dotfiles/archive/master.zip; unzip master.zip; mv dotfiles-master .dotfiles; rm master.zip;
+```
+
+1(b). If you have Git installed, run this instead:
+
+```sh
+git clone https://github.com/seantrane/dotfiles.git ~/.dotfiles
+```
+
+### Step 2
+
+Every file can be edited or removed as you please, but there are few primary files you'll want to focus on.
+
+Edit the `zsh/zpreztorc.symlink`, for Prezto configuration.
+
+Edit the `zsh/zshenv.symlink`, for Zsh configuration.
+
+Edit the `osx/set-defaults.sh`, for your OS X preferences.
+
+Edit the `osx/install-casks.sh`, for your preferred OS X apps.
+
+Edit the `php/install.sh`, to modify PHP/extensions.
+
+### Step 3
+
+Bootstrap the `.dotfiles` and install dependencies.
+
+```sh
+~/.dotfiles/script/bootstrap
+```
+
+This will symlink the appropriate files in `.dotfiles` to your home directory.
+Everything is configured and tweaked within `~/.dotfiles`.
+
+It will then install common dependencies, in the proper order.
+
+This will also install Zsh and Prezto and will reset your default shell.
+
+### Step 4
+
+After restarting your terminal/shell, run all installers.
+
+```sh
+~/.dotfiles/script/install
+```
+
+This will not only install all of your [components](https://github.com/seantrane/dotfiles#components),
+but it will also install your chosen apps/casks in `osx/install-casks.sh`.
+
+### Step 5
+
+Restart your terminal/shell.
+
+## Topical
+
+Everything is built around topic areas. If you're adding a new area to your
+forked _dotfiles_ — say, "Java" — you can simply add a `java` directory and put
+files in there. Anything with an extension of `.zsh` will get automatically
+included into your shell. Anything with an extension of `.symlink` will get
+symlinked without extension into `$HOME` when you run `script/bootstrap`.
+
+## Components
+
+There are a few special files in the hierarchy.
+
+- **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
+  available everywhere.
+- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
+  environment.
+- **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
+  expected to setup `$PATH` or similar.
+- **topic/completion.zsh**: Any file named `completion.zsh` is loaded
+  last and is expected to setup autocomplete.
+- **topic/\*.symlink**: Any files ending in `*.symlink` get symlinked into
+  your `$HOME`. This is so you can keep all of those versioned in your dotfiles
+  but still keep those autoloaded files in your home directory. These get
+  symlinked in when you run `script/bootstrap`.
+
+## Updates/Maintenance
+
+`dot` is a simple script that updates dependencies, packages, sets sane OS X
+defaults, and so on. Tweak this script, and occasionally run `dot` from
+time to time to keep your environment fresh and up-to-date. You can find
+this script in `bin/`.
+
+## Bugs
+
+I don't really promote this, it's just for my personal use and available for everyone.
+If you experience any bugs, I'm interested, but cannot promise anything.
+
+## Thanks
+
+Big thanks goes out to [Zach Holman](https://github.com/holman), whose [dotfiles](https://github.com/holman/dotfiles)  were so awesome, I had to fork them. Zach forked his from [Ryan Bates](https://github.com/ryanb)' [dotfiles](https://github.com/ryanb/dotfiles).  I am grateful for their efforts. Zach wrote [a post on the subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/)  that I encourage reading.
+
+I've also learned and depend on techniques from other dotfiles; [Mathias Bynens](https://github.com/mathiasbynens/dotfiles), [Paul Irish](https://github.com/paulirish/dotfiles), and [Simon Owen](https://github.com/s10wen/dotfiles) who also wrote a [great article](http://code.tutsplus.com/tutorials/setting-up-a-mac-dev-machine-from-zero-to-hero-with-dotfiles--net-35449) on the subject.
+
+[Learn more about dotfiles](https://dotfiles.github.io).
+

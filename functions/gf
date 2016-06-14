@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# gf <branch> = git checkout -b <branch>
+
+gf () {
+    local branch=$1
+    git checkout -b $branch origin/$branch
+}

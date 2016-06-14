@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Sets OS X defaults by running $DOTFILES/osx/set-defaults.sh.
+
+[[ -s "$DOTFILES/osx/set-defaults.sh" ]] && exec $DOTFILES/osx/set-defaults.sh

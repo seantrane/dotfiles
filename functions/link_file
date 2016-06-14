@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+#
+# symlink file
+# example; link_file this.file ../that.file
+
+link_file () {
+    local src=$1 dst=$2
+
+    local overwrite= backup= skip=
+    local action=
+
+    if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
+
+        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
+
+            local currentSrc="$(readlink $dst)"
+
+            if [ "$currentSrc" == "$src" ]; then
+                skip=true;
+            else
+                printf "\033[2K\r\n [\033[0;33m ?? \033[0m]  File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+                [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all? \n"
+                read -n 1 action
+
+                case "$action" in
+                    o )
+                        overwrite=true;;
+                    O )
+                        overwrite_all=true;;
+                    b )
+                        backup=true;;
+                    B )
+                        backup_all=true;;
+                    s )
+                        skip=true;;
+                    S )
+                        skip_all=true;;
+                    * )
+                        ;;
+                esac
+            fi
+        fi
+
+        overwrite=${overwrite:-$overwrite_all}
+        backup=${backup:-$backup_all}
+        skip=${skip:-$skip_all}
+
+        if [ "$overwrite" == "true" ]; then
+            rm -rf "$dst"
+            printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Removed $dst \033[0m \n"
+        fi
+
+        if [ "$backup" == "true" ]; then
+            mv "$dst" "${dst}.backup"
+            printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Moved $dst to ${dst}.backup \033[0m \n"
+        fi
+
+        if [ "$skip" == "true" ]; then
+            printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Skipped $src \033[0m \n"
+        fi
+    fi
+
+    # "false" or empty
+    if [ "$skip" != "true" ]; then
+        ln -s "$1" "$2"
+        printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Linked $1 to $2 \033[0m \n"
+    fi
+}

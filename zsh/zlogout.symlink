@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# ZSH LOGOUT
+#
+# Executes commands at Zsh-logout.
+# zlogout is sometimes used to clear and reset the terminal.
+
+# Print the message.
+cat <<-EOF
+
+The End
+EOF

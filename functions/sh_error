@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: ERROR
+
+sh_error () {
+    printf "${ClearNewLine} [${Red} ER ${Reset}]  ${Red}$1${Reset} \n"
+}
+
+[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_error

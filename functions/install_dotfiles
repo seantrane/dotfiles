@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# symlink ~/.dotfiles
+# example; link_file ~/.bashrc ~/.dotfiles/bash/bashrc.symlink
+
+install_dotfiles () {
+    DOTFILEDIR=$( cd "$HOME/.dotfiles" && pwd )
+    printf "\033[2K\r\n [\033[0;34m .. \033[0m]  Installing ~/.dotfiles \n"
+
+    local overwrite_all=false backup_all=false skip_all=false
+
+    # for file in ~/.dotfiles/{bash,zsh}/{bashrc,zshrc}.symlink; do
+    for src in $(find -H "$DOTFILEDIR" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
+        dst="$HOME/.$(basename "${src%.*}")"
+        link_file "$src" "$dst"
+    done
+}

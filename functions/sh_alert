@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: ALERT
+
+sh_alert () {
+    printf "${ClearNewLine} [${Yellow} !! ${Reset}]  ${Yellow}$1${Reset} \n"
+}
+
+[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_alert

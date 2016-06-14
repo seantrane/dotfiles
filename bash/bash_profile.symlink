@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# BASH PROFILE
+#
+# Put stuff in `~/.bashrc`, make `~/.bash_profile` source it.
+# See comments in `~/.bashrc` for detailed summary.
+
+[[ -e "$HOME/.profile" ]] && source $HOME/.profile
+[[ -e "$HOME/.bashrc" ]] && source $HOME/.bashrc

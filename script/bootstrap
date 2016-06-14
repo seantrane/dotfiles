@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+#
+# bootstrap installs things.
+
+# Shell Support
+[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+
+#-----------------------------------------------------------------------
+# SUDO
+#-----------------------------------------------------------------------
+
+# Ask for the administrator password upfront.
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until the script has finished.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+set -e
+
+#-----------------------------------------------------------------------
+# GIT CONFIG
+#-----------------------------------------------------------------------
+
+setup_gitconfig () {
+    if [ ! -f "git/gitconfig.symlink" ]; then
+        sh_info 'Setting up gitconfig.symlink'
+
+        git_credential='cache'
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            git_credential='osxkeychain'
+        fi
+
+        sh_user 'What is your github author name?'
+        read -e git_authorname
+        sh_user 'What is your github author email?'
+        read -e git_authoremail
+
+        sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.symlink.example > git/gitconfig.symlink
+
+        sh_success 'gitconfig.symlink is now ready for symlinking to ~/.gitconfig'
+    fi
+}
+
+setup_gitconfig
+
+#-----------------------------------------------------------------------
+# SYMLINK DOTFILES
+#-----------------------------------------------------------------------
+
+source $DOTFILES/functions/link_file
+source $DOTFILES/functions/install_dotfiles
+
+install_dotfiles
+
+#-----------------------------------------------------------------------
+# RUBY
+#-----------------------------------------------------------------------
+# The Ruby installer is great for ensuring a lot of dependencies.
+# Because it's written to support Rails (gorails.com), it will
+# require/install a good foundation for everything else.
+# Here's is the install list/order:
+#   * Linux libraries/dependencies
+#   * Homebrew (Mac-only)
+#   * Git
+#   * rbenv
+#   * Ruby
+#   * Bundler (Linux-only)
+
+source $DOTFILES/ruby/install
+
+#-----------------------------------------------------------------------
+# Zshell + Prezto
+#-----------------------------------------------------------------------
+
+# We install Prezto first so that it's ready for Zsh.
+source $DOTFILES/zsh/prezto
+# Install Zshell + Zsh-completions
+source $DOTFILES/zsh/install
+
+#-----------------------------------------------------------------------
+# OS CONDITIONALS
+#-----------------------------------------------------------------------
+
+# If we're on a Mac, let's install and setup homebrew.
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sh_info "installing dependencies"
+    #if source bin/dot > /tmp/dotfiles-dot 2>&1; then
+    #    sh_success "dependencies installed"
+    #else
+    #    sh_fail "error installing dependencies"
+    #fi
+
+    # Zshell
+    if source zsh/install.sh > /tmp/dotfiles-dot 2>&1; then
+        sh_success "Zshell installed"
+    else
+        sh_fail "error installing Zshell"
+    fi
+
+    # Prezto
+    if source prezto/install.sh > /tmp/dotfiles-dot 2>&1; then
+        sh_success "Prezto installed"
+    else
+        sh_fail "error installing Prezto"
+    fi
+
+fi
+
+echo ''
+
+sh_success "All installed!"
+
+# Make Zsh your default shell.
+# This will not work if Zsh is not in your authorized shells list (/etc/shells).
+chsh -s $(chsh -l | grep "zsh" -m 1)
+
+sh_success "Zsh is now your default shell."
+
+# Confirm active shell.
+echo $SHELL
+
+sh_alert "Restart your terminal/shell, and take the next step."
+
+echo ''

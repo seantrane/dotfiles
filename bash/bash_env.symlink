@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# BASH ENV
+#
+# Defines shell scripting environment (non-interactive shell).
+# 
+# Put stuff in conditional section of `~/.bashrc`.
+# See comments in `~/.bashrc` for detailed summary.
+
+[[ -s "$HOME/.bashrc" ]] && source $HOME/.bashrc

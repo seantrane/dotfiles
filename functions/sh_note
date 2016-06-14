@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: NOTE
+
+sh_note () {
+    printf "${ClearNewLine} [${Cyan} ** ${Reset}]  $1 \n"
+}
+
+[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_note

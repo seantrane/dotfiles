@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# compdef c
+
+# if [ -n "${ZSH_NAME}" ]; then
+
+#     _files -W $PROJECTS -/
+#     _files -W $GOPATH/src/github.com -/
+
+# fi
+
+# See further documentation in `functions/c`.

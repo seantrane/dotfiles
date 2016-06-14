@@ -1,0 +1,324 @@
+" Wrap gitcommit file types at the appropriate length
+filetype indent plugin on
+
+" Make Vim more useful
+set nocompatible
+" Use the OS clipboard by default (on versions compiled with `+clipboard`)
+set clipboard=unnamed
+" Enhance command-line completion
+set wildmenu
+" Allow cursor keys in insert mode
+set esckeys
+" Allow backspace in insert mode
+set backspace=indent,eol,start
+" Optimize for fast terminal connections
+set ttyfast
+" Add the g flag to search/replace by default
+set gdefault
+" Use UTF-8 without BOM
+set encoding=utf-8 nobomb
+" Change mapleader
+let mapleader=","
+" Don’t add empty newlines at the end of files
+set binary
+set noeol
+" Centralize backups, swapfiles and undo history
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+if exists("&undodir")
+    set undodir=~/.vim/undo
+endif
+
+" Don’t create backups when editing files in certain directories
+set backupskip=/tmp/*,/private/tmp/*
+
+" Respect modeline in files
+set modeline
+set modelines=4
+" Enable per-directory .vimrc files and disable unsafe commands in them
+set exrc
+set secure
+" Enable line numbers
+set number
+" Enable syntax highlighting
+syntax on
+" Highlight current line
+set cursorline
+" Use spaces instead of tabs
+set expandtab
+" Be smart when using tabs ;)
+set smarttab
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+" Show “invisible” characters
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+set list
+" Highlight searches
+set hlsearch
+" Ignore case of searches
+set ignorecase
+" Highlight dynamically as pattern is typed
+set incsearch
+" Always show status line
+set laststatus=2
+" Enable mouse in all modes
+set mouse=a
+" Disable error bells
+set noerrorbells
+" Don’t reset cursor to start of line when moving around.
+set nostartofline
+" Show the cursor position
+set ruler
+" Don’t show the intro message when starting Vim
+set shortmess=atI
+" Show the current mode
+set showmode
+" Show the filename in the window titlebar
+set title
+" Show the (partial) command as it’s being typed
+set showcmd
+" Use relative line numbers
+if exists("&relativenumber")
+    set relativenumber
+    au BufReadPost * set relativenumber
+endif
+" Start scrolling three lines before the horizontal window border
+set scrolloff=3
+
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
+" Save a file as root (,W)
+noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+" Automatic commands
+if has("autocmd")
+    " Enable file type detection
+    filetype on
+    " Treat .json files as .js
+    autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+    " Treat .md files as Markdown
+    autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
+endif
+
+set guifont=Menlo:h14
+set linespace=8
+
+" Balanced Colorscheme for Vim
+" by Sean Trane
+"
+" Vim-Highlighting Docs:
+" http://vimdoc.sourceforge.net/htmldoc/syntax.html#group-name
+" http://vimdoc.sourceforge.net/htmldoc/syntax.html#highlight-default
+"
+" Set Background to; dark,light
+set background=dark
+" Reset all highlighting to the defaults
+hi clear
+if exists("syntax_on")
+  syntax reset
+endif
+" Set environment to 256 colours
+set t_Co=256
+" Colorscheme name
+let colors_name = "Balanced"
+"
+" BACKGROUND AND TEXT
+"
+" the character under the cursor
+hi Cursor           guifg=NONE guibg=#F8F8F8 gui=none ctermbg=255
+" the screen line that the cursor is in when 'cursorline' is set
+hi CursorLine       guibg=#1D1D1D ctermbg=233 cterm=none
+" the screen column that the cursor is in when 'cursorcolumn' is set
+hi CursorColumn     guibg=#222222 ctermbg=234
+" The character under-or-before the cursor, and paired brackets
+hi MatchParen       guifg=#FFFFFF guibg=#222222 gui=bold ctermfg=15 ctermbg=234 cterm=bold
+" normal text
+hi Normal           guifg=#F8F8F8 guibg=#222222 gui=none ctermfg=255 ctermbg=234 cterm=none
+" (hidden) characters that do not really exist in the text
+hi NonText          guifg=#333333 guibg=#222222 gui=none ctermfg=236 ctermbg=234 cterm=none
+" line used for closed folds
+hi Folded           guifg=#777777 guibg=#222222 gui=none ctermfg=243 ctermbg=234 cterm=none
+" titles for output from ":set all", ":autocmd" etc.
+hi Title            guifg=#777777 guibg=NONE    gui=bold ctermfg=243 ctermbg=NONE cterm=bold
+" Meta/special keys listed with ":map", and unprintable characters
+hi SpecialKey       guifg=#DBAF00 guibg=#0F1B14 gui=none ctermfg=136 ctermbg=233 cterm=none
+" Search-pattern-highlighting, also for current line in quickfix window and similar items
+hi Search           guifg=#000000 guibg=#FFFFFF gui=underline ctermfg=0 ctermbg=15 cterm=underline
+" directory names (and other special names in listings)
+hi Directory        guifg=#77AADD gui=underline ctermfg=75 cterm=underline
+"
+" DIFF MODE
+"
+hi DiffAdd          guibg=#252556 gui=none ctermbg=17 cterm=none
+hi DiffChange       guibg=#4C4C09 gui=none ctermbg=236 cterm=none
+hi DiffDelete       guibg=#3F000A gui=none ctermbg=0 ctermfg=196 cterm=none
+hi DiffText         guibg=#66326E gui=none ctermbg=22 cterm=none
+"
+" POPUP MENU
+"
+" normal item
+hi Pmenu            guifg=#F8F8F8 guibg=#323232 ctermfg=255 ctermbg=236
+" selected item
+hi PmenuSel         guifg=#F8F8F8 guibg=#66AE1B ctermfg=255 ctermbg=70
+" scrollbar
+"hi PmenuSbar       guifg=#F8F8F8 guibg=#222222 ctermfg=255 ctermbg=234
+" Thumb of the scrollbar
+"hi PmenuThumb      guifg=#222222 guibg=#F8F8F8 ctermfg=234 ctermbg=255
+"
+" INTERFACE
+"
+" Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+hi LineNr           guifg=#888888 guibg=#333333 gui=none ctermfg=245 ctermbg=236 cterm=none
+" the column separating vertically split windows
+hi VertSplit        guifg=#F8F8F8 guibg=#333333 gui=none ctermfg=255 ctermbg=236 cterm=none
+" status line of current window
+hi StatusLine       guifg=#F8F8F8 guibg=#142C09 gui=italic ctermfg=255 ctermbg=233 cterm=italic
+" status lines of not-current windows
+hi StatusLineNC     guifg=#F8F8F8 guibg=#28342D gui=none ctermfg=255 ctermbg=236 cterm=none
+" Visual mode selection
+hi Visual           guifg=#DF1B19 guibg=#323232 gui=none ctermfg=160 ctermbg=236 cterm=none
+" 'showmode' message (e.g., "-- INSERT --")
+hi ModeMsg          guifg=#777777 guibg=#222222 gui=none ctermfg=243 ctermbg=234 cterm=none
+" Messages
+hi ErrorMsg         guifg=#DD0000 guibg=#111111 gui=bold ctermfg=160 ctermbg=233 cterm=bold
+hi WarningMsg       guifg=#CC6633 guibg=#111111 gui=none ctermfg=166 ctermbg=233 cterm=none
+"
+" TAB PAGES LINE
+" not active tab page label
+"hi TabLine          guifg=#777777 guibg=#222222 gui=none ctermfg=243 ctermbg=234 cterm=none
+" where there are no labels
+hi TabLineFill      guibg=#5E5E5E gui=none ctermfg=228 ctermbg=235 cterm=none
+" active tab page label
+hi TabLineSel       guifg=#DF1B19 gui=bold ctermfg=160 cterm=bold
+"
+" SYNTAX HIGHLIGHTING
+" The names marked with * are the preferred groups; the others are minor groups.
+"
+" *Comment          any comment
+hi Comment          guifg=#777777 guibg=none gui=none ctermfg=243 ctermbg=none cterm=none
+" *Constant         any constant
+hi Constant         guifg=#A3D1FF guibg=none gui=none ctermfg=117 ctermbg=none cterm=none
+" String            a string constant: "this is a string"
+hi String           guifg=#99CC66 guibg=none gui=none ctermfg=113 ctermbg=none cterm=none
+" Character         a character constant: 'c', '\n'
+hi Character        guifg=#77AADD guibg=none gui=none ctermfg=75 ctermbg=none cterm=none
+" Number            a number constant: 234, 0xff
+hi Number           guifg=#A3D1FF guibg=none gui=none ctermfg=117 ctermbg=none cterm=none
+" Boolean           a boolean constant: TRUE, false
+hi Boolean          guifg=#A3D1FF guibg=none gui=none ctermfg=117 ctermbg=none cterm=none
+" Float             a floating point constant: 2.3e10
+hi Float            guifg=#A3D1FF guibg=none gui=none ctermfg=117 ctermbg=none cterm=none
+"
+" *Identifier       any variable name
+hi Identifier       guifg=#DBAF00 guibg=none gui=none ctermfg=178 ctermbg=none cterm=none
+" Function          function name (also: methods for classes)
+hi Function         guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+"
+" *Statement        any statement
+hi Statement        guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+" Conditional       if, then, else, endif, switch, etc.
+hi Conditional      guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+" Repeat            for, do, while, etc.
+hi Repeat           guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+" Label             case, default, etc.
+"hi Label            guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+hi Label            guifg=#DBAF00 guibg=none gui=none ctermfg=178 ctermbg=none cterm=none
+" Operator          "sizeof", "+", "*", etc.
+hi Operator         guifg=#F8F8F8 guibg=none gui=none ctermfg=255 ctermbg=none cterm=none
+" Keyword           any other keyword
+hi Keyword          guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+" Exception         try, catch, throw
+hi Exception        guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+"
+" *PreProc          generic Preprocessor
+hi PreProc          guifg=#DBAF00 guibg=none gui=none ctermfg=178 ctermbg=none cterm=none
+" Include           preprocessor #include
+hi Include          guibg=#2D2D2D gui=none ctermbg=236 cterm=none
+" Define            preprocessor #define
+hi Define           guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+" Macro             same as Define
+hi Macro            guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+" PreCondit         preprocessor #if, #else, #endif, etc.
+"
+" *Type             int, long, char, etc.
+hi Type             guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+" StorageClass      static, register, volatile, etc.
+hi StorageClass     guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+" Structure         struct, union, enum, etc.
+hi Structure        guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+" Typedef           A typedef
+hi Typedef          guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+"
+" *Special          any special symbol
+hi Special          guifg=#77AADD guibg=none gui=none ctermfg=75 ctermbg=none cterm=none
+" SpecialChar       special character in a constant
+hi SpecialChar      guifg=#99CC66 guibg=none gui=none ctermfg=113 ctermbg=none cterm=none
+" Tag               you can use CTRL-] on this
+hi Tag              guifg=#FFFFFF guibg=none gui=none ctermfg=15 ctermbg=none cterm=none
+" Delimiter         character that needs attention
+hi Delimiter        guifg=#FFFFFF guibg=none gui=none ctermfg=15 ctermbg=none cterm=none
+" SpecialComment    special things inside a comment
+hi SpecialComment   guifg=#888888 guibg=none gui=italic ctermfg=245 ctermbg=none cterm=italic
+" Debug             debugging statements
+hi Debug            guifg=#DD0000 guibg=none gui=italic ctermfg=160 ctermbg=none cterm=italic
+"
+" *Underlined       text that stands out, HTML links
+hi Underlined       guifg=#77AADD guibg=none gui=underline ctermfg=75 ctermbg=none cterm=underline
+" *Ignore           left blank, hidden  |hl-Ignore|
+hi Ignore           guifg=#333333 guibg=#222222 gui=none ctermfg=236 ctermbg=234 cterm=none
+" *Error            any erroneous construct
+hi Error            guifg=#DD0000 guibg=none gui=bold ctermfg=160 ctermbg=none cterm=bold
+" *Todo             anything that needs extra attention (keywords; TODO, FIXME...)
+hi Todo             guifg=#AACC33 guibg=#222222 gui=italic ctermfg=155 ctermbg=234 cterm=italic
+"
+" LANGUAGES
+"
+hi htmlTag            guifg=#736357 guibg=none gui=none ctermfg=179 ctermbg=none cterm=none
+hi htmlEndTag         guifg=#736357 guibg=none gui=none ctermfg=179 ctermbg=none cterm=none
+hi htmlTagName        guifg=#AA9786 guibg=none gui=none ctermfg=180 ctermbg=none cterm=none
+hi htmlArg            guifg=#C7B299 guibg=none gui=none ctermfg=222 ctermbg=none cterm=none
+hi htmlSpecialChar    guifg=#77AADD guibg=none gui=none ctermfg=75 ctermbg=none cterm=none
+"
+hi cssURL             guifg=#FFFFFF guibg=none gui=none ctermfg=15 ctermbg=none cterm=none
+hi cssFunctionName    guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+hi cssColor           guifg=#FFFFFF guibg=none gui=none ctermfg=15 ctermbg=none cterm=none
+hi cssPseudoClassId   guifg=#FF99FF guibg=none gui=none ctermfg=213 ctermbg=none cterm=none
+hi cssClassName       guifg=#FF99FF guibg=none gui=none ctermfg=213 ctermbg=none cterm=none
+hi cssValueLength     guifg=#A3D1FF guibg=none gui=none ctermfg=117 ctermbg=none cterm=none
+hi cssCommonAttr      guifg=#6699CC guibg=none gui=none ctermfg=69 ctermbg=none cterm=none
+hi cssBraces          guifg=#FFFFFF guibg=none gui=none ctermfg=15 ctermbg=none cterm=none
+"
+hi javaScriptFunction guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+hi javaScriptBraces   guifg=#FFFFFF guibg=none gui=none ctermfg=15 ctermbg=none cterm=none
+"
+hi phpIdentifierConst guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+hi phpSCKeyword       guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+hi phpFCKeyword       guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+" class
+hi phpStructure       guifg=#CC3333 guibg=none gui=none ctermfg=124 ctermbg=none cterm=none
+hi phpMethods         guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+hi phpFunctions       guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+hi phpBaselib         guifg=#CC6633 guibg=none gui=none ctermfg=166 ctermbg=none cterm=none
+hi phpIntVar          guifg=#DBAF00 guibg=none gui=none ctermfg=178 ctermbg=none cterm=none
+hi phpEnvVar          guifg=#DBAF00 guibg=none gui=none ctermfg=178 ctermbg=none cterm=none
+hi phpOperator        guifg=#FFFFFF guibg=none gui=none ctermfg=15 ctermbg=none cterm=none
+hi phpVarSelector     guifg=#DBAF00 guibg=none gui=none ctermfg=178 ctermbg=none cterm=none
+hi phpRelation        guifg=#000000 guibg=none gui=none ctermfg=0 ctermbg=none cterm=none
+"
+hi pythonBuiltin      guifg=#FF5400 guibg=none gui=none ctermfg=202 ctermbg=none cterm=none
+"
+hi yamlKey            guifg=#DBAF00 guibg=none gui=none ctermfg=178 ctermbg=none cterm=none
+hi yamlAnchor         guifg=none guibg=none gui=none ctermfg=none ctermbg=none cterm=none
+hi yamlAlias          guifg=none guibg=none gui=none ctermfg=none ctermbg=none cterm=none
+hi yamlDocumentHeader guifg=#FFFFFF guibg=none gui=none ctermfg=15 ctermbg=none cterm=none
+"
+" THE END
+"

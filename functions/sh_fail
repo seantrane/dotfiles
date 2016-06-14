@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: FAIL
+
+sh_fail () {
+    printf "${ClearNewLine} [${Red}FAIL${Reset}]  ${Red}$1${Reset} \n"
+    echo ''
+    exit
+}
+
+[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_fail

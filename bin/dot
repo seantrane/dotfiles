@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+#
+# dot
+#
+# `dot` handles installation, updates, things like that.
+# Run it periodically to make sure you're on the latest releases.
+
+# Shell Support
+source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+
+#-----------------------------------------------------------------------
+# OS-specific Updates
+#-----------------------------------------------------------------------
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+
+    : # Linux
+
+    # Linuxbrew updates
+    if type "brew" &> /dev/null; then
+        sh_info "Updating Linuxbrew and all packages/etc."
+        brew update
+        brew upgrade --all
+        brew cleanup
+    fi
+
+    if type "apt-get" &> /dev/null; then
+
+        : # Debian or Ubuntu:
+
+    elif type "yum" &> /dev/null; then
+
+        : # Fedora, CentOS or Red Hat:
+
+    fi
+
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+
+    : # Mac OS
+
+    # OS X Software Update
+    action=
+    sh_user "Do you want to run OS X Software Update?  ${Underline}y${Reset}es / ${Underline}n${Reset}o"
+    read -n 1 action
+    case "$action" in
+        y )
+            sh_info "Running OS X Software Update..."
+            sudo softwareupdate -i -a
+            ;;
+        * )
+            sh_info "Skipping OS X Software Update."
+            ;;
+    esac
+
+    # (Re)Set defaults
+    action=
+    sh_user "Do you want to overwrite OS X defaults?  ${Underline}y${Reset}es / ${Underline}n${Reset}o"
+    read -n 1 action
+    case "$action" in
+        y )
+            sh_info "Overwriting OS X defaults..."
+            source $DOTFILES/osx/set-defaults.sh
+            ;;
+        * )
+            sh_info "Skipping OS X defaults."
+            ;;
+    esac
+
+    # TODO: Copy OS X app prefs for backup/reinstall purposes.
+    # source $DOTFILES/osx/copy-prefs.sh
+
+    # Homebrew updates
+    if type "brew" &> /dev/null; then
+        sh_info "Updating Homebrew and all packages/casks/etc."
+        brew update
+        brew upgrade --all
+        brew cleanup
+        brew cask cleanup
+    fi
+
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+
+    : # POSIX compatibility layer and Linux environment emulation for Windows
+
+elif [[ "$OSTYPE" == "msys" ]]; then
+
+    : # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+
+elif [[ "$OSTYPE" == "win32" ]]; then
+
+    : # Windows (32-bit) (...this may not work...)
+
+elif [[ "$OSTYPE" == "freebsd"* ]]; then
+
+    : # FreeBSD
+
+else
+
+    : # Unknown OS
+
+fi
+
+#-----------------------------------------------------------------------
+# Software/Package Updates
+#-----------------------------------------------------------------------
+
+# RVM updates
+if type "rvm" &> /dev/null; then
+    sh_info "Updating RVM/etc."
+    rvm get stable
+    rvm reload
+    rvm upgrade
+fi
+
+# Node.js updates
+if type "npm" &> /dev/null; then
+    sh_info "Updating Node.js and all packages/etc."
+    npm cache clean -g -f
+    npm install -g npm@latest
+    npm update -g
+    npm cache clean -g -f
+fi
+
+# Ruby Gem updates
+if type "gem" &> /dev/null; then
+    sh_info "Updating Ruby Gems."
+    sudo gem update --system
+    sudo gem update
+fi
+
+# Composer updates
+if type "composer" &> /dev/null; then
+    sh_info "Updating Composer and all packages/etc."
+    composer clear-cache
+    composer self-update
+    composer update
+    composer clear-cache
+fi
+

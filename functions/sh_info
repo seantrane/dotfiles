@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: INFO
+
+sh_info () {
+    printf "${ClearNewLine} [${Blue} .. ${Reset}]  $1 \n"
+}
+
+[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_info

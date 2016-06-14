@@ -1,0 +1,254 @@
+#!/usr/bin/env bash
+#
+# Shell prompt based on the Prezto Sorin theme for Zsh.
+#
+# iTerm → Profiles → Text → use 13pt Menlo/Monaco with 1.1 vertical spacing.
+
+
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color &> /dev/null; then
+    export TERM='gnome-256color';
+elif infocmp xterm-256color >/dev/null 2>&1; then
+    export TERM='xterm-256color';
+fi;
+
+if tput setaf 1 &> /dev/null; then
+    tput sgr0; # reset colors
+    bold=$(tput bold);
+    reset=$(tput sgr0);
+    # Default (http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html)
+    black=$(tput setaf 0);
+    dkgray=$(tput setaf 238);
+    gray=$(tput setaf 8);
+    ltgray=$(tput setaf 248);
+    blue=$(tput setaf 33);
+    cyan=$(tput setaf 45);
+    green=$(tput setaf 70);
+    orange=$(tput setaf 208);
+    purple=$(tput setaf 93);
+    red=$(tput setaf 160);
+    violet=$(tput setaf 141);
+    white=$(tput setaf 15);
+    yellow=$(tput setaf 11);
+    # Solarized (http://git.io/solarized-colors)
+    # black=$(tput setaf 0);
+    # blue=$(tput setaf 33);
+    # cyan=$(tput setaf 37);
+    # green=$(tput setaf 64);
+    # orange=$(tput setaf 166);
+    # purple=$(tput setaf 125);
+    # red=$(tput setaf 124);
+    # violet=$(tput setaf 61);
+    # white=$(tput setaf 15);
+    # yellow=$(tput setaf 136);
+else
+    bold='';
+    reset="\e[0m";
+    black="\e[1;30m";
+    dkgray="\e[1;39m";
+    gray="\e[1;39m";
+    ltgray="\e[1;39m";
+    blue="\e[1;34m";
+    cyan="\e[1;36m";
+    green="\e[1;32m";
+    orange="\e[1;33m";
+    purple="\e[1;35m";
+    red="\e[1;31m";
+    violet="\e[1;35m";
+    white="\e[1;37m";
+    yellow="\e[1;33m";
+fi;
+
+
+git_info () {
+    # check if we're in a git repo
+    git rev-parse --is-inside-work-tree &> /dev/null || return
+
+    # quickest check for what branch we're on
+    branch=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||')
+
+    # check if it's dirty (via github.com/sindresorhus/pure)
+    dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "*")
+
+    echo $WHITE" on "$PURPLE$branch$dirty
+}
+
+# Definitions for prompt-git-icons:
+#   - The 'square' signifies that there are untracked changes.
+#   - The '=' signifies there are unmergerd changes.
+#   - The '->' signifies that something has been renamed.
+#   - The '6-pointed blue star' signifies that there is a modification.
+#   - The 'red X' signifies that something has been deleted.
+#   - The 'green +' signifies that something is added.
+#   - The 'blue 5-pointed star' signifies that something is stashed.
+#   - The 'arrow pointing down' means you are behind.
+#   - The 'arrow pointing up' means you are ahead.
+prompt_git () {
+    local s='';
+    local branchName='';
+    # Check if the current directory is in a Git repository.
+    if type "git" &> /dev/null && [ $(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}") == '0' ]; then
+        # check if the current directory is in .git before running git checks
+        if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
+            # Ensure the index is up to date.
+            git update-index --really-refresh -q &> /dev/null;
+
+            # Check for uncommitted changes in the index.
+            if ! $(git diff --quiet --ignore-submodules --cached); then
+                s+="${violet} +${gray}";
+            fi;
+            # Check for deleted files.
+            if [ -n "$(git ls-files --deleted)" ]; then
+                s+="${red} ✖︎${gray}"; # X
+            fi;
+            # Check for modified files.
+            if [ -n "$(git ls-files --modified)" ]; then
+                s+="${cyan} ✶${gray}"; # *
+            fi;
+            # Check for untracked files.
+            if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+                s+="${bold}${green} +${reset}${gray}"; # ?
+            fi;
+            # Check for unstaged changes.
+            if ! $(git diff-files --quiet --ignore-submodules --); then
+                s+="${white} ■${gray}"; # !
+            fi;
+            # Check for stashed files.
+            if $(git rev-parse --verify refs/stash &>/dev/null); then
+                s+="${blue} ★${gray}"; # $
+            fi;
+        fi;
+
+        # Get the short symbolic ref.
+        # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
+        # Otherwise, just give up.
+        branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+            git rev-parse --short HEAD 2> /dev/null || \
+            echo '(unknown)')";
+
+        # [ -n "${s}" ] && s=" ${gray}[${s} ${gray}]";
+
+        echo -e "${1}${branchName}${s} ${reset}";
+    else
+        return;
+    fi;
+}
+
+#-----------------------------------------------------------------------
+# USER @ HOST >
+#-----------------------------------------------------------------------
+
+PSUSERHOST="";
+
+# HOSTNAME
+PSHOST="\[${gray}\]@";
+if [[ "${SSH_TTY}" ]]; then
+    # Highlight the hostname when connected via SSH.
+    PSHOST+="\[${bold}${red}\]";
+    PSHOST+="\h"; # remote hostname
+    PSHOST+="\[${reset}\]";
+else
+    PSHOST+="\[${gray}\]";
+    PSHOST+="\h"; # local hostname
+    PSHOST+="\[${white}\]";
+    # I prefer not to display local hostname.
+    # Comment this out to display local host.
+    # PSHOST=""
+fi;
+
+# USERNAME
+PSUSER="";
+if [[ "${USER}" == "root" ]]; then
+    # Highlight the user name when logged in as root.
+    PSUSER+="\[${red}\]";
+    PSUSER+="\u"; # username
+    PSUSER+="\[${white}\]";
+    PSUSER+="${PSHOST}"; # hostname
+else
+    PSUSER+="\[${yellow}\]";
+    PSUSER+="\u"; # username
+    PSUSER+="\[${white}\]";
+    PSUSER+="${PSHOST}"; # hostname
+    # I prefer not to display my own username,
+    # if not displaying my local hostname.
+    # Comment this out to display local user.
+    [[ -z "$PSHOST" ]] && PSUSER=""
+fi;
+
+# Only display "user@host" if not empty
+[[ -n "$PSUSER" ]] && PSUSERHOST="${PSUSER}";
+[[ -n "$PSUSERHOST" ]] && PSUSERHOST+=" \[${ltgray}\]❯\[${gray}\]❯\[${dkgray}\]❯\[${reset}\] "
+
+#-----------------------------------------------------------------------
+# DIRECTORY
+#-----------------------------------------------------------------------
+
+PathShort="\w"
+PathFull="\W"
+
+PSDIR="\[${cyan}\]${PathShort}";
+# number of files in directory
+# PSDIR+=" \[${gray}\](";
+# PSDIR+="\$(ls | wc -l)";
+# PSDIR+=")\[${white}\]";
+
+#-----------------------------------------------------------------------
+# GIT
+#-----------------------------------------------------------------------
+
+PSGIT="\$(prompt_git \"${violet}git${white}:${green}\")";
+
+#-----------------------------------------------------------------------
+# TIME
+#-----------------------------------------------------------------------
+
+Time24h="\\\t"
+Time12h="\T"
+Time12a="\@"
+
+PSTIME="\[${gray}\][${Time24h}]\[${white}\]";
+
+#-----------------------------------------------------------------------
+# PROMPT
+#-----------------------------------------------------------------------
+
+Jobs="\j"
+
+# PROMPT-LEFT / LINE-1
+PSL1=""
+PSL1+="${PSUSERHOST}"
+# PSL1+="${PSDIR}"
+PSL1+="${PSGIT}"
+# export PSL1;
+
+# PROMPT-RIGHT / LINE-1
+PSR1=""
+PSR1+="${PSTIME}"
+# export PSR1;
+
+# PROMPT-LEFT / LINE-2
+PSL2=""
+PSL2+="${PSDIR} "
+# `❯❯❯`
+PSL2+="\[${red}\]❯\[${yellow}\]❯\[${green}\]❯\[${white}\]\[${reset}\]"
+# export PSL2
+
+# # Set the terminal title to the current working directory.
+PSTITLE="\[\033]0;\w\007\]";
+
+PS2="\[${yellow}\] ❯ \[${reset}\]";
+export PS2;
+
+function prompt_right() {
+    echo -e "${PSR1}"
+}
+
+function prompt_left() {
+    echo -e "${PSL1}"
+}
+
+function prompt() {
+    compensate=12
+    PS1=$(printf "${PSTITLE}\r\n%*s\r%s\r\n%s\n${PSL2} " "$(($(tput cols)+${compensate}))" "$(prompt_right)" "$(prompt_left)")
+}
+PROMPT_COMMAND=prompt
+

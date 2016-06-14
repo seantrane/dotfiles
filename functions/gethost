@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#
+# Find a given $domain [in a given $DNS]
+# formatted for entry into `/etc/hosts` file
+
+gethost () {
+    if [ -z "${1}" ]; then
+        echo "ERROR: No domain specified.";
+        return 1;
+    elif [ -z "${2}" ]; then
+        echo "ERROR: No DNS specified.";
+        return 1;
+    fi;
+
+    local domain="${1}";
+    local DNS="${2}";
+
+    local ip=`dig +short $domain $DNS`;
+
+    if [ -n "$ip" ]; then
+        echo "$ip $domain";
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            # pbcopy only works on Mac
+            echo "$ip $domain" | pbcopy;
+            echo "...copied to clipboard!"
+        fi
+        # this isn't working without sudo...
+        #echo "$ip $domain" >> /etc/hosts;
+        if type "tee" &> /dev/null; then
+            sudo tee -a /etc/shells <<<"$ip $domain"
+        else
+            sudo bash -c 'echo "$ip $domain" >> /etc/hosts'
+        fi
+        echo "appended to /etc/hosts file";
+        return 0;
+    else
+        echo "ERROR: $domain not found on $DNS";
+        return 1;
+    fi;
+
+}

@@ -1,0 +1,9 @@
+--- 
+:update_sources: true
+:verbose: true
+:backtrace: false
+:benchmark: false
+:gemdir:
+    - ~/.gem/ruby
+install: --user-install
+gem: --no-ri --no-rdoc --no-document

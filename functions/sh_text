@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: TEXT
+
+sh_text () {
+    printf "${ClearLine}         $1 \n"
+}
+
+[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_text

@@ -1,0 +1,27 @@
+Assets Compressor
+BashSupport
+nl.jworks.intellij.bootstrap3
+de.netnexus.camelcaseplugin
+ColorIde
+org.psliwa.idea.composer
+Dummy Text Generator
+ua.in.dej.myEmmet
+zielu.gittoolbox
+mobi.hsz.idea.gitignore
+net.nicoulaj.idea.markdown
+org.sylfra.idea.plugins.linessorter
+com.karateca.jstoolbox
+de.espend.idea.laravel
+Mongo Plugin
+NodeJS
+de.espend.idea.php.annotation
+net.king2500.plugins.PhpAdvancedAutoComplete
+com.kalessil.phpStorm.phpInspectionsEA
+com.dryabov.phpStorm.phpregexp
+PHPUnit code coverage
+com.wix.react-templates
+org.intellij.RegexpTester
+Shifter
+String Manipulation
+fr.adrienbrault.idea.symfony2plugin
+Unicode Browser

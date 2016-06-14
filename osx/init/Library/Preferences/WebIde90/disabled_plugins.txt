@@ -1,0 +1,8 @@
+PerforceDirectPlugin
+net.nicoulaj.idea.markdown
+com.intellij.phing
+com.jetbrains.php.drupal
+com.jetbrains.plugins.asp
+com.jetbrains.php.behat
+org.coffeescript
+CVS

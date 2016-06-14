@@ -1,0 +1,228 @@
+########################################################################
+##
+##  "macdev" Brewfile - for mac developers
+##
+########################################################################
+#
+# Path for Cask Application aliases
+cask_args appdir: '/Applications'
+#
+#-----------------------------------------------------------------------
+# TAPS
+#-----------------------------------------------------------------------
+#
+tap 'homebrew/bundle'
+tap 'homebrew/completions'
+tap 'homebrew/dupes'
+tap 'homebrew/homebrew-php'
+tap 'homebrew/nginx'
+tap 'homebrew/versions'
+# CASKROOM
+tap 'caskroom/cask'
+tap 'caskroom/fonts'
+tap 'caskroom/versions'
+#
+#-----------------------------------------------------------------------
+# SYSTEM
+#-----------------------------------------------------------------------
+#
+# CORE BINARIES
+# 
+brew 'ack'
+brew 'bash'
+brew 'bash-completion2'
+brew 'bzip2'
+brew 'coreutils'
+brew 'findutils'
+brew 'gcc'
+brew 'git'
+brew 'git-lfs'
+brew 'gnu-sed', args: ['with-default-names']
+brew 'grc'
+brew 'grep'
+brew 'libgit2'
+brew 'libzip'
+brew 'moreutils'
+brew 'openssh'
+brew 'openssl'
+# brew 'vim', args: ['override-system-vi']
+brew 'wget', args: ['with-iri']
+brew 'zlib'
+brew 'zsh', args: ['without-etcdir']
+brew 'zsh-completions'
+#
+# POPULAR BINARIES
+#
+brew 'imagemagick', args: ['with-webp']
+brew 'pass'
+brew 'pv'
+brew 'rename'
+brew 'screen'
+brew 'spark'
+brew 'ssh-copy-id'
+brew 'tree'
+#
+# DEVELOPER BINARIES
+# 
+# --- DB/storage
+brew 'mysql'
+brew 'postgresql'
+brew 'redis'
+# --- JavaScript
+brew 'node', args: ['without-npm']
+# --- PHP 5.6...
+brew 'php56', args: ['with-gmp']
+# --- PHP (primary) extensions/modules...
+brew 'php56-geoip'
+brew 'php56-intl'
+brew 'php56-mcrypt'
+brew 'php56-pspell'
+brew 'php56-ssh2'
+# --- PHP storage/cache extensions/modules...
+brew 'php56-memcached'
+brew 'php56-mongodb'
+brew 'php56-opcache'
+brew 'php56-pdo-pgsql'
+brew 'php56-redis'
+# brew 'php56-xcache'
+# --- PHP utility extensions/modules...
+brew 'php56-suhosin'
+brew 'php56-tidy'
+brew 'php56-xdebug'
+# --- PHP media extensions/modules...
+brew 'php56-imagick'
+# brew 'php56-pdflib'
+# --- PHP PEAR/PECL extensions/modules...
+brew 'php56-raphf'
+brew 'php56-propro'
+brew 'php56-http'
+brew 'php56-oauth'
+brew 'php56-yaml'
+# --- PHP Tools
+brew 'php-code-sniffer'
+# brew 'php-cs-fixer'
+brew 'phpdocumentor'
+# brew 'phplint'
+brew 'phpmd'
+brew 'phpmyadmin'
+brew 'phpsh'
+brew 'phpunit'
+# --- Python...
+brew 'python'
+# --- If you switch to the brewed Python, then reinstall all formulae with python bindings
+# --- See: https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Homebrew-and-Python.md#homebrew-provided-python-bindings
+# --- brew reinstall pyside wxwidgets pygtk pygobject opencv vtk boost-python
+# --- Ruby...
+brew 'rbenv'
+brew 'ruby-build'
+#
+# ADDITIONAL BINARIES
+# 
+# brew 'dnsmasq'
+# brew 'exiv2'
+# brew 'jp2a'
+# brew 'libcaca', args: ['with-imlib2']
+# brew 'lua'
+# brew 'lynx'
+# brew 'p7zip'
+# brew 'pigz'
+# brew 'readline'
+# brew 'rhino'
+# brew 'roundup'
+# brew 'spaceman-diff'
+# brew 'speedtest_cli'
+brew 'webkit2png'
+brew 'wine'
+brew 'wine-tricks'
+# brew 'youtube-dl'
+# brew 'zopfli'
+# 
+#-----------------------------------------------------------------------
+# APPLICATIONS (CASKS)
+#-----------------------------------------------------------------------
+#
+# cask '1password'
+cask 'a-better-finder-rename'
+# cask 'adobe-air'
+# cask 'adobe-creative-cloud'
+# cask 'adobe-photoshop-lightroom'
+# cask 'adobe-reader'
+# cask 'adium'
+cask 'alfred'
+cask 'atom'
+# cask 'audacity'
+# cask 'citrix-receiver'
+# cask 'cleanmymac'
+# cask 'cyberduck'
+# cask 'dash'
+# cask 'dash-beta'
+# cask 'drobo-dashboard'
+# cask 'dropbox'
+# cask 'evernote'
+cask 'filezilla'
+# cask 'firefox'
+# cask 'flash'
+cask 'gimp'
+# cask 'github'
+# cask 'gitx'
+cask 'google-chrome'
+cask 'handbrake'
+# cask 'imagealpha'
+# cask 'imageoptim'
+# cask 'intellij-idea-eap'
+cask 'iterm2'
+# cask 'java'
+cask 'java6'
+# cask 'jenkins'
+# cask 'jenkins-lts'
+# cask 'jenkins-menu'
+# cask 'kaleidoscope-beta'
+cask 'keka'
+# cask 'little-snitch'
+# cask 'mamp'
+# cask 'microsoft-lync'
+# cask 'microsoft-office'
+# cask 'openoffice'
+# cask 'phpstorm'
+# cask 'phpstorm-eap'
+# cask 'screenflow'
+cask 'sequel-pro'
+cask 'sourcetree'
+cask 'spectacle'
+# cask 'steam'
+# cask 'stellarium'
+# cask 'sublime-text'
+cask 'sublime-text3'
+# cask 'textexpander'
+# cask 'the-unarchiver'
+# cask 'tower'
+# cask 'transmission'
+cask 'vagrant'
+cask 'virtualbox'
+# cask 'vitalsource-bookshelf'
+cask 'vlc'
+# cask 'wineskin-winery'
+cask 'xquartz'
+cask 'xtrafinder'
+# 
+#-----------------------------------------------------------------------
+# FONTS (CASKS)
+#-----------------------------------------------------------------------
+#
+cask 'font-arimo'
+cask 'font-dejavu-sans'
+cask 'font-droid-sans'
+cask 'font-droid-sans-mono'
+cask 'font-droid-serif'
+cask 'font-fontawesome'
+cask 'font-inconsolata'
+cask 'font-open-iconic'
+cask 'font-open-sans'
+cask 'font-open-sans-condensed'
+cask 'font-source-code-pro'
+cask 'font-source-sans-pro'
+cask 'font-source-serif-pro'
+cask 'font-ubuntu'
+#
+# done
+# 

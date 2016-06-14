@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: USER
+
+sh_user () {
+    printf "${ClearNewLine} [${Yellow} ?? ${Reset}]  $1 \n"
+}
+
+[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_user

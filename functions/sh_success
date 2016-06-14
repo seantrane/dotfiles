@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: SUCCESS
+
+sh_success () {
+    printf "${ClearNewLine} [${Green} OK ${Reset}]  ${Green}$1${Reset} \n"
+}
+
+[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_success
