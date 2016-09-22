@@ -1,0 +1,4 @@
+
+prompt = function() {
+  return db.serverStatus().host + " / " + db + " : " + db.stats().objects + " docs up " + db.serverStatus().uptime + " > ";
+}
