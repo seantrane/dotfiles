@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Homebrew Cask Install
+# Supports install and reinstalling casks.
+
+cask_install () {
+    if [ "$1" ]; then
+        echo "Removing brew cache"
+        rm -rf "$(brew --cache)"
+        echo "Running brew update"
+        brew update
+        if [ -d "/opt/homebrew-cask/Caskroom/$1" -o -d "/usr/local/Caskroom/$1" ]; then
+            echo "Uninstalling $1"
+            brew cask uninstall --force "$1"
+            echo "Re-installing $1"
+        else
+            echo "Installing $1"
+        fi
+        brew cask install "$1"
+    else
+        echo "No cask provided: $1"
+    fi
+}
