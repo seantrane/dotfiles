@@ -226,6 +226,13 @@ unset config_files
 # `~/.aliases` can be used for private aliases.
 [[ -f "${ZDOTDIR:-$HOME}/.aliases" ]] && source ${ZDOTDIR:-$HOME}/.aliases
 
+# moving-or-renaming-multiple-files
+# http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
+# “mmv *.dat *.dat_old” or “mmv foo.* bar.*”
+# “mmv **/*2008.mp3 **/*2009.mp3”
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
 # http://apt-browse.org/browse/debian/wheezy/main/all/command-not-found/
 [[ -f "/etc/zsh_command_not_found" ]] && source /etc/zsh_command_not_found
 
