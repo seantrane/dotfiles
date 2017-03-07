@@ -27,7 +27,7 @@ tap 'caskroom/versions'
 #-----------------------------------------------------------------------
 #
 # CORE BINARIES
-# 
+#
 brew 'ack'
 brew 'bash'
 brew 'bash-completion2'
@@ -63,11 +63,16 @@ brew 'ssh-copy-id'
 brew 'tree'
 #
 # DEVELOPER BINARIES
-# 
+#
+# --- Core
+brew 'mcrypt'
 # --- DB/storage
+brew 'memcached'
+brew 'mongodb'
 brew 'mysql'
 brew 'postgresql'
 brew 'redis'
+brew 'sqlite'
 # --- JavaScript
 brew 'node', args: ['without-npm']
 # --- PHP 5.6...
@@ -117,7 +122,7 @@ brew 'rbenv'
 brew 'ruby-build'
 #
 # ADDITIONAL BINARIES
-# 
+#
 # brew 'dnsmasq'
 # brew 'exiv2'
 # brew 'jp2a'
@@ -136,12 +141,22 @@ brew 'wine'
 brew 'wine-tricks'
 # brew 'youtube-dl'
 # brew 'zopfli'
-# 
+#
+# COMMAND LINE TOOLS
+#
+brew 'awscli'
+brew 'galen'
+brew 'heroku'
+brew 'maven'
+brew 'p11-kit'
+brew 'shellcheck'
+brew 'terraform'
+#
 #-----------------------------------------------------------------------
 # APPLICATIONS (CASKS)
 #-----------------------------------------------------------------------
 #
-# cask '1password'
+cask '1password'
 cask 'a-better-finder-rename'
 # cask 'adobe-air'
 # cask 'adobe-creative-cloud'
@@ -150,12 +165,13 @@ cask 'a-better-finder-rename'
 # cask 'adium'
 cask 'alfred'
 cask 'atom'
-# cask 'audacity'
-# cask 'citrix-receiver'
+cask 'audacity'
+cask 'citrix-receiver'
 # cask 'cleanmymac'
 # cask 'cyberduck'
 # cask 'dash'
 # cask 'dash-beta'
+cask 'docker'
 # cask 'drobo-dashboard'
 # cask 'dropbox'
 # cask 'evernote'
@@ -167,12 +183,11 @@ cask 'gimp'
 # cask 'gitx'
 cask 'google-chrome'
 cask 'handbrake'
-# cask 'imagealpha'
-# cask 'imageoptim'
-# cask 'intellij-idea-eap'
+cask 'imagealpha'
+cask 'imageoptim'
+cask 'intellij-idea-ce'
 cask 'iterm2'
-# cask 'java'
-cask 'java6'
+cask 'java'
 # cask 'jenkins'
 # cask 'jenkins-lts'
 # cask 'jenkins-menu'
@@ -185,26 +200,29 @@ cask 'keka'
 # cask 'openoffice'
 # cask 'phpstorm'
 # cask 'phpstorm-eap'
+cask 'robomongo'
 # cask 'screenflow'
 cask 'sequel-pro'
+cask 'slack'
 cask 'sourcetree'
 cask 'spectacle'
 # cask 'steam'
 # cask 'stellarium'
-# cask 'sublime-text'
-cask 'sublime-text3'
+cask 'sublime-text'
+cask 'svnx'
 # cask 'textexpander'
 # cask 'the-unarchiver'
 # cask 'tower'
 # cask 'transmission'
 cask 'vagrant'
 cask 'virtualbox'
-# cask 'vitalsource-bookshelf'
+cask 'visual-studio-code'
 cask 'vlc'
-# cask 'wineskin-winery'
+cask 'wineskin-winery'
+cask 'xld'
 cask 'xquartz'
 cask 'xtrafinder'
-# 
+#
 #-----------------------------------------------------------------------
 # FONTS (CASKS)
 #-----------------------------------------------------------------------
@@ -225,4 +243,4 @@ cask 'font-source-serif-pro'
 cask 'font-ubuntu'
 #
 # done
-# 
+#
