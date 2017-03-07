@@ -20,7 +20,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     if type "brew" &> /dev/null; then
         sh_info "Updating Linuxbrew and all packages/etc."
         brew update
-        brew upgrade --all
+        brew upgrade
         brew cleanup
     fi
 
@@ -73,7 +73,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     if type "brew" &> /dev/null; then
         sh_info "Updating Homebrew and all packages/casks/etc."
         brew update
-        brew upgrade --all
+        brew upgrade
         brew cleanup
         brew cask cleanup
     fi
