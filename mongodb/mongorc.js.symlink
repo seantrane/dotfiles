@@ -2,3 +2,7 @@
 prompt = function() {
   return db.serverStatus().host + " / " + db + " : " + db.stats().objects + " docs up " + db.serverStatus().uptime + " > ";
 }
+
+DBQuery.shellBatchSize = 10;
+
+// $ mongo -u username -p password --host <replSetName>/<hostname1><:port>,<hostname2><:port>,<...> --port 27017 --ssl --sslAllowInvalidCertificates
