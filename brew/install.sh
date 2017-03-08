@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Homebrew / Linuxbrew
-# 
+#
 # http://brew.sh
 # https://github.com/Homebrew/homebrew
 # https://github.com/Linuxbrew/linuxbrew
@@ -45,29 +45,30 @@ if ! type "brew" &> /dev/null; then
             (cd /usr/local; mkdir homebrew && curl -L https://github.com/Homebrew/homebrew/tarball/master | tar xz --strip 1 -C homebrew)
         fi
     fi
-    # Install Taps/etc.
-    if type "brew" &> /dev/null; then
-        sh_success "$(brew --version) installed: $(which brew)"
-        sh_info "Updating Homebrew..."
-        brew update
-        # Setup taps.
-        sh_info "Setting up Homebrew taps..."
-        brew tap bomebrew/bundle
-        brew tap homebrew/completions
-        brew tap homebrew/dupes
-        brew tap homebrew/homebrew-php
-        brew tap homebrew/nginx
-        brew tap homebrew/versions
-        # CASKROOM for OS X
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew tap caskroom/cask
-            brew tap caskroom/fonts
-            brew tap caskroom/versions
-        fi
-        # Remove outdated versions from the cellar.
-        brew cleanup
-        echo ""
+fi
+
+# Install Taps/etc.
+if type "brew" &> /dev/null; then
+    sh_success "$(brew --version) installed: $(which brew)"
+    sh_info "Updating Homebrew..."
+    brew update
+    # Setup taps.
+    sh_info "Setting up Homebrew taps..."
+    brew tap homebrew/bundle
+    brew tap homebrew/completions
+    brew tap homebrew/dupes
+    brew tap homebrew/homebrew-php
+    brew tap homebrew/nginx
+    brew tap homebrew/versions
+    # CASKROOM for OS X
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        brew tap caskroom/cask
+        brew tap caskroom/fonts
+        brew tap caskroom/versions
     fi
+    # Remove outdated versions from the cellar.
+    brew cleanup
+    echo ""
 fi
 
 if type "brew" &> /dev/null; then
