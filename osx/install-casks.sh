@@ -25,7 +25,7 @@ if type "brew" &> /dev/null; then
     # brew cask install adobe-reader
     brew cask install alfred
     brew cask install atom
-    brew cask install audacity
+    # brew cask install audacity
     # brew cask install citrix-receiver
     # brew cask install cleanmymac
     # brew cask install cyberduck
