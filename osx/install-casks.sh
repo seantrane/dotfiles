@@ -8,7 +8,7 @@
 [[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
 
 if type "brew" &> /dev/null; then
-    
+
     sh_info "Installing Caskroom/cask..."
     #brew install caskroom/cask/brew-cask
     brew tap caskroom/cask
@@ -17,71 +17,73 @@ if type "brew" &> /dev/null; then
     brew tap caskroom/versions
 
     sh_info "Installing Apps..."
-    #brew cask install 1password
+    brew cask install 1password
     brew cask install a-better-finder-rename
-    #brew cask install adobe-air
-    #brew cask install adobe-creative-cloud
-    #brew cask install adobe-photoshop-lightroom
-    #brew cask install adobe-reader
+    # brew cask install adobe-air
+    # brew cask install adobe-creative-cloud
+    # brew cask install adobe-photoshop-lightroom
+    # brew cask install adobe-reader
     brew cask install alfred
     brew cask install atom
     brew cask install audacity
-    #brew cask install citrix-receiver
-    #brew cask install cleanmymac
-    #brew cask install cyberduck
-    #brew cask install dash
-    #brew cask install dash-beta
-    #brew cask install drobo-dashboard
-    #brew cask install dropbox
-    #brew cask install evernote
+    # brew cask install citrix-receiver
+    # brew cask install cleanmymac
+    # brew cask install cyberduck
+    # brew cask install dash
+    # brew cask install dash-beta
+    brew cask install docker
+    # brew cask install drobo-dashboard
+    # brew cask install dropbox
+    # brew cask install evernote
     brew cask install filezilla
-    #brew cask install firefox
-    #brew cask install flash
+    # brew cask install firefox
+    # brew cask install flash
     brew cask install gimp
-    #brew cask install github
-    #brew cask install gitx
+    # brew cask install github
+    # brew cask install gitx
     brew cask install google-chrome
     brew cask install handbrake
-    #brew cask install imagealpha
-    #brew cask install imageoptim
-    #brew cask install intellij-idea-ce
-    #brew cask install intellij-idea-eap
+    brew cask install imagealpha
+    brew cask install imageoptim
+    brew cask install intellij-idea-ce
     brew cask install iterm2
     brew cask install java
-    #brew cask install java6
-    #brew cask install jenkins
-    #brew cask install jenkins-lts
-    #brew cask install jenkins-menu
-    #brew cask install kaleidoscope-beta
+    # brew cask install jenkins
+    # brew cask install jenkins-lts
+    # brew cask install jenkins-menu
+    # brew cask install kaleidoscope-beta
     brew cask install keka
-    #brew cask install little-snitch
-    #brew cask install mamp
-    #brew cask install microsoft-lync
-    #brew cask install microsoft-office
-    #brew cask install openoffice
-    #brew cask install phpstorm
-    #brew cask install phpstorm-eap
-    #brew cask install screenflow
+    # brew cask install little-snitch
+    # brew cask install mamp
+    # brew cask install microsoft-lync
+    # brew cask install microsoft-office
+    # brew cask install openoffice
+    # brew cask install phpstorm
+    brew cask install robomongo
+    # brew cask install screenflow
     brew cask install sequel-pro
+    brew cask install slack
     brew cask install sourcetree
     brew cask install spectacle
-    #brew cask install stellarium
-    #brew cask install sublime-text
-    brew cask install sublime-text3
-    #brew cask install textexpander
-    #brew cask install the-unarchiver
-    #brew cask install tower
+    # brew cask install stellarium
+    brew cask install sublime-text
+    brew cask install svnx
+    # brew cask install textexpander
+    # brew cask install the-unarchiver
+    # brew cask install tower
     brew cask install vagrant
     brew cask install virtualbox
-    #brew cask install vitalsource-bookshelf
+    brew cask install visual-studio-code
+    # brew cask install vitalsource-bookshelf
     brew cask install vlc
     brew cask install wineskin-winery
+    brew cask install xld
     brew cask install xquartz
-    brew cask install xtrafinder
+    # brew cask install xtrafinder
 
     sh_info "Setting up Caskroom/fonts tap..."
     brew tap caskroom/fonts
-    
+
     sh_info "Installing Fonts..."
     brew cask install font-arimo
     brew cask install font-dejavu-sans
