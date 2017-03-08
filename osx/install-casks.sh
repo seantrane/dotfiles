@@ -76,10 +76,14 @@ if type "brew" &> /dev/null; then
     brew cask install visual-studio-code
     # brew cask install vitalsource-bookshelf
     brew cask install vlc
-    brew cask install wineskin-winery
     brew cask install xld
     brew cask install xquartz
     # brew cask install xtrafinder
+
+    # xquartz needs to be installed before wine
+    brew install wine
+    brew install winetricks
+    brew cask install wineskin-winery
 
     sh_info "Setting up Caskroom/fonts tap..."
     brew tap caskroom/fonts
