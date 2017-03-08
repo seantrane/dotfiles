@@ -5,7 +5,7 @@
 # Shell Support
 [[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
-[[ -z "$DOTFILES" ]] && DOTFILES="~/.dotfiles"
+[[ -z "$DOTFILES" ]] && DOTFILES="$HOME/.dotfiles"
 
 if ! type "sh_success" &> /dev/null; then
   . $DOTFILES/functions/sh_alert
