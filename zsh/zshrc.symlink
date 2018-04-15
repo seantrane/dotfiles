@@ -3,9 +3,9 @@
 # ZSH RC
 #
 # Zsh run-control file.
-# 
-# `.zshrc' is sourced in interactive shells. It should contain commands 
+#
+# `.zshrc' is sourced in interactive shells. It should contain commands
 # to set up aliases, functions, options, key bindings, etc.
-# 
+#
 # Put stuff in conditional section of `~/.zshenv`.
 # See comments in `~/.zshenv` for detailed summary.

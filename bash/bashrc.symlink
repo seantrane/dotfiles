@@ -4,8 +4,8 @@
 #
 # Bash run-control file.
 # See table below for processing information.
-# 
-# Bash executes A, then B, then C, etc. 
+#
+# Bash executes A, then B, then C, etc.
 # The B1, B2, B3 means it executes only the first of those files found.
 # +----------------+-----------+-----------+------+
 # |                |Interactive|Interactive|Script|
@@ -28,12 +28,12 @@
 # +----------------+-----------+-----------+------+
 # |~/.bash_logout  |    C      |           |      |
 # +----------------+-----------+-----------+------+
-# 
+#
 # Moral: Put stuff in `~/.bashrc `, make `~/.bash_profile` source it.
-# 
+#
 # Almost everything should go in the “general configuration” section.
-# There might be some commands (those which produce output, etc.) 
-# that you only want executed when the shell is interactive, and 
+# There might be some commands (those which produce output, etc.)
+# that you only want executed when the shell is interactive, and
 # not in scripts, which you can put in the “conditional section”.
 
 
@@ -77,7 +77,7 @@ unset file
 ##  See `~/.bash_env` for bash-script-resources.
 ##  Bash scripts typically would not process this file,
 ##  so this section can be ignored unless required.
-## 
+##
 ########################################################################
 if [[ ! -n "$PS1" ]]; then
 : ######################################################################
@@ -189,7 +189,7 @@ fi
 # z - jump around
 # https://github.com/rupa/z
 # Tracks your most used directories, based on 'frecency'.
-# After a short learning phase, z will take you to the most 'frecent' directory 
+# After a short learning phase, z will take you to the most 'frecent' directory
 # that matches ALL of the regexes given on the command line, in order.
 if [ -f "$HOME/z/z.sh" ]; then
     source "$HOME/z/z.sh"
