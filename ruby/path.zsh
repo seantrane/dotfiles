@@ -2,4 +2,4 @@
 #
 # Add PATH for gem executables
 
-[[ -d "$HOME/.gem/ruby/2.0.0/bin" ]] && export PATH="$HOME/.gem/ruby/2.0.0/bin:$PATH"
+[[ -d "$HOME/.gem/ruby/2.4.0/bin" ]] && export PATH="$HOME/.gem/ruby/2.4.0/bin:$PATH"
