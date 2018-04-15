@@ -8,11 +8,9 @@
 if ! type "node" &> /dev/null; then
     sh_info "Installing Node.js..."
     if type "brew" &> /dev/null; then
-        brew install node --without-npm
+        brew install node
     elif type "apt-get" &> /dev/null; then
         curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-        # sudo add-apt-repository ppa:chris-lea/node.js
-        # sudo apt-get update
         sudo apt-get -y install nodejs
         sudo apt-get -y install build-essential
     elif type "yum" &> /dev/null; then
@@ -28,12 +26,7 @@ if type "node" &> /dev/null; then
     sh_success "Node.js $(node --version) installed: $(which node)"
 fi
 
-if ! type "npm" &> /dev/null; then
-    sh_info "Installing npm..."
-    cd
-    curl -L https://www.npmjs.com/install.sh | sh
-fi
-
 if type "npm" &> /dev/null; then
+    npm install npm --global
     sh_success "npm $(npm --version) installed: $(which npm)"
 fi
