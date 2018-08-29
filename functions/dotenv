@@ -16,7 +16,7 @@
 dotenv () {
 
   path="./.env"
-  [[ ! -z "${1:-}" ]] && path="${1}"
+  [[ -n "${1:-}" ]] && path="${1}"
 
   DOTENV_SHELL_LOADER_SAVED_OPTS=$(set +o)
 

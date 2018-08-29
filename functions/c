@@ -19,7 +19,7 @@
 
 # if [ -n "${ZSH_NAME}" ]; then
 
-#     if [ ! -z "$1" ] && [ -s "$GOPATH/src/github.com/$1" ]; then
+#     if [ -n "$1" ] && [ -s "$GOPATH/src/github.com/$1" ]; then
 #         cd "$GOPATH/src/github.com/$1"
 #     else
 #         cd "$PROJECTS/$1"
