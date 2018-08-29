@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#
+# Execute `dotenv` in a directory in which `.env` exists to load
+# environment variables.
+
+#######################################
+# Load `.env` variables into environment.
+# Accepts path argument, `.env` is default.
+# Globals:
+#   None
+# Arguments:
+#   1 - [optional] /path/to/.env
+# Returns:
+#   None
+#######################################
+dotenv () {
+
+  path="./.env"
+  [[ ! -z "${1:-}" ]] && path="${1}"
+
+  DOTENV_SHELL_LOADER_SAVED_OPTS=$(set +o)
+
+  set -o allexport
+
+  # shellcheck disable=SC1090,SC1091
+  [[ -f "$path" ]] && . "$path"
+
+  set +o allexport
+
+  eval "$DOTENV_SHELL_LOADER_SAVED_OPTS"
+
+  unset DOTENV_SHELL_LOADER_SAVED_OPTS
+
+}
