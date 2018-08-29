@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+# Create a base64-encoded string
+
+base64_encode () {
+  echo -n "${1:-}" | openssl base64
+}
