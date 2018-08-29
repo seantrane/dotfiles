@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Kill all running Docker containers
+
+docker_kill_all () {
+
+  [[ "$(docker ps -q)" ]] && docker kill $(docker ps -q) < /dev/null 2> /dev/null
+
+  docker ps -a
+
+}

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# Clean Docker container/image from most recent commands
+
+#######################################
+# Cleans Docker container/image from most recent commands.
+# Accepts names of Docker container and image as arguments,
+# default action is to remove most recent container/image.
+# Globals:
+#   None
+# Arguments:
+#   1 - [optional] CONTAINER
+#   1 - [optional] IMAGE
+# Returns:
+#   None
+#######################################
+docker_clean () {
+
+  if [[ "${1:-}" != "" ]] && [[ "$(docker ps -aqf "name=${1:-}")" != "" ]]; then
+    docker kill "${1:-}" < /dev/null 2> /dev/null; docker ps -a
+    docker rm -f "${1:-}" < /dev/null 2> /dev/null; docker ps
+    [[ "${2:-}" != "" ]] && docker rmi -f "${2:-}" < /dev/null 2> /dev/null; docker images; docker ps -a
+  else
+    PREV_CONTAINER_ID="$(docker ps -aq -l)"
+    # shellcheck disable=SC2034
+    PREV_IMAGES="$(docker images -aq)"
+    # shellcheck disable=SC2206
+    PREV_IMAGE_IDS=(${PREV_IMAGE_IDS[@]})
+    docker kill "${PREV_CONTAINER_ID}" < /dev/null 2> /dev/null; docker ps -a
+    docker rm -f "${PREV_CONTAINER_ID}" < /dev/null 2> /dev/null; docker ps
+  fi
+
+}

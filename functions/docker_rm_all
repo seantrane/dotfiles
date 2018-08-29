@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#
+# Remove all Docker containers
+
+docker_rm_all () {
+
+  # 1. Kill all running containers
+  [[ "$(docker ps -q)" ]] && docker kill $(docker ps -q) < /dev/null 2> /dev/null
+  # 2. Remove all containers
+  [[ "$(docker ps -a -q)" ]] && docker rm $(docker ps -a -q) --force < /dev/null 2> /dev/null
+
+  docker ps -a
+
+}
