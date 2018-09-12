@@ -18,8 +18,8 @@ fi
 # Install Ruby
 if type "rbenv" &> /dev/null; then
     sh_info "Installing Ruby..."
-    rbenv install 2.2.3
-    rbenv global 2.2.3
+    rbenv install 2.5.1
+    rbenv global 2.5.1
 fi
 
 # Install Bundler on Linux systems
