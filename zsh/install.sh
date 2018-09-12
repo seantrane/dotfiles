@@ -30,7 +30,7 @@ if type "zsh" &> /dev/null; then
     sh_success "$(zsh --version) installed: $(which zsh)"
     # Make Zsh your default shell.
     # This will not work if Zsh is not in your authorized shells list (/etc/shells).
-    local action=
+    action=
     sh_yesno "Make Zsh your default shell?"
     read -n 1 action
     case "$action" in
