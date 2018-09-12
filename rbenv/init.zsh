@@ -2,9 +2,9 @@
 #
 # Initiate Ruby-environment (rbenv)
 
-if (( $+commands[rbenv] )); then
+if type "rbenv" &> /dev/null; then
     # Mac-only: Use Homebrew's directories instead of ~/.rbenv (add to your profile):
-    if (( $+commands[brew] )) && [ "brew ls --versions rbenv" ]; then
+    if type "brew" &> /dev/null && [ "$(brew ls --versions rbenv)" ]; then
         export RBENV_ROOT=/usr/local/var/rbenv
     fi
 
