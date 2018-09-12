@@ -104,6 +104,6 @@ if type "brew" &> /dev/null; then
     brew cask install font-source-serif-pro
     brew cask install font-ubuntu
 
-    brew cask cleanup
+    brew cleanup
 
 fi
