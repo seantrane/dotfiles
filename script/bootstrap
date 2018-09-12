@@ -84,7 +84,7 @@ install_dotfiles
 #-----------------------------------------------------------------------
 
 # We install Prezto first so that it's ready for Zsh.
-. $DOTFILES/zsh/prezto.sh
+. $DOTFILES/prezto/install.sh
 # Install Zshell + Zsh-completions
 . $DOTFILES/zsh/install.sh
 
