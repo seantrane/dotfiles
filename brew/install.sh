@@ -55,15 +55,10 @@ if type "brew" &> /dev/null; then
     # Setup taps.
     sh_info "Setting up Homebrew taps..."
     brew tap homebrew/bundle
-    brew tap homebrew/completions
-    brew tap homebrew/dupes
-    brew tap homebrew/php
-    brew tap homebrew/versions
     # CASKROOM for OS X
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        brew tap caskroom/cask
-        brew tap caskroom/fonts
-        brew tap caskroom/versions
+        brew tap homebrew/cask-fonts
+        brew tap homebrew/cask-versions
     fi
     # Remove outdated versions from the cellar.
     brew cleanup
