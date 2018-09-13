@@ -10,7 +10,7 @@
 if ! type "yo" &> /dev/null; then
     ! type "npm" &> /dev/null && source $DOTFILES/node/install.sh
     sh_info "Installing Yeoman..."
-    npm install -g yo
+    npm install -g yo@latest
 fi
 
 if type "yo" &> /dev/null; then
