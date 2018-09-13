@@ -76,6 +76,32 @@ install_dotfiles
 #   * Bundler (Linux-only)
 
 . $DOTFILES/brew/install.sh
+
+sh_info "Configuring homebrew permissions to allow multiple admin users."
+sh_info "Any user from the admin group will be able to manage homebrew."
+
+declare -a HOMEBREW_DIRS=(
+    "$(brew --prefix)/Caskroom"
+    "$(brew --prefix)/Cellar"
+    "$(brew --prefix)/Homebrew"
+    "$(brew --prefix)/etc"
+    "$(brew --prefix)/lib"
+    "$(brew --prefix)/share"
+    "$(brew --prefix)/var"
+)
+
+for brew_dir in "${HOMEBREW_DIRS[@]}"; do
+    if [[ ! -d "${brew_dir}" ]]; then
+        sh_info "Creating directory: ${brew_dir}"
+        mkdir "${brew_dir}"
+    fi
+    sh_info "Changing group ownership of directory: ${brew_dir}"
+    sudo chgrp -R admin "${brew_dir}"
+    sudo chmod -R g+w "${brew_dir}"
+done
+
+ls -al "$(brew --prefix)"
+
 . $DOTFILES/git/install.sh
 . $DOTFILES/ruby/install.sh
 
