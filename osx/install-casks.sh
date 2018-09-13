@@ -91,9 +91,6 @@ if type "brew" &> /dev/null; then
     sh_info "Installing Fonts..."
     brew cask install font-arimo
     brew cask install font-dejavu-sans
-    brew cask install font-droid-sans
-    brew cask install font-droid-sans-mono
-    brew cask install font-droid-serif
     brew cask install font-fontawesome
     brew cask install font-inconsolata
     brew cask install font-open-iconic
