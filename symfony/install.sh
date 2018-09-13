@@ -7,11 +7,9 @@
 
 if ! type "symfony" &> /dev/null; then
     sh_info "Installing Symfony..."
-    # mkdir:/usr/local/bin, if it does not exist yet
-    # using sudo to bypass any issues
-    sudo mkdir /usr
-    sudo mkdir /usr/local
-    sudo mkdir /usr/local/bin
+    [[ ! -d /usr ]] && sudo mkdir /usr
+    [[ ! -d /usr/local ]] && sudo mkdir /usr/local
+    [[ ! -d /usr/local/bin ]] && sudo mkdir /usr/local/bin
     sudo curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
     sudo chmod a+x /usr/local/bin/symfony
 else
