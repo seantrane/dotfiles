@@ -10,11 +10,10 @@
 if type "brew" &> /dev/null; then
 
     sh_info "Installing Caskroom/cask..."
-    #brew install caskroom/cask/brew-cask
-    brew tap caskroom/cask
+    brew tap homebrew/cask
 
     sh_info "Setting up Caskroom/versions tap..."
-    brew tap caskroom/versions
+    brew tap homebrew/cask-versions
 
     sh_info "Installing Apps..."
     brew cask install 1password
@@ -86,7 +85,7 @@ if type "brew" &> /dev/null; then
     brew cask install wineskin-winery
 
     sh_info "Setting up Caskroom/fonts tap..."
-    brew tap caskroom/fonts
+    brew tap homebrew/cask-fonts
 
     sh_info "Installing Fonts..."
     brew cask install font-arimo
