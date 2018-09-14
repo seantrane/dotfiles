@@ -3,7 +3,8 @@
 # Install Zshell
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 sh_info "Installing/updating Zshell + zsh-completions..."
 if type "brew" &> /dev/null; then

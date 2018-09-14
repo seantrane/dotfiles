@@ -5,7 +5,8 @@
 # http://www.lua.org
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 install_lua () {
     if ! type "lua" &> /dev/null; then

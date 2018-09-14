@@ -3,7 +3,8 @@
 # Install PostGreSQL
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if ! type "postgres" &> /dev/null; then
     sh_info "Installing PostGreSQL..."

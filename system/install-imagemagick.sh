@@ -5,7 +5,8 @@
 # https://www.imagemagick.org
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 install_imagemagick () {
     if ! type "imagemagick" &> /dev/null; then

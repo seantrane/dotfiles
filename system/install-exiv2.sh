@@ -5,7 +5,8 @@
 # http://www.exiv2.org
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 install_exiv2 () {
     if ! type "exiv2" &> /dev/null; then

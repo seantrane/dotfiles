@@ -5,7 +5,8 @@
 # This installs PHP and common extensions.
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if type "brew" &> /dev/null; then
 
@@ -51,7 +52,7 @@ if type "brew" &> /dev/null; then
     [[ ! "$(brew ls --versions php55-http)" ]] && brew install php55-http
     [[ ! "$(brew ls --versions php55-oauth)" ]] && brew install php55-oauth
     [[ ! "$(brew ls --versions php55-yaml)" ]] && brew install php55-yaml
-    
+
     sh_info "Re-installing PHP to avoid errors..."
     brew reinstall php55 --with-gmp
 

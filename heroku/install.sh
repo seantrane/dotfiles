@@ -6,7 +6,8 @@
 # http://github.com/heroku/heroku
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if ! type "heroku" &> /dev/null; then
     sh_info "Installing Heroku CLI (heroku toolbelt)..."

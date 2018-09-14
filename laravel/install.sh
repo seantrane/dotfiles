@@ -3,7 +3,8 @@
 # Install Laravel.
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if ! type "laravel" &> /dev/null; then
     ! type "composer" &> /dev/null && source $DOTFILES/composer/install.sh

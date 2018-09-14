@@ -3,7 +3,8 @@
 # Install Ruby et.al.
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 # Install Ruby-dependencies for Debian-based systems
 if type "apt-get" &> /dev/null; then

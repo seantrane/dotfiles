@@ -3,7 +3,8 @@
 # Install Ruby-environment (rbenv)
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 # Install Ruby-environment (rbenv)
 if ! type "rbenv" &> /dev/null; then
@@ -13,7 +14,7 @@ if ! type "rbenv" &> /dev/null; then
     fi
     # For Linux/*; rbenv requires Git, so let's install that too
     ! type "git" &> /dev/null && source $DOTFILES/git/install.sh
-    
+
     sh_info "Installing Ruby-environment (rbenv) and Ruby-build..."
     if type "brew" &> /dev/null; then
         brew install rbenv ruby-build

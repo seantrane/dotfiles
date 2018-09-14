@@ -5,7 +5,8 @@
 # https://github.com/yeoman/yo
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if ! type "yo" &> /dev/null; then
     ! type "npm" &> /dev/null && source $DOTFILES/node/install.sh
@@ -20,7 +21,7 @@ if type "yo" &> /dev/null; then
 
     #
     # Install Yeoman generators
-    # 
+    #
 
     # Jekyllized
     # https://github.com/sondr3/generator-jekyllized
