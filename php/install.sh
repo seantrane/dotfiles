@@ -20,7 +20,7 @@ installphp () {
     local action=
     sh_user "Which PHP version do you want to install?"
     sh_text "${Underline}a${Reset}) 5.5.* / ${Underline}b${Reset}) 5.6.* / ${Underline}c${Reset}) 7.0.*"
-    read -n 1 action
+    read -r -n 1 action
     case "$action" in
         a ) # PHP 5.5.+
             [[ -s "$DOTPHP/install-php55.sh" ]] && source $DOTPHP/install-php55.sh

@@ -32,7 +32,7 @@ if type "zsh" &> /dev/null; then
     # This will not work if Zsh is not in your authorized shells list (/etc/shells).
     action=
     sh_yesno "Make Zsh your default shell?"
-    read -n 1 action
+    read -r -n 1 action
     case "$action" in
         y )
             sh_info "Make Zsh your default shell..."

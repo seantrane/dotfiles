@@ -9,7 +9,7 @@
 if ! type "rvm" &> /dev/null; then
     local action=
     sh_yesno "Do you want to install RVM?"
-    read -n 1 action
+    read -r -n 1 action
     case "$action" in
         y )
             sh_info "Installing RVM..."

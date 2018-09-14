@@ -41,7 +41,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # OS X Software Update
     action=
     sh_user "Do you want to run OS X Software Update?  ${Underline}y${Reset}es / ${Underline}n${Reset}o"
-    read -n 1 action
+    read -r -n 1 action
     case "$action" in
         y )
             sh_info "Running OS X Software Update..."
@@ -55,7 +55,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # (Re)Set defaults
     action=
     sh_user "Do you want to overwrite OS X defaults?  ${Underline}y${Reset}es / ${Underline}n${Reset}o"
-    read -n 1 action
+    read -r -n 1 action
     case "$action" in
         y )
             sh_info "Overwriting OS X defaults..."

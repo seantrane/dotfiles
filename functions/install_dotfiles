@@ -29,7 +29,7 @@ install_dotfiles () {
                 # else
                     printf "\033[2K\r\n [\033[0;33m ?? \033[0m]  File already exists: $destination ($(basename "$src")), what do you want to do?\n\
                     [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all? \n"
-                    read -n 1 action
+                    read -r -n 1 action
 
                     case "$action" in
                         o )

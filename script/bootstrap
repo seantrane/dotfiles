@@ -43,9 +43,9 @@ setup_gitconfig () {
         fi
 
         sh_user 'What is your github author name?'
-        read -e git_authorname
+        read -r -e git_authorname
         sh_user 'What is your github author email?'
-        read -e git_authoremail
+        read -r -e git_authoremail
 
         sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" $DOTFILES/git/gitconfig.symlink.example > $DOTFILES/git/gitconfig.symlink
 
