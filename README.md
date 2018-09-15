@@ -1,15 +1,32 @@
-# seantrane dotfiles
+# @seantrane/dotfiles
 
-## .dotfiles
+> **Backup**, **restore**, and **sync** the prefs and settings for your toolbox. Your dotfiles might be the most important files on your machine.
 
-These are my dotfiles, the child of many influences, primarily 
+[![Build Status](https://travis-ci.com/seantrane/dotfiles.svg?branch=master)](https://travis-ci.com/seantrane/dotfiles) [![devDependencies Status](https://david-dm.org/seantrane/dotfiles/dev-status.svg)](https://david-dm.org/seantrane/dotfiles?type=dev) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
+## Table of Contents
+
+- [About the dotfiles](#about)
+- [Install](#install)
+- [Usage](#usage)
+- [Thanks](#thanks)
+- [Support](#support)
+- [Contributing](#contributing)
+- [Changelog](#changelog)
+- [License](#license)
+
+---
+
+## About the dotfiles <a id="about"></a>
+
+These are my dotfiles, the child of many influences, primarily
 [Zach Holmans](https://github.com/holman)' [dotfiles](https://github.com/holman/dotfiles), who I owe a great deal of credit to.
 
-See [Thanks section](https://github.com/seantrane/dotfiles#thanks) for full credits.
+See [Thanks section](#thanks) for full credits.
 
-This is a highly organized and adaptive _dotfiles_ approach. Instead of using a limited  set of bloated files, this approach is topic-centric and uses a folder-file structure to allow more effective customization, and diff-tracking.
+This is a highly organized and adaptive _dotfiles_ approach. Instead of using a limited set of bloated files, this approach is topic-centric and uses a folder-file structure to allow more effective customization, and diff-tracking.
 
-## Installation
+## Install <a id="install"></a>
 
 ### Step 1
 
@@ -64,14 +81,16 @@ After restarting your terminal/shell, run all installers.
 ~/.dotfiles/script/install
 ```
 
-This will not only install all of your [components](https://github.com/seantrane/dotfiles#components),
+This will not only install all of your [components](#components),
 but it will also install your chosen apps/casks in `osx/install-casks.sh`.
 
 ### Step 5
 
 Restart your terminal/shell.
 
-## Topical
+## Usage <a id="usage"></a>
+
+### Topical
 
 Everything is built around topic areas. If you're adding a new area to your
 forked _dotfiles_ — say, "Java" — you can simply add a `java` directory and put
@@ -79,7 +98,7 @@ files in there. Anything with an extension of `.zsh` will get automatically
 included into your shell. Anything with an extension of `.symlink` will get
 symlinked without extension into `$HOME` when you run `script/bootstrap`.
 
-## Components
+### Components
 
 There are a few special files in the hierarchy.
 
@@ -96,19 +115,16 @@ There are a few special files in the hierarchy.
   but still keep those autoloaded files in your home directory. These get
   symlinked in when you run `script/bootstrap`.
 
-## Updates/Maintenance
+### Updates/Maintenance
 
 `dot` is a simple script that updates dependencies, packages, sets sane OS X
 defaults, and so on. Tweak this script, and occasionally run `dot` from
 time to time to keep your environment fresh and up-to-date. You can find
 this script in `bin/`.
 
-## Bugs
+---
 
-I don't really promote this, it's just for my personal use and available for everyone.
-If you experience any bugs, I'm interested, but cannot promise anything.
-
-## Thanks
+## Thanks <a id="thanks"></a>
 
 Big thanks goes out to [Zach Holman](https://github.com/holman), whose [dotfiles](https://github.com/holman/dotfiles)  were so awesome, I had to fork them. Zach forked his from [Ryan Bates](https://github.com/ryanb)' [dotfiles](https://github.com/ryanb/dotfiles).  I am grateful for their efforts. Zach wrote [a post on the subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/)  that I encourage reading.
 
@@ -116,3 +132,29 @@ I've also learned and depend on techniques from other dotfiles; [Mathias Bynens]
 
 [Learn more about dotfiles](https://dotfiles.github.io).
 
+---
+
+## Support <a id="support"></a>
+
+[Submit an issue](https://github.com/seantrane/dotfiles/issues/new), in which you should provide as much detail as necessary for your issue.
+
+### Bugs
+
+I don't really promote this repository, it's just for my personal use and made available for everyone.
+If you experience any bugs, I'm definitely interested, but cannot promise anything.
+
+## Contributing <a id="contributing"></a>
+
+Contributions are always appreciated. Read [CONTRIBUTING.md](https://github.com/seantrane/dotfiles/blob/master/CONTRIBUTING.md) documentation to learn more.
+
+## Changelog <a id="changelog"></a>
+
+Release details are documented in the [CHANGELOG.md](https://github.com/seantrane/dotfiles/blob/master/CHANGELOG.md) file, and on the [GitHub Releases page](https://github.com/seantrane/dotfiles/releases).
+
+---
+
+## License <a id="license"></a>
+
+[MIT License](https://github.com/seantrane/dotfiles/blob/master/LICENSE)
+
+Copyright (c) 2015 [Sean Trane Sciarrone](https://github.com/seantrane)
