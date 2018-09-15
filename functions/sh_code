@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: CODE
+
+sh_code () {
+    # shellcheck disable=SC2059
+    printf "${ClearNewLine:-}${Dim:-}${1:-}${Reset:-} \\n"
+}
+
+# shellcheck disable=SC2034
+[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_code

@@ -3,7 +3,9 @@
 # Shell Response Helper: TEXT
 
 sh_text () {
-    printf "${ClearLine}         $1 \n"
+    # shellcheck disable=SC2059
+    printf "${ClearLine:-}         ${1:-} \\n"
 }
 
-[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_text
+# shellcheck disable=SC2034
+[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_text

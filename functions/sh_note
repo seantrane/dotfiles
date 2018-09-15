@@ -3,7 +3,9 @@
 # Shell Response Helper: NOTE
 
 sh_note () {
-    printf "${ClearNewLine} [${Cyan} ** ${Reset}]  $1 \n"
+    # shellcheck disable=SC2059
+    printf "${ClearNewLine:-} [${Cyan:-} ** ${Reset:-}]  ${1:-} \\n"
 }
 
-[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_note
+# shellcheck disable=SC2034
+[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_note

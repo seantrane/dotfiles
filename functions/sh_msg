@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: MSG
+
+sh_msg () {
+    # shellcheck disable=SC2059
+    printf "${ClearNewLine:-}\\n❯❯❯ ${1:-} \\n"
+}
+
+# shellcheck disable=SC2034
+[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_msg

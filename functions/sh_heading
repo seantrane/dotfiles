@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Shell Response Helper: HEADING
+
+sh_heading () {
+  # shellcheck disable=SC2059
+  printf "${ClearNewLine:-}\\n\\n${Bold:-}${IMagenta:-}❯❯❯❯❯❯❯❯${Reset:-} ${Bold:-}${ICyan:-}${Underline:-}${1:-}${Reset:-} ${Bold:-}${IMagenta:-}❯${IYellow:-}❯${IGreen:-}❯${Reset:-}\\n\\n"
+}
+
+# shellcheck disable=SC2034
+[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_heading

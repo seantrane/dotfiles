@@ -3,9 +3,11 @@
 # Shell Response Helper: FAIL
 
 sh_fail () {
-    printf "${ClearNewLine} [${Red}FAIL${Reset}]  ${Red}$1${Reset} \n"
+    # shellcheck disable=SC2059
+    printf "${ClearNewLine:-} [${Red:-}FAIL${Reset:-}]  ${Red:-}${1:-}${Reset:-} \\n"
     echo ''
-    exit
+    exit 2
 }
 
-[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_fail
+# shellcheck disable=SC2034
+[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_fail

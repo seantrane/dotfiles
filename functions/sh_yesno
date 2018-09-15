@@ -3,8 +3,9 @@
 # Shell Response Helper: YESNO
 
 sh_yesno () {
-    sh_user "$1"
-    sh_text "${Underline}y${Reset}es / ${Underline}n${Reset}o"
+    sh_user "${1:-}"
+    sh_text "${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
 }
 
-[[ -z "${ZSH_NAME}" ]] && typeset -fx sh_yesno
+# shellcheck disable=SC2034
+[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_yesno
