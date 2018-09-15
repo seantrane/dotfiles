@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Run a command successfully, or exit
+
+#######################################
+# Run a command successfully, or exit
+# Globals:
+#   sed
+#   tr
+# Arguments:
+#   1 - Command(s) string
+# Returns:
+#   None
+#######################################
+run_or_fail () {
+  cmd=$(echo "$*" | tr '\n' ' ' | sed 's/.$//')
+  echo "Running (\`${cmd}\`), or failing..."
+  if "$@"; then
+    : # Successful
+  else
+    echo "Failed while running (\`${cmd}\`)"
+    exit 1
+  fi
+}
