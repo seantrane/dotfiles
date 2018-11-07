@@ -58,6 +58,7 @@ if type "brew" &> /dev/null; then
     # brew cask install microsoft-lync
     # brew cask install microsoft-office
     # brew cask install phpstorm
+    brew cask install postman
     # brew cask install robomongo
     # brew cask install screenflow
     # brew cask install sequel-pro
