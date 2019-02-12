@@ -8,7 +8,7 @@
 [[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if ! type "rvm" &> /dev/null; then
-    local action=
+    action=
     sh_yesno "Do you want to install RVM?"
     read -r -n 1 action
     case "$action" in
