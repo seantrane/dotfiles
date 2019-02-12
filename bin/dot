@@ -77,7 +77,6 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         brew update
         brew upgrade
         brew cleanup
-        brew cask cleanup
     fi
 
 elif [[ "$OSTYPE" == "cygwin" ]]; then
