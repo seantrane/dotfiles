@@ -19,7 +19,7 @@ if ! type "rails" &> /dev/null; then
     if type "gem" &> /dev/null; then
         . "$DOTFILES/ruby/gem-update.sh"
         sh_info "Installing Ruby On Rails..."
-        gem install rails -v 4.2.4
+        gem install rails -v 5.2.2
     fi
 
     . "$DOTFILES/ruby/rehash.sh"

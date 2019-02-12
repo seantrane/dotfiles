@@ -14,13 +14,13 @@ if type "apt-get" &> /dev/null; then
 fi
 
 # Install Ruby-environment (rbenv)
-! type "rbenv" &> /dev/null && source $DOTFILES/rbenv/install.sh
+! type "rbenv" &> /dev/null && . "$DOTFILES/rbenv/install.sh"
 
 # Install Ruby
 if type "rbenv" &> /dev/null; then
     sh_info "Installing Ruby..."
-    rbenv install 2.5.1
-    rbenv global 2.5.1
+    rbenv install 2.5.3
+    rbenv global 2.5.3
 fi
 
 # Install Bundler on Linux systems
@@ -32,11 +32,11 @@ if ! type "bundler" &> /dev/null; then
         sh_note "Recommended by: https://gorails.com/setup"
         gem install bundler
         if type "bundler" &> /dev/null; then
-            sh_success "$(bundler --version) installed: $(which bundler)"
+            sh_success "$(bundler --version) installed: $(command -v bundler)"
         fi
     fi
 fi
 
 if type "ruby" &> /dev/null; then
-    sh_success "$(ruby --version) installed: $(which ruby)"
+    sh_success "$(ruby --version) installed: $(command -v ruby)"
 fi
