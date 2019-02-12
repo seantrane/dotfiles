@@ -14,7 +14,7 @@ if ! type "rvm" &> /dev/null; then
     case "$action" in
         y )
             sh_info "Installing RVM..."
-            cd
+            cd || return
             # Paul does: curl -L https://get.rvm.io | bash -s stable --ruby
             # Simon does this one to add dependencies:
             \curl -sSL https://get.rvm.io | bash -s stable --rails --autolibs=enable
