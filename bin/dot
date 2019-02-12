@@ -6,7 +6,8 @@
 # Run it periodically to make sure you're on the latest releases.
 
 # Shell Support
-source $( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh
+# shellcheck disable=SC1090
+. "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 #-----------------------------------------------------------------------
 # OS-specific Updates
@@ -40,7 +41,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 
     # OS X Software Update
     action=
-    sh_user "Do you want to run OS X Software Update?  ${Underline}y${Reset}es / ${Underline}n${Reset}o"
+    sh_user "Do you want to run OS X Software Update?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
     read -r -n 1 action
     case "$action" in
         y )
@@ -54,12 +55,13 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 
     # (Re)Set defaults
     action=
-    sh_user "Do you want to overwrite OS X defaults?  ${Underline}y${Reset}es / ${Underline}n${Reset}o"
+    sh_user "Do you want to overwrite OS X defaults?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
     read -r -n 1 action
     case "$action" in
         y )
             sh_info "Overwriting OS X defaults..."
-            source $DOTFILES/osx/set-defaults.sh
+            # shellcheck disable=SC1090
+            . "$DOTFILES/osx/set-defaults.sh"
             ;;
         * )
             sh_info "Skipping OS X defaults."
