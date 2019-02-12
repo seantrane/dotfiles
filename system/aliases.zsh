@@ -6,7 +6,9 @@
 alias reload="exec $SHELL -l"
 
 # Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    colorflag="-G"
+elif ls --color > /dev/null 2>&1; then # GNU `ls`
     colorflag="--color"
 else # OS X `ls`
     colorflag="-G"
