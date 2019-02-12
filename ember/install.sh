@@ -13,7 +13,7 @@ if ! type "ember" &> /dev/null; then
 fi
 
 if type "ember" &> /dev/null; then
-    sh_success "Ember $(npm info ember version) installed: $(which ember)\n"
+    sh_success "Ember $(npm info ember version) installed: $(command -v ember)\n"
     npm list -g ember-cli
     echo ""
 fi

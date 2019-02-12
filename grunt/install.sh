@@ -13,7 +13,7 @@ if ! type "grunt" &> /dev/null; then
 fi
 
 if type "grunt" &> /dev/null; then
-    sh_success "Grunt $(npm info grunt version) installed: $(which grunt)\n"
+    sh_success "Grunt $(npm info grunt version) installed: $(command -v grunt)\n"
     npm list -g grunt-cli
     echo ""
 fi

@@ -20,5 +20,5 @@ if ! type "wget" &> /dev/null; then
 fi
 
 if type "wget" &> /dev/null; then
-    sh_success "$(wget --version) installed: $(which wget)"
+    sh_success "$(wget --version) installed: $(command -v wget)"
 fi

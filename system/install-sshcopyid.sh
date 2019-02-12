@@ -21,7 +21,7 @@ install_sshcopyid () {
     fi
 
     if type "ssh-copy-id" &> /dev/null; then
-        sh_success "$(ssh-copy-id --version) installed: $(which ssh-copy-id)"
+        sh_success "$(ssh-copy-id --version) installed: $(command -v ssh-copy-id)"
     fi
 }
 install_sshcopyid

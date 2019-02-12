@@ -21,7 +21,7 @@ if ! type "jekyll" &> /dev/null; then
 fi
 
 if type "jekyll" &> /dev/null; then
-    sh_success "$(jekyll --version) installed: $(which jekyll)\n"
+    sh_success "$(jekyll --version) installed: $(command -v jekyll)\n"
     gem which jekyll
     echo ""
 fi

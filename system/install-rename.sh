@@ -21,7 +21,7 @@ install_rename () {
     fi
 
     if type "rename" &> /dev/null; then
-        sh_success "$(rename --version) installed: $(which rename)"
+        sh_success "$(rename --version) installed: $(command -v rename)"
     fi
 }
 install_rename

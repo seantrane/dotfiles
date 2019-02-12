@@ -24,5 +24,5 @@ if ! type "yarn" &> /dev/null; then
 fi
 
 if type "yarn" &> /dev/null; then
-    sh_success "$(yarn --version) installed: $(which yarn)"
+    sh_success "$(yarn --version) installed: $(command -v yarn)"
 fi

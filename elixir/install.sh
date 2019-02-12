@@ -18,5 +18,5 @@ if ! type "elixir" &> /dev/null; then
 fi
 
 if type "elixir" &> /dev/null; then
-    sh_success "$(elixir --version) installed: $(which elixir)"
+    sh_success "$(elixir --version) installed: $(command -v elixir)"
 fi

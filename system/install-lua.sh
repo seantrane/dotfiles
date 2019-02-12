@@ -21,7 +21,7 @@ install_lua () {
     fi
 
     if type "lua" &> /dev/null; then
-        sh_success "$(lua --version) installed: $(which lua)"
+        sh_success "$(lua --version) installed: $(command -v lua)"
     fi
 }
 install_lua

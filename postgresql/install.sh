@@ -22,5 +22,5 @@ if ! type "postgres" &> /dev/null; then
 fi
 
 if type "postgres" &> /dev/null; then
-    sh_success "$(postgres --version) installed: $(which postgres)"
+    sh_success "$(postgres --version) installed: $(command -v postgres)"
 fi

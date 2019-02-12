@@ -18,5 +18,5 @@ if ! type "maven" &> /dev/null; then
 fi
 
 if type "maven" &> /dev/null; then
-    sh_success "$(maven --version) installed: $(which maven)"
+    sh_success "$(maven --version) installed: $(command -v maven)"
 fi

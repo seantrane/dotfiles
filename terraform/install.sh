@@ -15,5 +15,5 @@ if ! type "terraform" &> /dev/null; then
 fi
 
 if type "terraform" &> /dev/null; then
-    sh_success "$(terraform --version) installed: $(which terraform)"
+    sh_success "$(terraform --version) installed: $(command -v terraform)"
 fi

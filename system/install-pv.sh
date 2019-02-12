@@ -21,7 +21,7 @@ install_pv () {
     fi
 
     if type "pv" &> /dev/null; then
-        sh_success "$(pv --version) installed: $(which pv)"
+        sh_success "$(pv --version) installed: $(command -v pv)"
     fi
 }
 install_pv

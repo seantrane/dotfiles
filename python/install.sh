@@ -21,5 +21,5 @@ if ! type "python" &> /dev/null; then
 fi
 
 if type "python" &> /dev/null; then
-    sh_success "$(python --version) installed: $(which python)"
+    sh_success "$(python --version) installed: $(command -v python)"
 fi

@@ -18,5 +18,5 @@ if ! type "mysql" &> /dev/null || [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 if type "mysql" &> /dev/null; then
-    sh_success "$(mysql --version) installed: $(which mysql)"
+    sh_success "$(mysql --version) installed: $(command -v mysql)"
 fi

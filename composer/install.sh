@@ -21,5 +21,5 @@ else
 fi
 
 if type "composer" &> /dev/null; then
-    sh_success "$(composer --version) installed: $(which composer)"
+    sh_success "$(composer --version) installed: $(command -v composer)"
 fi

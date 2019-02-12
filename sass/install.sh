@@ -21,7 +21,7 @@ if ! type "sass" &> /dev/null; then
 fi
 
 if type "sass" &> /dev/null; then
-    sh_success "$(sass --version) installed: $(which sass)\n"
+    sh_success "$(sass --version) installed: $(command -v sass)\n"
     gem which sass
     echo ""
 fi

@@ -21,7 +21,7 @@ install_tree () {
     fi
 
     if type "tree" &> /dev/null; then
-        sh_success "$(tree --version) installed: $(which tree)"
+        sh_success "$(tree --version) installed: $(command -v tree)"
     fi
 }
 install_tree

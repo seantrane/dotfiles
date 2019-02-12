@@ -17,6 +17,6 @@ if ! type "serverless" &> /dev/null; then
 fi
 
 if type "serverless" &> /dev/null; then
-    sh_success "Serverless Framework $(npm info serverless version) installed: $(which serverless)\n"
+    sh_success "Serverless Framework $(npm info serverless version) installed: $(command -v serverless)\n"
     npm list -g serverless
 fi

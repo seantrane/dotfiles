@@ -21,7 +21,7 @@ install_rhino () {
     fi
 
     if type "rhino" &> /dev/null; then
-        sh_success "$(rhino --version) installed: $(which rhino)"
+        sh_success "$(rhino --version) installed: $(command -v rhino)"
     fi
 }
 install_rhino

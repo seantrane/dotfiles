@@ -15,5 +15,5 @@ if ! type "phpdoc" &> /dev/null; then
 fi
 
 if type "phpdoc" &> /dev/null; then
-    sh_success "phpDocumentor $(phpdoc --version) installed: $(which phpdoc)"
+    sh_success "phpDocumentor $(phpdoc --version) installed: $(command -v phpdoc)"
 fi

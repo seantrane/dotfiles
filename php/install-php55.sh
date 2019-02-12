@@ -14,7 +14,7 @@ if type "brew" &> /dev/null; then
         sh_info "Installing PHP 5.5..."
         brew install php55 --with-gmp
     else
-        sh_success "$(brew ls --versions php55) installed: $(which php)"
+        sh_success "$(brew ls --versions php55) installed: $(command -v php)"
     fi
 
     sh_info "Installing primary PHP extensions/modules..."

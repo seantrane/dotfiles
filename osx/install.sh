@@ -159,7 +159,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
             fi
         fi
         if type "webkit2png" &> /dev/null; then
-            sh_success "$(webkit2png --version) installed: $(which webkit2png)"
+            sh_success "$(webkit2png --version) installed: $(command -v webkit2png)"
         fi
     }
     # install_webkit2png

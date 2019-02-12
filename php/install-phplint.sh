@@ -16,5 +16,5 @@ if ! type "phplint" &> /dev/null; then
 fi
 
 if type "phplint" &> /dev/null; then
-    sh_success "PHPLint $(phplint --version) installed: $(which phplint)"
+    sh_success "PHPLint $(phplint --version) installed: $(command -v phplint)"
 fi

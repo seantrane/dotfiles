@@ -27,7 +27,7 @@ if ! type "boom" &> /dev/null; then
 fi
 
 if type "boom" &> /dev/null; then
-    sh_success "$(boom --version) installed: $(which boom)\n"
+    sh_success "$(boom --version) installed: $(command -v boom)\n"
     gem which boom
     echo ""
 fi

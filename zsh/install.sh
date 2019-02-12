@@ -28,7 +28,7 @@ elif type "yum" &> /dev/null; then
 fi
 
 if type "zsh" &> /dev/null; then
-    sh_success "$(zsh --version) installed: $(which zsh)"
+    sh_success "$(zsh --version) installed: $(command -v zsh)"
     # Make Zsh your default shell.
     # This will not work if Zsh is not in your authorized shells list (/etc/shells).
     action=
@@ -39,7 +39,7 @@ if type "zsh" &> /dev/null; then
             sh_info "Make Zsh your default shell..."
             sh_note "This will not work if Zsh is not in your authorized shells list (/etc/shells)."
             # chsh -s $(chsh -l | grep "zsh" -m 1)
-            chsh -s "$(which zsh)"
+            chsh -s "$(command -v zsh)"
             sh_alert "Restart your terminal to apply changes."
             ;;
     esac

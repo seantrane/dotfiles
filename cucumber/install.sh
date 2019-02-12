@@ -14,7 +14,7 @@ if ! type "cucumber" &> /dev/null; then
 fi
 
 if type "cucumber" &> /dev/null; then
-    sh_success "Cucumber $(npm info cucumber version) installed: $(which cucumber)\n"
+    sh_success "Cucumber $(npm info cucumber version) installed: $(command -v cucumber)\n"
     npm list -g cucumber
     echo ""
 fi

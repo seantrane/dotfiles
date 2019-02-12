@@ -15,5 +15,5 @@ if ! type "php-cs-fixer" &> /dev/null; then
 fi
 
 if type "php-cs-fixer" &> /dev/null; then
-    sh_success "PHP-CS-Fixer $(php-cs-fixer --version) installed: $(which php-cs-fixer)"
+    sh_success "PHP-CS-Fixer $(php-cs-fixer --version) installed: $(command -v php-cs-fixer)"
 fi

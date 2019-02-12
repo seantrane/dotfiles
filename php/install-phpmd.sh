@@ -15,5 +15,5 @@ if ! type "phpmd" &> /dev/null; then
 fi
 
 if type "phpmd" &> /dev/null; then
-    sh_success "PHP Mess Detector $(phpmd --version) installed: $(which phpmd)"
+    sh_success "PHP Mess Detector $(phpmd --version) installed: $(command -v phpmd)"
 fi

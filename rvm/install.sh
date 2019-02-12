@@ -23,5 +23,5 @@ if ! type "rvm" &> /dev/null; then
 fi
 
 if type "rvm" &> /dev/null; then
-    sh_success "RVM $(rvm --version) installed: $(which rvm)"
+    sh_success "RVM $(rvm --version) installed: $(command -v rvm)"
 fi

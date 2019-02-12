@@ -21,7 +21,7 @@ install_pigz () {
     fi
 
     if type "pigz" &> /dev/null; then
-        sh_success "$(pigz --version) installed: $(which pigz)"
+        sh_success "$(pigz --version) installed: $(command -v pigz)"
     fi
 }
 install_pigz

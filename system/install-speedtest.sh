@@ -21,7 +21,7 @@ install_speedtest_cli () {
     fi
 
     if type "speedtest_cli" &> /dev/null; then
-        sh_success "$(speedtest_cli --version) installed: $(which speedtest_cli)"
+        sh_success "$(speedtest_cli --version) installed: $(command -v speedtest_cli)"
     fi
 }
 install_speedtest_cli

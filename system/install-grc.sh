@@ -20,7 +20,7 @@ install_grc () {
     fi
 
     if type "grc" &> /dev/null; then
-        sh_success "$(grc --version) installed: $(which grc)"
+        sh_success "$(grc --version) installed: $(command -v grc)"
     fi
 }
 install_grc

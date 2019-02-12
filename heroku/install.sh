@@ -21,5 +21,5 @@ if ! type "heroku" &> /dev/null; then
 fi
 
 if type "heroku" &> /dev/null; then
-    sh_success "$(heroku --version) installed: $(which heroku)"
+    sh_success "$(heroku --version) installed: $(command -v heroku)"
 fi

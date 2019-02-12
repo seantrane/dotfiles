@@ -18,5 +18,5 @@ if ! type "memcached" &> /dev/null; then
 fi
 
 if type "memcached" &> /dev/null; then
-    sh_success "$(memcached --version) installed: $(which memcached)"
+    sh_success "$(memcached --version) installed: $(command -v memcached)"
 fi

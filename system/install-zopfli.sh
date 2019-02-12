@@ -21,7 +21,7 @@ install_zopfli () {
     fi
 
     if type "zopfli" &> /dev/null; then
-        sh_success "$(zopfli --version) installed: $(which zopfli)"
+        sh_success "$(zopfli --version) installed: $(command -v zopfli)"
     fi
 }
 install_zopfli

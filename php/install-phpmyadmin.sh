@@ -15,5 +15,5 @@ if ! type "phpmyadmin" &> /dev/null; then
 fi
 
 if type "phpmyadmin" &> /dev/null; then
-    sh_success "phpMyAdmin $(phpmyadmin --version) installed: $(which phpmyadmin)"
+    sh_success "phpMyAdmin $(phpmyadmin --version) installed: $(command -v phpmyadmin)"
 fi

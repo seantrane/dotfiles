@@ -22,5 +22,5 @@ if ! type "phpunit" &> /dev/null; then
 fi
 
 if type "phpunit" &> /dev/null; then
-    sh_success "PHPUnit $(phpunit --version) installed: $(which phpunit)"
+    sh_success "PHPUnit $(phpunit --version) installed: $(command -v phpunit)"
 fi

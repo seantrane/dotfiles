@@ -21,7 +21,7 @@ install_lynx () {
     fi
 
     if type "lynx" &> /dev/null; then
-        sh_success "$(lynx --version) installed: $(which lynx)"
+        sh_success "$(lynx --version) installed: $(command -v lynx)"
     fi
 }
 install_lynx

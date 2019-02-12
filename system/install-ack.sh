@@ -21,7 +21,7 @@ install_ack () {
     fi
 
     if type "ack" &> /dev/null; then
-        sh_success "$(ack --version) installed: $(which ack)"
+        sh_success "$(ack --version) installed: $(command -v ack)"
     fi
 }
 install_ack

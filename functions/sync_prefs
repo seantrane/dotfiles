@@ -38,7 +38,7 @@ sync_prefs () {
     [[ -a "$FROMSUBL/PlainTasks.sublime-settings" ]] && rsync -avz $FROMSUBL/PlainTasks.sublime-settings $TOSUBL
     [[ -a "$FROMSUBL/Preferences.sublime-settings" ]] && rsync -avz $FROMSUBL/Preferences.sublime-settings $TOSUBL
 
-    if test $(which tree); then
+    if test $(command -v tree); then
         tree $DOTOSXINIT
     else
         ls -al $DOTOSXINIT

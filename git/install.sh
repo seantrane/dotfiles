@@ -19,5 +19,5 @@ if ! type "git" &> /dev/null; then
 fi
 
 if type "git" &> /dev/null; then
-    sh_success "$(git --version) installed: $(which git)"
+    sh_success "$(git --version) installed: $(command -v git)"
 fi

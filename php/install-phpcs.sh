@@ -15,5 +15,5 @@ if ! type "phpcs" &> /dev/null; then
 fi
 
 if type "phpcs" &> /dev/null; then
-    sh_success "PHP CodeSniffer $(phpcs --version) installed: $(which phpcs)"
+    sh_success "PHP CodeSniffer $(phpcs --version) installed: $(command -v phpcs)"
 fi

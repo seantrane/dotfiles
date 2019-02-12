@@ -21,7 +21,7 @@ install_exiv2 () {
     fi
 
     if type "exiv2" &> /dev/null; then
-        sh_success "$(exiv2 --version) installed: $(which exiv2)"
+        sh_success "$(exiv2 --version) installed: $(command -v exiv2)"
     fi
 }
 install_exiv2

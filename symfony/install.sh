@@ -18,5 +18,5 @@ else
 fi
 
 if type "symfony" &> /dev/null; then
-    sh_success "$(symfony --version) installed: $(which symfony)"
+    sh_success "$(symfony --version) installed: $(command -v symfony)"
 fi

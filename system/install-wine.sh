@@ -23,7 +23,7 @@ install_wine () {
     fi
 
     if type "wine" &> /dev/null; then
-        sh_success "$(wine --version) installed: $(which wine)"
+        sh_success "$(wine --version) installed: $(command -v wine)"
     fi
 }
 install_wine

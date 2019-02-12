@@ -24,10 +24,10 @@ if ! type "node" &> /dev/null; then
 fi
 
 if type "node" &> /dev/null; then
-    sh_success "Node.js $(node --version) installed: $(which node)"
+    sh_success "Node.js $(node --version) installed: $(command -v node)"
 fi
 
 if type "npm" &> /dev/null; then
     npm install npm --global
-    sh_success "npm $(npm --version) installed: $(which npm)"
+    sh_success "npm $(npm --version) installed: $(command -v npm)"
 fi

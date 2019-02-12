@@ -15,7 +15,7 @@ if ! type "yo" &> /dev/null; then
 fi
 
 if type "yo" &> /dev/null; then
-    sh_success "Yeoman $(npm info yo version) installed: $(which yo)\n"
+    sh_success "Yeoman $(npm info yo version) installed: $(command -v yo)\n"
     npm list -g yo
     echo ""
 

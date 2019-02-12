@@ -21,7 +21,7 @@ install_imagemagick () {
     fi
 
     if type "convert" &> /dev/null; then
-        sh_success "$(convert --version) installed: $(which convert)"
+        sh_success "$(convert --version) installed: $(command -v convert)"
     fi
 }
 install_imagemagick

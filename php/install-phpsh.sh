@@ -15,5 +15,5 @@ if ! type "phpsh" &> /dev/null; then
 fi
 
 if type "phpsh" &> /dev/null; then
-    sh_success "phpsh $(phpsh --version) installed: $(which phpsh)"
+    sh_success "phpsh $(phpsh --version) installed: $(command -v phpsh)"
 fi

@@ -13,7 +13,7 @@ if ! type "gulp" &> /dev/null; then
 fi
 
 if type "gulp" &> /dev/null; then
-    sh_success "Gulp $(npm info gulp version) installed: $(which gulp)\n"
+    sh_success "Gulp $(npm info gulp version) installed: $(command -v gulp)\n"
     npm list -g gulp
     echo ""
 fi

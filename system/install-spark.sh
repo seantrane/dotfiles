@@ -21,7 +21,7 @@ install_spark () {
     fi
 
     if type "spark" &> /dev/null; then
-        sh_success "$(spark --version) installed: $(which spark)"
+        sh_success "$(spark --version) installed: $(command -v spark)"
     fi
 }
 install_spark

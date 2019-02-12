@@ -18,5 +18,5 @@ if ! type "redis-cli" &> /dev/null; then
 fi
 
 if type "redis-cli" &> /dev/null; then
-    sh_success "$(redis-cli --version) installed: $(which redis-cli)"
+    sh_success "$(redis-cli --version) installed: $(command -v redis-cli)"
 fi

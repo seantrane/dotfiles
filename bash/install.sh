@@ -30,5 +30,5 @@ elif type "yum" &> /dev/null; then
 fi
 
 if type "bash" &> /dev/null; then
-    sh_success "$(bash --version) installed: $(which bash)"
+    sh_success "$(bash --version) installed: $(command -v bash)"
 fi

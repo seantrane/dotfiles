@@ -31,9 +31,9 @@ if ! type "rbenv" &> /dev/null; then
 fi
 
 if type "rbenv" &> /dev/null; then
-    sh_success "$(rbenv --version) installed: $(which rbenv)"
+    sh_success "$(rbenv --version) installed: $(command -v rbenv)"
 fi
 
 if type "ruby-build" &> /dev/null; then
-    sh_success "$(ruby-build --version) installed: $(which ruby-build)"
+    sh_success "$(ruby-build --version) installed: $(command -v ruby-build)"
 fi

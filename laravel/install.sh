@@ -13,5 +13,5 @@ if ! type "laravel" &> /dev/null; then
 fi
 
 if type "laravel" &> /dev/null; then
-    sh_success "$(laravel --version) installed: $(which laravel)"
+    sh_success "$(laravel --version) installed: $(command -v laravel)"
 fi

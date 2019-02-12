@@ -21,7 +21,7 @@ install_p7zip () {
     fi
 
     if type "p7zip" &> /dev/null; then
-        sh_success "$(p7zip --version) installed: $(which p7zip)"
+        sh_success "$(p7zip --version) installed: $(command -v p7zip)"
     fi
 }
 install_p7zip

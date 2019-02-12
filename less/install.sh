@@ -17,6 +17,6 @@ if ! type "lessc" &> /dev/null; then
 fi
 
 if type "lessc" &> /dev/null; then
-    sh_success "Less.js/lessc $(npm info less version) installed: $(which lessc)\n"
+    sh_success "Less.js/lessc $(npm info less version) installed: $(command -v lessc)\n"
     npm list -g less
 fi

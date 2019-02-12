@@ -12,7 +12,7 @@ sudo rm -rf /usr/local/include/node_modules
 echo "~> Removed global node_modules.\n"
 
 # Uninstall npm
-if test $(which npm); then
+if test $(command -v npm); then
     npm uninstall -g npm
     echo "~> Uninstalled npm.\n"
 fi
