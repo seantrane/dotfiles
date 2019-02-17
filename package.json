@@ -3,7 +3,7 @@
   "description": "Backup, restore, and sync the prefs, settings and most important files on your machine.",
   "version": "1.0.0",
   "author": "@seantrane",
-  "license": "MIT",
+  "license": "ISC",
   "homepage": "https://github.com/seantrane/dotfiles#readme",
   "repository": "github:seantrane/dotfiles",
   "bugs": "https://github.com/seantrane/dotfiles/issues",
