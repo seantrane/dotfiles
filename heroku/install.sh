@@ -12,7 +12,8 @@
 if ! type "heroku" &> /dev/null; then
     sh_info "Installing Heroku CLI (heroku toolbelt)..."
     if type "brew" &> /dev/null; then
-        brew install heroku-toolbelt
+        brew tap heroku/brew
+        brew install heroku
     elif type "apt-get" &> /dev/null; then
         wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     else
