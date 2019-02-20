@@ -35,7 +35,6 @@ if type "brew" &> /dev/null; then
     # brew cask install drobo-dashboard
     # brew cask install dropbox
     # brew cask install evernote
-    brew cask install filezilla
     # brew cask install firefox
     # brew cask install gimp
     # brew cask install github
