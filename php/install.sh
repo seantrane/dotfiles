@@ -8,12 +8,6 @@
 # shellcheck disable=SC1090
 [[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
-# Homebrew taps
-if type "brew" &> /dev/null; then
-    sh_info "Setting up Homebrew-PHP tap..."
-    brew tap homebrew/homebrew-php
-fi
-
 DOTPHP=$( cd "${BASH_SOURCE%/*}" && pwd )
 
 # Install PHP
@@ -42,23 +36,11 @@ installphp
 # https://github.com/squizlabs/PHP_CodeSniffer
 [[ -s "$DOTPHP/install-phpcs.sh" ]] && source $DOTPHP/install-phpcs.sh
 
-# http://cs.sensiolabs.org
-#[[ -s "$DOTPHP/install-phpcsfixer.sh" ]] && source $DOTPHP/install-phpcsfixer.sh
-
-# http://www.phpdoc.org
-[[ -s "$DOTPHP/install-phpdoc.sh" ]] && source $DOTPHP/install-phpdoc.sh
-
-# http://www.icosaedro.it/phplint/
-#[[ -s "$DOTPHP/install-phplint.sh" ]] && source $DOTPHP/install-phplint.sh
-
 # http://phpmd.org
 [[ -s "$DOTPHP/install-phpmd.sh" ]] && source $DOTPHP/install-phpmd.sh
 
 # http://www.phpmyadmin.net
 [[ -s "$DOTPHP/install-phpmyadmin.sh" ]] && source $DOTPHP/install-phpmyadmin.sh
-
-# http://www.phpsh.org
-[[ -s "$DOTPHP/install-phpsh.sh" ]] && source $DOTPHP/install-phpsh.sh
 
 # https://phpunit.de
 [[ -s "$DOTPHP/install-phpunit.sh" ]] && source $DOTPHP/install-phpunit.sh
