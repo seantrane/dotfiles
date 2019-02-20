@@ -27,7 +27,7 @@ fi
 # http://bundler.io
 # Recommended by: https://gorails.com/setup
 if ! type "bundler" &> /dev/null; then
-    if type "gem" &> /dev/null && [[ "$OSTYPE" == "linux-gnu" ]]; then
+    if type "gem" &> /dev/null; then
         sh_info "Installing Bundler (http://bundler.io)..."
         sh_note "Recommended by: https://gorails.com/setup"
         gem install bundler
