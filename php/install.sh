@@ -14,16 +14,13 @@ DOTPHP=$( cd "${BASH_SOURCE%/*}" && pwd )
 installphp () {
     local action=
     sh_user "Which PHP version do you want to install?"
-    sh_text "${Underline}a${Reset}) 5.5.* / ${Underline}b${Reset}) 5.6.* / ${Underline}c${Reset}) 7.0.*"
+    sh_text "${Underline}a${Reset}) 5.6.* / ${Underline}b${Reset}) 7.0.* / ${Underline}n${Reset}one"
     read -r -n 1 action
     case "$action" in
-        a ) # PHP 5.5.+
-            [[ -s "$DOTPHP/install-php55.sh" ]] && source $DOTPHP/install-php55.sh
-            ;;
-        b ) # PHP 5.6.+
+        a ) # PHP 5.6.+
             [[ -s "$DOTPHP/install-php56.sh" ]] && source $DOTPHP/install-php56.sh
             ;;
-        c ) # PHP 7.0.+
+        b ) # PHP 7.0.+
             [[ -s "$DOTPHP/install-php70.sh" ]] && source $DOTPHP/install-php70.sh
             ;;
         * )
