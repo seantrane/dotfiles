@@ -9,7 +9,7 @@
 #-----------------------------------------------------------------------
 
 # your project folder that we can `c [tab]` to
-export PROJECTS=$HOME/Projects
+export PROJECTS="$HOME/Projects"
 
 # BROWSER
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -37,4 +37,5 @@ export PAGER='less'
 #-----------------------------------------------------------------------
 # `~/.exports` can be used for private variables.
 
-[[ -f "$HOME/.exports" ]] && source "$HOME/.exports"
+# shellcheck disable=SC1090
+[[ -f "$HOME/.exports" ]] && . "$HOME/.exports"

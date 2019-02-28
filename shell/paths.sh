@@ -12,13 +12,6 @@
 # DEFAULT `$PATH`
 export PATH="/usr/sbin:/usr/bin:./sbin:./bin:/sbin:/bin:$PATH"
 
-# LOAD DOTFILES PATHS:
-# for file in ~/.dotfiles/{git,system}/path.zsh; do
-for file in $(find -H "$DOTFILES" -maxdepth 2 -name 'path.zsh'); do
-    [ -r "$file" ] && [ -f "$file" ] && source "$file";
-done;
-unset file;
-
 # Add `/usr/local/{sbin,bin}` to the `$PATH`
 [[ -d "/usr/local/bin" ]] && export PATH="/usr/local/bin:$PATH"
 [[ -d "/usr/local/sbin" ]] && export PATH="/usr/local/sbin:$PATH"
@@ -35,13 +28,23 @@ unset file;
 [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
 [[ -d "$HOME/sbin" ]] && export PATH="$HOME/sbin:$PATH"
 
+# LOAD DOTFILES PATHS:
+# for file in ~/.dotfiles/{git,system}/path.zsh; do
+# shellcheck disable=SC2044
+for file in $(find -H "$DOTFILES" -maxdepth 2 -name 'path.zsh'); do
+    # shellcheck disable=SC1090
+    [ -r "$file" ] && [ -f "$file" ] && . "$file";
+done;
+unset file;
+
 # CUSTOM/USER PATHS
 # `~/.path` can be used to extend `$PATH`.
-[[ -f "$HOME/.path" ]] && source "$HOME/.path"
+# shellcheck disable=SC1090
+[[ -f "$HOME/.path" ]] && . "$HOME/.path"
 
 # PATH CLEANUP
 # Ensure PATH array does not contain duplicates.
-PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+PATH=$(echo -n "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
 export PATH
 
 #-----------------------------------------------------------------------
@@ -55,5 +58,5 @@ export PATH
 
 # MANPATH CLEANUP
 # Ensure MANPATH array does not contain duplicates.
-MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+MANPATH=$(echo -n "$MANPATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
 export MANPATH
