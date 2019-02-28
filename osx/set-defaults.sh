@@ -152,24 +152,24 @@ sudo pmset -a sms 0
 ###############################################################################
 
 # Trackpad: enable tap to click for this user and for the login screen
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Trackpad: map bottom right corner to right-click
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool false
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool false
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool false
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool false
 
 # Trackpad: disable launchpad pinch with thumb and three fingers
-defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
+# defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
 # Disable “natural” (Lion-style) scrolling
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+# defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Increase sound quality for Bluetooth headphones/headsets
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+# defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
@@ -645,17 +645,6 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
 
 ###############################################################################
-# Mac App Store                                                               #
-###############################################################################
-
-# Enable the WebKit Developer Tools in the Mac App Store
-# defaults write com.apple.appstore WebKitDeveloperExtras -bool true
-
-# Enable Debug Menu in the Mac App Store
-# defaults write com.apple.appstore ShowDebugMenu -bool true
-
-
-###############################################################################
 # Messages                                                                    #
 ###############################################################################
 
@@ -677,24 +666,7 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 #defaults write com.apple.menuextra.clock DateFormat -string "E MMM d HH:mm"
 
 # Menu bar: Set date and time format e.g. Sun Aug 11 4:55 pm
-defaults write com.apple.menuextra.clock DateFormat -string "E d MMM h:mm a"
-
-# Disable Dock icons bounce animation
-#defaults write com.apple.dock no-bouncing -bool true
-
-# mute all sounds, incl volume change feedback
-#defaults write "com.apple.sound.beep.feedback" -int 0
-#defaults write "com.apple.systemsound" "com.apple.sound.uiaudio.enabled" -int 0
-
-# Bottom left screen corner → Desktop
-#defaults write com.apple.dock wvous-bl-corner -int 4
-#defaults write com.apple.dock wvous-bl-modifier -int 0
-# Top right screen corner → Mission Control
-#defaults write com.apple.dock wvous-tr-corner -int 2
-#defaults write com.apple.dock wvous-tr-modifier -int 0
-# Bottom right screen corner → Start screen saver
-#defaults write com.apple.dock wvous-br-corner -int 5
-#defaults write com.apple.dock wvous-br-modifier -int 0
+defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM h:mm a"
 
 
 ###############################################################################
