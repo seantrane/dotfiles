@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+#
+# syncit
+#
+# Sync personal directories and application preferences to an external drive.
+# Run it when starting up and shutting down to ensure your drive has the latest.
+# Requires 'rsyncit' function.
+
+# Shell Support
+# shellcheck disable=SC1090
+! type "rsyncit" &> /dev/null && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/functions/rsyncit"
+
+export EXTERNAL_VOLUME="/Volumes/My"
+
+export PROJECTS_PATH="Projects"
+
+export ALFRED_PREFS_PATH="Library/Application Support/Alfred 3/Alfred.alfredpreferences"
+export CHROME_BOOKMARKS_PATH="Library/Application Support/Google/Chrome/Default/Bookmarks"
+export CODE_USER_PREFS_PATH="Library/Application Support/Code/User"
+export JETBRAINS_CODESTYLES_PATH="Library/Preferences/WebIde90/codestyles"
+export JETBRAINS_COLORS_PATH="Library/Preferences/WebIde90/colors"
+export JETBRAINS_KEYMAPS_PATH="Library/Preferences/WebIde90/keymaps"
+export WEBSTORM_CODESTYLES_PATH="Library/Preferences/WebStorm2017.1/codestyles"
+export WEBSTORM_COLORS_PATH="Library/Preferences/WebStorm2017.1/colors"
+export WEBSTORM_KEYMAPS_PATH="Library/Preferences/WebStorm2017.1/keymaps"
+
+if type "rsyncit" &> /dev/null; then
+
+  declare -a SYNC_PATHS=(
+    "PROJECTS_PATH"
+    "ALFRED_PREFS_PATH"
+    "CHROME_BOOKMARKS_PATH"
+    "CODE_USER_PREFS_PATH"
+    "JETBRAINS_CODESTYLES_PATH"
+    "JETBRAINS_COLORS_PATH"
+    "JETBRAINS_KEYMAPS_PATH"
+    "WEBSTORM_CODESTYLES_PATH"
+    "WEBSTORM_COLORS_PATH"
+    "WEBSTORM_KEYMAPS_PATH"
+  )
+
+  for SYNC_PATH in "${SYNC_PATHS[@]}"; do
+
+    SRC_SYNC_PATH="${!SYNC_PATH}"
+    [[ -d "${HOME}/${!SYNC_PATH}" ]] && SRC_SYNC_PATH="${!SYNC_PATH}/"
+
+    [[ -e "${EXTERNAL_VOLUME}/${!SYNC_PATH}" ]] && {
+      echo "${SYNC_PATH}: ${EXTERNAL_VOLUME}/${!SYNC_PATH}"
+      rsyncit down "${EXTERNAL_VOLUME}/${SRC_SYNC_PATH}" "${HOME}/${!SYNC_PATH}"
+    }
+
+    [[ -e "${HOME}/${!SYNC_PATH}" ]] && {
+      echo "${SYNC_PATH}: ${HOME}/${!SYNC_PATH}"
+      rsyncit up "${HOME}/${SRC_SYNC_PATH}" "${EXTERNAL_VOLUME}/${!SYNC_PATH}"
+    }
+
+  done
+
+fi
