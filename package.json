@@ -10,7 +10,7 @@
   "scripts": {
     "git:commit": "git-cz",
     "lint:md": "markdownlint -i '**/node_modules/**' -c '.markdownlint.yaml' './'",
-    "lint:sh": "docker pull koalaman/shellcheck:stable && docker run -v \"$PWD:/mnt\" koalaman/shellcheck ./**/*.sh && docker kill koalaman/shellcheck 2> /dev/null; docker rm -f koalaman/shellcheck 2> /dev/null; docker rmi -f koalaman/shellcheck:stable 2> /dev/null",
+    "lint:sh": "docker pull koalaman/shellcheck:stable && docker run -rm -v \"$PWD:/mnt\" koalaman/shellcheck ./**/*.sh && docker kill koalaman/shellcheck 2> /dev/null; docker rm -f koalaman/shellcheck 2> /dev/null; docker rmi -f koalaman/shellcheck:stable 2> /dev/null",
     "lint": "npm run lint:md",
     "semantic-release": "semantic-release"
   },
