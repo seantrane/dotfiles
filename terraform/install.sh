@@ -11,6 +11,11 @@ if ! type "terraform" &> /dev/null; then
     sh_info "Installing Terraform..."
     if type "brew" &> /dev/null; then
         brew install terraform
+    elif type "apt-get" &> /dev/null; then
+        # sudo apt-get update
+        sudo apt-get -y install terraform
+    elif type "yum" &> /dev/null; then
+        sudo yum install terraform
     fi
 fi
 
