@@ -21,6 +21,9 @@
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=%00
 
+# Disable power chime (sound when plugging in a cable)
+defaults write com.apple.PowerChime ChimeOnNoHardware -bool true && killall PowerChime
+
 # Disable transparency in the menu bar and elsewhere on Yosemite
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
