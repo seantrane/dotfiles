@@ -9,19 +9,19 @@
 if ! type "sass" &> /dev/null; then
 
     # Ensure Ruby is installed and `gem` command is available.
-    ! type "gem" &> /dev/null && source $DOTFILES/ruby/install.sh
+    ! type "gem" &> /dev/null && . "$DOTFILES/ruby/install.sh"
 
     if type "gem" &> /dev/null; then
-        source $DOTFILES/ruby/gem-update.sh
+        . "$DOTFILES/ruby/gem-update.sh"
         sh_info "Installing Sass..."
         gem install sass
     fi
 
-    source $DOTFILES/ruby/rehash.sh
+    . "$DOTFILES/ruby/rehash.sh"
 fi
 
 if type "sass" &> /dev/null; then
     sh_success "$(sass --version) installed: $(command -v sass)\n"
     gem which sass
-    echo ""
+    echo
 fi

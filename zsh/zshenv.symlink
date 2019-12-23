@@ -77,7 +77,7 @@
 #-----------------------------------------------------------------------
 
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-    source "${ZDOTDIR:-$HOME}/.zprofile"
+  . "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
 #-----------------------------------------------------------------------
@@ -87,7 +87,7 @@ fi
 # in the following files; `~/.bashrc` and `~/.zshenv`
 
 # . ~/.env
-[[ -f "${ZDOTDIR:-$HOME}/.env" ]] && source "${ZDOTDIR:-$HOME}/.env"
+[[ -f "${ZDOTDIR:-$HOME}/.env" ]] && . "${ZDOTDIR:-$HOME}/.env"
 
 
 ########################################################################
@@ -102,7 +102,7 @@ fi
 # autoload every function:
 # for file in ~/.dotfiles/functions/{extract,link_file}; do
 # for file in $(find -H "$DOTFILES/functions" -maxdepth 2 -name '[A-Za-z0-9\-\_]*'); do
-#     [ -r "$file" ] && [ -f "$file" ] && source "$file"
+#   [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
 # done
 # unset file
 
@@ -113,13 +113,13 @@ autoload +X sh_alert sh_error sh_fail sh_info sh_note sh_success sh_text sh_user
 # fpath="$DOTFILES/functions:$fpath"
 
 # for d in $fpath; do
-#     autoload `ls $d`
+#   autoload `ls $d`
 # done
 
 # autoload `ls "$DOTFILES/functions"`
 
-# source "$DOTFILES/zsh/fpath.zsh"
-# source "$DOTFILES/zsh/config.zsh"
+# . "$DOTFILES/zsh/fpath.zsh"
+# . "$DOTFILES/zsh/config.zsh"
 
 
 #-----------------------------------------------------------------------
@@ -128,13 +128,13 @@ autoload +X sh_alert sh_error sh_fail sh_info sh_note sh_success sh_text sh_user
 
 # Set the the list of directories that cd searches.
 # cdpath=(
-#     $cdpath
+#   $cdpath
 # )
 
 # Set the list of directories that Zsh searches for programs.
 # path=(
-#     /usr/local/{bin,sbin}
-#     $path
+#   /usr/local/{bin,sbin}
+#   $path
 # )
 
 # Ensure path arrays do not contain duplicates.
@@ -145,8 +145,8 @@ autoload +X sh_alert sh_error sh_fail sh_info sh_note sh_success sh_text sh_user
 #-----------------------------------------------------------------------
 
 if [[ ! -d "$TMPDIR" ]]; then
-    export TMPDIR="/tmp/$LOGNAME"
-    mkdir -p -m 700 "$TMPDIR"
+  export TMPDIR="/tmp/$LOGNAME"
+  mkdir -p -m 700 "$TMPDIR"
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
@@ -191,7 +191,7 @@ else
 # Source/init Prezto.
 #-----------------------------------------------------------------------
 
-[[ -f "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+[[ -f "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && . "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
 # Unalias `nocorrect` completions from: prezto/modules/utility/init.zsh
 #unalias mkdir mv mysql rm
@@ -203,7 +203,7 @@ else
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
-[[ -f "${ZDOTDIR:-$HOME}/.localrc" ]] && source ${ZDOTDIR:-$HOME}/.localrc
+[[ -f "${ZDOTDIR:-$HOME}/.localrc" ]] && . "${ZDOTDIR:-$HOME}/.localrc"
 
 #-----------------------------------------------------------------------
 # ALIASES
@@ -218,13 +218,14 @@ config_files=($DOTFILES/**/*.zsh)
 # load everything but the path and completion files:
 # for file in ~/.dotfiles/{git,system}/{aliases,*}.zsh; do
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
-    source $file
+  [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
 done
+unset file
 
 unset config_files
 
 # `~/.aliases` can be used for private aliases.
-[[ -f "${ZDOTDIR:-$HOME}/.aliases" ]] && source ${ZDOTDIR:-$HOME}/.aliases
+[[ -f "${ZDOTDIR:-$HOME}/.aliases" ]] && . "${ZDOTDIR:-$HOME}/.aliases"
 
 # moving-or-renaming-multiple-files
 # http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
@@ -234,7 +235,7 @@ autoload -U zmv
 alias mmv='noglob zmv -W'
 
 # http://apt-browse.org/browse/debian/wheezy/main/all/command-not-found/
-[[ -f "/etc/zsh_command_not_found" ]] && source /etc/zsh_command_not_found
+[[ -f "/etc/zsh_command_not_found" ]] && . "/etc/zsh_command_not_found"
 
 #-----------------------------------------------------------------------
 # TAB COMPLETION
@@ -247,9 +248,9 @@ unsetopt CORRECT
 # This bunch of code displays red dots when autocompleting
 # a command with the tab key, "Oh-my-zsh"-style.
 expand-or-complete-with-dots() {
-    echo -n "\e[31m......\e[0m"
-    zle expand-or-complete
-    zle redisplay
+  echo -n "\e[31m......\e[0m"
+  zle expand-or-complete
+  zle redisplay
 }
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
@@ -260,27 +261,27 @@ compinit -u
 
 # Homebrew-Zsh help reset
 if type "brew" &> /dev/null && [ -f "$(brew --prefix)/share/zsh/help" ]; then
-    unalias run-help
-    autoload run-help
-    HELPDIR="$(brew --prefix)/share/zsh/help"
+  unalias run-help
+  autoload run-help
+  HELPDIR="$(brew --prefix)/share/zsh/help"
 fi
 
 # load every completion after autocomplete loads:
 # for file in ~/.dotfiles/{git,system}/completion.zsh; do
 for file in $(find -H "$DOTFILES" -maxdepth 2 -name 'completion.zsh'); do
-    [ -r "$file" ] && [ -f "$file" ] && source "$file";
-done;
-unset file;
+  [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
+done
+unset file
 
 # z - jump around
 # https://github.com/rupa/z
 # Tracks your most used directories, based on 'frecency'.
 # After a short learning phase, z will take you to the most 'frecent' directory
 # that matches ALL of the regexes given on the command line, in order.
-if [ -f "$HOME/z/z.sh" ]; then
-    source "$HOME/z/z.sh"
-elif type "brew" &> /dev/null && [ -f "$(brew --prefix)/etc/profile.d/z.sh" ]; then
-    source "$(brew --prefix)/etc/profile.d/z.sh"
+if [[ -f "$HOME/z/z.sh" ]]; then
+  . "$HOME/z/z.sh"
+elif type "brew" &> /dev/null && [[ -f "$(brew --prefix)/etc/profile.d/z.sh" ]]; then
+  . "$(brew --prefix)/etc/profile.d/z.sh"
 fi
 
 #-----------------------------------------------------------------------
@@ -300,14 +301,15 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+# shellcheck disable=SC1009,SC1072,SC1073
 if (( $#commands[(i)lesspipe(|.sh)] )); then
-    export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
 #-----------------------------------------------------------------------
 # Travis CI
 #-----------------------------------------------------------------------
-[ -f "${ZDOTDIR:-$HOME}/.travis/travis.sh" ] && source "${ZDOTDIR:-$HOME}/.travis/travis.sh"
+[[ -f "${ZDOTDIR:-$HOME}/.travis/travis.sh" ]] && . "${ZDOTDIR:-$HOME}/.travis/travis.sh"
 
 
 ########################################################################
@@ -323,11 +325,16 @@ if [[ -o LOGIN ]]; then
 : ######################################################################
 # echo "$SHELL::interactive-login"
 
+THIS_SYS=${UTYPE:-} || THIS_SYS=${OSTYPE:-} || THIS_SYS=$(uname) || THIS_SYS=""
+THIS_MACH=${UMACH:-} || THIS_MACH=${MACHTYPE:-} || THIS_MACH=$(uname -m ) || THIS_MACH=""
+THIS_ARCH=${UARCH:-} || THIS_ARCH=${HOSTTYPE:-} || THIS_ARCH=$(uname -p) || THIS_ARCH=""
+THIS_HOST=${HOST:-} || THIS_HOST=${HOSTNAME:-} || THIS_HOST=$(hostname) || THIS_HOST=""
+
 printf "${ClearNewLine}${BGBlack}\n"
-printf "${Cyan}SYSTEM ❯ ${UTYPE} ${UMACH} ${UARCH}\n"
-printf "${Red}SHELL  ❯ $(${SHELL} --version)\n"
-printf "${Yellow}USER   ❯ ${USER} @ ${HOST} (${LANG})\n"
-printf "${Green}HOME   ❯ ${HOME}\n"
+printf "${Cyan}SYSTEM ❯ ${THIS_SYS} ${THIS_MACH} ${THIS_ARCH}\n"
+printf "${Red}SHELL  ❯ $(${SHELL:-} --version)\n"
+printf "${Yellow}USER   ❯ ${USER:-} @ ${THIS_HOST} (${LANG:-})\n"
+printf "${Green}HOME   ❯ ${HOME:-}\n"
 printf "\n\n${Reset}"
 
 

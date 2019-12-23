@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-alias reload!='. ~/.bashrc'
+alias reload!=". ~/.bashrc"

@@ -7,11 +7,11 @@ alias ios="open /Applications/Xcode.app/Contents/Developer/Applications/Simulato
 alias subl="open -a \"Sublime Text\""
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='(cd; sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm cache clean -g -f; npm install -g npm@latest; npm update -g; npm cache clean -g -f; sudo gem update --system; sudo gem update)'
-alias brewupdate='brew update; brew upgrade; brew cleanup'
-alias macupdate='sudo softwareupdate -i -a'
-alias nodeupdate='(cd; npm cache clean -g -f; brew update node --without-npm; npm install -g npm@latest; npm update -g; npm cache clean -g -f)'
-alias rubyupdate='sudo gem update --system; sudo gem update'
+alias update="(cd; sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm cache clean -g -f; npm install -g npm@latest; npm update -g; npm cache clean -g -f; sudo gem update --system; sudo gem update)"
+alias brewupdate="brew update; brew upgrade; brew cleanup"
+alias macupdate="sudo softwareupdate -i -a"
+alias nodeupdate="(cd; npm cache clean -g -f; brew update node --without-npm; npm install -g npm@latest; npm update -g; npm cache clean -g -f)"
+alias rubyupdate="sudo gem update --system; sudo gem update"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -62,11 +62,11 @@ alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && 
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 # URL-encode strings
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+alias urlencode="python -c \"import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);\""
 
 # Merge PDF files
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
-alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
+alias mergepdf="/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py"
 
 # Disable Spotlight
 alias spotoff="sudo mdutil -a -i off"

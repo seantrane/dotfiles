@@ -35,7 +35,7 @@ if ! type "brew" &> /dev/null; then
     # test "$(uname)" = "Darwin"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         # Homebrew requires Xcode Command Line Tools
-        source $DOTFILES/osx/install-clt.sh;
+        . "$DOTFILES/osx/install-clt.sh"
         if [[ ! "$XCODE_PATH" ]]; then
             sh_fail "Homebrew requires Xcode Command Line Tools."
         fi
@@ -43,7 +43,7 @@ if ! type "brew" &> /dev/null; then
         if type "ruby" &> /dev/null; then
             ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         else
-            (cd /usr/local; mkdir homebrew && curl -L https://github.com/Homebrew/homebrew/tarball/master | tar xz --strip 1 -C homebrew)
+            (cd /usr/local || return 1; mkdir homebrew && curl -L https://github.com/Homebrew/homebrew/tarball/master | tar xz --strip 1 -C homebrew)
         fi
     fi
 fi
@@ -63,10 +63,10 @@ if type "brew" &> /dev/null; then
     fi
     # Remove outdated versions from the cellar.
     brew cleanup
-    echo ""
+    echo
 fi
 
 if type "brew" &> /dev/null; then
     sh_success "$(brew --version) installed: $(command -v brew)"
-    echo ""
+    echo
 fi

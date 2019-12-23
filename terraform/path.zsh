@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-if [ -d "$HOME/terraform" ]; then
-    export PATH="$HOME/terraform:$PATH"
-fi
+[[ -d "$HOME/terraform" ]] && export PATH="$HOME/terraform:$PATH"
 
-if [ -d "/usr/local/terraform/bin" ]; then
-    export PATH="/usr/local/terraform/bin:$PATH"
-fi
-
+[[ -d "/usr/local/terraform/bin" ]] && export PATH="/usr/local/terraform/bin:$PATH"

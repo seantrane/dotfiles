@@ -9,7 +9,7 @@
 [[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if ! type "yo" &> /dev/null; then
-    ! type "npm" &> /dev/null && source $DOTFILES/node/install.sh
+    ! type "npm" &> /dev/null && . "$DOTFILES/node/install.sh"
     sh_info "Installing Yeoman..."
     npm install -g yo@latest
 fi
@@ -17,7 +17,7 @@ fi
 if type "yo" &> /dev/null; then
     sh_success "Yeoman $(npm info yo version) installed: $(command -v yo)\n"
     npm list -g yo
-    echo ""
+    echo
 
     #
     # Install Yeoman generators
@@ -26,7 +26,7 @@ if type "yo" &> /dev/null; then
     # Jekyllized
     # https://github.com/sondr3/generator-jekyllized
     # if ! type "gulp" &> /dev/null; then
-    #     source $DOTFILES/gulp/install.sh
+    #     . "$DOTFILES/gulp/install.sh"
     # fi
     # sh_info "Installing Jekyllized..."
     # npm install -g generator-jekyllized

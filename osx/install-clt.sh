@@ -32,8 +32,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # Check gcc for successful installation.
     if type "gcc" &> /dev/null; then
         sh_success "gcc is installed. Check configuration:"
-        echo ""
+        echo
         gcc --version
-        echo ""
+        echo
     fi
 fi

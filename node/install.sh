@@ -20,7 +20,7 @@ if ! type "node" &> /dev/null; then
         sudo yum install gcc-c++ make
     fi
     sh_info "Adding ~/.node/bin to PATH..."
-    source $( cd "${BASH_SOURCE%/*}" && pwd )/path.zsh
+    . "$( cd "${BASH_SOURCE%/*}" && pwd )/path.zsh"
 fi
 
 if type "node" &> /dev/null; then

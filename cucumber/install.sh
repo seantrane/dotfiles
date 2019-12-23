@@ -8,7 +8,7 @@
 [[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if ! type "cucumber" &> /dev/null; then
-    ! type "npm" &> /dev/null && source $DOTFILES/node/install.sh
+    ! type "npm" &> /dev/null && . "$DOTFILES/node/install.sh"
     sh_info "Installing Cucumber..."
     npm install -g cucumber
 fi
@@ -16,5 +16,5 @@ fi
 if type "cucumber" &> /dev/null; then
     sh_success "Cucumber $(npm info cucumber version) installed: $(command -v cucumber)\n"
     npm list -g cucumber
-    echo ""
+    echo
 fi

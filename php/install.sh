@@ -14,14 +14,14 @@ DOTPHP=$( cd "${BASH_SOURCE%/*}" && pwd )
 installphp () {
     local action=
     sh_user "Which PHP version do you want to install?"
-    sh_text "${Underline}a${Reset}) 5.6.* / ${Underline}b${Reset}) 7.0.* / ${Underline}n${Reset}one"
+    sh_text "${Underline:-}a${Reset:-}) 5.6.* / ${Underline:-}b${Reset:-}) 7.0.* / ${Underline:-}n${Reset:-}one"
     read -r -n 1 action
     case "$action" in
         a ) # PHP 5.6.+
-            [[ -s "$DOTPHP/install-php56.sh" ]] && source $DOTPHP/install-php56.sh
+            [[ -s "$DOTPHP/install-php56.sh" ]] && . "$DOTPHP/install-php56.sh"
             ;;
         b ) # PHP 7.0.+
-            [[ -s "$DOTPHP/install-php70.sh" ]] && source $DOTPHP/install-php70.sh
+            [[ -s "$DOTPHP/install-php70.sh" ]] && . "$DOTPHP/install-php70.sh"
             ;;
         * )
             sh_alert "You elected not to install PHP."
@@ -31,13 +31,13 @@ installphp () {
 installphp
 
 # https://github.com/squizlabs/PHP_CodeSniffer
-[[ -s "$DOTPHP/install-phpcs.sh" ]] && source $DOTPHP/install-phpcs.sh
+[[ -s "$DOTPHP/install-phpcs.sh" ]] && . "$DOTPHP/install-phpcs.sh"
 
 # http://phpmd.org
-[[ -s "$DOTPHP/install-phpmd.sh" ]] && source $DOTPHP/install-phpmd.sh
+[[ -s "$DOTPHP/install-phpmd.sh" ]] && . "$DOTPHP/install-phpmd.sh"
 
 # http://www.phpmyadmin.net
-[[ -s "$DOTPHP/install-phpmyadmin.sh" ]] && source $DOTPHP/install-phpmyadmin.sh
+[[ -s "$DOTPHP/install-phpmyadmin.sh" ]] && . "$DOTPHP/install-phpmyadmin.sh"
 
 # https://phpunit.de
-[[ -s "$DOTPHP/install-phpunit.sh" ]] && source $DOTPHP/install-phpunit.sh
+[[ -s "$DOTPHP/install-phpunit.sh" ]] && . "$DOTPHP/install-phpunit.sh"

@@ -15,7 +15,7 @@ if type "brew" &> /dev/null; then
     sh_info "Installing Bash..."
     brew install bash bash-completion2
     # Add the new shell to the list of allowed shells
-    if [ -e "$(brew --prefix)/bin/bash" ]; then
+    if [[ -e "$(brew --prefix)/bin/bash" ]]; then
         sh_info "Adding Bash to your allowed shells (/etc/shells)..."
         if type "tee" &> /dev/null; then
             sudo tee -a /etc/shells <<<"$(brew --prefix)/bin/bash"

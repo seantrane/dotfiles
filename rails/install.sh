@@ -28,5 +28,5 @@ fi
 if type "rails" &> /dev/null; then
     sh_success "$(rails --version) installed: $(command -v rails)\\n"
     gem which rails
-    echo ""
+    echo
 fi

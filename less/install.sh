@@ -7,7 +7,7 @@
 [[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if ! type "lessc" &> /dev/null; then
-    ! type "npm" &> /dev/null && source $DOTFILES/node/install.sh
+    ! type "npm" &> /dev/null && . "$DOTFILES/node/install.sh"
     sh_info "Installing Less.js/lessc..."
     npm install -g less
     # Install Less.js/lessc plugins

@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #
 # Shell Response Text/Colors/Helpers
-# 
+#
 # This file contains text/color effects and
 # text-response helper functions for Shell scripts.
+# shellcheck disable=SC1090
 
 # Color Switch
 export SWITCH='\033['
@@ -103,22 +104,22 @@ export BGIDefault="${SWITCH}0;109m" # Default
 # Shell Response Helpers
 #-----------------------------------------------------------------------
 
-# ! type "sh_text" &> /dev/null && source $DOTFILES/functions/sh_text
-# ! type "sh_user" &> /dev/null && source $DOTFILES/functions/sh_user
-# ! type "sh_yesno" &> /dev/null && source $DOTFILES/functions/sh_yesno
-# ! type "sh_alert" &> /dev/null && source $DOTFILES/functions/sh_alert
-# ! type "sh_info" &> /dev/null && source $DOTFILES/functions/sh_info
-# ! type "sh_note" &> /dev/null && source $DOTFILES/functions/sh_note
-# ! type "sh_error" &> /dev/null && source $DOTFILES/functions/sh_error
-# ! type "sh_success" &> /dev/null && source $DOTFILES/functions/sh_success
-# ! type "sh_fail" &> /dev/null && source $DOTFILES/functions/sh_fail
+# ! type "sh_text" &> /dev/null && . "$DOTFILES/functions/sh_text"
+# ! type "sh_user" &> /dev/null && . "$DOTFILES/functions/sh_user"
+# ! type "sh_yesno" &> /dev/null && . "$DOTFILES/functions/sh_yesno"
+# ! type "sh_alert" &> /dev/null && . "$DOTFILES/functions/sh_alert"
+# ! type "sh_info" &> /dev/null && . "$DOTFILES/functions/sh_info"
+# ! type "sh_note" &> /dev/null && . "$DOTFILES/functions/sh_note"
+# ! type "sh_error" &> /dev/null && . "$DOTFILES/functions/sh_error"
+# ! type "sh_success" &> /dev/null && . "$DOTFILES/functions/sh_success"
+# ! type "sh_fail" &> /dev/null && . "$DOTFILES/functions/sh_fail"
 
-source $DOTFILES/functions/sh_text
-source $DOTFILES/functions/sh_user
-source $DOTFILES/functions/sh_yesno
-source $DOTFILES/functions/sh_alert
-source $DOTFILES/functions/sh_info
-source $DOTFILES/functions/sh_note
-source $DOTFILES/functions/sh_error
-source $DOTFILES/functions/sh_success
-source $DOTFILES/functions/sh_fail
+. "$DOTFILES/functions/sh_text"
+. "$DOTFILES/functions/sh_user"
+. "$DOTFILES/functions/sh_yesno"
+. "$DOTFILES/functions/sh_alert"
+. "$DOTFILES/functions/sh_info"
+. "$DOTFILES/functions/sh_note"
+. "$DOTFILES/functions/sh_error"
+. "$DOTFILES/functions/sh_success"
+. "$DOTFILES/functions/sh_fail"

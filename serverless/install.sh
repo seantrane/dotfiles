@@ -11,7 +11,7 @@
 [[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 if ! type "serverless" &> /dev/null; then
-    ! type "npm" &> /dev/null && source $DOTFILES/node/install.sh
+    ! type "npm" &> /dev/null && . "$DOTFILES/node/install.sh"
     sh_info "Installing Serverless Framework..."
     npm install -g serverless
 fi

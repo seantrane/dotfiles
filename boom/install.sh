@@ -15,19 +15,19 @@
 if ! type "boom" &> /dev/null; then
 
     # Ensure Ruby is installed and `gem` command is available.
-    ! type "gem" &> /dev/null && source $DOTFILES/ruby/install.sh
+    ! type "gem" &> /dev/null && . "$DOTFILES/ruby/install.sh"
 
     if type "gem" &> /dev/null; then
-        source $DOTFILES/ruby/gem-update.sh
+        . "$DOTFILES/ruby/gem-update.sh"
         sh_info "Installing Boom..."
         gem install boom
     fi
 
-    source $DOTFILES/ruby/rehash.sh
+    . "$DOTFILES/ruby/rehash.sh"
 fi
 
 if type "boom" &> /dev/null; then
     sh_success "$(boom --version) installed: $(command -v boom)\n"
     gem which boom
-    echo ""
+    echo
 fi
