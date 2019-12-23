@@ -19,7 +19,6 @@ if type "brew" &> /dev/null; then
     sh_info "Installing Apps..."
     brew cask install 1password
     brew cask install a-better-finder-rename
-    # brew cask install adobe-air
     # brew cask install adobe-creative-cloud
     # brew cask install adobe-photoshop-lightroom
     # brew cask install adobe-reader
@@ -38,11 +37,13 @@ if type "brew" &> /dev/null; then
     # brew cask install firefox
     # brew cask install gimp
     # brew cask install github
+    # brew cask install gitkraken
     # brew cask install gitx
     brew cask install google-chrome
     brew cask install handbrake
     brew cask install imagealpha
     brew cask install imageoptim
+    # brew cask install intellij-idea
     # brew cask install intellij-idea-ce
     brew cask install iterm2
     brew cask install java
@@ -53,14 +54,17 @@ if type "brew" &> /dev/null; then
     # brew cask install keka
     # brew cask install libreoffice
     # brew cask install little-snitch
+    brew cask install macpar-deluxe
     # brew cask install mamp
     # brew cask install microsoft-lync
     # brew cask install microsoft-office
+    brew cask install mongodb-compass
     # brew cask install phpstorm
     brew cask install postman
-    # brew cask install robomongo
+    # brew cask install robo-3t
     # brew cask install screenflow
     # brew cask install sequel-pro
+    brew cask install skype
     brew cask install slack
     brew cask install sourcetree
     # brew cask install spectacle
@@ -70,14 +74,18 @@ if type "brew" &> /dev/null; then
     # brew cask install textexpander
     brew cask install the-unarchiver
     # brew cask install tower
+    # brew cask install transmission
     # brew cask install vagrant
     brew cask install virtualbox
     brew cask install visual-studio-code
     # brew cask install vitalsource-bookshelf
     brew cask install vlc
+    # brew cask install webstorm
+    # brew cask install whatsapp
     brew cask install xld
     brew cask install xquartz
     # brew cask install xtrafinder
+    brew cask install zoom
 
     # xquartz needs to be installed before wine
     brew install wine
