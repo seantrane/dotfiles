@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 # Remove all Docker images
+# shellcheck disable=SC2046
 
 docker_rmi_all () {
 
