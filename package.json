@@ -20,7 +20,7 @@
     "@semantic-release/changelog": "^3.0.6",
     "@semantic-release/git": "^7.0.18",
     "commitlint-config-awesome": "^1.0.4",
-    "husky": "^3.1.0",
+    "husky": "^4.0.10",
     "markdownlint-cli": "^0.20.0",
     "semantic-release": "^15.14.0"
   },
