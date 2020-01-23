@@ -18,11 +18,11 @@
     "@commitlint/cli": "^8.2.0",
     "@commitlint/travis-cli": "^8.2.0",
     "@semantic-release/changelog": "^3.0.6",
-    "@semantic-release/git": "^7.0.18",
+    "@semantic-release/git": "^8.0.0",
     "commitlint-config-awesome": "^1.0.4",
     "husky": "^3.1.0",
     "markdownlint-cli": "^0.20.0",
-    "semantic-release": "^15.14.0"
+    "semantic-release": "^16.0.3"
   },
   "commitlint": {
     "extends": [
