@@ -35,6 +35,9 @@ command -v md5sum > /dev/null || alias md5sum="md5"
 # OS X has no `sha1sum`, so use `shasum` as a fallback
 command -v sha1sum > /dev/null || alias sha1sum="shasum"
 
+# Disable power chime (sound when plugging in a cable, or at startup)
+alias chimeoff="defaults write com.apple.PowerChime ChimeOnNoHardware -bool true; defaults write com.apple.PowerChime ChimeOnAllHardware -bool false; sudo defaults write com.apple.PowerChime ChimeOnNoHardware -bool true; sudo defaults write com.apple.PowerChime ChimeOnAllHardware -bool false; sudo nvram StartupMute=%01; killall PowerChime || return 0"
+
 # JavaScriptCore REPL
 #jscbin="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc";
 #[ -e "${jscbin}" ] && alias jsc="${jscbin}";
