@@ -4,6 +4,17 @@
 # Supports iterative/optional upgrading of all installed casks.
 
 cask_upgrade () {
+  if ! type "brew" &> /dev/null; then
+    echo "'brew' command not found."
+    return 1
+  fi
+  local caskroom_path=""
+  [[ -d "/opt/homebrew-cask/Caskroom" ]] && caskroom_path="/opt/homebrew-cask/Caskroom"
+  [[ -d "/usr/local/Caskroom" ]] && caskroom_path="/usr/local/Caskroom"
+  if [[ -z "$caskroom_path" ]]; then
+    echo "Caskroom path not found."
+    return 1
+  fi
   if [[ "$1" != '--continue' ]]; then
     echo "Removing brew cache"
     rm -rf "$(brew --cache)"
@@ -12,7 +23,7 @@ cask_upgrade () {
   fi
   for cask_name in $(brew cask list); do
     echo -e "\n\nInstalled versions of $cask_name: "
-    ls "/opt/homebrew-cask/Caskroom/$cask_name"
+    ls "$caskroom_path/$cask_name"
     echo "Cask info for $cask_name"
     brew cask info "$cask_name"
     select ynx in "Yes" "No" "Exit"; do
@@ -22,13 +33,16 @@ cask_upgrade () {
           brew cask uninstall --force "$cask_name"
           echo "Re-installing $cask_name"
           brew cask install "$cask_name"
-          break;;
+          break
+          ;;
         [nN] | [n|N][O|o] )
           echo "Skipping $cask_name"
-          break;;
+          break
+          ;;
         * )
           echo "Exiting brew-cask-upgrade"
-          return;;
+          return
+          ;;
       esac
     done
   done
