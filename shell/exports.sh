@@ -3,6 +3,8 @@
 # EXPORTS
 #
 # Defines exports/variables for bash scripting environment.
+#
+# shellcheck disable=SC1090,SC1091
 
 #-----------------------------------------------------------------------
 # DEFAULT VARIABLES
@@ -37,5 +39,4 @@ export PAGER='less'
 #-----------------------------------------------------------------------
 # `~/.exports` can be used for private variables.
 
-# shellcheck disable=SC1090
 [[ -f "$HOME/.exports" ]] && . "$HOME/.exports"

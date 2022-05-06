@@ -2,13 +2,14 @@
 #
 # Shell script support
 # This file contains functions and helpers for Shell scripts.
+#
+# shellcheck disable=SC1090,SC1091
 
 #-----------------------------------------------------------------------
 # Shell Environment
 #-----------------------------------------------------------------------
 
 # . ~/.env
-# shellcheck disable=SC1090
 [[ -f "$HOME/.env" ]] && . "$HOME/.env"
 
 

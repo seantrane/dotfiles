@@ -32,8 +32,8 @@ export PATH="/usr/sbin:/usr/bin:./sbin:./bin:/sbin:/bin:$PATH"
 # for file in ~/.dotfiles/{git,system}/path.zsh; do
 # shellcheck disable=SC2044
 for file in $(find -H "$DOTFILES" -maxdepth 2 -name 'path.zsh'); do
-    # shellcheck disable=SC1090
-    [ -r "$file" ] && [ -f "$file" ] && . "$file";
+  # shellcheck disable=SC1090
+  [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file";
 done;
 unset file;
 
@@ -58,5 +58,5 @@ export PATH
 
 # MANPATH CLEANUP
 # Ensure MANPATH array does not contain duplicates.
-MANPATH=$(echo -n "$MANPATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
+type "awk" &> /dev/null && MANPATH=$(echo -n "$MANPATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
 export MANPATH

@@ -3,12 +3,13 @@
 # FUNCTIONS
 #
 # Defines functions for bash scripting environment.
+#
+# shellcheck disable=SC1090,SC1091
 
 #-----------------------------------------------------------------------
 # HELPER FUNCTIONS
 #-----------------------------------------------------------------------
 
-# shellcheck disable=SC1090
 ! type "link_file" &> /dev/null && . "$DOTFILES/functions/link_file"
 ! type "lowercase" &> /dev/null && . "$DOTFILES/functions/lowercase"
 

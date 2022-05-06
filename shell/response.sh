@@ -4,7 +4,8 @@
 #
 # This file contains text/color effects and
 # text-response helper functions for Shell scripts.
-# shellcheck disable=SC1090
+#
+# shellcheck disable=SC1090,SC1091
 
 # Color Switch
 export SWITCH='\033['
