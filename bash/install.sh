@@ -5,9 +5,10 @@
 # This installs Bash and common extensions using Homebrew.
 # Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
 # running `chsh`.
+#
+# shellcheck disable=SC1090,SC1091
 
 # Shell Support
-# shellcheck disable=SC1090
 [[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
 
 sh_info "Installing/updating Bash + bash-completions..."

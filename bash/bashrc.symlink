@@ -35,7 +35,8 @@
 # There might be some commands (those which produce output, etc.)
 # that you only want executed when the shell is interactive, and
 # not in scripts, which you can put in the “conditional section”.
-
+#
+# shellcheck disable=SC1090,SC1091
 
 #-----------------------------------------------------------------------
 # Load `.env` a.k.a. `~/.dotfiles/shell/env.symlink`
@@ -44,7 +45,6 @@
 # in the following files; `~/.bashrc` and `~/.zshenv`
 
 # . ~/.env
-# shellcheck disable=SC1090
 [[ -f "$HOME/.env" ]] && . "$HOME/.env"
 
 
@@ -61,7 +61,6 @@
 # for file in ~/.dotfiles/functions/{extract,link_file}; do
 # shellcheck disable=SC2044
 for file in $(find -H "$DOTFILES/functions" -maxdepth 2 -name '[A-Za-z0-9\-\_]*'); do
-  # shellcheck disable=SC1090,SC1091
   [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
 done
 unset file
@@ -110,15 +109,15 @@ else
 if type "grc" &> /dev/null; then
   # Homebrew GRC: https://github.com/Homebrew/homebrew/blob/master/Library/Formula/grc.rb
   if type "brew" &> /dev/null && [[ -f "$(brew --prefix)/etc/grc.bashrc" ]]; then
-      # shellcheck disable=SC1090
-      . "$(brew --prefix)/etc/grc.bashrc"
+    . "$(brew --prefix)/etc/grc.bashrc"
+  elif [[ -f "/etc/grc.bashrc" ]]; then
+    . "/etc/grc.bashrc"
   fi
 fi
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
-# shellcheck disable=SC1090
 [[ -f "$HOME/.localrc" ]] && . "$HOME/.localrc"
 
 #-----------------------------------------------------------------------
@@ -126,7 +125,6 @@ fi
 #-----------------------------------------------------------------------
 
 # `~/.bash_prompt` can be used for custom prompt configuration.
-# shellcheck disable=SC1090
 [[ -f "$HOME/.bash_prompt" ]] && . "$HOME/.bash_prompt"
 
 
@@ -138,13 +136,11 @@ fi
 # for file in ~/.dotfiles/{git,system}/aliases.zsh; do
 # shellcheck disable=SC2044
 for file in $(find -H "$DOTFILES" -maxdepth 2 -name 'aliases.zsh'); do
-  # shellcheck disable=SC1090,SC1091
   [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
 done;
 unset file;
 
 # `~/.aliases` can be used for private aliases.
-# shellcheck disable=SC1090
 [[ -f "$HOME/.aliases" ]] && . "$HOME/.aliases"
 
 
@@ -183,6 +179,7 @@ if [[ ${BASH_VERSION%%[^0-9]*} -ge 4 ]]; then
   elif type "brew" &> /dev/null && [[ -f "$(brew --prefix)/share/bash-completion" ]]; then
     . "$(brew --prefix)/share/bash-completion"
   elif [[ -f "/etc/bash_completion" ]]; then
+    # shellcheck disable=SC1090,SC1091
     . "/etc/bash_completion"
   fi
 
@@ -227,6 +224,18 @@ if shopt -q login_shell ; then
 : ######################################################################
 # echo "$SHELL::interactive-login"
 
+THIS_USER=${USER:-$(id -un || echo "\u")}
+THIS_HOST=${HOST:-${HOSTNAME:-$(hostname || echo "\h")}}
+THIS_SYS=${UTYPE:-${OSTYPE:-$(uname || echo "")}}
+THIS_MACH=${UMACH:-${MACHTYPE:-$(uname -m || echo "")}}
+THIS_ARCH=${UARCH:-${HOSTTYPE:-$(uname -p || echo "")}}
+
+echo -e "\n"
+echo -e "\n SYSTEM ❯ ${THIS_SYS} ${THIS_MACH} ${THIS_ARCH} \n"
+echo -e "\n SHELL  ❯ $(${SHELL:-} --version | head -n 1)\n"
+echo -e "\n USER   ❯ ${THIS_USER:-} @ ${THIS_HOST} (${LANG:-}) \n"
+echo -e "\n HOME   ❯ ${HOME:-} \n"
+echo -e "\n"
 
 
 ########################################################################

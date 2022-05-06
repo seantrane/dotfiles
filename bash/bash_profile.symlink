@@ -4,6 +4,8 @@
 #
 # Put stuff in `~/.bashrc`, make `~/.bash_profile` source it.
 # See comments in `~/.bashrc` for detailed summary.
+#
+# shellcheck disable=SC1090,SC1091
 
-[[ -e "$HOME/.profile" ]] && source $HOME/.profile
-[[ -e "$HOME/.bashrc" ]] && source $HOME/.bashrc
+[[ -e "$HOME/.profile" ]] && . "$HOME/.profile"
+[[ -e "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
