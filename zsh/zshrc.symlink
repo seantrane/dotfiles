@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 #
 # ZSH RC
 #
@@ -9,6 +8,182 @@
 #
 # Put stuff in conditional section of `~/.zshenv`.
 # See comments in `~/.zshenv` for detailed summary.
+#
+# shellcheck disable=SC1090,SC1091
+
+########################################################################
+########################################################################
+##
+##  1. SCRIPT / NON-INTERACTIVE / .zshenv
+##
+##  Only for NON-interactive shells (ie; scripts)
+##  Put your script-only stuff here, otherwise
+##  this section can be ignored.
+##
+########################################################################
+if [[ "$SHLVL" -eq 1 && ! -o LOGIN ]]; then
+: ######################################################################
+# echo "$SHELL"
+
+
+
+########################################################################
+########################################################################
+##
+##  2. INTERACTIVE / PROMPT / .zshrc
+##
+##  This is executed only for interactive shells.
+##  If you have a command-prompt, this conditional was met.
+##  Put stuff here for prompt-based users only.
+##
+########################################################################
+else
+: ######################################################################
+# echo "$SHELL::interactive"
+
+#-----------------------------------------------------------------------
+# Source/init Prezto.
+#-----------------------------------------------------------------------
+
+[[ -f "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && . "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+
+# Unalias `nocorrect` completions from: prezto/modules/utility/init.zsh
+# unalias mkdir mv mysql rm
+
+#-----------------------------------------------------------------------
+# LOCAL/PRIVATE CONFIG
+#-----------------------------------------------------------------------
+
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+[[ -f "${ZDOTDIR:-$HOME}/.localrc" ]] && . "${ZDOTDIR:-$HOME}/.localrc"
+
+#-----------------------------------------------------------------------
+# ALIASES
+#-----------------------------------------------------------------------
+# Aliases should only be available to prompt-user (not scripts).
+
+alias reload!='. ~/.zshrc'
+
+typeset -U _config_files
+_config_files=("$DOTFILES"/**/*.zsh)
+# _config_path_files=${_config_files:#*/path.zsh}
+# load everything but the path and completion files:
+# for file in ~/.dotfiles/{git,system}/{aliases,*}.zsh; do
+for file in ${${_config_files:#*/path.zsh}:#*/completion.zsh}; do
+  [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
+done
+unset file
+unset _config_files
+
+# `~/.aliases` can be used for private aliases.
+[[ -f "${ZDOTDIR:-$HOME}/.aliases" ]] && . "${ZDOTDIR:-$HOME}/.aliases"
+
+# moving-or-renaming-multiple-files
+# http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
+# “mmv *.dat *.dat_old” or “mmv foo.* bar.*”
+# “mmv **/*2008.mp3 **/*2009.mp3”
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
+# http://apt-browse.org/browse/debian/wheezy/main/all/command-not-found/
+[[ -f "/etc/zsh_command_not_found" ]] && . "/etc/zsh_command_not_found"
+
+#-----------------------------------------------------------------------
+# TAB COMPLETION
+#-----------------------------------------------------------------------
+
+# Disable autocorrect guesses. Happens when typing a wrong
+# command that may look like an existing one.
+unsetopt CORRECT
+
+# This bunch of code displays red dots when autocompleting
+# a command with the tab key, "Oh-my-zsh"-style.
+expand-or-complete-with-dots() {
+  echo -n "\e[31m......\e[0m"
+  zle expand-or-complete
+  zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit -u
+
+# Homebrew-Zsh help reset
+if type "brew" &> /dev/null && [ -f "$(brew --prefix)/share/zsh/help" ]; then
+  unalias run-help
+  autoload run-help
+  HELPDIR="$(brew --prefix)/share/zsh/help"; export HELPDIR
+fi
+
+# load every completion after autocomplete loads:
+# for file in ~/.dotfiles/{git,system}/completion.zsh; do
+# shellcheck disable=SC2044
+for file in $(find -H "$DOTFILES" -maxdepth 2 -name 'completion.zsh'); do
+  [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
+done
+unset file
+
+# z - jump around
+# https://github.com/rupa/z
+# Tracks your most used directories, based on 'frecency'.
+# After a short learning phase, z will take you to the most 'frecent' directory
+# that matches ALL of the regexes given on the command line, in order.
+if [[ -f "$HOME/z/z.sh" ]]; then
+  . "$HOME/z/z.sh"
+elif type "brew" &> /dev/null && [[ -f "$(brew --prefix)/etc/profile.d/z.sh" ]]; then
+  . "$(brew --prefix)/etc/profile.d/z.sh"
+fi
+
+#-----------------------------------------------------------------------
+# Less - opposite of more
+#-----------------------------------------------------------------------
+# Less is a program similar to more (1), but which allows
+# backward movement in the file as well as forward movement.
+# Also, less does not have to read the entire input file
+# before starting, so with large input files it starts up faster
+# than text editors like vi.
+
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+# shellcheck disable=SC1009,SC1072,SC1073
+# if (( $#commands[(i)lesspipe(|.sh)] )); then
+#   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+# fi
+lesspipe_file="/usr/local/bin/lesspipe.sh"
+[[ -e "/usr/local/bin/lesspipe" ]] && lesspipe_file="/usr/local/bin/lesspipe"
+LESSOPEN="|$lesspipe_file %s"; export LESSOPEN                     #(sh like shells)
+type "setenv" &> /dev/null && setenv LESSOPEN "|$lesspipe_file %s" #(csh, tcsh)
+
+#-----------------------------------------------------------------------
+# Travis CI
+#-----------------------------------------------------------------------
+[[ -f "${ZDOTDIR:-$HOME}/.travis/travis.sh" ]] && . "${ZDOTDIR:-$HOME}/.travis/travis.sh"
+
+#-----------------------------------------------------------------------
+# PROMPT OPTIONS
+#-----------------------------------------------------------------------
+
+autoload -Uz promptinit
+promptinit
+prompt sorin
+
+
+########################################################################
+########################################################################
+##
+##  THE END: SCRIPT/INTERACTIVE CONDITIONAL CONFIGURATION
+##
+fi #####################################################################
+########################################################################
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`

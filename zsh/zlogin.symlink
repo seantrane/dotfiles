@@ -1,29 +1,28 @@
-#!/usr/bin/env bash
 #
 # ZSH LOGIN
 #
 # Executes commands at login (after .zshrc).
-# 
-# `.zlogin' is sourced in login shells. It should contain commands that 
-# should be executed only in login shells. `.zprofile' is meant as an alternative 
-# to `.zlogin' for ksh fans; the two are not intended to be used together, 
+#
+# `.zlogin' is sourced in login shells. It should contain commands that
+# should be executed only in login shells. `.zprofile' is meant as an alternative
+# to `.zlogin' for ksh fans; the two are not intended to be used together,
 # although this could certainly be done if desired.
-# 
-# `.zlogin' is not the place for alias definitions, options, 
-# environment variable settings, etc.; as a general rule, it should not 
-# change the shell environment at all. Rather, it should be used to 
+#
+# `.zlogin' is not the place for alias definitions, options,
+# environment variable settings, etc.; as a general rule, it should not
+# change the shell environment at all. Rather, it should be used to
 # set the terminal type and run a series of external commands (fortune, msgs, etc).
-# 
+#
 # Typically, most users will encounter a login shell only if either:
 #   * they logged in from a tty, not through a GUI
 #   * they logged in remotely, such as through ssh.
-# 
-# If the shell was started any other way, such as through GNOME’s gnome-terminal 
-# or KDE’s konsole, then it is typically not a login shell — the login shell was 
-# what started GNOME or KDE behind your back when you logged in; things started anew 
-# are not login shells. New terminals or new screen windows you open are not login 
+#
+# If the shell was started any other way, such as through GNOME’s gnome-terminal
+# or KDE’s konsole, then it is typically not a login shell — the login shell was
+# what started GNOME or KDE behind your back when you logged in; things started anew
+# are not login shells. New terminals or new screen windows you open are not login
 # shells either.
 # (Starting a new window in OS X’s Terminal.app seems to count as a login shell, though.)
-# 
+#
 # Put `~/.zlogin` stuff in the Conditional Configuration section of `~/.zshenv`.
 # See comments in `~/.zshenv` for detailed summary.

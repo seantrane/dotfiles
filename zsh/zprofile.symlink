@@ -1,12 +1,69 @@
-#!/usr/bin/env bash
 #
 # ZSH PROFILE
-# 
+#
 # `.zprofile' is meant as an alternative to `.zlogin' for ksh fans;
-# the two are not intended to be used together, 
+# the two are not intended to be used together,
 # although this could certainly be done if desired.
-# 
+#
 # Put stuff in `~/.zshenv`, which is always executed.
 # See comments in `~/.zshenv` for detailed summary.
+#
+# shellcheck disable=SC1090,SC1091
 
-[[ -f "${ZDOTDIR:-$HOME}/.profile" ]] && source ${ZDOTDIR:-$HOME}/.profile
+########################################################################
+########################################################################
+##
+##  3. LOGIN / .zprofile / .zlogin
+##
+##  This is executed only when it is a login shell.
+##  Put your `~/.zprofile` and `~/.zlogin` stuff here.
+##
+########################################################################
+if [[ -o LOGIN ]]; then
+: ######################################################################
+# echo "$SHELL::interactive-login"
+
+[[ -f "${ZDOTDIR:-$HOME}/.profile" ]] && . "${ZDOTDIR:-$HOME}/.profile"
+
+THIS_USER=${USER:-$(id -un || echo "\u")}
+THIS_HOST=${HOST:-${HOSTNAME:-$(hostname || echo "\h")}}
+THIS_SYS=${UTYPE:-${OSTYPE:-$(uname || echo "")}}
+THIS_MACH=${UMACH:-${MACHTYPE:-$(uname -m || echo "")}}
+THIS_ARCH=${UARCH:-${HOSTTYPE:-$(uname -p || echo "")}}
+
+LOGIN_OUTPUT="${ClearNewLine:-}${BGBlack:-}\n"
+LOGIN_OUTPUT+="${Cyan:-}SYSTEM ❯ ${THIS_SYS} ${THIS_MACH} ${THIS_ARCH}\n"
+LOGIN_OUTPUT+="${Red:-}SHELL  ❯ $(${SHELL:-} --version | head -n 1)\n"
+LOGIN_OUTPUT+="${Yellow:-}USER   ❯ ${THIS_USER:-} @ ${THIS_HOST} (${LANG:-})\n"
+LOGIN_OUTPUT+="${Green:-}HOME   ❯ ${HOME:-}\n"
+LOGIN_OUTPUT+="\n\n${Reset:-}"
+
+# shellcheck disable=SC2059
+printf "${LOGIN_OUTPUT}"
+
+
+########################################################################
+########################################################################
+##
+##  4. NON-LOGIN / .zprofile
+##
+##  Only when it is NOT a login shell.
+##  This is the default `~/.zshrc` environment.
+##  That means this can be ignored unless considerations
+##  are required for NON-LOGIN USERS ONLY.
+##
+########################################################################
+else
+: ######################################################################
+# echo "$SHELL::interactive-nonlogin"
+
+
+
+########################################################################
+########################################################################
+##
+##  THE END: PROFILE CONFIGURATION
+##
+fi #####################################################################
+########################################################################
+
