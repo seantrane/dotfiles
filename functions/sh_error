@@ -4,7 +4,7 @@
 
 sh_error () {
     # shellcheck disable=SC2059
-    printf "${ClearNewLine:-} [${Red:-} ER ${Reset:-}]  ${Red:-}${1:-}${Reset:-} \\n"
+    printf "${ClearNewLine:-} [${Red:-} ER ${Reset:-}]  ${Red:-}${1:-}${Reset:-} \\n" >&2
 }
 
 # shellcheck disable=SC2034

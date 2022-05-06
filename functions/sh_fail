@@ -4,8 +4,7 @@
 
 sh_fail () {
     # shellcheck disable=SC2059
-    printf "${ClearNewLine:-} [${Red:-}FAIL${Reset:-}]  ${Red:-}${1:-}${Reset:-} \\n"
-    echo ''
+    printf "${ClearNewLine:-} [${Red:-}FAIL${Reset:-}]  ${Red:-}${1:-}${Reset:-} \\n\\n" >&2
     exit 2
 }
 
