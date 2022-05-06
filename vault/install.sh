@@ -10,11 +10,6 @@ if ! type "vault" &> /dev/null; then
     sh_info "Installing Vault..."
     if type "brew" &> /dev/null; then
         brew install vault
-    elif type "apt-get" &> /dev/null; then
-        # sudo apt-get update
-        sudo apt-get -y install vault
-    elif type "yum" &> /dev/null; then
-        sudo yum install vault
     fi
 fi
 
