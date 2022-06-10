@@ -22,7 +22,7 @@
     "commitlint-config-awesome": "^1.0.4",
     "husky": "^7.0.4",
     "markdownlint-cli": "^0.31.1",
-    "semantic-release": "^19.0.2"
+    "semantic-release": "^19.0.3"
   },
   "commitlint": {
     "extends": [
