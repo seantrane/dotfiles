@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 #
+# Bash Prompt
+# https://ss64.com/bash/syntax-prompt.html
+# Variables that control the appearance of the bash command prompt:
+#   PS1 – Default interactive prompt (this is the variable most often customized)
+#   PS2 – Continuation interactive prompt (when a long command is broken up with \ at the end of the line) default=">"
+#   PS3 – Prompt used by “select” loop inside a shell script
+#   PS4 – Prompt used when a shell script is executed in debug mode (“set -x” will turn this on) default ="++"
+#   PROMPT_COMMAND - If this variable is set and has a non-null value, then it will be executed just before the PS1 variable.
+#
 # Shell prompt based on the Prezto Sorin theme for Zsh.
 #
 # iTerm → Profiles → Text → use 13pt Menlo/Monaco with 1.1 vertical spacing.
@@ -39,226 +48,281 @@ if tput setaf 1 &> /dev/null; then
   # violet=$(tput setaf 61)
   # white=$(tput setaf 15)
   # yellow=$(tput setaf 136)
+  # Custom
+  dkgray=$(tput setaf 235)
+  green=$(tput setaf 76)
 else
-  bold=""
+  bold="\e[1"
   reset="\e[0m"
-  black="\e[1;30m"
-  dkgray="\e[1;39m"
+  black="\e[0;30m"
+  dkgray="\e[1;30m"
   gray="\e[1;39m"
-  ltgray="\e[1;39m"
+  ltgray="\e[0;37m"
   blue="\e[1;34m"
   cyan="\e[1;36m"
   green="\e[1;32m"
-  orange="\e[1;33m"
-  purple="\e[1;35m"
+  orange="\e[0;33m"
+  purple="\e[0;35m"
   red="\e[1;31m"
   violet="\e[1;35m"
   white="\e[1;37m"
   yellow="\e[1;33m"
 fi
+# Add escape characters for sequence of non-printing characters (like color escape sequences).
+# This allows bash to calculate word wrapping correctly.
+bold="\[$bold\]"
+reset="\[$reset\]"
+black="\[$black\]"
+dkgray="\[$dkgray\]"
+gray="\[$gray\]"
+ltgray="\[$ltgray\]"
+blue="\[$blue\]"
+cyan="\[$cyan\]"
+green="\[$green\]"
+orange="\[$orange\]"
+purple="\[$purple\]"
+red="\[$red\]"
+violet="\[$violet\]"
+white="\[$white\]"
+yellow="\[$yellow\]"
 
-git_info () {
-  # check if we're in a git repo
-  git rev-parse --is-inside-work-tree &> /dev/null || return
-  # quickest check for what branch we're on
-  branch=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||')
-  # check if it's dirty (via github.com/sindresorhus/pure)
-  dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "*")
-
-  echo "${white} on ${purple}${branch}${dirty}"
-}
-
+################################################################################
+# Display git info and status for shell prompt.
 # Definitions for prompt-git-icons:
-#   - The 'square' signifies that there are untracked changes.
-#   - The '=' signifies there are unmergerd changes.
-#   - The '->' signifies that something has been renamed.
-#   - The '6-pointed blue star' signifies that there is a modification.
-#   - The 'red X' signifies that something has been deleted.
-#   - The 'green +' signifies that something is added.
-#   - The 'blue 5-pointed star' signifies that something is stashed.
-#   - The 'arrow pointing down' means you are behind.
-#   - The 'arrow pointing up' means you are ahead.
+#   - '◀︎' = # of commits behind origin branch.
+#   - '▶︎' = # of commits ahead origin branch.
+#   - '#' = # of total changes in index, work tree.
+#   - 'M' = Modified in index / work tree changed since index.
+#   - 'T' = File type changed in index. File type changed in work tree since index.
+#   - 'A' = Added from index, work tree.
+#   - 'D' = Deleted from index, work tree.
+#   - 'R' = Renamed in index, work tree.
+#   - 'C' = Copied in index, work tree.
+#   - 'U' = Unmerged, both modified.
+#   - '?' = Untracked files.
+#   - '!' = Ignored files.
+#   - '$' = Stashed files.
+# Globals:
+#   git
+# Options:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   If directoy is a git repo, prints to STDOUT...
+#   Active git branch and icons representing git status...
+#   git:main 2◀︎ ▶︎1 (3) M T A D R C U ? ! $
+################################################################################
 prompt_git () {
-  local s='';
-  local branchName='';
+  local working_dir_path="${1:-$PWD}"
+  local git_icons=''
+  local branch_name=''
+  local change_count
   # Check if the current directory is in a Git repository.
-  if type "git" &> /dev/null && [[ "$(git rev-parse --is-inside-work-tree &>/dev/null; echo ${?})" == '0' ]]; then
+  if type "git" &> /dev/null && [[ "$(cd "$working_dir_path"; git rev-parse --is-inside-work-tree &> /dev/null; echo ${?})" == '0' ]]; then
     # check if the current directory is in .git before running git checks
-    if [[ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]]; then
+    if [[ "$(cd "$working_dir_path"; git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]]; then
       # Ensure the index is up to date.
       git update-index --really-refresh -q &> /dev/null
-      # Check for uncommitted changes in the index.
-      if [[ ! $(git diff --quiet --ignore-submodules --cached) ]]; then
-        s+="${violet} +${gray}"
+      # Get git status output, in parse-ready format.
+      # Info: https://git-scm.com/docs/git-status
+      git_status_output="$(cd "$working_dir_path" || return; git status -b --show-stash --porcelain -u --ignore-submodules --ahead-behind --renames)"
+      git_status_output_branch="$(echo "${git_status_output}" | head -1)"
+      git_status_output_changes="$(echo "${git_status_output}" | tail -n +2)"
+      [[ -n "$git_status_output_changes" ]] && change_count="$(echo "${git_status_output_changes}" | wc -l)"
+      # Active branch name
+      if [[ "$git_status_output_branch" =~ .*\#\#\ .+ ]]; then
+        branch_name="${git_status_output_branch%\.\.\.*}"
+        branch_name="${branch_name#\#\#\ }"
+        branch_name="${branch_name#No\ commits\ yet\ on\ }"
+        if [[ "$git_status_output_branch" =~ .*behind\ [0-9]+ ]]; then
+          count_behind="${git_status_output_branch%]*}"
+          count_behind="${count_behind#*behind\ }"
+          branch_name+=" ${red}${count_behind}◀︎"
+        fi
+        if [[ "$git_status_output_branch" =~ .*ahead\ [0-9]+ ]]; then
+          count_ahead="${git_status_output_branch%]*}"
+          count_ahead="${count_ahead#*ahead\ }"
+          branch_name+=" ${violet}▶︎${count_ahead}"
+        fi
       fi
-      # Check for deleted files.
-      if [[ -n "$(git ls-files --deleted)" ]]; then
-        s+="${red} ✖︎${gray}"; # X
+      [[ "$change_count" -gt 0 ]] && branch_name+=" ${gray}(${change_count})"
+      # Modified in index / work tree changed since index.
+      if [[ "$git_status_output" =~ .*M[\ MTD]\ .+ ]] \
+      || [[ "$git_status_output" =~ .*[\ MTARC]M\ .+ ]]; then
+        git_icons+=" ${yellow}M"
       fi
-      # Check for modified files.
-      if [[ -n "$(git ls-files --modified)" ]]; then
-        s+="${cyan} ✶${gray}"; # *
+      # File type changed in index. File type changed in work tree since index.
+      if [[ "$git_status_output" =~ .*T[\ MTD]\ .+ ]] \
+      || [[ "$git_status_output" =~ .*[\ MTARC]T\ .+ ]]; then
+        git_icons+=" ${purple}T"
       fi
-      # Check for untracked files.
-      if [[ -n "$(git ls-files --others --exclude-standard)" ]]; then
-        s+="${bold}${green} +${reset}${gray}"; # ?
+      # Added from index, work tree.
+      if [[ "$git_status_output" =~ .*A[\ MTDU]\ .+ ]] \
+      || [[ "$git_status_output" =~ .*[AU]A\ .+ ]]; then
+        git_icons+=" ${green}A"
+        [[ "$git_status_output" =~ .*UA\ .+ ]] && git_icons+="⬆︎" # unmerged, added by them
+        [[ "$git_status_output" =~ .*AU\ .+ ]] && git_icons+="⬇︎" # unmerged, added by us
+        [[ "$git_status_output" =~ .*AA\ .+ ]] && git_icons+="⬍" # unmerged, both added
       fi
-      # Check for unstaged changes.
-      if [[ ! $(git diff-files --quiet --ignore-submodules --) ]]; then
-        s+="${white} ■${gray}"; # !
+      # Deleted from index, work tree.
+      if [[ "$git_status_output" =~ .*D[\ DU]\ .+ ]] \
+      || [[ "$git_status_output" =~ .*[\ MTARC]D\ .+ ]]; then
+        git_icons+=" ${red}D"
+        [[ "$git_status_output" =~ .*UD\ .+ ]] && git_icons+="⬆︎" # unmerged, deleted by them
+        [[ "$git_status_output" =~ .*DU\ .+ ]] && git_icons+="⬇︎" # unmerged, deleted by us
+        [[ "$git_status_output" =~ .*DD\ .+ ]] && git_icons+="⬍" # unmerged, both deleted
       fi
-      # Check for stashed files.
-      if [[ $(git rev-parse --verify refs/stash &>/dev/null) ]]; then
-        s+="${blue} ★${gray}"; # $
+      # Renamed in index, work tree.
+      if [[ "$git_status_output" =~ .*R[\ MTD]\ .+ ]] \
+      || [[ "$git_status_output" =~ .*\ R\ .+ ]]; then
+        git_icons+=" ${orange}R"
       fi
+      # Copied in index, work tree.
+      if [[ "$git_status_output" =~ .*C[\ MTD]\ .+ ]] \
+      || [[ "$git_status_output" =~ .*\ C\ .+ ]]; then
+        git_icons+=" ${gray}C"
+      fi
+      # Unmerged, both modified.
+      [[ "$git_status_output" =~ .*UU\ .+ ]] && git_icons+=" ${yellow}U"
+      # Untracked files.
+      [[ "$git_status_output" =~ .*\?\?\ .+ ]] && git_icons+=" ${cyan}?"
+      # Ignored files.
+      [[ "$git_status_output" =~ .*\!\!\ .+ ]] && git_icons+=" ${dkgray}!"
+      # Stashed files.
+      if [[ "$git_status_output" =~ .*stash\ [0-9]+.* ]] \
+      || [[ $(cd "$working_dir_path"; git rev-parse --verify refs/stash &> /dev/null) ]]; then
+        git_icons+=" ${blue}$"
+      fi
+
+      # # Check for uncommitted changes in the index.
+      # [[ ! $(cd "$working_dir_path"; git diff --quiet --ignore-submodules --cached) ]] && git_icons+=" ${violet}∆"
+      # # Check for deleted files.
+      # [[ -n "$(cd "$working_dir_path"; git ls-files --deleted)" ]] && git_icons+=" ${red}X"
+      # # Check for modified files.
+      # [[ -n "$(cd "$working_dir_path"; git ls-files --modified)" ]] && git_icons+=" ${yellow}M"
+      # # Check for untracked files.
+      # [[ -n "$(cd "$working_dir_path"; git ls-files --others --exclude-standard)" ]] && git_icons+=" ${green}U"
+      # # Check for unstaged changes.
+      # [[ ! $(cd "$working_dir_path"; git diff-files --quiet --ignore-submodules --) ]] && git_icons+=" ${white}■"
     fi
     # Get the short symbolic ref.
     # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
     # Otherwise, just give up.
-    branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+    [[ -z "$branch_name" ]] && branch_name="$(cd "$working_dir_path" || return; \
+      git symbolic-ref --quiet --short HEAD 2> /dev/null || \
       git rev-parse --short HEAD 2> /dev/null || \
-      echo '(unknown)')";
+      git branch | tail -c +3 || \
+      echo '(unknown)')"
 
-    # [[ -n "${s}" ]] && s=" ${gray}[${s} ${gray}]";
-
-    echo -e "${1}${branchName}${s} ${reset}";
-  else
-    return;
-  fi;
+    echo "${violet}git${white}:${green}${branch_name}${git_icons}${reset}"
+  fi
 }
 
 #-----------------------------------------------------------------------
-# USER @ HOST >
+# USER @ HOST (OS-MACH-ARCH):
 #-----------------------------------------------------------------------
 
-THIS_USER=${USER:-$(id -un 2> /dev/null || echo "\u")}
-THIS_GROUP=${GROUP:-$(id -gn 2> /dev/null)}
-THIS_HOST=${HOST:-${HOSTNAME:-$(hostname 2> /dev/null || echo "\h")}}
-THIS_SYS=${UTYPE:-${OSTYPE:-$(uname 2> /dev/null)}}
-THIS_MACH=${UMACH:-${MACHTYPE:-$(uname -m 2> /dev/null)}}
-THIS_ARCH=${UARCH:-${HOSTTYPE:-$(uname -p 2> /dev/null)}}
-
-PSUSERHOST=""
-
-# HOSTNAME
-PSHOST="\[${gray}\] @ "
-if [[ "${SSH_TTY}" ]]; then
-  # Highlight the hostname when connected via SSH.
-  PSHOST+="\[${bold}${red}\]"
-  PSHOST+="${THIS_HOST}"
-  PSHOST+="\[${reset}\]"
-else
-  PSHOST+="\[${gray}\]"
-  PSHOST+="${THIS_HOST}"
-  PSHOST+="\[${white}\]"
-fi
-
-# USERNAME
-PSUSER=""
-if [[ "${USER}" == "root" ]]; then
-  # Highlight the user name when logged in as root.
-  PSUSER+="\[${red}\]"
-  PSUSER+="${THIS_USER}"
-  PSUSER+="\[${white}\]"
-else
-  PSUSER+="\[${yellow}\]"
-  PSUSER+="${THIS_USER}(${THIS_GROUP})"
-  PSUSER+="\[${white}\]"
-  # I prefer not to display my own username,
-  # if not displaying my local hostname.
-  # Comment this out to display local user.
-  # [[ -z "$PSHOST" ]] && PSUSER=""
-fi
-
-PSUSERHOST+="${PSUSER}${PSHOST}"
-
-PSVM=""
-# PSVM+=" [${LANG:-}]"
-# PSVM+=" \[${gray}\](${THIS_MACH})\[${white}\]"
-
-#-----------------------------------------------------------------------
-# DIRECTORY
-#-----------------------------------------------------------------------
-
-PathShort="\w"
-PathFull="\W"
-
-PSDIR="\[${cyan}\]${PathShort}";
-# number of files in directory
-# PSDIR+=" \[${gray}\](";
-# PSDIR+="\$(ls | wc -l)";
-# PSDIR+=")\[${white}\]";
-
-#-----------------------------------------------------------------------
-# GIT
-#-----------------------------------------------------------------------
-
-PSGIT="\$(prompt_git \" ${violet}git${white}:${green}\")";
-
-#-----------------------------------------------------------------------
-# TIME
-#-----------------------------------------------------------------------
-
-Time24h="\\\t"
-Time12h="\T"
-Time12a="\@"
-
-PSTIME="\[${gray}\][${Time24h}]\[${white}\]";
-
-#-----------------------------------------------------------------------
-# ARROWS
-#-----------------------------------------------------------------------
-
-ARROW1GRAY="\[${dkgray}\]❯\[${reset}\]"
-ARROW2GRAY="\[${gray}\]❯\[${dkgray}\]❯\[${reset}\]"
-ARROW3GRAY="\[${ltgray}\]❯\[${gray}\]❯\[${dkgray}\]❯\[${reset}\]"
-ARROW3RGG="\[${red}\]❯\[${yellow}\]❯\[${green}\]❯\[${white}\]\[${reset}\]"
+PSUSERHOST="${gray}"
+# Highlight the user name when logged in as root.
+[[ "${USER:-}" == "root" ]] && PSUSERHOST="${red}"
+PSUSERHOST+=${USER:-$(id -un 2> /dev/null || echo "\u")}
+PSUSERHOST+="${dkgray} @ "
+# Highlight the hostname when connected via SSH.
+[[ "${SSH_TTY:-}" ]] && PSUSERHOST+="${bold}${red}"
+PSUSERHOST+=${HOST:-${HOSTNAME:-$(hostname 2> /dev/null || echo "\h")}}
+[[ "${SSH_TTY:-}" ]] && {
+  PSUSERHOST+=-${UARCH:-${HOSTTYPE:-$(uname -p 2> /dev/null)}}
+  PSUSERHOST+=-${UMACH:-${MACHTYPE:-$(uname -m 2> /dev/null)}}
+}
+PSUSERHOST+=" ${dkgray}(${UTYPE:-${OSTYPE:-$(uname 2> /dev/null)}})${reset}"
 
 #-----------------------------------------------------------------------
 # PROMPT
 #-----------------------------------------------------------------------
 
-Jobs="\j"
+# reduce directories shown in path
+export PROMPT_DIRTRIM=3
 
-# PROMPT-LEFT / LINE-1
-PSL1=""
-PSL1+="${PSUSERHOST}"
-# PSL1+="${PSDIR}"
-PSL1+="${PSGIT}"
-# export PSL1;
+# Set the terminal title to the current working directory.
+PSTITLE="\[\033]0;\w\007\]"
 
-# PROMPT-RIGHT / LINE-1
-PSR1=""
-PSR1+="${PSTIME}"
+################################################################################
+# Assemble time shell prompt content.
+# Returns:
+#   Prints to STDOUT; time, active user, host, os, shell, shell-version.
+#   [24:07:11]
+################################################################################
+function prompt_time() {
+  # echo -e "${dkgray}[${gray}\\\t${dkgray}]"
+  echo -e "${dkgray}[ ${gray}$(date +'%r')${dkgray} ]"
+}
 
-PSL1="${PSUSERHOST}${PSVM} ${ARROW1GRAY}"
-# export PSR1;
+################################################################################
+# Assemble user/host shell prompt content.
+# Returns:
+#   Prints to STDOUT; time, active user, host, os, shell, shell-version.
+#   username @ hostname (system) bash5.1›
+################################################################################
+function prompt_userhost() {
+  echo -e "${PSUSERHOST:-} ${dkgray}\s\\\\v›${reset}  "
+}
 
-# PROMPT-LEFT / LINE-2
-# PSL2="${PSDIR} ${ARROW3RGG}"
-# PSL2="${PSTIME} ${PSUSERHOST}${PSVM} \[${dkgray}\]‹$0›\[${reset}\] ${PSDIR}${PSGIT} ${ARROW3RGG}"
-PSL2="${PSTIME} \[${gray}\]$0›\[${reset}\] ${PSDIR}${PSGIT} ${ARROW3RGG}"
-# export PSL2
+################################################################################
+# Assemble main left-aligned shell prompt content.
+# Returns:
+#   Prints to STDOUT; active directory path and, if applicable, git info/status.
+#   .../short/dir/path (23) git:main 2◀︎ ▶︎1 (3) M T A D R C U ? ! $ ›››
+################################################################################
+function prompt_main() {
+  # directory path for git status
+  local working_dir_path="${1:-$PWD}"
+  # directory path for prompt display
+  local prompt_main="${cyan}\w"
+  # number of files in directory
+  prompt_main+=" ${dkgray}(\$(ls | wc -l))"
+  # git status
+  prompt_main+=" $(prompt_git "$working_dir_path")"
+  prompt_main+=" ${red}❯${yellow}❯${green}❯${reset}  "
+  echo -e "${prompt_main:-}"
+}
 
-# # Set the terminal title to the current working directory.
-PSTITLE="\[\033]0;\w\007\]";
-
-PS2="\[${yellow}\] ❯ \[${reset}\]";
-export PS2;
-
+################################################################################
+# Assemble right-aligned shell prompt content.
+# Returns:
+#   Prints to STDOUT; system language, charset, date, time.
+################################################################################
 function prompt_right() {
-  echo -e "${PSR1}"
+  echo -e "${dkgray}${LANG:-} [ $(date -u +'%Y-%m-%dT%T%:z') ]${reset}"
 }
 
-function prompt_left() {
-  # echo -e "${PSL1}"
-  echo -e "${PSL2}"
-}
-
+################################################################################
+# Assemble and set shell prompt (`PS1`). To be run by `PROMPT_COMMAND`.
+# Returns:
+#   None.
+################################################################################
 function prompt() {
-  # compensate=12
-  # PS1=$(printf "${PSTITLE:-}\r\n%*s\r%s\r\n%s\n${PSL2:-} " "$(($(tput cols)+${compensate}))" "$(prompt_right)" "$(prompt_left)")
-  # PS1=$(printf "${PSTITLE:-}\r\n%*s\r%s\r%s\n${PSL2:-} " "$(($(tput cols)+${compensate}))" "$(prompt_right)" "$(prompt_left)")
-  PS1=$(printf "${PSTITLE:-}\r%s " "$(prompt_left)")
+  local working_dir_path="$PWD"
+  local compensate=9
+  if tput cols &> /dev/null; then
+    PS1=$(printf "\n%s%*s\r%s\n%s\n%s" "$(prompt_time)" "$(( $(tput cols) + compensate ))" "$(prompt_right)" "${PSTITLE:-}" "$(prompt_userhost)" "$(prompt_main "$working_dir_path")" 2> /dev/null)
+  else
+    PS1=$(printf "%s\n%s %s\n%s" "${PSTITLE:-}" "$(prompt_time)" "$(prompt_userhost)" "$(prompt_main "$working_dir_path")" 2> /dev/null)
+  fi
+  # export PS1
 }
+
+# If set, it will be executed just before the PS1 variable.
 PROMPT_COMMAND=prompt
+
+# PS1 – Default interactive prompt
+# PS1="${PSTITLE:-}\n$(prompt_userhost)\n$(prompt_main "$PWD")"
+# export PS1
+
+# PS2 – Continuation interactive prompt (long command with \ at EOL) default=">"
+PS2="${ltgray}❯${gray}❯${dkgray}❯${reset}  "
+export PS2
+
+# Prompt when shell script executed in debug mode (set -x) default ="++"
+PS4="${dkgray}$0${yellow}:${LINENO:-} ${black}❯${dkgray}❯${yellow}❯${reset}  "
+export PS4
