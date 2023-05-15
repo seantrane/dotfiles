@@ -25,81 +25,81 @@ export Reverse="${SWITCH}7m"
 export Hidden="${SWITCH}8m"
 
 # Regular Colors
-export Black="${SWITCH}0;30m"       # Black
-export Red="${SWITCH}0;31m"         # Red
-export Green="${SWITCH}0;32m"       # Green
-export Yellow="${SWITCH}0;33m"      # Yellow
-export Blue="${SWITCH}0;34m"        # Blue
-export Magenta="${SWITCH}0;35m"     # Magenta
-export Cyan="${SWITCH}0;36m"        # Cyan
-export White="${SWITCH}0;37m"       # White
-export Default="${SWITCH}0;39m"     # Default
+export Black="${SWITCH}0;30m"
+export Red="${SWITCH}0;31m"
+export Green="${SWITCH}0;32m"
+export Yellow="${SWITCH}0;33m"
+export Blue="${SWITCH}0;34m"
+export Magenta="${SWITCH}0;35m"
+export Cyan="${SWITCH}0;36m"
+export White="${SWITCH}0;37m"
+export Default="${SWITCH}0;39m"
 
 # Bold
-export BBlack="${SWITCH}1;30m"      # Black
-export BRed="${SWITCH}1;31m"        # Red
-export BGreen="${SWITCH}1;32m"      # Green
-export BYellow="${SWITCH}1;33m"     # Yellow
-export BBlue="${SWITCH}1;34m"       # Blue
-export BMagenta="${SWITCH}1;35m"    # Magenta
-export BCyan="${SWITCH}1;36m"       # Cyan
-export BWhite="${SWITCH}1;37m"      # White
-export BDefault="${SWITCH}1;39m"    # Default
+export BBlack="${SWITCH}1;30m"
+export BRed="${SWITCH}1;31m"
+export BGreen="${SWITCH}1;32m"
+export BYellow="${SWITCH}1;33m"
+export BBlue="${SWITCH}1;34m"
+export BMagenta="${SWITCH}1;35m"
+export BCyan="${SWITCH}1;36m"
+export BWhite="${SWITCH}1;37m"
+export BDefault="${SWITCH}1;39m"
 
 # Underline
-export UBlack="${SWITCH}4;30m"      # Black
-export URed="${SWITCH}4;31m"        # Red
-export UGreen="${SWITCH}4;32m"      # Green
-export UYellow="${SWITCH}4;33m"     # Yellow
-export UBlue="${SWITCH}4;34m"       # Blue
-export UMagenta="${SWITCH}4;35m"    # Magenta
-export UCyan="${SWITCH}4;36m"       # Cyan
-export UWhite="${SWITCH}4;37m"      # White
-export UDefault="${SWITCH}4;39m"    # Default
+export UBlack="${SWITCH}4;30m"
+export URed="${SWITCH}4;31m"
+export UGreen="${SWITCH}4;32m"
+export UYellow="${SWITCH}4;33m"
+export UBlue="${SWITCH}4;34m"
+export UMagenta="${SWITCH}4;35m"
+export UCyan="${SWITCH}4;36m"
+export UWhite="${SWITCH}4;37m"
+export UDefault="${SWITCH}4;39m"
 
 # Background
-export BGBlack="${SWITCH}40m"       # Black
-export BGRed="${SWITCH}41m"         # Red
-export BGGreen="${SWITCH}42m"       # Green
-export BGYellow="${SWITCH}43m"      # Yellow
-export BGBlue="${SWITCH}44m"        # Blue
-export BGMagenta="${SWITCH}45m"     # Magenta
-export BGCyan="${SWITCH}46m"        # Cyan
-export BGWhite="${SWITCH}47m"       # White
-export BGDefault="${SWITCH}49m"     # Default
+export BGBlack="${SWITCH}40m"
+export BGRed="${SWITCH}41m"
+export BGGreen="${SWITCH}42m"
+export BGYellow="${SWITCH}43m"
+export BGBlue="${SWITCH}44m"
+export BGMagenta="${SWITCH}45m"
+export BGCyan="${SWITCH}46m"
+export BGWhite="${SWITCH}47m"
+export BGDefault="${SWITCH}49m"
 
 # High Intensity
-export IBlack="${SWITCH}0;90m"      # Black
-export IRed="${SWITCH}0;91m"        # Red
-export IGreen="${SWITCH}0;92m"      # Green
-export IYellow="${SWITCH}0;93m"     # Yellow
-export IBlue="${SWITCH}0;94m"       # Blue
-export IMagenta="${SWITCH}0;95m"    # Magenta
-export ICyan="${SWITCH}0;96m"       # Cyan
-export IWhite="${SWITCH}0;97m"      # White
-export IDefault="${SWITCH}0;99m"    # Default
+export IBlack="${SWITCH}0;90m"
+export IRed="${SWITCH}0;91m"
+export IGreen="${SWITCH}0;92m"
+export IYellow="${SWITCH}0;93m"
+export IBlue="${SWITCH}0;94m"
+export IMagenta="${SWITCH}0;95m"
+export ICyan="${SWITCH}0;96m"
+export IWhite="${SWITCH}0;97m"
+export IDefault="${SWITCH}0;99m"
 
 # Bold High Intensity
-export BIBlack="${SWITCH}1;90m"     # Black
-export BIRed="${SWITCH}1;91m"       # Red
-export BIGreen="${SWITCH}1;92m"     # Green
-export BIYellow="${SWITCH}1;93m"    # Yellow
-export BIBlue="${SWITCH}1;94m"      # Blue
-export BIMagenta="${SWITCH}1;95m"   # Magenta
-export BICyan="${SWITCH}1;96m"      # Cyan
-export BIWhite="${SWITCH}1;97m"     # White
-export BIDefault="${SWITCH}1;99m"   # Default
+export BIBlack="${SWITCH}1;90m"
+export BIRed="${SWITCH}1;91m"
+export BIGreen="${SWITCH}1;92m"
+export BIYellow="${SWITCH}1;93m"
+export BIBlue="${SWITCH}1;94m"
+export BIMagenta="${SWITCH}1;95m"
+export BICyan="${SWITCH}1;96m"
+export BIWhite="${SWITCH}1;97m"
+export BIDefault="${SWITCH}1;99m"
 
 # High Intensity backgrounds
-export BGIBlack="${SWITCH}0;100m"   # Black
-export BGIRed="${SWITCH}0;101m"     # Red
-export BGIGreen="${SWITCH}0;102m"   # Green
-export BGIYellow="${SWITCH}0;103m"  # Yellow
-export BGIBlue="${SWITCH}0;104m"    # Blue
-export BGIMagenta="${SWITCH}0;105m" # Magenta
-export BGICyan="${SWITCH}0;106m"    # Cyan
-export BGIWhite="${SWITCH}0;107m"   # White
-export BGIDefault="${SWITCH}0;109m" # Default
+export BGIBlack="${SWITCH}0;100m"
+export BGIRed="${SWITCH}0;101m"
+export BGIGreen="${SWITCH}0;102m"
+export BGIYellow="${SWITCH}0;103m"
+export BGIBlue="${SWITCH}0;104m"
+export BGIMagenta="${SWITCH}0;105m"
+export BGICyan="${SWITCH}0;106m"
+export BGIWhite="${SWITCH}0;107m"
+export BGIDefault="${SWITCH}0;109m"
 
 #-----------------------------------------------------------------------
 # Shell Response Helpers
