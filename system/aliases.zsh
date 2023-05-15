@@ -7,15 +7,16 @@
 alias reload="exec $SHELL -l"
 
 # Detect which `ls` flavor is in use
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  colorflag="-G"
-  timeflag="-T"
-elif ls --color > /dev/null 2>&1; then # GNU `ls`
+# FreeBSD, older versions of OS X, have different ls command.
+if ls --color > /dev/null 2>&1; then
   colorflag="--color"
-  timeflag="--time-style=long-iso"
-else # OS X `ls`
+else
   colorflag="-G"
+fi
+if ls -T > /dev/null 2>&1; then
   timeflag="-T"
+else
+  timeflag="--time-style=long-iso"
 fi
 # shellcheck disable=SC2034
 colortimeflags="${colorflag} ${timeflag}"
