@@ -9,7 +9,7 @@
 sh_info "Installing/updating Zshell + zsh-completions..."
 if type "brew" &> /dev/null; then
     # Install Zsh and Zsh completions
-    brew install --without-etcdir zsh zsh-completions
+    brew install zsh zsh-completions
     # Install oh-my-zsh on top of zsh to getting additional functionality
     #curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
     # Add the new shell to the list of allowed shells
