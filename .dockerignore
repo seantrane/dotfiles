@@ -1,0 +1,12 @@
+.dockerignore
+.editorconfig
+.env
+.env.*
+/docs
+/logs
+/temp
+compose.yml
+docker-compose.yml
+Dockerfile
+Dockerfile.*
+node_modules

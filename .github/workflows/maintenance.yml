@@ -1,0 +1,33 @@
+---
+name: Maintenance
+
+on:
+  schedule:
+    - cron: '0 9 * * 2' # 9am every Tuesday
+  label:
+    types: [created, edited, deleted]
+  push:
+    branches: [main]
+    paths:
+      - .github/labels.json
+      - .github/workflows/maintenance.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write # only for delete-branch
+  issues: write
+  pull-requests: write
+  repository-projects: write
+
+jobs:
+  labels:
+    uses: seantrane/engineering/.github/workflows/label-sync.yml@main
+    with:
+      config: ./.github/labels.json
+
+  stale:
+    uses: seantrane/engineering/.github/workflows/stale.yml@main

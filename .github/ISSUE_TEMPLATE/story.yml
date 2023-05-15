@@ -1,0 +1,76 @@
+---
+name: Agile User Story
+description: Submit an issue, formatted as an Agile User Story.
+title: '[Story]: As a {persona}, I want {something}, so that {outcome}.'
+labels: ['state: pending', 'type: discussion']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        - [How to Write Great Agile User Stories](https://sprint.ly/blog/agile-user-stories/)
+        - [User stories with examples — Atlassian](https://www.atlassian.com/agile/project-management/user-stories)
+  - type: input
+    id: who
+    attributes:
+      label: Who are you doing this for?
+      description: _As a {persona}._
+      placeholder: persona
+    validations:
+      required: true
+  - type: input
+    id: what
+    attributes:
+      label: What are you doing?
+      description: _I want {something}._
+      placeholder: something
+    validations:
+      required: true
+  - type: input
+    id: why
+    attributes:
+      label: Why are you doing this?
+      description: _So that {expected outcome}._
+      placeholder: expected outcome
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Enumerate the technical details involved in playing/resolving this story.
+      value: |
+        - TBD
+        - TBD
+    validations:
+      required: false
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Describe the criteria necessary to judge an acceptable outcome.
+      value: |
+        - [ ] TBD
+        - [ ] TBD
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Tests for Behavior-Driven Development (BDD)
+      description: |
+        Describe all scenarios, using [Gherkin syntax](https://cucumber.io/docs/gherkin/reference/), that validate your _expected outcome_.
+      value: |
+        ```gherkin
+
+        Scenario: Title
+          Given {context}
+            And {some more context}
+          When  {event}
+            And {another event}
+          Then  {outcome}
+            And {another outcome}
+          But   {not this outcome}
+
+        ```
+    validations:
+      required: false

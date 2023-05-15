@@ -2,7 +2,7 @@
 
 > **Backup**, **restore**, and **sync** the prefs and settings for your toolbox. Your dotfiles might be the most important files on your machine.
 
-[![Build Status](https://travis-ci.com/seantrane/dotfiles.svg?branch=master)](https://travis-ci.com/seantrane/dotfiles) [![devDependencies Status](https://david-dm.org/seantrane/dotfiles/dev-status.svg)](https://david-dm.org/seantrane/dotfiles?type=dev) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 ## Table of Contents
 
@@ -19,8 +19,7 @@
 
 ## About the dotfiles <a id="about"></a>
 
-These are my dotfiles, the child of many influences, primarily
-[Zach Holmans](https://github.com/holman)' [dotfiles](https://github.com/holman/dotfiles), who I owe a great deal of credit to.
+These are my dotfiles, the child of many influences, primarily [Zach Holman](https://github.com/holman)'s [dotfiles](https://github.com/holman/dotfiles), who I owe a great deal of credit to.
 
 See [Thanks section](#thanks) for full credits.
 
@@ -35,7 +34,7 @@ Extract the contents of this repository to `~/.dotfiles`.
 1(a). If you are starting from a fresh OS install, without Git, run this:
 
 ```sh
-cd; curl -LOk https://github.com/seantrane/dotfiles/archive/master.zip; unzip master.zip; mv dotfiles-master .dotfiles; rm master.zip;
+cd; curl -LOk https://github.com/seantrane/dotfiles/archive/main.zip; unzip main.zip; mv dotfiles-main .dotfiles; rm main.zip;
 ```
 
 1(b). If you have Git installed, run this instead:
@@ -145,16 +144,16 @@ If you experience any bugs, I'm definitely interested, but cannot promise anythi
 
 ## Contributing <a id="contributing"></a>
 
-Contributions are always appreciated. Read [CONTRIBUTING.md](https://github.com/seantrane/dotfiles/blob/master/CONTRIBUTING.md) documentation to learn more.
+Contributions are always appreciated. Read [CONTRIBUTING.md](https://github.com/seantrane/dotfiles/blob/main/CONTRIBUTING.md) documentation to learn more.
 
 ## Changelog <a id="changelog"></a>
 
-Release details are documented in the [CHANGELOG.md](https://github.com/seantrane/dotfiles/blob/master/CHANGELOG.md) file, and on the [GitHub Releases page](https://github.com/seantrane/dotfiles/releases).
+Release details are documented in the [CHANGELOG.md](https://github.com/seantrane/dotfiles/blob/main/CHANGELOG.md) file, and on the [GitHub Releases page](https://github.com/seantrane/dotfiles/releases).
 
 ---
 
 ## License <a id="license"></a>
 
-[ISC License](https://github.com/seantrane/finda/blob/master/LICENSE)
+[ISC License](https://github.com/seantrane/finda/blob/main/LICENSE)
 
 Copyright (c) 2015 [Sean Trane Sciarrone](https://github.com/seantrane)

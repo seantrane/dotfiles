@@ -1,64 +1,96 @@
-git/gitconfig.symlink
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Environments #
-################
-.env
+# OS #
+._*
+.DocumentRevisions-V100
+.DS_Store
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+ehthumbs.db
+Icon?
+Thumbs.db
 
 # Compiled source #
 ###################
-*.com
-*.class
-*.dll
-*.exe
-*.o
+**/*.com
+**/*.class
+**/*.dll
+**/*.exe
+**/*.o
 *.so
 
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
+# Compression #
+**/*.7z
+**/*.dmg
+**/*.gz
+**/*.iso
+**/*.jar
+**/*.rar
+**/*.tar
+**/*.tgz
+**/*.zip
 
-# Logs and databases #
-######################
-*.log
-# *.sql
-
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Desktop.ini
-ehthumbs.db
-Thumbs.db
-
-# Application files #
-#####################
-*~
-*.pyc
-*.swp
+# IDE #
+/.idea
+.classpath
+.c9/
+.project
+.settings/
+*.launch
 *.sublime-*
-.idea
-.phpstorm.meta.php
-_ide_helper.php
+*.swp
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-# Build / Deployment #
-######################
-.vagrant
+# ENV/RC #
+.cache
+.env
+.git
+.grunt
+.localrc
+.lock-wscript
+.netrc
+/.sass-cache
+/connect.lock
+/libpeerconnection.log
+debug.log
+npm-debug.log
+testem.log
+yarn-error.log
 
-# Package management #
-#####################
-.bowerrc
-composer.lock
-node_modules/
-vendor/
+.env.*
+!.env.example
+
+# Repository #
+_site
+.jekyll-metadata
+.sonar
+.webpack.json
+*.log
+/coverage
+/dist
+/doc
+/e2e/*.js
+/e2e/*.map
+/logs
+/mocha.json
+/out-tsc
+/temp
+/tmp
+/typings
+bower_components
+build/Release
+lib-cov
+megalinter-reports/
+node_modules
+
+# Infrastructure #
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.d

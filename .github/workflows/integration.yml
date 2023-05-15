@@ -1,0 +1,30 @@
+---
+name: Integration
+
+on:
+  pull_request:
+    branches: [main, master, develop, 'releases/**', 'feat/**', 'fix/**']
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/integration.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  statuses: write
+  pull-requests: write
+
+jobs:
+  semver:
+    if: ${{ github.base_ref != '' || github.event_name == 'pull_request' }}
+    uses: seantrane/engineering/.github/workflows/semantic-pr.yml@main
+
+  lint:
+    uses: seantrane/engineering/.github/workflows/mega-linter.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_PAT }}
