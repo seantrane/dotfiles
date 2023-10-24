@@ -164,11 +164,6 @@ LESSOPEN="|$lesspipe_file %s"; export LESSOPEN                     #(sh like she
 type "setenv" &> /dev/null && setenv LESSOPEN "|$lesspipe_file %s" #(csh, tcsh)
 
 #-----------------------------------------------------------------------
-# Travis CI
-#-----------------------------------------------------------------------
-[[ -f "${ZDOTDIR:-$HOME}/.travis/travis.sh" ]] && . "${ZDOTDIR:-$HOME}/.travis/travis.sh"
-
-#-----------------------------------------------------------------------
 # PROMPT OPTIONS
 #-----------------------------------------------------------------------
 

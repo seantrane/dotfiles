@@ -65,57 +65,6 @@ defaults write com.google.Keystone.Agent checkInterval 0
 
 
 ###############################################################################
-# Sublime Text                                                                #
-###############################################################################
-
-SUBLIME_DOT_PREFS="$HOME/.dotfiles/osx/init/Sublime"
-SUBLIME_PREF_PATH="$HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/"
-
-if [ -d "$SUBLIME_PREF_PATH" ];
-then
-    # Install Sublime Text settings
-    cp "$SUBLIME_DOT_PREFS/Preferences.sublime-settings" "$SUBLIME_PREF_PATH"
-
-    # Install Sublime Text key bindings
-    cp "$SUBLIME_DOT_PREFS"/Default\ '(OSX)'.sublime-keymap "$SUBLIME_PREF_PATH"
-
-    # Install Sublime Text lessc build
-    cp "$SUBLIME_DOT_PREFS/less.sublime-build" "$SUBLIME_PREF_PATH"
-
-    # Install Sublime Text themes
-    cp -a "$SUBLIME_DOT_PREFS/Themes" "$SUBLIME_PREF_PATH"
-
-    # Install Sublime Text snippets
-    cp -a "$SUBLIME_DOT_PREFS/Snippets" "$SUBLIME_PREF_PATH"
-fi
-
-###############################################################################
-# Twitter.app                                                                 #
-###############################################################################
-
-# # Disable smart quotes as it’s annoying for code tweets
-# defaults write com.twitter.twitter-mac AutomaticQuoteSubstitutionEnabled -bool false
-
-# # Show the app window when clicking the menu icon
-# defaults write com.twitter.twitter-mac MenuItemBehavior -int 1
-
-# # Enable the hidden ‘Develop’ menu
-# defaults write com.twitter.twitter-mac ShowDevelopMenu -bool true
-
-# # Open links in the background
-# defaults write com.twitter.twitter-mac openLinksInBackground -bool true
-
-# # Allow closing the ‘new tweet’ window by pressing `Esc`
-# defaults write com.twitter.twitter-mac ESCClosesComposeWindow -bool true
-
-# # Show full names rather than Twitter handles
-# defaults write com.twitter.twitter-mac ShowFullNames -bool true
-
-# # Hide the app in the background if it’s not the front-most window
-# defaults write com.twitter.twitter-mac HideInBackground -bool true
-
-
-###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
