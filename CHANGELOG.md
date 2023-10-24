@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [1.0.1](https://github.com/seantrane/dotfiles/compare/v1.0.0...v1.0.1) (2023-10-24)
+
+
+### Bug Fixes
+
+* disable rbenv install ([cd177d6](https://github.com/seantrane/dotfiles/commit/cd177d6ee3f8dda779750e37f760d9c198c3f41b))
+* remove old Brewfile ([d5a29fd](https://github.com/seantrane/dotfiles/commit/d5a29fdd75e92fa37e23e7ba27f5d70b69054c00))
+* resolve pre-prompt issues ([e1087f4](https://github.com/seantrane/dotfiles/commit/e1087f444bb7742fd662a34083aef9d4f1c48fb6))
+* update homebrew path declarations ([de77c93](https://github.com/seantrane/dotfiles/commit/de77c93f624925bdc6689d134f7ea4e7fb1925e6))
+* update osx config ([eadb3f1](https://github.com/seantrane/dotfiles/commit/eadb3f1479b707ce7d0a3862970f87b9718d62e4))
+
 # 1.0.0 (2023-05-15)
 
 
