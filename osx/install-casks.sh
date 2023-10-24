@@ -10,103 +10,97 @@
 
 if type "brew" &> /dev/null; then
 
-    sh_info "Installing Caskroom/cask..."
-    brew tap homebrew/cask
+    # sh_info "Installing Caskroom/cask..."
+    # brew tap homebrew/cask
 
     sh_info "Setting up Caskroom/versions tap..."
     brew tap homebrew/cask-versions
 
     sh_info "Installing Apps..."
-    brew cask install 1password
-    brew cask install a-better-finder-rename
-    # brew cask install adobe-creative-cloud
-    # brew cask install adobe-photoshop-lightroom
-    # brew cask install adobe-reader
-    brew cask install alfred
-    # brew cask install atom
-    # brew cask install audacity
-    # brew cask install citrix-receiver
-    # brew cask install cleanmymac
-    # brew cask install cyberduck
-    # brew cask install dash
-    # brew cask install dash-beta
-    brew cask install docker
-    # brew cask install drobo-dashboard
-    # brew cask install dropbox
-    # brew cask install evernote
-    # brew cask install firefox
-    # brew cask install gimp
-    # brew cask install github
-    # brew cask install gitkraken
-    # brew cask install gitx
-    brew cask install google-chrome
-    brew cask install handbrake
-    brew cask install imagealpha
-    brew cask install imageoptim
-    # brew cask install intellij-idea
-    # brew cask install intellij-idea-ce
-    brew cask install iterm2
-    brew cask install java
-    # brew cask install jenkins
-    # brew cask install jenkins-lts
-    # brew cask install jenkins-menu
-    # brew cask install kaleidoscope-beta
-    # brew cask install keka
-    # brew cask install libreoffice
-    # brew cask install little-snitch
-    brew cask install macpar-deluxe
-    # brew cask install mamp
-    # brew cask install microsoft-lync
-    # brew cask install microsoft-office
-    brew cask install mongodb-compass
-    # brew cask install phpstorm
-    brew cask install postman
-    # brew cask install robo-3t
-    # brew cask install screenflow
-    # brew cask install sequel-pro
-    brew cask install skype
-    brew cask install slack
-    brew cask install sourcetree
-    # brew cask install spectacle
-    # brew cask install stellarium
-    # brew cask install sublime-text
-    # brew cask install svnx
-    # brew cask install textexpander
-    brew cask install the-unarchiver
-    # brew cask install tower
-    # brew cask install transmission
-    # brew cask install vagrant
-    brew cask install virtualbox
-    brew cask install visual-studio-code
-    # brew cask install vitalsource-bookshelf
-    brew cask install vlc
-    # brew cask install webstorm
-    # brew cask install whatsapp
-    brew cask install xld
-    brew cask install xquartz
-    # brew cask install xtrafinder
-    brew cask install zoom
-
-    # xquartz needs to be installed before wine
-    brew install wine
-    brew install winetricks
-    brew cask install wineskin-winery
+    brew install --cask 1password
+    brew install --cask a-better-finder-rename
+    # brew install --cask adobe-creative-cloud
+    # brew install --cask adobe-photoshop-lightroom
+    # brew install --cask adobe-reader
+    brew install --cask alfred
+    # brew install --cask atom
+    # brew install --cask audacity
+    # brew install --cask citrix-receiver
+    # brew install --cask cleanmymac
+    # brew install --cask cyberduck
+    # brew install --cask dash
+    # brew install --cask dash-beta
+    # brew install --cask docker
+    # brew install --cask drobo-dashboard
+    # brew install --cask dropbox
+    # brew install --cask evernote
+    # brew install --cask firefox
+    # brew install --cask gimp
+    brew install --cask github
+    # brew install --cask gitkraken
+    # brew install --cask gitx
+    # brew install --cask google-chrome
+    brew install --cask handbrake
+    brew install --cask imagealpha
+    brew install --cask imageoptim
+    # brew install --cask intellij-idea
+    # brew install --cask intellij-idea-ce
+    brew install --cask iterm2
+    # brew install --cask java
+    # brew install --cask jenkins
+    # brew install --cask jenkins-lts
+    # brew install --cask jenkins-menu
+    # brew install --cask kaleidoscope-beta
+    # brew install --cask keka
+    # brew install --cask libreoffice
+    # brew install --cask little-snitch
+    brew install --cask macpar-deluxe
+    # brew install --cask mamp
+    # brew install --cask microsoft-lync
+    # brew install --cask microsoft-office
+    brew install --cask mongodb-compass
+    # brew install --cask phpstorm
+    brew install --cask postman
+    # brew install --cask screenflow
+    # brew install --cask sequel-pro
+    # brew install --cask skype
+    brew install --cask slack
+    brew install --cask sourcetree
+    # brew install --cask spectacle
+    # brew install --cask stellarium
+    # brew install --cask sublime-text
+    # brew install --cask svnx
+    # brew install --cask textexpander
+    brew install --cask the-unarchiver
+    # brew install --cask tower
+    # brew install --cask transmission
+    # brew install --cask vagrant
+    brew install --cask virtualbox
+    brew install --cask visual-studio-code
+    # brew install --cask vitalsource-bookshelf
+    brew install --cask vlc
+    # brew install --cask webstorm
+    # brew install --cask whatsapp
+    brew install --cask xld
+    # brew install --cask xquartz
+    # brew install --cask xtrafinder
+    brew install --cask zoom
 
     sh_info "Setting up Caskroom/fonts tap..."
     brew tap homebrew/cask-fonts
 
     sh_info "Installing Fonts..."
-    brew cask install font-arimo
-    brew cask install font-dejavu-sans
-    brew cask install font-fontawesome
-    brew cask install font-inconsolata
-    brew cask install font-open-iconic
-    brew cask install font-open-sans
-    brew cask install font-open-sans-condensed
-    brew cask install font-source-code-pro
-    brew cask install font-source-sans-pro
-    brew cask install font-source-serif-pro
-    brew cask install font-ubuntu
+    brew install --cask font-arimo
+    brew install --cask font-dejavu-sans
+    brew install --cask font-fontawesome
+    brew install --cask font-inconsolata
+    brew install --cask font-open-iconic
+    brew install --cask font-open-sans
+    brew install --cask font-open-sans-condensed
+    brew install --cask font-source-code-pro
+    brew install --cask font-source-sans-pro
+    brew install --cask font-source-serif-pro
+    brew install --cask font-ubuntu
 
     brew cleanup
 
