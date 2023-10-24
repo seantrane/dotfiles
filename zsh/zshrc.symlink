@@ -158,8 +158,8 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # if (( $#commands[(i)lesspipe(|.sh)] )); then
 #   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 # fi
-lesspipe_file="/usr/local/bin/lesspipe.sh"
-[[ -e "/usr/local/bin/lesspipe" ]] && lesspipe_file="/usr/local/bin/lesspipe"
+lesspipe_file="$(brew --prefix)/bin/lesspipe.sh"
+[[ -e "$(brew --prefix)/bin/lesspipe" ]] && lesspipe_file="$(brew --prefix)/bin/lesspipe"
 LESSOPEN="|$lesspipe_file %s"; export LESSOPEN                     #(sh like shells)
 type "setenv" &> /dev/null && setenv LESSOPEN "|$lesspipe_file %s" #(csh, tcsh)
 
@@ -187,7 +187,9 @@ fi #####################################################################
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+[[ -f $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+[[ -f $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+
+[[ -d "$(brew --prefix)/bin" ]] && export PATH="$(brew --prefix)/bin:$PATH"

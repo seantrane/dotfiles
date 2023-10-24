@@ -142,7 +142,7 @@ autoload +X sh_alert sh_error sh_fail sh_info sh_note sh_success sh_text sh_user
 
 # Set the list of directories that Zsh searches for programs.
 # path=(
-#   /usr/local/{bin,sbin}
+#   $(brew --prefix)/{bin,sbin}
 #   $path
 # )
 

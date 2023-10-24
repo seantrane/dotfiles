@@ -7,11 +7,11 @@ fi
 
 # openssl support:
 if type "brew" &> /dev/null && [[ "$(brew ls --versions openssl)" ]]; then
-  export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+  export PATH="$(brew --prefix openssl@1.1)/bin:$PATH"
 
-  export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-  export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
-  export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+  export LDFLAGS="-L$(brew --prefix openssl@1.1)/lib"
+  export CPPFLAGS="-I$(brew --prefix openssl@1.1)/include"
+  export PKG_CONFIG_PATH="$(brew --prefix openssl@1.1)/lib/pkgconfig"
 fi
 
 # MAMP support:

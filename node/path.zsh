@@ -12,7 +12,7 @@ fi
 
 # If Homebrew has NOT installed npm, you should supplement
 # your NODE_PATH with the npm module folder:
-# /usr/local/lib/node_modules
+# $(brew --prefix)/lib/node_modules
 if type "brew" &> /dev/null && [[ "$(brew ls --versions node)" ]]; then
-  export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
+  export NODE_PATH="$(brew --prefix)/lib/node_modules:$NODE_PATH"
 fi

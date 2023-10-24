@@ -5,7 +5,7 @@
 # if type "rbenv" &> /dev/null; then
 #     # Mac-only: Use Homebrew's directories instead of ~/.rbenv (add to your profile):
 #     if type "brew" &> /dev/null && [[ "$(brew ls --versions rbenv)" ]]; then
-#         export RBENV_ROOT=/usr/local/var/rbenv
+#         export RBENV_ROOT="$(brew --prefix)/var/rbenv"
 #     fi
 
 #     # To enable shims and autocompletion add to your profile:

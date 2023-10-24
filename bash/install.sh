@@ -3,7 +3,7 @@
 # Install Bash 4
 #
 # This installs Bash and common extensions using Homebrew.
-# Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
+# Note: don’t forget to add `/opt/homebrew/bin/bash` to `/etc/shells` before
 # running `chsh`.
 #
 # shellcheck disable=SC1090,SC1091

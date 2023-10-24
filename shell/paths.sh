@@ -47,14 +47,16 @@ unset file;
 PATH=$(echo -n "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
 export PATH
 
+[[ -d "$(brew --prefix)/bin" ]] && export PATH="$(brew --prefix)/bin:$PATH"
+
 #-----------------------------------------------------------------------
 # HELP DOCS/MANUALS
 #-----------------------------------------------------------------------
 
-[[ -d "/usr/local/man" ]] && export MANPATH="/usr/local/man:$MANPATH"
+[[ -d "$(brew --prefix)/man" ]] && export MANPATH="$(brew --prefix)/man:$MANPATH"
 
 # .local manuals:
-[[ -d "$HOME/.local/man" ]] && export PATH="$HOME/.local/man:$MANPATH"
+[[ -d "$HOME/.local/man" ]] && export MANPATH="$HOME/.local/man:$MANPATH"
 
 # MANPATH CLEANUP
 # Ensure MANPATH array does not contain duplicates.

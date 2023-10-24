@@ -7,10 +7,10 @@ echo
 # Remove global node_modules
 {
     sudo rm -Rf \
-        "/usr/local/include/node_modules" \
-        "/usr/local/include/node" \
-        "/usr/local/lib/node_modules" \
-        "/usr/local/lib/node"
+        "$(brew --prefix)/include/node_modules" \
+        "$(brew --prefix)/include/node" \
+        "$(brew --prefix)/lib/node_modules" \
+        "$(brew --prefix)/lib/node"
 }
 echo "~> Removed global node_modules."
 echo
@@ -36,10 +36,10 @@ fi
         "/opt/local/bin/node" \
         "/opt/local/include/node" \
         "/opt/local/lib/node_modules"
-        "/usr/local/bin/node" \
-        "/usr/local/bin/npm" \
-        "/usr/local/lib/dtrace/node.d" \
-        "/usr/local/share/man/man1/node.1" \
+        "$(brew --prefix)/bin/node" \
+        "$(brew --prefix)/bin/npm" \
+        "$(brew --prefix)/lib/dtrace/node.d" \
+        "$(brew --prefix)/share/man/man1/node.1" \
         "$HOME/.node-gyp" \
         "$HOME/.node" \
         "$HOME/.npm" \

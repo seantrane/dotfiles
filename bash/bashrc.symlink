@@ -112,6 +112,7 @@ else
 #-----------------------------------------------------------------------
 BREW_PREFIX=""
 if type "brew" &> /dev/null; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
   BREW_PREFIX="$(brew --prefix)"
   [[ ! -d "$BREW_PREFIX" ]] && BREW_PREFIX=""
 fi

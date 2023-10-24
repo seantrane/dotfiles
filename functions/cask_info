@@ -6,9 +6,9 @@ cask_info () {
   echo "Homebrew Cask Info..."
   if [[ "$1" ]]; then
     brew cask info "$1"
-    if [[ -d "/usr/local/Caskroom/$1" ]]; then
-      echo "Contents of /usr/local/Caskroom/$1/..."
-      ls -1 "/usr/local/Caskroom/$1"
+    if [[ -d "$(brew --prefix)/Caskroom/$1" ]]; then
+      echo "Contents of $(brew --prefix)/Caskroom/$1/..."
+      ls -1 "$(brew --prefix)/Caskroom/$1"
     elif [[ -d "/opt/homebrew-cask/Caskroom/$1" ]]; then
       echo "Contents of /opt/homebrew-cask/Caskroom/$1/..."
       ls -1 "/opt/homebrew-cask/Caskroom/$1"
@@ -16,9 +16,9 @@ cask_info () {
   else
     for cask_name in $(brew cask list); do
       brew cask info "$cask_name"
-      if [[ -d "/usr/local/Caskroom/$1" ]]; then
-        echo "Contents of /usr/local/Caskroom/$cask_name/..."
-        ls -1 "/usr/local/Caskroom/$cask_name"
+      if [[ -d "$(brew --prefix)/Caskroom/$1" ]]; then
+        echo "Contents of $(brew --prefix)/Caskroom/$cask_name/..."
+        ls -1 "$(brew --prefix)/Caskroom/$cask_name"
       elif [[ -d "/opt/homebrew-cask/Caskroom/$1" ]]; then
         echo "Contents of /opt/homebrew-cask/Caskroom/$cask_name/..."
         ls -1 "/opt/homebrew-cask/Caskroom/$cask_name"

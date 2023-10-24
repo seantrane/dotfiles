@@ -2,4 +2,4 @@
 
 [[ -d "$HOME/terraform" ]] && export PATH="$HOME/terraform:$PATH"
 
-[[ -d "/usr/local/terraform/bin" ]] && export PATH="/usr/local/terraform/bin:$PATH"
+[[ -d "/$(brew --prefix terraform)/bin" ]] && export PATH="/$(brew --prefix terraform)/bin:$PATH"

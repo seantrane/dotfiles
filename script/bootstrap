@@ -15,6 +15,7 @@ if ! type "sh_success" &> /dev/null; then
   . $DOTFILES/functions/sh_note
   . $DOTFILES/functions/sh_user
   . $DOTFILES/functions/sh_success
+  . $DOTFILES/functions/sh_text
 fi
 
 #-----------------------------------------------------------------------
@@ -42,9 +43,9 @@ setup_gitconfig () {
             git_credential='osxkeychain'
         fi
 
-        sh_user 'What is your github author name?'
+        sh_user 'What is your github author name?  (username)'
         read -r -e git_authorname
-        sh_user 'What is your github author email?'
+        sh_user 'What is your github author email?  (username@users.noreply.github.com)'
         read -r -e git_authoremail
 
         sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" $DOTFILES/git/gitconfig.symlink.example > $DOTFILES/git/gitconfig.symlink
@@ -77,30 +78,30 @@ install_dotfiles
 
 . $DOTFILES/brew/install.sh
 
-sh_info "Configuring homebrew permissions to allow multiple admin users."
-sh_info "Any user from the admin group will be able to manage homebrew."
+# sh_info "Configuring homebrew permissions to allow multiple admin users."
+# sh_info "Any user from the admin group will be able to manage homebrew."
 
-declare -a HOMEBREW_DIRS=(
-    "$(brew --prefix)/Caskroom"
-    "$(brew --prefix)/Cellar"
-    "$(brew --prefix)/Homebrew"
-    "$(brew --prefix)/etc"
-    "$(brew --prefix)/lib"
-    "$(brew --prefix)/share"
-    "$(brew --prefix)/var"
-)
+# declare -a HOMEBREW_DIRS=(
+#     "$(brew --prefix)/Caskroom"
+#     "$(brew --prefix)/Cellar"
+#     "$(brew --prefix)/Homebrew"
+#     "$(brew --prefix)/etc"
+#     "$(brew --prefix)/lib"
+#     "$(brew --prefix)/share"
+#     "$(brew --prefix)/var"
+# )
 
-for brew_dir in "${HOMEBREW_DIRS[@]}"; do
-    if [[ ! -d "${brew_dir}" ]]; then
-        sh_info "Creating directory: ${brew_dir}"
-        mkdir "${brew_dir}"
-    fi
-    sh_info "Changing group ownership of directory: ${brew_dir}"
-    sudo chgrp -R admin "${brew_dir}"
-    sudo chmod -R g+w "${brew_dir}"
-done
+# for brew_dir in "${HOMEBREW_DIRS[@]}"; do
+#     if [[ ! -d "${brew_dir}" ]]; then
+#         sh_info "Creating directory: ${brew_dir}"
+#         mkdir "${brew_dir}"
+#     fi
+#     sh_info "Changing group ownership of directory: ${brew_dir}"
+#     sudo chgrp -R admin "${brew_dir}"
+#     sudo chmod -R g+w "${brew_dir}"
+# done
 
-ls -al "$(brew --prefix)"
+# ls -al "$(brew --prefix)"
 
 . $DOTFILES/git/install.sh
 . $DOTFILES/ruby/install.sh

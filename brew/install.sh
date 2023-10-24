@@ -27,8 +27,8 @@ if ! type "brew" &> /dev/null; then
             sudo yum groupinstall 'Development Tools' && sudo yum install curl git irb m4 python-setuptools ruby texinfo bzip2-devel curl-devel expat-devel ncurses-devel zlib-devel
         fi
         sh_info "Installing Linuxbrew..."
-        if type "ruby" &> /dev/null; then
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+        if type "bash" &> /dev/null; then
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         elif type "git" &> /dev/null; then
             git clone https://github.com/Homebrew/linuxbrew.git ~/.linuxbrew
         fi
@@ -40,10 +40,10 @@ if ! type "brew" &> /dev/null; then
             sh_fail "Homebrew requires Xcode Command Line Tools."
         fi
         sh_info "Installing Homebrew..."
-        if type "ruby" &> /dev/null; then
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        if type "bash" &> /dev/null; then
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         else
-            (cd /usr/local || return 1; mkdir homebrew && curl -L https://github.com/Homebrew/homebrew/tarball/master | tar xz --strip 1 -C homebrew)
+            (cd /opt || return 1; mkdir homebrew && curl -L https://github.com/Homebrew/homebrew/tarball/master | tar xz --strip 1 -C homebrew)
         fi
     fi
 fi

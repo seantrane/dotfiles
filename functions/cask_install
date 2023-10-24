@@ -10,7 +10,7 @@ cask_install () {
   fi
   local caskroom_path=""
   [[ -d "/opt/homebrew-cask/Caskroom" ]] && caskroom_path="/opt/homebrew-cask/Caskroom"
-  [[ -d "/usr/local/Caskroom" ]] && caskroom_path="/usr/local/Caskroom"
+  [[ -d "$(brew --prefix)/Caskroom" ]] && caskroom_path="$(brew --prefix)/Caskroom"
   if [[ -z "$caskroom_path" ]]; then
     echo "Caskroom path not found."
     return 1
