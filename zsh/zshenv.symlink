@@ -109,10 +109,11 @@ fi
 
 # autoload every function:
 # for file in ~/.dotfiles/functions/{extract,link_file}; do
-# for file in $(find -H "$DOTFILES/functions" -maxdepth 2 -name '[A-Za-z0-9\-\_]*'); do
-#   [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
+# _find_files_array=($(find -H "$DOTFILES/functions" -maxdepth 2 -perm -u+r -type f -name '[A-Za-z0-9\-\_]*'))
+# for _file_path in ${_find_files_array}; do
+#   . "$_file_path"
 # done
-# unset file
+# unset _file_path _find_files_array
 
 # shellcheck disable=SC2206
 fpath=("$DOTFILES"/functions $fpath)

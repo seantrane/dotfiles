@@ -11,6 +11,8 @@
 #
 # shellcheck disable=SC1090,SC1091
 
+[[ -d "$(brew --prefix)/bin" ]] && export PATH="$(brew --prefix)/bin:$PATH"
+
 ########################################################################
 ########################################################################
 ##
@@ -66,16 +68,20 @@ else
 
 alias reload!='. ~/.zshrc'
 
-typeset -U _config_files
-_config_files=("$DOTFILES"/**/*.zsh)
-# _config_path_files=${_config_files:#*/path.zsh}
+# for file in ~/.dotfiles/{git,system}/aliases.sh; do
+_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.sh'))
+for _file_path in ${_find_files_array}; do
+  . "$_file_path"
+done
+unset _file_path _find_files_array
+
 # load everything but the path and completion files:
 # for file in ~/.dotfiles/{git,system}/{aliases,*}.zsh; do
-for file in ${${_config_files:#*/path.zsh}:#*/completion.zsh}; do
-  [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
+_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name '*.zsh'))
+for _file_path in ${${_find_files_array:#*/path.zsh}:#*/completion.zsh}; do
+  . "$_file_path"
 done
-unset file
-unset _config_files
+unset _file_path _find_files_array
 
 # `~/.aliases` can be used for private aliases.
 [[ -f "${ZDOTDIR:-$HOME}/.aliases" ]] && . "${ZDOTDIR:-$HOME}/.aliases"
@@ -121,11 +127,11 @@ fi
 
 # load every completion after autocomplete loads:
 # for file in ~/.dotfiles/{git,system}/completion.zsh; do
-# shellcheck disable=SC2044
-for file in $(find -H "$DOTFILES" -maxdepth 2 -name 'completion.zsh'); do
-  [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file"
+_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'completion.zsh'))
+for _file_path in ${_find_files_array}; do
+  . "$_file_path"
 done
-unset file
+unset _file_path _find_files_array
 
 # z - jump around
 # https://github.com/rupa/z

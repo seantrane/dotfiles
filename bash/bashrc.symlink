@@ -59,7 +59,7 @@
 
 # autoload every function:
 # for file in ~/.dotfiles/functions/{extract,link_file}; do
-_find_files_array=$(find -H "$DOTFILES/functions" -maxdepth 2 -perm -u+r -type f -name '[A-Za-z0-9\-\_]*')
+_find_files_array=($(find -H "$DOTFILES/functions" -maxdepth 2 -perm -u+r -type f -name '[A-Za-z0-9\-\_]*'))
 for _file_path in ${_find_files_array}; do
   . "$_file_path"
 done
@@ -149,8 +149,15 @@ fi
 #-----------------------------------------------------------------------
 # Aliases should only be available to prompt-user (not scripts).
 
-# for file in ~/.dotfiles/{git,system}/aliases.zsh; do
-_find_files_array=$(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.zsh')
+# for file in ~/.dotfiles/{git,system}/aliases.sh; do
+_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.sh'))
+for _file_path in ${_find_files_array}; do
+  . "$_file_path"
+done
+unset _file_path _find_files_array
+
+# for file in ~/.dotfiles/{git,system}/aliases.bash; do
+_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.bash'))
 for _file_path in ${_find_files_array}; do
   . "$_file_path"
 done
@@ -200,7 +207,7 @@ if [[ ${BASH_VERSION%%[^0-9]*} -ge 4 ]]; then
 
   # load every completion after autocomplete loads:
   # for file in ~/.dotfiles/{git,system}/completion.bash; do
-  _find_files_array=$(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'completion.bash')
+  _find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'completion.bash'))
   for _file_path in ${_find_files_array}; do
     . "$_file_path"
   done
