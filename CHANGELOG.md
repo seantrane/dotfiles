@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [1.0.2](https://github.com/seantrane/dotfiles/compare/v1.0.1...v1.0.2) (2023-10-24)
+
+
+### Bug Fixes
+
+* improve file array processing, kill prompt errors ([e24cd97](https://github.com/seantrane/dotfiles/commit/e24cd97e99f368d9de48fe594b140f50e3fbd144))
+
 ## [1.0.1](https://github.com/seantrane/dotfiles/compare/v1.0.0...v1.0.1) (2023-10-24)
 
 
