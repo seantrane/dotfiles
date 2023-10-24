@@ -15,16 +15,6 @@ elif type "brew" &> /dev/null; then
     brew install ruby
 fi
 
-# Install Ruby-environment (rbenv)
-! type "rbenv" &> /dev/null && . "$DOTFILES/rbenv/install.sh"
-
-# Install Ruby
-if type "rbenv" &> /dev/null; then
-    sh_info "Installing Ruby..."
-    rbenv install 2.5.3
-    rbenv global 2.5.3
-fi
-
 # Install Bundler on Linux systems
 # http://bundler.io
 # Recommended by: https://gorails.com/setup
@@ -42,3 +32,13 @@ fi
 if type "ruby" &> /dev/null; then
     sh_success "$(ruby --version) installed: $(command -v ruby)"
 fi
+
+# # Install Ruby-environment (rbenv)
+# ! type "rbenv" &> /dev/null && . "$DOTFILES/rbenv/install.sh"
+
+# # Install Ruby
+# if type "rbenv" &> /dev/null; then
+#     sh_info "Installing Ruby..."
+#     rbenv install 3.2.2
+#     rbenv global 3.2.2
+# fi
