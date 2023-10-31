@@ -22,7 +22,7 @@ if ! type "rails" &> /dev/null; then
         gem install rails -v 5.2.2
     fi
 
-    . "$DOTFILES/ruby/rehash.sh"
+    # rbenv rehash
 fi
 
 if type "rails" &> /dev/null; then

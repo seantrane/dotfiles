@@ -61,7 +61,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         y )
             sh_info "Overwriting OS X defaults..."
             # shellcheck disable=SC1090
-            . "$DOTFILES/osx/set-defaults.sh"
+            . "$DOTFILES/macos/set-defaults.sh"
             ;;
         * )
             sh_info "Skipping OS X defaults."
@@ -69,7 +69,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     esac
 
     # TODO: Copy OS X app prefs for backup/reinstall purposes.
-    # source $DOTFILES/osx/copy-prefs.sh
+    # source $DOTFILES/macos/copy-prefs.sh
 
     # Homebrew updates
     if type "brew" &> /dev/null; then

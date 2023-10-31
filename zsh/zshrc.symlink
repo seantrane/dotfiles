@@ -11,7 +11,14 @@
 #
 # shellcheck disable=SC1090,SC1091
 
-[[ -d "$(brew --prefix)/bin" ]] && export PATH="$(brew --prefix)/bin:$PATH"
+BREW_PREFIX="$(brew --prefix)"
+
+# Fix Shell PATH Issue (overwritten by .zprofile)
+DEFAULT_PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+# remove defaults from beginning of PATH
+PATH="${PATH#"$DEFAULT_PATH:"}"
+# put defaults back at end of PATH
+PATH="$PATH:$DEFAULT_PATH"
 
 ########################################################################
 ########################################################################
@@ -49,6 +56,15 @@ else
 
 [[ -f "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && . "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
+# Prezto init will prepend PATH with `~/.gem/ruby/*/bin` directory in
+# `/Users/seantrane/.zprezto/modules/ruby/init.zsh`, line 48.
+# The following commands will strip this out, as `~/.gem/ruby/*/bin` is already in PATH.
+_find_files_array=($(find -H "${ZDOTDIR:-$HOME}/.gem/ruby" -maxdepth 2 -perm -u+r -type d -name 'bin'))
+for _file_path in "${_find_files_array[@]}"; do
+  PATH="${PATH#"${_file_path}:"}"
+done
+unset _file_path _find_files_array
+
 # Unalias `nocorrect` completions from: prezto/modules/utility/init.zsh
 # unalias mkdir mv mysql rm
 
@@ -70,7 +86,7 @@ alias reload!='. ~/.zshrc'
 
 # for file in ~/.dotfiles/{git,system}/aliases.sh; do
 _find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.sh'))
-for _file_path in ${_find_files_array}; do
+for _file_path in "${_find_files_array[@]}"; do
   . "$_file_path"
 done
 unset _file_path _find_files_array
@@ -114,24 +130,65 @@ expand-or-complete-with-dots() {
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
 
+# fignore() An array containing the suffixes of files to be
+# ignored during filename completion.  However, if completion only
+# generates files with suffixes in this list, then these files are
+# completed anyway.
+typeset -Ua fignore=(
+	.DS_Store
+	__pycache__
+	.zip
+	.tgz
+)
+
+# REPORTTIME: commands whose combined user and system execution
+# times (measured in seconds) are greater than this value have
+# timing statistics printed for them.  Output is suppressed for
+# commands executed within the line editor, including completion;
+# commands explicitly marked with the time keyword still cause
+# the summary to be printed in this case.
+typeset REPORTTIME=5
+
 # initialize autocomplete here, otherwise functions won't be loaded
+# compinit flags are defined as follows
+# -d FILE: dump a cache of compiled completion scripts to FILE
+# -C: skip the security check entirely
+# NOTE: will prevent changes from being made to the completions
+# cached in the dump file
+# -u: silently include all insecure files and directories
+# -i: silently ignore all insecure files and directories
 autoload -U compinit
 compinit -u
 
+# Initialize module to provide compatibility for bash-based completion functions
+# autoload -U +X bashcompinit
+# bashcompinit
+
+# matches case insensitive for lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# pasting with tabs doesn't perform completion
+zstyle ':completion:*' insert-tab pending
+
 # Homebrew-Zsh help reset
-if type "brew" &> /dev/null && [ -f "$(brew --prefix)/share/zsh/help" ]; then
+if type "brew" &> /dev/null && [ -f "${BREW_PREFIX}/share/zsh/help" ]; then
   unalias run-help
   autoload run-help
-  HELPDIR="$(brew --prefix)/share/zsh/help"; export HELPDIR
+  HELPDIR="${BREW_PREFIX}/share/zsh/help"; export HELPDIR
 fi
 
 # load every completion after autocomplete loads:
 # for file in ~/.dotfiles/{git,system}/completion.zsh; do
 _find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'completion.zsh'))
-for _file_path in ${_find_files_array}; do
+for _file_path in "${_find_files_array[@]}"; do
   . "$_file_path"
 done
 unset _file_path _find_files_array
+
+# To activate Homebrew-Zsh-completions, add to .zshrc:
+if [[ -f "${BREW_PREFIX}/share/zsh-completions" ]]; then
+  fpath=("${BREW_PREFIX}/share/zsh-completions" $fpath)
+fi
 
 # z - jump around
 # https://github.com/rupa/z
@@ -140,8 +197,8 @@ unset _file_path _find_files_array
 # that matches ALL of the regexes given on the command line, in order.
 if [[ -f "$HOME/z/z.sh" ]]; then
   . "$HOME/z/z.sh"
-elif type "brew" &> /dev/null && [[ -f "$(brew --prefix)/etc/profile.d/z.sh" ]]; then
-  . "$(brew --prefix)/etc/profile.d/z.sh"
+elif type "brew" &> /dev/null && [[ -f "${BREW_PREFIX}/etc/profile.d/z.sh" ]]; then
+  . "${BREW_PREFIX}/etc/profile.d/z.sh"
 fi
 
 #-----------------------------------------------------------------------
@@ -164,8 +221,8 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # if (( $#commands[(i)lesspipe(|.sh)] )); then
 #   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 # fi
-lesspipe_file="$(brew --prefix)/bin/lesspipe.sh"
-[[ -e "$(brew --prefix)/bin/lesspipe" ]] && lesspipe_file="$(brew --prefix)/bin/lesspipe"
+lesspipe_file="${BREW_PREFIX}/bin/lesspipe.sh"
+[[ -e "${BREW_PREFIX}/bin/lesspipe" ]] && lesspipe_file="${BREW_PREFIX}/bin/lesspipe"
 LESSOPEN="|$lesspipe_file %s"; export LESSOPEN                     #(sh like shells)
 type "setenv" &> /dev/null && setenv LESSOPEN "|$lesspipe_file %s" #(csh, tcsh)
 
@@ -185,12 +242,3 @@ prompt sorin
 ##
 fi #####################################################################
 ########################################################################
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-
-[[ -d "$(brew --prefix)/bin" ]] && export PATH="$(brew --prefix)/bin:$PATH"

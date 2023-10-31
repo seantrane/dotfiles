@@ -35,7 +35,7 @@ if ! type "brew" &> /dev/null; then
     # test "$(uname)" = "Darwin"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         # Homebrew requires Xcode Command Line Tools
-        . "$DOTFILES/osx/install-clt.sh"
+        . "$DOTFILES/macos/install-clt.sh"
         if [[ ! "$XCODE_PATH" ]]; then
             sh_fail "Homebrew requires Xcode Command Line Tools."
         fi

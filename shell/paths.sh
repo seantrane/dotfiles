@@ -10,7 +10,7 @@
 # This will ensure proper loading/ordering of PATHs.
 
 # DEFAULT `$PATH`
-export PATH="/usr/sbin:/usr/bin:./sbin:./bin:/sbin:/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # Add `/usr/local/{sbin,bin}` to the `$PATH`
 [[ -d "/usr/local/bin" ]] && export PATH="/usr/local/bin:$PATH"
@@ -29,36 +29,38 @@ export PATH="/usr/sbin:/usr/bin:./sbin:./bin:/sbin:/bin:$PATH"
 [[ -d "$HOME/sbin" ]] && export PATH="$HOME/sbin:$PATH"
 
 # LOAD DOTFILES PATHS:
-# for file in ~/.dotfiles/{git,system}/path.zsh; do
-# shellcheck disable=SC2044
-for file in $(find -H "$DOTFILES" -maxdepth 2 -name 'path.zsh'); do
-  # shellcheck disable=SC1090
-  [[ -r "$file" ]] && [[ -f "$file" ]] && . "$file";
-done;
-unset file;
+# for file in ~/.dotfiles/{git,system}/path.sh; do
+_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'path.sh'))
+for _file_path in "${_find_files_array[@]}"; do
+  . "$_file_path"
+done
+unset _file_path _find_files_array
 
 # CUSTOM/USER PATHS
 # `~/.path` can be used to extend `$PATH`.
 # shellcheck disable=SC1090
 [[ -f "$HOME/.path" ]] && . "$HOME/.path"
 
-# PATH CLEANUP
-# Ensure PATH array does not contain duplicates.
-PATH=$(echo -n "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
-export PATH
-
-[[ -d "$(brew --prefix)/bin" ]] && export PATH="$(brew --prefix)/bin:$PATH"
+# Ensure Homebrew path comes first
+export PATH="/opt/homebrew/bin:$PATH"
 
 #-----------------------------------------------------------------------
 # HELP DOCS/MANUALS
 #-----------------------------------------------------------------------
 
-[[ -d "$(brew --prefix)/man" ]] && export MANPATH="$(brew --prefix)/man:$MANPATH"
+[[ -d "${BREW_PREFIX:-}/man" ]] && export MANPATH="${BREW_PREFIX:-}/man:$MANPATH"
 
 # .local manuals:
 [[ -d "$HOME/.local/man" ]] && export MANPATH="$HOME/.local/man:$MANPATH"
 
-# MANPATH CLEANUP
-# Ensure MANPATH array does not contain duplicates.
-type "awk" &> /dev/null && MANPATH=$(echo -n "$MANPATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
-export MANPATH
+#-----------------------------------------------------------------------
+# CLEANUP PATH, MANPATH - Ensure arrays do not contain duplicates.
+#-----------------------------------------------------------------------
+
+if type "awk" &> /dev/null; then
+  PATH=$(echo -n "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
+  export PATH
+
+  MANPATH=$(echo -n "$MANPATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
+  export MANPATH
+fi

@@ -35,23 +35,23 @@ set -e
 #-----------------------------------------------------------------------
 
 setup_gitconfig () {
-    if [ ! -f "$DOTFILES/git/gitconfig.symlink" ]; then
-        sh_info 'Setting up gitconfig.symlink'
+  if [ ! -f "$DOTFILES/git/gitconfig.symlink" ]; then
+    sh_info 'Setting up gitconfig.symlink'
 
-        git_credential='cache'
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            git_credential='osxkeychain'
-        fi
-
-        sh_user 'What is your github author name?  (username)'
-        read -r -e git_authorname
-        sh_user 'What is your github author email?  (username@users.noreply.github.com)'
-        read -r -e git_authoremail
-
-        sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" $DOTFILES/git/gitconfig.symlink.example > $DOTFILES/git/gitconfig.symlink
-
-        sh_success 'gitconfig.symlink is now ready for symlinking to ~/.gitconfig'
+    git_credential='cache'
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        git_credential='osxkeychain'
     fi
+
+    sh_user 'What is your github author name?  (username)'
+    read -r -e git_authorname
+    sh_user 'What is your github author email?  (username@users.noreply.github.com)'
+    read -r -e git_authoremail
+
+    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" $DOTFILES/git/gitconfig.symlink.example > $DOTFILES/git/gitconfig.symlink
+
+    sh_success 'gitconfig.symlink is now ready for symlinking to ~/.gitconfig'
+  fi
 }
 
 setup_gitconfig
@@ -76,63 +76,91 @@ install_dotfiles
 #   * Ruby
 #   * Bundler (Linux-only)
 
-. $DOTFILES/brew/install.sh
+# . $DOTFILES/brew/install.sh
+# Install Homebrew
+if ! type "brew" &> /dev/null; then
+  sh_info "Installing Homebrew..."
+  if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # Homebrew requires Xcode Command Line Tools
+    . "$DOTFILES/macos/install-clt.sh"
+    if [[ ! "$XCODE_PATH" ]]; then
+      sh_fail "Homebrew requires Xcode Command Line Tools."
+    fi
+    if type "bash" &> /dev/null; then
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+      (cd /opt || return 1; mkdir homebrew && curl -L https://github.com/Homebrew/homebrew/tarball/master | tar xz --strip 1 -C homebrew)
+    fi
+  fi
+fi
+
+if ! type "brew" &> /dev/null; then
+  sh_fail "Failed to locate of install Homebrew. Visit https://brew.sh to install manually."
+fi
 
 # sh_info "Configuring homebrew permissions to allow multiple admin users."
 # sh_info "Any user from the admin group will be able to manage homebrew."
 
 # declare -a HOMEBREW_DIRS=(
-#     "$(brew --prefix)/Caskroom"
-#     "$(brew --prefix)/Cellar"
-#     "$(brew --prefix)/Homebrew"
-#     "$(brew --prefix)/etc"
-#     "$(brew --prefix)/lib"
-#     "$(brew --prefix)/share"
-#     "$(brew --prefix)/var"
+#   "$(brew --prefix)/Caskroom"
+#   "$(brew --prefix)/Cellar"
+#   "$(brew --prefix)/Homebrew"
+#   "$(brew --prefix)/etc"
+#   "$(brew --prefix)/lib"
+#   "$(brew --prefix)/share"
+#   "$(brew --prefix)/var"
 # )
-
 # for brew_dir in "${HOMEBREW_DIRS[@]}"; do
-#     if [[ ! -d "${brew_dir}" ]]; then
-#         sh_info "Creating directory: ${brew_dir}"
-#         mkdir "${brew_dir}"
-#     fi
-#     sh_info "Changing group ownership of directory: ${brew_dir}"
-#     sudo chgrp -R admin "${brew_dir}"
-#     sudo chmod -R g+w "${brew_dir}"
+#   if [[ ! -d "${brew_dir}" ]]; then
+#     sh_info "Creating directory: ${brew_dir}"
+#     mkdir "${brew_dir}"
+#   fi
+#   sh_info "Changing group ownership of directory: ${brew_dir}"
+#   sudo chgrp -R admin "${brew_dir}"
+#   sudo chmod -R g+w "${brew_dir}"
 # done
-
 # ls -al "$(brew --prefix)"
 
-. $DOTFILES/git/install.sh
-. $DOTFILES/ruby/install.sh
+[[ ! -d "$(brew --prefix git)" ]] && brew install git
+[[ ! -d "$(brew --prefix ruby)" ]] && brew install ruby
 
 #-----------------------------------------------------------------------
-# Zshell + Prezto
+# Zsh + Prezto
 #-----------------------------------------------------------------------
 
-# We install Prezto first so that it's ready for Zsh.
-. $DOTFILES/prezto/install.sh
-# Install Zshell + Zsh-completions
-. $DOTFILES/zsh/install.sh
-
-#-----------------------------------------------------------------------
-# OS CONDITIONALS
-#-----------------------------------------------------------------------
-
-# If we're on a Mac, let's install and setup homebrew.
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    sh_info "installing dependencies"
-    #if source bin/dot > /tmp/dotfiles-dot 2>&1; then
-    #    sh_success "dependencies installed"
-    #else
-    #    sh_fail "error installing dependencies"
-    #fi
+# Install Prezto first to be ready for Zsh config.
+if [[ ! -d "$HOME/.zprezto" ]]; then
+  sh_info "Installing Prezto to the home directory: ~/.prezto"
+  if type "git" &> /dev/null; then
+    git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
+  elif type "curl" &> /dev/null; then
+    cd || echo
+    curl -LOk https://github.com/sorin-ionescu/prezto/archive/master.zip \
+    && unzip master.zip && mv prezto-master .prezto && rm master.zip
+  fi
 fi
 
-echo ""
+# Install Zsh and Zsh-completions
+if [[ ! -e "$(brew --prefix)/bin/zsh" ]]; then
+  sh_info "Install Zsh and Zsh-completions"
+  brew install zsh zsh-completions
+  # Install oh-my-zsh on top of zsh to getting additional functionality
+  # curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+fi
+# Add Zsh to the list of allowed shells
+if [[ -e "$(brew --prefix)/bin/zsh" ]] && [[ ! "$(cat /etc/shells)" =~ "$(brew --prefix)/bin/zsh" ]]; then
+  sh_info "Adding Zsh to the list of allowed shells (/etc/shells)."
+  sudo bash -c 'echo "$(brew --prefix)/bin/zsh" >> /etc/shells'
+else
+  sh_fail "Error locating Homebrew and/or Zsh. Please install manually."
+fi
 
-sh_success "Bootstrapping complete!"
+echo
 
-sh_alert "Restart your terminal/shell, and take the next step."
+sh_success "Bootstrapping complete."
 
-echo ""
+sh_alert "Restart the terminal and run: ~/.dotfiles/install"
+
+echo

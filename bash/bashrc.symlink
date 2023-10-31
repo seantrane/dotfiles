@@ -7,27 +7,27 @@
 #
 # Bash executes A, then B, then C, etc.
 # The B1, B2, B3 means it executes only the first of those files found.
-# +----------------+-----------+-----------+------+
-# |                |Interactive|Interactive|Script|
-# |                |login      |non-login  |      |
-# +----------------+-----------+-----------+------+
-# |/etc/profile    |   A       |           |      |
-# +----------------+-----------+-----------+------+
-# |/etc/bash.bashrc|           |    A      |      |
-# +----------------+-----------+-----------+------+
-# |~/.bashrc       |           |    B      |      |
-# +----------------+-----------+-----------+------+
-# |~/.bash_profile |   B1      |           |      |
-# +----------------+-----------+-----------+------+
-# |~/.bash_login   |   B2      |           |      |
-# +----------------+-----------+-----------+------+
-# |~/.profile      |   B3      |           |      |
-# +----------------+-----------+-----------+------+
-# |BASH_ENV        |           |           |  A   |
-# +----------------+-----------+-----------+------+
-# +----------------+-----------+-----------+------+
-# |~/.bash_logout  |    C      |           |      |
-# +----------------+-----------+-----------+------+
+# +-----------------+-----------+-----------+------+
+# |                 |Interactive|Interactive|Script|
+# |                 |login      |non-login  |      |
+# +-----------------+-----------+-----------+------+
+# |/etc/profile     |   A       |           |      |
+# +-----------------+-----------+-----------+------+
+# |/etc/bash.bashrc |           |    A      |      |
+# +-----------------+-----------+-----------+------+
+# |  ~/.bashrc      |           |    B      |      |
+# +-----------------+-----------+-----------+------+
+# |  ~/.bash_profile|   B1      |           |      |
+# +-----------------+-----------+-----------+------+
+# |  ~/.bash_login  |   B2      |           |      |
+# +-----------------+-----------+-----------+------+
+# |  ~/.profile     |   B3      |           |      |
+# +-----------------+-----------+-----------+------+
+# |BASH_ENV         |           |           |  A   |
+# +-----------------+-----------+-----------+------+
+# +-----------------+-----------+-----------+------+
+# |  ~/.bash_logout |    C      |           |      |
+# +-----------------+-----------+-----------+------+
 #
 # Moral: Put stuff in `~/.bashrc `, make `~/.bash_profile` source it.
 #
@@ -57,10 +57,32 @@
 ########################################################################
 ########################################################################
 
+#-----------------------------------------------------------------------
+# PATH
+#-----------------------------------------------------------------------
+
+# for file in ~/.dotfiles/{git,system}/path.sh; do
+_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'path.sh'))
+for _file_path in "${_find_files_array[@]}"; do
+  . "$_file_path"
+done
+unset _file_path _find_files_array
+
+# for file in ~/.dotfiles/{git,system}/path.bash; do
+_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'path.bash'))
+for _file_path in "${_find_files_array[@]}"; do
+  . "$_file_path"
+done
+unset _file_path _find_files_array
+
+#-----------------------------------------------------------------------
+# Functions
+#-----------------------------------------------------------------------
+
 # autoload every function:
 # for file in ~/.dotfiles/functions/{extract,link_file}; do
 _find_files_array=($(find -H "$DOTFILES/functions" -maxdepth 2 -perm -u+r -type f -name '[A-Za-z0-9\-\_]*'))
-for _file_path in ${_find_files_array}; do
+for _file_path in "${_find_files_array[@]}"; do
   . "$_file_path"
 done
 unset _file_path _find_files_array
@@ -104,16 +126,17 @@ else
 #-----------------------------------------------------------------------
 # USER/MACHINE/SHELL PROFILE
 #-----------------------------------------------------------------------
-[[ -f "$DOTFILES/bash/.shell_profile.sh" ]] && . "$DOTFILES/bash/.shell_profile.sh"
 
+[[ -f "$DOTFILES/bash/.shell_profile.sh" ]] && . "$DOTFILES/bash/.shell_profile.sh"
 
 #-----------------------------------------------------------------------
 # HOMEBREW PATH
 #-----------------------------------------------------------------------
+
 BREW_PREFIX=""
 if type "brew" &> /dev/null; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
   BREW_PREFIX="$(brew --prefix)"
+  eval "$($BREW_PREFIX/bin/brew shellenv)"
   [[ ! -d "$BREW_PREFIX" ]] && BREW_PREFIX=""
 fi
 
@@ -143,7 +166,6 @@ fi
 # `~/.bash_prompt` can be used for custom prompt configuration.
 [[ -f "$HOME/.bash_prompt" ]] && . "$HOME/.bash_prompt"
 
-
 #-----------------------------------------------------------------------
 # ALIASES
 #-----------------------------------------------------------------------
@@ -151,21 +173,20 @@ fi
 
 # for file in ~/.dotfiles/{git,system}/aliases.sh; do
 _find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.sh'))
-for _file_path in ${_find_files_array}; do
+for _file_path in "${_find_files_array[@]}"; do
   . "$_file_path"
 done
 unset _file_path _find_files_array
 
 # for file in ~/.dotfiles/{git,system}/aliases.bash; do
 _find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.bash'))
-for _file_path in ${_find_files_array}; do
+for _file_path in "${_find_files_array[@]}"; do
   . "$_file_path"
 done
 unset _file_path _find_files_array
 
 # `~/.aliases` can be used for private aliases.
 [[ -f "$HOME/.aliases" ]] && . "$HOME/.aliases"
-
 
 #-----------------------------------------------------------------------
 # BASH OPTIONS
@@ -208,7 +229,7 @@ if [[ ${BASH_VERSION%%[^0-9]*} -ge 4 ]]; then
   # load every completion after autocomplete loads:
   # for file in ~/.dotfiles/{git,system}/completion.bash; do
   _find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'completion.bash'))
-  for _file_path in ${_find_files_array}; do
+  for _file_path in "${_find_files_array[@]}"; do
     . "$_file_path"
   done
   unset _file_path _find_files_array

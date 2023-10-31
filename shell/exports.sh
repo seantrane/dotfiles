@@ -15,24 +15,36 @@ export PROJECTS="$HOME/Projects"
 
 # BROWSER
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    export BROWSER='open'
+  export BROWSER="open"
 fi
 
 # EDITORS
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # Use Sublime (subl) on Mac
-    export EDITOR='subl'
-    export VISUAL='subl'
-else
-    export EDITOR='vi'
-    export VISUAL='vi'
+# Use VIM, by default
+export EDITOR="vim"
+export VISUAL="vim"
+if type "code" &> /dev/null; then
+  # Use VS Code, if available
+  export EDITOR="code"
+  export VISUAL="code"
+elif type "nvim" &> /dev/null; then
+  # Use Neovim, if available
+  export EDITOR="nvim"
+  export VISUAL="nvim"
+  alias vi="nvim"
+elif ! type "vim" &> /dev/null && type "nano" &> /dev/null; then
+  # Use Nano, as a fallback
+  export EDITOR="nano"
+  export VISUAL="nano"
+elif ! type "vim" &> /dev/null && type "pico" &> /dev/null; then
+  # Use Pico, as a fallback
+  export EDITOR="pico"
+  export VISUAL="pico"
 fi
 
-export PAGER='less'
+export PAGER="less"
 
 # LANGUAGE
-[[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
-
+[[ -z "$LANG" ]] && export LANG="en_US.UTF-8"
 
 #-----------------------------------------------------------------------
 # CUSTOM/USER VARIABLES

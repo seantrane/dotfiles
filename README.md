@@ -51,9 +51,9 @@ Edit the `zsh/zpreztorc.symlink`, for Prezto configuration.
 
 Edit the `zsh/zshenv.symlink`, for Zsh configuration.
 
-Edit the `osx/set-defaults.sh`, for your OS X preferences.
+Edit the `macos/set-defaults.sh`, for your OS X preferences.
 
-Edit the `osx/install-casks.sh`, for your preferred OS X apps.
+Edit the `macos/install-casks.sh`, for your preferred OS X apps.
 
 Edit the `php/install.sh`, to modify PHP/extensions.
 
@@ -81,7 +81,7 @@ After restarting your terminal/shell, run all installers.
 ```
 
 This will not only install all of your [components](#components),
-but it will also install your chosen apps/casks in `osx/install-casks.sh`.
+but it will also install your chosen apps/casks in `macos/install-casks.sh`.
 
 ### Step 5
 
@@ -120,6 +120,119 @@ There are a few special files in the hierarchy.
 defaults, and so on. Tweak this script, and occasionally run `dot` from
 time to time to keep your environment fresh and up-to-date. You can find
 this script in `bin/`.
+
+---
+
+## System Provisioning Features <a id="features"></a>
+
+### Node.js global dependencies
+
+- [x] [`cucumber`](https://www.npmjs.com/package/cucumber)
+- [ ] [`ember-cli`](https://www.npmjs.com/package/ember-cli)
+- [ ] [`gulp`](https://www.npmjs.com/package/gulp)
+- [x] [`less`](https://www.npmjs.com/package/less)
+- [x] [`serverless`](https://www.npmjs.com/package/serverless)
+- [x] [`yo`](https://www.npmjs.com/package/yo)
+
+### Ruby Gems
+
+- [x] [`boom`](https://github.com/holman/boom)
+- [x] [`jekyll`](https://jekyllrb.com)
+- [x] [`sass`](https://sass-lang.com/)
+
+### Visual Studio Code Extensions
+
+_Some extensions are disabled (commented-out in code)._
+
+- [x] [Angular Snippets](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)
+- [x] [Apache Conf](https://marketplace.visualstudio.com/items?itemName=mrmlnc.vscode-apache)
+- [x] [Atom Keymap](https://marketplace.visualstudio.com/items?itemName=ms-vscode.atom-keybindings)
+- [x] [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag)
+- [x] [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
+- [x] [AutoFileName](https://marketplace.visualstudio.com/items?itemName=JerryHong.autofilename)
+- [x] [Azure Account](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account)
+- [x] [BalanceD Syntax Theme](https://marketplace.visualstudio.com/items?itemName=seantrane.balanced-theme)
+- [x] [BATS (Bash Automated Testing System)](https://marketplace.visualstudio.com/items?itemName=jetmartin.bats)
+- [x] [Better Align](https://marketplace.visualstudio.com/items?itemName=chouzz.vscode-better-align)
+- [x] [Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets](https://marketplace.visualstudio.com/items?itemName=thekalinga.bootstrap4-vscode)
+- [ ] [Bridge to Kubernetes](https://marketplace.visualstudio.com/items?itemName=mindaro.mindaro)
+- [x] [Change Case](https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case)
+- [x] [chmod](https://marketplace.visualstudio.com/items?itemName=dlech.chmod)
+- [x] [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
+- [x] [Contextual Duplicate](https://marketplace.visualstudio.com/items?itemName=lafe.contextualduplicate)
+- [x] [Debugger for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug)
+- [x] [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- [x] [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+- [x] [Document This](https://marketplace.visualstudio.com/items?itemName=oouo-diogo-perdigao.docthis)
+- [x] [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
+- [x] [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- [x] [Elixir Support for VS Code](https://marketplace.visualstudio.com/items?itemName=mjmcloug.vscode-elixir)
+- [ ] [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [x] [ExpressionEngine](https://marketplace.visualstudio.com/items?itemName=jrrdnx.expressionengine)
+- [x] [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
+- [x] [File Downloader](https://marketplace.visualstudio.com/items?itemName=mindaro-dev.file-downloader)
+- [x] [File Utils](https://marketplace.visualstudio.com/items?itemName=sleistner.vscode-fileutils)
+- [x] [Git History](https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory)
+- [x] [GitHub Codespaces](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces)
+- [x] [gitignore](https://marketplace.visualstudio.com/items?itemName=codezombiech.gitignore)
+- [ ] [Go](https://marketplace.visualstudio.com/items?itemName=golang.go)
+- [x] [GraphQL for VSCode](https://marketplace.visualstudio.com/items?itemName=kumar-harsh.graphql-for-vscode)
+- [x] [HashiCorp Terraform](https://marketplace.visualstudio.com/items?itemName=hashicorp.terraform)
+- [x] [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally)
+- [x] [IntelliCode API Usage Examples](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.intellicode-api-usage-examples)
+- [x] [IntelliCode](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
+- [x] [isort](https://marketplace.visualstudio.com/items?itemName=ms-python.isort)
+- [x] [Jasmine code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JasmineSnippets)
+- [x] [JavaScript (ES6) code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets)
+- [x] [JavaScript Snippet Pack](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-javascript-snippet-pack)
+- [x] [Jekyll Syntax Support](https://marketplace.visualstudio.com/items?itemName=ginfuru.ginfuru-vscode-jekyll-syntax)
+- [x] [Jest](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)
+- [ ] [Kubernetes](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
+- [x] [Language Support for Java(TM) by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.java)
+- [x] [Lodash Snippets](https://marketplace.visualstudio.com/items?itemName=tomphilbin.lodash-snippets)
+- [x] [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)
+- [x] [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles)
+- [x] [Markdown Table Prettifier](https://marketplace.visualstudio.com/items?itemName=darkriszty.markdown-table-prettify)
+- [x] [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+- [x] [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+- [x] [Maven for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-maven)
+- [x] [Mocha Snippets](https://marketplace.visualstudio.com/items?itemName=Alan.MochaSnippets)
+- [x] [New Relic CodeStream](https://marketplace.visualstudio.com/items?itemName=CodeStream.codestream)
+- [x] [New Relic One](https://marketplace.visualstudio.com/items?itemName=new-relic.nr1)
+- [x] [New Relic Query Language](https://marketplace.visualstudio.com/items?itemName=joelalejandro.nrql-language)
+- [x] [npm Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
+- [x] [Output Colorizer](https://marketplace.visualstudio.com/items?itemName=IBM.output-colorizer)
+- [x] [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
+- [x] [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [x] [Project Manager for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-dependency)
+- [x] [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
+- [x] [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+- [x] [Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv)
+- [x] [RAML](https://marketplace.visualstudio.com/items?itemName=jeppeandersen.raml)
+- [x] [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native)
+- [x] [Regex Previewer](https://marketplace.visualstudio.com/items?itemName=chrmarti.regex)
+- [x] [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+- [x] [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap)
+- [x] [Ruby LSP](https://marketplace.visualstudio.com/items?itemName=Shopify.ruby-lsp)
+- [x] [Sass (.sass only)](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
+- [x] [Select Line Status Bar](https://marketplace.visualstudio.com/items?itemName=tomoki1207.selectline-statusbar)
+- [x] [Shell Snippets](https://marketplace.visualstudio.com/items?itemName=DeepInThought.vscode-shell-snippets)
+- [x] [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
+- [x] [slugify](https://marketplace.visualstudio.com/items?itemName=maximerouiller.slugify-vscode)
+- [x] [Snippets and Syntax Highlight for Gherkin (Cucumber)](https://marketplace.visualstudio.com/items?itemName=stevejpurves.cucumber)
+- [x] [SonarLint](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode)
+- [x] [Sort JSON objects](https://marketplace.visualstudio.com/items?itemName=richie5um2.vscode-sort-json)
+- [x] [Sort lines](https://marketplace.visualstudio.com/items?itemName=Tyriar.sort-lines)
+- [x] [Terraform doc snippets](https://marketplace.visualstudio.com/items?itemName=run-at-scale.terraform-doc-snippets)
+- [x] [Test Runner for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-test)
+- [x] [Vetur - Vue tooling for VS Code](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
+- [x] [VS Code database](https://marketplace.visualstudio.com/items?itemName=bajdzis.vscode-database)
+- [x] [VS DocBlockr](https://marketplace.visualstudio.com/items?itemName=jeremyljackson.vs-docblock)
+- [x] [VSCode Ruby](https://marketplace.visualstudio.com/items?itemName=wingrunr21.vscode-ruby)
+- [x] [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons)
+- [x] [XML Tools](https://marketplace.visualstudio.com/items?itemName=DotJoshJohnson.xml)
+- [x] [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+- [x] [yo](https://marketplace.visualstudio.com/items?itemName=samverschueren.yo)
 
 ---
 
