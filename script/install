@@ -15,55 +15,66 @@ unset file
 # OS-specific Installs
 #-----------------------------------------------------------------------
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+if [[ "$OSTYPE" == "freebsd"* ]]; then
 
-    : # Linux
+  : # FreeBSD
 
-    if type "apt-get" &> /dev/null; then
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then
 
-        : # Debian or Ubuntu:
+  : # Linux
 
-    elif type "yum" &> /dev/null; then
+  if type "apt-get" &> /dev/null; then
 
-        : # Fedora, CentOS or Red Hat:
+    : # Debian or Ubuntu:
 
-    fi
+  elif type "yum" &> /dev/null; then
+
+    : # Fedora, CentOS or Red Hat:
+
+  else
+
+    : # Unknown Linux OS
+
+  fi
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 
-    : # Mac OSX
+  : # macOS (Darwin)
 
-    # Install OSX apps (homebrew casks)
-    [[ -s "$DOTFILES_ROOT/osx/install-casks.sh" ]] && source $DOTFILES_ROOT/osx/install-casks.sh
+  # Install macOS apps (homebrew casks)
+  [[ -s "$DOTFILES_ROOT/macos/install-casks.sh" ]] && source $DOTFILES_ROOT/macos/install-casks.sh
 
-    # Remove outdated versions from the cellar.
-    brew cleanup
+  # Remove outdated versions from the cellar.
+  brew cleanup
 
-    # Set OS X defaults
-    [[ -s "$DOTFILES_ROOT/osx/set-defaults.sh" ]] && source $DOTFILES_ROOT/osx/set-defaults.sh
+  # Set macOS defaults
+  [[ -s "$DOTFILES_ROOT/macos/set-defaults.sh" ]] && source $DOTFILES_ROOT/macos/set-defaults.sh
 
-    # Set OS X app prefs
-    # This should only be run once Apps/Casks have been installed.
-    [[ -s "$DOTFILES_ROOT/osx/set-prefs.sh" ]] && source $DOTFILES_ROOT/osx/set-prefs.sh
+  # Set macOS app prefs
+  # This should only be run once Apps/Casks have been installed.
+  [[ -s "$DOTFILES_ROOT/macos/set-prefs.sh" ]] && source $DOTFILES_ROOT/macos/set-prefs.sh
+
+  # sh_info "installing dependencies"
+  # if source bin/dot > /tmp/dotfiles-dot 2>&1; then
+  #   sh_success "dependencies installed"
+  # else
+  #   sh_fail "error installing dependencies"
+  # fi
 
 elif [[ "$OSTYPE" == "cygwin" ]]; then
 
-    : # POSIX compatibility layer and Linux environment emulation for Windows
+  : # POSIX compatibility layer and Linux environment emulation for Windows
 
 elif [[ "$OSTYPE" == "msys" ]]; then
 
-    : # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+  : # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
 
 elif [[ "$OSTYPE" == "win32" ]]; then
 
-    : # Windows (32-bit) (...this may not work...)
-
-elif [[ "$OSTYPE" == "freebsd"* ]]; then
-
-    : # FreeBSD
+  : # Windows (32-bit) (...this may not work...)
 
 else
 
-    : # Unknown OS
+  : # Unknown OS
 
 fi

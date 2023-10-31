@@ -7,7 +7,7 @@
 sudo discoveryutil mdnsactivedirectory yes
 
 # Copy LaunchDaemon
-sudo cp -fv "$HOME/.dotfiles/osx/init/Library/LaunchDaemons/com.discoveryd.fix.plist" "/Library/LaunchDaemons/com.discoveryd.fix.plist"
+sudo cp -fv "$HOME/.dotfiles/macos/init/Library/LaunchDaemons/com.discoveryd.fix.plist" "/Library/LaunchDaemons/com.discoveryd.fix.plist"
 
 # Set root permissions
 sudo chown root "/Library/LaunchDaemons/com.discoveryd.fix.plist"
