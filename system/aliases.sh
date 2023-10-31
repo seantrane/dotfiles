@@ -42,30 +42,30 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
-#alias d="cd ~/Dropbox"
+# alias d="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-#alias p="cd ~/projects"
+# alias p="cd ~/projects"
 alias h="history"
 alias j="jobs"
 
 # Enable aliases to be sudo’ed
-#alias sudo='sudo '
+# alias sudo='sudo '
 alias nsudo='nocorrect sudo'
 alias sudo='my_sudo '
 function my_sudo {
-    while [[ $# > 0 ]]; do
-        case "$1" in
-        command) shift ; break ;;
-        nocorrect|noglob) shift ;;
-        *) break ;;
-        esac
-    done
-    if [[ $# = 0 ]]; then
-        command sudo zsh
-    else
-        noglob command sudo $@
-    fi
+  while [[ $# > 0 ]]; do
+    case "$1" in
+    command) shift ; break ;;
+    nocorrect|noglob) shift ;;
+    *) break ;;
+    esac
+  done
+  if [[ $# = 0 ]]; then
+    command sudo zsh
+  else
+    noglob command sudo $@
+  fi
 }
 
 # Put OS to sleep/standby
@@ -77,7 +77,7 @@ alias week='date +%V'
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update='(cd; sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm cache clean -g -f; npm install -g npm@latest; npm update -g; npm cache clean -g -f; sudo gem update --system; sudo gem update)'
 alias brewupdate='brew update; brew upgrade; brew cleanup'
 alias macupdate='sudo softwareupdate -i -a'
@@ -107,9 +107,5 @@ alias map="xargs -n1"
 
 # One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-    alias "$method"="lwp-request -m '$method'"
+  alias "$method"="lwp-request -m '$method'"
 done
-
-# Make Grunt print stack traces by default
-command -v grunt > /dev/null && alias grunt="grunt --stack"
-
