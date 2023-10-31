@@ -4,77 +4,77 @@
 # example; link_file ~/.bashrc ~/.dotfiles/bash/bashrc.symlink
 
 install_dotfiles () {
-    DOTFILEDIR=$( cd "$HOME/.dotfiles" && pwd )
-    printf "\033[2K\r\n [\033[0;34m .. \033[0m]  Installing ~/.dotfiles \n"
+  DOTFILEDIR=$( cd "$HOME/.dotfiles" && pwd )
+  printf "\033[2K\r\n [\033[0;34m .. \033[0m]  Installing ~/.dotfiles \n"
 
-    local overwrite_all=false backup_all=false skip=false skip_all=false
-    local action=
+  local overwrite_all=false backup_all=false skip=false skip_all=false
+  local action=
 
-    # for file in ~/.dotfiles/{bash,zsh}/{bashrc,zshrc}.symlink; do
-    for src in $(find -H "$DOTFILEDIR" -maxdepth 2 -name "*.symlink" -not -path "*.git*"); do
-        destination="$HOME/.$(basename "${src%.*}")"
-        printf "\033[2K\r\n [\033[0;34m .. \033[0m]  Attempting to link ${destination} to ${src} \n"
-        # echo "Attempting to link $src to $destination"
-        # $DOTFILEDIR/functions/link_file "$src" "$destination"
+  # for file in ~/.dotfiles/{bash,zsh}/{bashrc,zshrc}.symlink; do
+  local _find_files_array=($(find -H "$DOTFILEDIR" -maxdepth 2 -name "*.symlink"))
+  for _source in "${_find_files_array[@]}"; do
+    local _alias="$HOME/.$(basename "${_source%.*}")"
+    printf "\033[2K\r\n [\033[0;34m .. \033[0m]  Attempting to link ${_alias} to ${_source} \n"
+    # $DOTFILEDIR/functions/link_file "$_source" "$_alias"
 
-        if [ -f "$destination" -o -d "$destination" -o -L "$destination" ]; then
+    if [ -f "$_alias" -o -d "$_alias" -o -L "$_alias" ]; then
 
-            if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
+      if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
 
-                # local currentSrc="$(readlink $destination)"
+        local current_source="$(readlink $_alias)"
 
-                # if [ "$currentSrc" == "$src" ]; then
-                #     printf "\033[2K\r\n [\033[0;36m ** \033[0m] \033[0;36m Link/file already exists: $destination \033[0m \n"
-                #     skip=true;
-                # else
-                    printf "\033[2K\r\n [\033[0;33m ?? \033[0m]  File already exists: $destination ($(basename "$src")), what do you want to do?\n\
-                    [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all? \n"
-                    read -r -n 1 action
+        if [ "$current_source" == "$_source" ]; then
+          printf "\033[2K\r\n [\033[0;36m ** \033[0m] \033[0;36m Link/file already exists: $_alias \033[0m \n"
+          skip=true;
+        else
+          printf "\033[2K\r\n [\033[0;33m ?? \033[0m]  File already exists: $_alias ($(basename "$_source")), what do you want to do?\n\
+          [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all? \n"
+          read -r -n 1 action
 
-                    case "$action" in
-                        o )
-                            overwrite=true;;
-                        O )
-                            overwrite_all=true;;
-                        b )
-                            backup=true;;
-                        B )
-                            backup_all=true;;
-                        s )
-                            skip=true;;
-                        S )
-                            skip_all=true;;
-                        * )
-                            ;;
-                    esac
-                # fi
-            fi
-
-            overwrite=${overwrite:-$overwrite_all}
-            backup=${backup:-$backup_all}
-            skip=${skip:-$skip_all}
-
-            if [ "$overwrite" == "true" ]; then
-                rm -rf "$destination"
-                printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Removed $destination \033[0m \n"
-            fi
-
-            if [ "$backup" == "true" ]; then
-                mv "$destination" "${destination}.backup"
-                printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Moved $destination to ${destination}.backup \033[0m \n"
-            fi
-
-            if [ "$skip" == "true" ]; then
-                printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Skipped $src \033[0m \n"
-            fi
+          case "$action" in
+            o )
+              overwrite=true;;
+            O )
+              overwrite_all=true;;
+            b )
+              backup=true;;
+            B )
+              backup_all=true;;
+            s )
+              skip=true;;
+            S )
+              skip_all=true;;
+            * )
+              ;;
+          esac
         fi
+      fi
 
-        # "false" or empty
-        if [ "$skip" != "true" ]; then
-            ln -s "$src" "$destination"
-            printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Linked $destination to $src \033[0m \n"
-        fi
+      overwrite=${overwrite:-$overwrite_all}
+      backup=${backup:-$backup_all}
+      skip=${skip:-$skip_all}
 
+      if [ "$overwrite" == "true" ]; then
+        rm -rf "$_alias"
+        printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Removed $_alias \033[0m \n"
+      fi
 
-    done
+      if [ "$backup" == "true" ]; then
+        mv "$_alias" "${_alias}.backup"
+        printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Moved $_alias to ${_alias}.backup \033[0m \n"
+      fi
+
+      if [ "$skip" == "true" ]; then
+        printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Skipped $_source \033[0m \n"
+      fi
+    fi
+
+    # "false" or empty
+    if [ "$skip" != "true" ]; then
+      ln -s "$_source" "$_alias"
+      printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Linked $_alias to $_source \033[0m \n"
+    fi
+
+  done
+  unset _source _find_files_array
 }
