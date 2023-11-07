@@ -60,21 +60,20 @@ git clone https://github.com/seantrane/dotfiles.git dotfiles && cd dotfiles
 ~/.dotfiles/
 ├─ bin/                       * Anything in `bin/` will get added to your `$PATH`
 │  │                            and be made available everywhere.
-│  ├─ {binary}                * Any shell script you wish
+│  ├─ {binary}                * Any shell script you wish.
 │  :
 │
-├─ functions/                 * Anything in `functions/` will get added to your `$PATH`
-│  │                            and be made available everywhere.
+├─ functions/                 * Anything in `functions/` will be loaded in environment.
 │  ├─ {function}              * Shell function (with filename identical to function name)
 │  :
 │
 ├─ {topic}/                   * Directory with files pertaining to a specific topic or application.
-│  ├─ aliases.zsh             * Any file named `aliases.zsh` is loaded into your environment.
-│  ├─ completion.zsh          * Any file named `completion.zsh` is loaded last
+│  ├─ aliases.{,ba,z}sh       * Any file named `aliases.{,ba,z}sh` is loaded into your environment.
+│  ├─ completion.{ba,z}sh     * Any file named `completion.{ba,z}sh` is loaded last
 │  │                            and is expected to setup autocomplete.
-│  ├─ path.zsh                * Any file named `path.zsh` is loaded first
+│  ├─ path.{,ba,z}sh          * Any file named `path.{,ba,z}sh` is loaded first
 │  │                            and is expected to setup `$PATH` or similar.
-│  ├─ *.zsh                   * Any files ending in `.zsh` get loaded into your environment.
+│  ├─ *.{,ba,z}sh             * Any files ending in `.{,ba,z}sh` get loaded into your environment.
 │  ├─ *.symlink               * Any files ending in `*.symlink` get symlinked into your `$HOME`.
 │  :                            For example; `npmrc.symlink` would be symlinked to `~/.npmrc`
 │                               This is so you can keep all of those versioned in your dotfiles

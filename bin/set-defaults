@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 #
-# Sets OS X defaults by running $DOTFILES/macos/set-defaults.sh.
+# Sets macOS defaults by running $DOTFILES/macos/set-defaults.sh.
 
 [[ -s "$DOTFILES/macos/set-defaults.sh" ]] && exec $DOTFILES/macos/set-defaults.sh

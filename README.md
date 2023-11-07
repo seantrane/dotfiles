@@ -45,32 +45,34 @@ git clone https://github.com/seantrane/dotfiles.git ~/.dotfiles
 
 ### Step 2
 
-Every file can be edited or removed as you please, but there are few primary files you'll want to focus on.
+Every file can be edited or removed as you please, but there are few primary files you may want to focus on.
 
 Edit the `zsh/zpreztorc.symlink`, for Prezto configuration.
 
 Edit the `zsh/zshenv.symlink`, for Zsh configuration.
 
-Edit the `macos/set-defaults.sh`, for your OS X preferences.
+Edit the `macos/set-defaults.sh`, for your macOS preferences.
 
-Edit the `macos/install-casks.sh`, for your preferred OS X apps.
-
-Edit the `php/install.sh`, to modify PHP/extensions.
+Edit the `system/Brewfile.symlink`, for your preferred software and macOS apps.
 
 ### Step 3
 
-Bootstrap the `.dotfiles` and install dependencies.
+To bootstrap the `.dotfiles` and install dependencies, run the following command.
 
 ```sh
 ~/.dotfiles/script/bootstrap
 ```
 
-This will symlink the appropriate files in `.dotfiles` to your home directory.
-Everything is configured and tweaked within `~/.dotfiles`.
+This process will...
 
-It will then install common dependencies, in the proper order.
-
-This will also install Zsh and Prezto and will reset your default shell.
+1. Configure the `.gitconfig` file.
+2. Symlink all `~/.dotfiles/*/*.symlink` files to the `$HOME` directory.
+3. Install _Xcode Command Line Tools_ (macOS only), if unavailable.
+4. Install _Homebrew_, if unavailable.
+5. Install _Git_, if not installed with _Homebrew_.
+6. Install _Ruby_, if not installed with _Homebrew_.
+7. Install _Prezto_, _Zsh_, and _Zsh Completions_.
+8. Reset default shell to Zsh.
 
 ### Step 4
 
@@ -91,32 +93,26 @@ Restart your terminal/shell.
 
 ### Topical
 
-Everything is built around topic areas. If you're adding a new area to your
+Everything is built around _topic_ areas. If you're adding a new area to your
 forked _dotfiles_ — say, "Java" — you can simply add a `java` directory and put
-files in there. Anything with an extension of `.zsh` will get automatically
-included into your shell. Anything with an extension of `.symlink` will get
-symlinked without extension into `$HOME` when you run `script/bootstrap`.
+files in there.
 
 ### Components
 
 There are a few special files in the hierarchy.
 
-- **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
-  available everywhere.
-- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
-  environment.
-- **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
-  expected to setup `$PATH` or similar.
-- **topic/completion.zsh**: Any file named `completion.zsh` is loaded
-  last and is expected to setup autocomplete.
-- **topic/\*.symlink**: Any files ending in `*.symlink` get symlinked into
-  your `$HOME`. This is so you can keep all of those versioned in your dotfiles
-  but still keep those autoloaded files in your home directory. These get
-  symlinked in when you run `script/bootstrap`.
+- **`bin/*`**: Anything in `bin/` will get added to your `$PATH` and be made available everywhere.
+- **`functions/*`**: Anything in `functions/` will be sourced, auto-loaded into the shell environment.
+- **`<topic>/*.sh`**: Any files ending in `.sh` get loaded into Bash and Zsh.
+- **`<topic>/*.bash`**: Any files ending in `.bash` get loaded into Bash.
+- **`<topic>/*.zsh`**: Any files ending in `.zsh` get loaded into Zsh.
+- **`<topic>/path.{,ba,z}sh`**: Any file named `path.sh`, `path.zsh` or `path.bash` is loaded first and is expected to setup `$PATH` or similar.
+- **`<topic>/completion.{ba,z}sh`**: Any file named `completion.zsh` or `completion.bash` is loaded last and is expected to setup autocomplete.
+- **`<topic>/*.symlink`**: Any files ending in `*.symlink` get symlinked into the `$HOME` directory (without extension), enabling version control and auto-loading at the same time. These get symlinked in when you run `script/bootstrap` or `install_dotfiles`.
 
 ### Updates/Maintenance
 
-`dot` is a simple script that updates dependencies, packages, sets sane OS X
+`dot` is a simple script that updates dependencies, packages, sets sane macOS
 defaults, and so on. Tweak this script, and occasionally run `dot` from
 time to time to keep your environment fresh and up-to-date. You can find
 this script in `bin/`.
@@ -138,6 +134,7 @@ this script in `bin/`.
 
 - [x] [`boom`](https://github.com/holman/boom)
 - [x] [`jekyll`](https://jekyllrb.com)
+- [x] [`rails`](https://rubyonrails.org)
 - [x] [`sass`](https://sass-lang.com/)
 
 ### Visual Studio Code Extensions
@@ -155,6 +152,7 @@ _Some extensions are disabled (commented-out in code)._
 - [x] [BATS (Bash Automated Testing System)](https://marketplace.visualstudio.com/items?itemName=jetmartin.bats)
 - [x] [Better Align](https://marketplace.visualstudio.com/items?itemName=chouzz.vscode-better-align)
 - [x] [Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets](https://marketplace.visualstudio.com/items?itemName=thekalinga.bootstrap4-vscode)
+- [x] [Brewfile](https://marketplace.visualstudio.com/items?itemName=sharat.vscode-brewfile)
 - [ ] [Bridge to Kubernetes](https://marketplace.visualstudio.com/items?itemName=mindaro.mindaro)
 - [x] [Change Case](https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case)
 - [x] [chmod](https://marketplace.visualstudio.com/items?itemName=dlech.chmod)

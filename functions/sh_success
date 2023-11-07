@@ -6,6 +6,3 @@ sh_success () {
     # shellcheck disable=SC2059
     printf "${ClearNewLine:-} [${Green:-} OK ${Reset:-}]  ${Green:-}${1:-}${Reset:-} \\n"
 }
-
-# shellcheck disable=SC2034
-[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_success

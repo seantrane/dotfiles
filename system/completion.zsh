@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
-
-[[ -z "$BREW_PREFIX" ]] && BREW_PREFIX="$(brew --prefix)"
+# shellcheck shell=zsh
+#
+# System Command Tab Completions for Zsh
 
 ###############################################################################
 # Git
@@ -9,8 +9,8 @@
 # Uses git's autocompletion for inner commands. Assumes an install of git's
 # bash `git-completion` script at $completion below (this is where Homebrew
 # tosses it, at least).
-[[ -f "$BREW_PREFIX/share/zsh/site-functions/_git" ]] && \
-    . "$BREW_PREFIX/share/zsh/site-functions/_git"
+[[ -f "$HOMEBREW_PREFIX/share/zsh/site-functions/_git" ]] && \
+    . "$HOMEBREW_PREFIX/share/zsh/site-functions/_git"
 
 ###############################################################################
 # rbenv
@@ -41,10 +41,10 @@
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 # shellcheck disable=SC1090
-[[ -f "$BREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh" ]] && \
-    . "$BREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh"
+[[ -f "$HOMEBREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh" ]] && \
+    . "$HOMEBREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh"
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 # shellcheck disable=SC1090
-[[ -f "$BREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && \
-    . "$BREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"
+[[ -f "$HOMEBREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && \
+    . "$HOMEBREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"

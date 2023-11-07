@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck shell=bash
 #
 # PATH / MANPATH exports
 #
@@ -48,7 +48,7 @@ export PATH="/opt/homebrew/bin:$PATH"
 # HELP DOCS/MANUALS
 #-----------------------------------------------------------------------
 
-[[ -d "${BREW_PREFIX:-}/man" ]] && export MANPATH="${BREW_PREFIX:-}/man:$MANPATH"
+[[ -d "${HOMEBREW_PREFIX:-}/man" ]] && export MANPATH="${HOMEBREW_PREFIX:-}/man:$MANPATH"
 
 # .local manuals:
 [[ -d "$HOME/.local/man" ]] && export MANPATH="$HOME/.local/man:$MANPATH"

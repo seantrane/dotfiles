@@ -158,6 +158,3 @@ rsyncit () {
     rsync -au --progress --stats "${FLAGS[@]}" "$2" "$3"
   fi
 }
-
-# shellcheck disable=SC2034
-[[ -z "${ZSH_NAME:-}" ]] && typeset -fx rsyncit

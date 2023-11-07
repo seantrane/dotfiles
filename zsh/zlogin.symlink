@@ -1,3 +1,4 @@
+# shellcheck shell=zsh
 #
 # ZSH LOGIN
 #
@@ -22,7 +23,7 @@
 # what started GNOME or KDE behind your back when you logged in; things started anew
 # are not login shells. New terminals or new screen windows you open are not login
 # shells either.
-# (Starting a new window in OS X’s Terminal.app seems to count as a login shell, though.)
+# (Starting a new window in macOS’s Terminal.app seems to count as a login shell, though.)
 #
 # Put `~/.zlogin` stuff in the Conditional Configuration section of `~/.zshenv`.
 # See comments in `~/.zshenv` for detailed summary.

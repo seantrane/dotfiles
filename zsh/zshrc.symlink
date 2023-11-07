@@ -1,5 +1,10 @@
-#
-# ZSH RC
+# shellcheck shell=zsh disable=SC1090,SC1091
+#          _
+#  _______| |__  _ __ ___
+# |_  / __| '_ \| '__/ __|
+#  / /\__ \ | | | | | (__
+# /___|___/_| |_|_|  \___|
+# ========================
 #
 # Zsh run-control file.
 #
@@ -8,10 +13,6 @@
 #
 # Put stuff in conditional section of `~/.zshenv`.
 # See comments in `~/.zshenv` for detailed summary.
-#
-# shellcheck disable=SC1090,SC1091
-
-BREW_PREFIX="$(brew --prefix)"
 
 # Fix Shell PATH Issue (overwritten by .zprofile)
 DEFAULT_PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
@@ -50,9 +51,9 @@ else
 : ######################################################################
 # echo "$SHELL::interactive"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Source/init Prezto.
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 [[ -f "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && . "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
@@ -68,18 +69,18 @@ unset _file_path _find_files_array
 # Unalias `nocorrect` completions from: prezto/modules/utility/init.zsh
 # unalias mkdir mv mysql rm
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # LOCAL/PRIVATE CONFIG
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
 [[ -f "${ZDOTDIR:-$HOME}/.localrc" ]] && . "${ZDOTDIR:-$HOME}/.localrc"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # ALIASES
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Aliases should only be available to prompt-user (not scripts).
 
 alias reload!='. ~/.zshrc'
@@ -112,9 +113,9 @@ alias mmv='noglob zmv -W'
 # http://apt-browse.org/browse/debian/wheezy/main/all/command-not-found/
 [[ -f "/etc/zsh_command_not_found" ]] && . "/etc/zsh_command_not_found"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # TAB COMPLETION
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Disable autocorrect guesses. Happens when typing a wrong
 # command that may look like an existing one.
@@ -170,11 +171,16 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
 
+# Zsh to use the same colors as ls
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+#-------------------------------------------------------------------------------
+
 # Homebrew-Zsh help reset
-if type "brew" &> /dev/null && [ -f "${BREW_PREFIX}/share/zsh/help" ]; then
+if type "brew" &> /dev/null && [ -f "${HOMEBREW_PREFIX}/share/zsh/help" ]; then
   unalias run-help
   autoload run-help
-  HELPDIR="${BREW_PREFIX}/share/zsh/help"; export HELPDIR
+  HELPDIR="${HOMEBREW_PREFIX}/share/zsh/help"; export HELPDIR
 fi
 
 # load every completion after autocomplete loads:
@@ -186,8 +192,8 @@ done
 unset _file_path _find_files_array
 
 # To activate Homebrew-Zsh-completions, add to .zshrc:
-if [[ -f "${BREW_PREFIX}/share/zsh-completions" ]]; then
-  fpath=("${BREW_PREFIX}/share/zsh-completions" $fpath)
+if [[ -f "${HOMEBREW_PREFIX}/share/zsh-completions" ]]; then
+  fpath=("${HOMEBREW_PREFIX}/share/zsh-completions" $fpath)
 fi
 
 # z - jump around
@@ -197,13 +203,13 @@ fi
 # that matches ALL of the regexes given on the command line, in order.
 if [[ -f "$HOME/z/z.sh" ]]; then
   . "$HOME/z/z.sh"
-elif type "brew" &> /dev/null && [[ -f "${BREW_PREFIX}/etc/profile.d/z.sh" ]]; then
-  . "${BREW_PREFIX}/etc/profile.d/z.sh"
+elif type "brew" &> /dev/null && [[ -f "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]]; then
+  . "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
 fi
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Less - opposite of more
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Less is a program similar to more (1), but which allows
 # backward movement in the file as well as forward movement.
 # Also, less does not have to read the entire input file
@@ -221,14 +227,21 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # if (( $#commands[(i)lesspipe(|.sh)] )); then
 #   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 # fi
-lesspipe_file="${BREW_PREFIX}/bin/lesspipe.sh"
-[[ -e "${BREW_PREFIX}/bin/lesspipe" ]] && lesspipe_file="${BREW_PREFIX}/bin/lesspipe"
+lesspipe_file="${HOMEBREW_PREFIX}/bin/lesspipe.sh"
+[[ -e "${HOMEBREW_PREFIX}/bin/lesspipe" ]] && lesspipe_file="${HOMEBREW_PREFIX}/bin/lesspipe"
 LESSOPEN="|$lesspipe_file %s"; export LESSOPEN                     #(sh like shells)
 type "setenv" &> /dev/null && setenv LESSOPEN "|$lesspipe_file %s" #(csh, tcsh)
 
-#-----------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# LS COLORS
+#-------------------------------------------------------------------------------
+
+[[ -r "$DOTFILES/shell/ls_colors.sh" ]] && . "$DOTFILES/shell/ls_colors.sh"
+
+#-------------------------------------------------------------------------------
 # PROMPT OPTIONS
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 autoload -Uz promptinit
 promptinit

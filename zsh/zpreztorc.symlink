@@ -1,9 +1,6 @@
-#!/usr/bin/env bash
+# shellcheck shell=zsh
 #
-# ZSH-PREZTO RC
-#
-# Prezto run-control file.
-# Sets Prezto configuration options.
+# Zsh-Prezto Runtime Configuration
 
 #-----------------------------------------------------------------------
 # General

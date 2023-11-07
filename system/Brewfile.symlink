@@ -144,6 +144,7 @@ cask "a-better-finder-rename"
 cask "alfred"
 # cask "atom"
 # cask "audacity"
+cask "audio-hijack"
 # cask "blue-jeans"
 # cask "citrix-receiver"
 # cask "cyberduck"
@@ -156,10 +157,12 @@ cask "alfred"
 # cask "filezilla"
 # cask "firefox"
 # cask "flash"
+cask "focusrite-control"
 # cask "gimp"
 cask "github"
 # cask "gitkraken"
 # cask "gitx"
+cask "gog-galaxy"
 # cask "google-chrome"
 cask "handbrake"
 cask "imagealpha"
@@ -174,12 +177,16 @@ cask "java" unless system "/usr/libexec/java_home --failfast"
 # cask "kaleidoscope"
 # cask "keka"
 cask "keybase"
+cask "krita"
 # cask "little-snitch"
 cask "macpar-deluxe"
 # cask "mamp"
 # cask "microsoft-lync"
 # cask "microsoft-office"
 cask "mongodb-compass"
+cask "musicbrainz-picard"
+cask "native-access"
+cask "nzbget"
 # cask "openoffice"
 # cask "phpstorm"
 cask "postman"
@@ -233,6 +240,16 @@ cask "font-ubuntu"
 brew "mas"
 #
 # mas "1Password", id: 443987910
+mas "Logic Pro", id: 634148309
+#
+#-----------------------------------------------------------------------
+# Whalebrew
+# @see https://github.com/whalebrew/whalebrew
+#-----------------------------------------------------------------------
+#
+brew "whalebrew"
+#
+whalebrew "composer/composer" # [PHP Composer](https://getcomposer.org/doc/00-intro.md#docker-image)
 #
 #-----------------------------------------------------------------------
 # Visual Studio Code Extensions
@@ -250,6 +267,7 @@ vscode "seantrane.balanced-theme" # [BalanceD Syntax Theme](https://marketplace.
 vscode "jetmartin.bats" # [BATS (Bash Automated Testing System)](https://marketplace.visualstudio.com/items?itemName=jetmartin.bats)
 vscode "chouzz.vscode-better-align" # [Better Align](https://marketplace.visualstudio.com/items?itemName=chouzz.vscode-better-align)
 vscode "thekalinga.bootstrap4-vscode" # [Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets](https://marketplace.visualstudio.com/items?itemName=thekalinga.bootstrap4-vscode)
+vscode "sharat.vscode-brewfile" # [Brewfile](https://marketplace.visualstudio.com/items?itemName=sharat.vscode-brewfile)
 # vscode "mindaro.mindaro" # [Bridge to Kubernetes](https://marketplace.visualstudio.com/items?itemName=mindaro.mindaro)
 vscode "wmaurer.change-case" # [Change Case](https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case)
 vscode "dlech.chmod" # [chmod](https://marketplace.visualstudio.com/items?itemName=dlech.chmod)

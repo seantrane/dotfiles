@@ -1,12 +1,12 @@
-#!/usr/bin/env bash
+# shellcheck shell=bash
 #
-# OS X Aliases
+# macOS aliases
 
 alias ios="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
 
 alias subl="open -a \"Sublime Text\""
 
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update="(cd; sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm cache clean -g -f; npm install -g npm@latest; npm update -g; npm cache clean -g -f; sudo gem update --system; sudo gem update)"
 alias brewupdate="brew update; brew upgrade; brew cleanup"
 alias macupdate="sudo softwareupdate -i -a"
@@ -29,10 +29,10 @@ alias flush="sudo dscacheutil -flushcache;sudo discoveryutil mdnsflushcache;sudo
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
-# OS X has no `md5sum`, so use `md5` as a fallback
+# macOS has no `md5sum`, so use `md5` as a fallback
 command -v md5sum > /dev/null || alias md5sum="md5"
 
-# OS X has no `sha1sum`, so use `shasum` as a fallback
+# macOS has no `sha1sum`, so use `shasum` as a fallback
 command -v sha1sum > /dev/null || alias sha1sum="shasum"
 
 # Disable power chime (sound when plugging in a cable, or at startup)

@@ -6,6 +6,3 @@ sh_alert () {
     # shellcheck disable=SC2059
     printf "${ClearNewLine:-} [${Yellow:-} !! ${Reset:-}]  ${Yellow:-}${1:-}${Reset:-} \\n"
 }
-
-# shellcheck disable=SC2034
-[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_alert

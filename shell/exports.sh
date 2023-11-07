@@ -1,10 +1,8 @@
-#!/usr/bin/env bash
+# shellcheck shell=bash disable=SC1090,SC1091
 #
 # EXPORTS
 #
 # Defines exports/variables for bash scripting environment.
-#
-# shellcheck disable=SC1090,SC1091
 
 #-----------------------------------------------------------------------
 # DEFAULT VARIABLES
@@ -20,28 +18,32 @@ fi
 
 # EDITORS
 # Use VIM, by default
-export EDITOR="vim"
-export VISUAL="vim"
+EDITOR="vim"
+VISUAL="$EDITOR"
 if type "code" &> /dev/null; then
   # Use VS Code, if available
-  export EDITOR="code"
-  export VISUAL="code"
+  EDITOR="code"
+  VISUAL="$EDITOR"
 elif type "nvim" &> /dev/null; then
   # Use Neovim, if available
-  export EDITOR="nvim"
-  export VISUAL="nvim"
+  EDITOR="nvim"
+  VISUAL="$EDITOR"
   alias vi="nvim"
 elif ! type "vim" &> /dev/null && type "nano" &> /dev/null; then
   # Use Nano, as a fallback
-  export EDITOR="nano"
-  export VISUAL="nano"
+  EDITOR="nano"
+  VISUAL="$EDITOR"
 elif ! type "vim" &> /dev/null && type "pico" &> /dev/null; then
   # Use Pico, as a fallback
-  export EDITOR="pico"
-  export VISUAL="pico"
+  EDITOR="pico"
+  VISUAL="$EDITOR"
 fi
+export EDITOR VISUAL
 
+# LESS > MORE
 export PAGER="less"
+export NULLCMD="cat"
+export READNULLCMD="$PAGER"
 
 # LANGUAGE
 [[ -z "$LANG" ]] && export LANG="en_US.UTF-8"

@@ -37,6 +37,13 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
 
     : # Fedora, CentOS or Red Hat:
 
+    # Install Extra Packages for Enterprise Linux (EPEL)
+    # There are repository rpm packages for RHEL5, RHEL6 and RHEL7.
+    # The repository package installs the repo details on your local system for yum or up2date to use.
+    # Then you can install packages with your usual method, and the EPEL repository is included.
+    # https://fedoraproject.org/wiki/EPEL/FAQ#How_can_I_install_the_packages_from_the_EPEL_software_repository.3F
+    su -c 'rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm'
+
   else
 
     : # Unknown Linux OS
@@ -47,11 +54,32 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 
   : # macOS (Darwin)
 
-  # Install macOS apps (homebrew casks)
-  [[ -s "$DOTFILES_ROOT/macos/install-casks.sh" ]] && source $DOTFILES_ROOT/macos/install-casks.sh
+  # Homebrew installs
+  if type "brew" &> /dev/null; then
+    # Install deps/apps using Brewfile
+    if [[ -r "$HOME/.Brewfile" ]]; then
+      export HOMEBREW_BUNDLE_FILE="$HOME/.Brewfile"
+      brew bundle install --global
+      brew bundle check
+    fi
+    # Remove outdated versions from the cellar.
+    brew cleanup
+  fi
 
-  # Remove outdated versions from the cellar.
-  brew cleanup
+  # Node.js/npm installs
+  if type "npm" &> /dev/null; then
+    npm install -g \
+      cucumber \
+      less \
+      serverless \
+      yo \
+      ;
+  fi
+
+  # Ruby/Bundler installs
+  if type "bundle" &> /dev/null && [[ -r "$HOME/.Gemfile" ]]; then
+    (cd; bundle install --gemfile="$HOME/.Gemfile")
+  fi
 
   # Set macOS defaults
   [[ -s "$DOTFILES_ROOT/macos/set-defaults.sh" ]] && source $DOTFILES_ROOT/macos/set-defaults.sh

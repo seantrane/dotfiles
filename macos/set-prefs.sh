@@ -1,21 +1,24 @@
 #!/usr/bin/env bash
 #
-# Sets OS X Application preferences.
+# Sets macOS Application preferences.
 
 
 ###############################################################################
-# iTerm 2                                                                     #
+# Terminal / iTerm
 ###############################################################################
 
-# Install the Monokai Soda theme for iTerm
-open "$HOME"/.dotfiles/macos/init/Monokai\ Soda.itermcolors
+# Install the BalanceD theme for Terminal
+open "$HOME"/.dotfiles/macos/init/BalanceD.terminal
+
+# Install the BalanceD theme for iTerm
+open "$HOME"/.dotfiles/macos/init/BalanceD.itermcolors
 
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 
 ###############################################################################
-# Google Chrome & Google Chrome Canary                                        #
+# Google Chrome & Google Chrome Canary
 ###############################################################################
 
 # Allow installing user scripts via GitHub Gist or Userscripts.org
@@ -32,7 +35,7 @@ defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 
 
 ###############################################################################
-# SizeUp.app                                                                  #
+# SizeUp.app
 ###############################################################################
 
 # Start SizeUp at login
@@ -43,7 +46,7 @@ defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 
 
 ###############################################################################
-# Google Update Stopper                                                       #
+# Google Update Stopper
 ###############################################################################
 
 GOOGLE_UPDATER_FILE="Library/Google/GoogleSoftwareUpdate/GoogleSoftwareUpdate.bundle/Contents/Resources/GoogleSoftwareUpdateAgent.app/Contents/Resources/install.py"
@@ -65,7 +68,7 @@ defaults write com.google.Keystone.Agent checkInterval 0
 
 
 ###############################################################################
-# Kill affected applications                                                  #
+# Kill affected applications
 ###############################################################################
 
 # for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \

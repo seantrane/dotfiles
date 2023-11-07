@@ -39,36 +39,36 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 
     : # Mac OS
 
-    # OS X Software Update
+    # macOS Software Update
     action=
-    sh_user "Do you want to run OS X Software Update?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
+    sh_user "Do you want to run macOS Software Update?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
     read -r -n 1 action
     case "$action" in
         y )
-            sh_info "Running OS X Software Update..."
+            sh_info "Running macOS Software Update..."
             sudo softwareupdate -i -a
             ;;
         * )
-            sh_info "Skipping OS X Software Update."
+            sh_info "Skipping macOS Software Update."
             ;;
     esac
 
     # (Re)Set defaults
     action=
-    sh_user "Do you want to overwrite OS X defaults?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
+    sh_user "Do you want to overwrite macOS defaults?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
     read -r -n 1 action
     case "$action" in
         y )
-            sh_info "Overwriting OS X defaults..."
+            sh_info "Overwriting macOS defaults..."
             # shellcheck disable=SC1090
             . "$DOTFILES/macos/set-defaults.sh"
             ;;
         * )
-            sh_info "Skipping OS X defaults."
+            sh_info "Skipping macOS defaults."
             ;;
     esac
 
-    # TODO: Copy OS X app prefs for backup/reinstall purposes.
+    # TODO: Copy macOS app prefs for backup/reinstall purposes.
     # source $DOTFILES/macos/copy-prefs.sh
 
     # Homebrew updates

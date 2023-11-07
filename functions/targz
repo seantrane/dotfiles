@@ -7,7 +7,7 @@ targz () {
     tar -cvf "${tmpFile}" --exclude=".DS_Store" "${@}" || return 1;
 
     size=$(
-        stat -f"%z" "${tmpFile}" 2> /dev/null; # OS X `stat`
+        stat -f"%z" "${tmpFile}" 2> /dev/null; # macOS `stat`
         stat -c"%s" "${tmpFile}" 2> /dev/null # GNU `stat`
     );
 

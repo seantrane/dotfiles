@@ -3,5 +3,6 @@ source 'https://rubygems.org'
 # Gems here
 
 gem 'boom' # [manages your text snippets](https://github.com/holman/boom)
-gem 'jekyll'
-gem 'sass'
+gem 'jekyll' # [Jekyll](https://jekyllrb.com)
+gem 'rails' # [Ruby on Rails](https://rubyonrails.org)
+gem 'sass' # [Sass](https://sass-lang.com)

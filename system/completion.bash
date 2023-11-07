@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+#
+# System Command Tab Completions for Bash
 
 ###############################################################################
 # 'nix

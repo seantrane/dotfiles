@@ -56,7 +56,7 @@ if type "brew" &> /dev/null; then
     # Setup taps.
     sh_info "Setting up Homebrew taps..."
     brew tap homebrew/bundle
-    # CASKROOM for OS X
+    # CASKROOM for macOS
     if [[ "$OSTYPE" == "darwin"* ]]; then
         brew tap homebrew/cask-fonts
         brew tap homebrew/cask-versions

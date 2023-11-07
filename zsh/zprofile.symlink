@@ -1,3 +1,4 @@
+# shellcheck shell=zsh disable=SC1090,SC1091
 #
 # ZSH PROFILE
 #
@@ -7,8 +8,6 @@
 #
 # Put stuff in `~/.zshenv`, which is always executed.
 # See comments in `~/.zshenv` for detailed summary.
-#
-# shellcheck disable=SC1090,SC1091
 
 ########################################################################
 ########################################################################
