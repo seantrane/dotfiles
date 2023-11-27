@@ -19,7 +19,7 @@ alias -- -="cd -"
 alias nsudo='nocorrect sudo'
 alias sudo='my_sudo '
 function my_sudo {
-  while [[ $# > 0 ]]; do
+  while [[ $# -gt 0 ]]; do
     case "$1" in
     command) shift ; break ;;
     nocorrect|noglob) shift ;;
@@ -29,6 +29,7 @@ function my_sudo {
   if [[ $# = 0 ]]; then
     command sudo zsh
   else
+    # shellcheck disable=SC2068
     noglob command sudo $@
   fi
 }

@@ -6,6 +6,9 @@ alias ios="open /Applications/Xcode.app/Contents/Developer/Applications/Simulato
 
 alias subl="open -a \"Sublime Text\""
 
+alias defr="defaults read"
+alias defw="defaults write"
+
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update="(cd; sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm cache clean -g -f; npm install -g npm@latest; npm update -g; npm cache clean -g -f; sudo gem update --system; sudo gem update)"
 alias brewupdate="brew update; brew upgrade; brew cleanup"
