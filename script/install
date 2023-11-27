@@ -1,25 +1,26 @@
 #!/usr/bin/env bash
 #
 # Run all dotfiles installers.
+# shellcheck disable=SC1090,SC1091
 
-DOTFILES_ROOT=$( cd "${BASH_SOURCE%/*}/.." && pwd )
+[[ ! -d "${DOTFILES:-}" ]] && DOTFILES=$( cd "${BASH_SOURCE%/*}/.." && pwd )
+
+type "find_files" &> /dev/null || . "$DOTFILES/functions/find_files"
 
 # Install all other dot-packages
 # find the installers and run them iteratively
-_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'install.sh'))
-for _file_path in "${_find_files_array[@]}"; do
-  . $_file_path
+for _file in $(find_files "$DOTFILES" 'install.sh' 2); do
+  . "$_file"
 done
-unset _file_path _find_files_array
 
 # Run before Ruby Gem installs
 # . "$DOTFILES/ruby/gem-update.sh"
 # Run after Ruby Gem installs
 # . "$DOTFILES/ruby/rehash.sh"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # OS-specific Installs
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 if [[ "$OSTYPE" == "freebsd"* ]]; then
 
@@ -78,15 +79,12 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 
   # Ruby/Bundler installs
   if type "bundle" &> /dev/null && [[ -r "$HOME/.Gemfile" ]]; then
-    (cd; bundle install --gemfile="$HOME/.Gemfile")
+    (cd && bundle install --gemfile="$HOME/.Gemfile")
   fi
 
   # Set macOS defaults
-  [[ -s "$DOTFILES_ROOT/macos/set-defaults.sh" ]] && source $DOTFILES_ROOT/macos/set-defaults.sh
-
-  # Set macOS app prefs
   # This should only be run once Apps/Casks have been installed.
-  [[ -s "$DOTFILES_ROOT/macos/set-prefs.sh" ]] && source $DOTFILES_ROOT/macos/set-prefs.sh
+  [[ -s "$DOTFILES/macos/set-defaults.sh" ]] && . "$DOTFILES/macos/set-defaults.sh"
 
   # sh_info "installing dependencies"
   # if source bin/dot > /tmp/dotfiles-dot 2>&1; then
