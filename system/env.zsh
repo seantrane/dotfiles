@@ -1,4 +1,4 @@
-# shellcheck shell=zsh
+# shellcheck shell=bash
 
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768;

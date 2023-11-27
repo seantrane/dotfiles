@@ -7,39 +7,45 @@
 #-------------------------------------------------------------------------------
 # LS ALIASES
 #-------------------------------------------------------------------------------
-# Detect which `ls` flavor is in use
+# Detect which `ls` flavor is in use.
 # FreeBSD, older versions of macOS, have different ls command.
 if ls --color > /dev/null 2>&1; then
   colorflag="--color=always"
 else
   colorflag="-G"
 fi
-if ls -T > /dev/null 2>&1; then
+# Use GNU ls, if installed by Homebrew.
+# Always use color output for `ls`.
+if [[ -r "${HOMEBREW_PREFIX:-}/bin/gls" ]]; then
+  alias ls="command ${HOMEBREW_PREFIX:-}/bin/gls ${colorflag}"
+else
+  alias ls="command ls ${colorflag}"
+fi
+# Set time style flag, according to `ls` flavor.
+if [[ ! -r "${HOMEBREW_PREFIX:-}/bin/gls" ]] && ls -T > /dev/null 2>&1; then
   timeflag="-T"
 else
   timeflag="--time-style=long-iso"
 fi
-# shellcheck disable=SC2034
-colortimeflags="${colorflag} ${timeflag}"
-# List all files colorized in long format
-alias l="ls -lhF ${colortimeflags}"
-# List all files colorized in long format, including dot files
-alias la="ls -lahF ${colortimeflags}"
-# List, rescursively, all files colorized in long format, including dot files
-alias lsr="ls -lahFR ${colortimeflags}"
-# Always use color output for `ls`
-alias ls="command ls ${colorflag}"
+# List all files colorized in long format.
+alias l="ls -lhF ${timeflag}"
+# List all files colorized in long format, including dot files.
+alias la="ls -lahF ${timeflag}"
+# List, rescursively, all files colorized in long format, including dot files.
+alias lsr="ls -lahFR ${timeflag}"
 # List only directories
-alias lsd="ls -d ${colortimeflags} */"
-alias lsdl="ls -dl ${colortimeflags} */"
+alias lsd="ls -d ${timeflag} */"
+alias lsdl="ls -dl ${timeflag} */"
 
 #-------------------------------------------------------------------------------
 # LSCOLORS
 #-------------------------------------------------------------------------------
-#
-# The value of this variable describes what color to use for which attribute when
-# colors are enabled with `CLICOLOR`. This string is a concatenation of pairs of the
-# format `fb`, where `f` is the foreground color and `b` is the background color.
+# The value of this variable describes what color to use when colors are enabled
+# with `CLICOLOR`.
+export CLICOLOR=1
+
+# The `LSCOLORS` string is a concatenation of pairs of the format `fb`,
+# where `f` is the foreground color and `b` is the background color.
 #
 # The color designators are as follows:
 #
@@ -65,28 +71,30 @@ alias lsdl="ls -dl ${colortimeflags} */"
 #
 # Note that the above are standard ANSI colors. The actual display may
 # differ depending on the color capabilities of the terminal in use.
-#
-# The order of the attributes are as follows:
-#
-# 1. directory
-# 2. symbolic link
-# 3. socket
-# 4. pipe
-# 5. executable
-# 6. block special
-# 7. character special
-# 8. executable with `setuid` bit set
-# 9. executable with `setgid` bit set
-# 10. directory writable to others, with sticky bit
-# 11. directory writable to others, without sticky bit
-#
+
 # The default is `exfxcxdxbxegedabagacad`, i.e. blue foreground and
 # default background for regular directories, black foreground and
 # red background for `setuid` executables, etc.
-
-LSCOLORS='exfxcxdxbxegedabagacad'
-CLICOLOR=true
-export LSCOLORS CLICOLOR
+# LSCOLORS='exfxcxdxbxegedabagacad'
+# The order of the attributes are as follows:
+_lscolors=(
+  'ex' # 01. directory
+  'Dx' # 02. symbolic link
+  'fx' # 03. socket
+  'dx' # 04. pipe
+  'cx' # 05. executable
+  'da' # 06. block special
+  'da' # 07. character special
+  'ab' # 08. executable with `setuid` bit set
+  'ag' # 09. executable with `setgid` bit set
+  'ac' # 10. directory writable to others, with sticky bit
+  'ad' # 11. directory writable to others, without sticky bit
+)
+# Merge array into properly formatted string.
+_ogIFS=$IFS
+IFS=''
+export LSCOLORS="${_lscolors[*]}"
+IFS=$_ogIFS
 
 #-------------------------------------------------------------------------------
 # LS COLORS
@@ -169,9 +177,7 @@ export LSCOLORS CLICOLOR
 # | `109` | Default Background - High Intensity    |
 #
 # These codes can also be combined with one another:
-#
 #     di=5;34;43
-#
 
 # Reusable color combos
 _ls_audio="35"
@@ -185,8 +191,10 @@ _ls_video="94"
 _ls_zip="03;34"
 
 # Colorize tree even when used in pipes
-typeset -Tgx LS_COLORS ls_colors ':'
+# 'typeset' disabled so that this file can be sourced in both Bash and Zsh.
+# typeset -Tgx LS_COLORS ls_colors ':'
 ls_colors=(
+  # Parameters for `LS_COLORS` (`di`, `fi`, ...) refer to different file types:
   'no=00'       # no = No color code at all
   'fi=00'       # fi = Regular file: use no color at all
   'rs=0'        # rs = Reset to "normal" color
@@ -199,13 +207,13 @@ ls_colors=(
   'bd=40;33;01' # bd = Block device driver, (buffered) special file
   'cd=40;33;01' # cd = Character device driver, (unbuffered) special file
   'or=40;31;03' # or = Orphan symlink to nonexistent file, or non-stat'able file
-  'mi=00'       # mi = Non-existent file symlinked (visible when you type `ls -l`)
+  'mi=00'       # mi = Non-existent file symlinked (visible with `ls -l`)
   'su=37'       # su = Normal file that is `setuid` (`u+s`)
   'sg=30'       # sg = Normal file that is `setgid` (`g+s`)
   'ca=30'       # ca = File with capability (very expensive to lookup)
-  'tw=30'       # tw = Directory that is sticky and other-writable (`+t`,`o+w`)
-  'ow=01;33'    # ow = Directory that is other-writable (`o+w`) and not sticky
-  'st=37'       # st = Directory with the sticky bit set (`+t`) and not other-writable
+  'tw=30'       # tw = Directory that's sticky and other-writable (`+t`,`o+w`)
+  'ow=01;33'    # ow = Directory that's other-writable (`o+w`), not sticky
+  'st=37'       # st = Directory with sticky bit set (`+t`), not other-writable
   'ex=01;32'    # ex = File which is executable (ie. has `x` set in permissions)
   # HIDDEN OS FILES
   "*._*=$_ls_hide"
@@ -439,6 +447,9 @@ ls_colors=(
   "*.qt=$_ls_video"
   "*.wmv=$_ls_video"
 )
-typeset -gx zls_colors=(${ls_colors})
+# typeset -gx zls_colors=("${ls_colors[@]}")
 
-export LS_COLORS CLICOLOR
+_ogIFS=$IFS
+IFS=':'
+export LS_COLORS="${ls_colors[*]}:"
+IFS=$_ogIFS

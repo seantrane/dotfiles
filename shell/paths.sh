@@ -4,9 +4,11 @@
 #
 # Defines the $PATH export/variable for shell environments.
 
-#-----------------------------------------------------------------------
+type "find_files" &> /dev/null || . "$DOTFILES/functions/find_files"
+
+#-------------------------------------------------------------------------------
 # BINARIES/SCRIPTS
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # This will ensure proper loading/ordering of PATHs.
 
 # DEFAULT `$PATH`
@@ -44,18 +46,18 @@ unset _file_path _find_files_array
 # Ensure Homebrew path comes first
 export PATH="/opt/homebrew/bin:$PATH"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # HELP DOCS/MANUALS
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 [[ -d "${HOMEBREW_PREFIX:-}/man" ]] && export MANPATH="${HOMEBREW_PREFIX:-}/man:$MANPATH"
 
 # .local manuals:
 [[ -d "$HOME/.local/man" ]] && export MANPATH="$HOME/.local/man:$MANPATH"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # CLEANUP PATH, MANPATH - Ensure arrays do not contain duplicates.
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 if type "awk" &> /dev/null; then
   PATH=$(echo -n "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')

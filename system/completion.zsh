@@ -1,10 +1,10 @@
-# shellcheck shell=zsh
+# shellcheck shell=bash disable=SC1090
 #
 # System Command Tab Completions for Zsh
 
-###############################################################################
+################################################################################
 # Git
-###############################################################################
+################################################################################
 
 # Uses git's autocompletion for inner commands. Assumes an install of git's
 # bash `git-completion` script at $completion below (this is where Homebrew
@@ -12,9 +12,9 @@
 [[ -f "$HOMEBREW_PREFIX/share/zsh/site-functions/_git" ]] && \
     . "$HOMEBREW_PREFIX/share/zsh/site-functions/_git"
 
-###############################################################################
+################################################################################
 # rbenv
-###############################################################################
+################################################################################
 # https://github.com/sstephenson/rbenv/blob/master/completions/rbenv.zsh
 
 # [[ ! -o interactive ]] && return
@@ -34,17 +34,15 @@
 
 # type "rbenv" &> /dev/null && compctl -K _rbenv rbenv
 
-###############################################################################
+################################################################################
 # Serverless
-###############################################################################
+################################################################################
 
+_slsd="$HOMEBREW_PREFIX/lib/node_modules/serverless"
+_slscompd="$_slsd/node_modules/tabtab/.completions"
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-# shellcheck disable=SC1090
-[[ -f "$HOMEBREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh" ]] && \
-    . "$HOMEBREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh"
+[[ -f "$_slscompd/serverless.zsh" ]] && . "$_slscompd/serverless.zsh"
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-# shellcheck disable=SC1090
-[[ -f "$HOMEBREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && \
-    . "$HOMEBREW_PREFIX/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"
+[[ -f "$_slscompd/sls.zsh" ]] && . "$_slscompd/sls.zsh"
