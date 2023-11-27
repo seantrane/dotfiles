@@ -1,8 +1,14 @@
-# shellcheck shell=zsh disable=SC1090,SC1091
+# shellcheck shell=bash disable=SC1090,SC1091,SC2034,SC2206
+#          _
+#  _______| |__   ___ _ ____   __
+# |_  / __| '_ \ / _ \ '_ \ \ / /
+#  / /\__ \ | | |  __/ | | \ V /
+# /___|___/_| |_|\___|_| |_|\_/
+# ===============================
 #
-# ZSH ENV
+# Zsh environment configuration file.
 #
-# Defines Zshell environment.
+# Startup Files: https://zsh.sourceforge.io/Intro/intro_3.html
 #
 # There are five startup files that zsh will read commands from:
 #   * $ZDOTDIR/.zshenv
@@ -12,7 +18,8 @@
 #   * $ZDOTDIR/.zlogout
 #
 # If ZDOTDIR is not set, then the value of HOME is used; this is the usual case.
-# `.zshenv' is sourced on all invocations of the shell, unless the -f option is set.
+#
+# `.zshenv' is sourced on all invocations of the shell, unless -f option is set.
 # It should contain commands to set the command search path,
 # plus other important environment variables.
 # `.zshenv' should not contain commands that produce output
@@ -30,8 +37,8 @@
 #
 # `.zlogin' is not the place for alias definitions, options,
 # environment variable settings, etc.; as a general rule, it should not
-# change the shell environment at all. Rather, it should be used to
-# set the terminal type and run a series of external commands (fortune, msgs, etc).
+# change the shell environment at all. Rather, it should be used to set
+# the terminal type and run a series of external commands (fortune, msgs, etc).
 #
 # See table below for processing information.
 #
@@ -62,7 +69,7 @@
 # |/etc/zlogout    |    J      |           |      |
 # +----------------+-----------+-----------+------+
 #
-# Moral: Put stuff in `~/.zshenv`, which is always executed.
+# Moral: Put stuff in `~/.zshenv`, that should always be executed.
 # HOWEVER: Some config may be overwritten by `/etc/zprofile` or `/etc/zshrc`.
 # So, you have to put some config in `~/.zshrc` (e.g., prompt config).
 #
@@ -73,6 +80,9 @@
 #   4. NON-LOGIN / .zprofile
 #
 # NOTE: This is different from how Bash is processed (see `~/.bashrc`).
+#
+# Zsh Reference Card: https://www.bash2zsh.com/zsh_refcard/refcard.pdf
+# ZSH-LOVERS(1): https://grml.org/zsh/zsh-lovers.html
 
 _SHELL_TYPE="prompt"
 _SHELL_USER="public"
@@ -88,9 +98,9 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   . "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # HOMEBREW INIT
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 [[ -f "$DOTFILES/brew/init.sh" ]] && . "$DOTFILES/brew/init.sh"
 
@@ -133,9 +143,6 @@ fi
 # autoload every function:
 fpath=("$DOTFILES"/functions $fpath)
 autoload -U "$DOTFILES"/functions/*(:t)
-
-# add each topic folder to fpath so that they can add functions and completion scripts
-# for topic_folder ($DOTFILES/*) if [[ -d $topic_folder ]]; then  fpath=($topic_folder $fpath); fi;
 
 #-------------------------------------------------------------------------------
 # Changing Directories
@@ -196,7 +203,7 @@ setopt NO_CASE_GLOB
 setopt NUMERIC_GLOB_SORT
 
 # hows about arrays be awesome?
-# (that is, foo${cool}foo has foo surrounding all the variables, not just first and last
+# `foo${cool}foo` has foo surrounding all variables, not just first and last.
 setopt RC_EXPAND_PARAM
 
 #-------------------------------------------------------------------------------
@@ -210,7 +217,10 @@ setopt APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
 # If the internal history needs to be trimmed to add the current command line,
-# remove the oldest history event that has a duplicate.  You should be sure to set the value of HISTSIZE to a larger number than SAVEHIST in order to give you some room for the duplicated events, otherwise this option will behave just like HIST_IGNORE_ALL_DUPS once the history fills up with unique events.
+# remove the oldest history event that has a duplicate.  You should be sure to
+# set the value of HISTSIZE to a larger number than SAVEHIST in order to give
+# you some room for the duplicated events, otherwise this option will behave
+# just like HIST_IGNORE_ALL_DUPS once the history fills up with unique events.
 setopt HIST_EXPIRE_DUPS_FIRST
 
 # When searching for history entries in the line editor,
@@ -218,8 +228,8 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # even if the duplicates are not contiguous.
 setopt HIST_FIND_NO_DUPS
 
-# If a new command line being added to the history list duplicates an older one
-# then the older command is removed from the list
+# If a new command line being added to the history list duplicates
+# an older one then the older command is removed from the list.
 setopt HIST_IGNORE_ALL_DUPS
 
 # Don't save command if preceded by whitespace
@@ -275,7 +285,7 @@ setopt NO_CLOBBER
 # Output octal numbers in the familiar C syntax (e.g. '077')
 # setopt OCTAL_ZEROES
 
-# 10 second wait if you do something that will delete everything.  I wish I'd had this before...
+# 10 second wait if you do something that will delete everything.
 setopt RM_STAR_WAIT
 
 # Print the exit value of programs with non-zero exit status
@@ -340,9 +350,9 @@ zle -N newtab
 
 #-------------------------------------------------------------------------------
 
-# In the line editor, the number of matches to list without asking first.  If
-# the value is negative, the list will be shown if it spans at most as many
-# lines as given by the absolute value.  If set to zero, the shell asks only if
+# In the line editor, the number of matches to list without asking first.
+# If the value is negative, the list will be shown if it spans at most as many
+# lines as given by the absolute value. If set to zero, the shell asks only if
 # the top of the listing would scroll off the screen.
 # typeset -gx LISTMAX=0
 
@@ -381,44 +391,23 @@ bindkey '^[^N' newtab
 bindkey '^?' backward-delete-char
 
 #-------------------------------------------------------------------------------
+# History Settings
+#-------------------------------------------------------------------------------
 
-# export LSCOLORS="exfxcxdxbxegedabagacad"
-export CLICOLOR=true
-
-# Colorize BSD `ls`
-# typeset -gx CLICOLOR=1
-# typeset -gx LSCOLORS='exfxcxdxbxegedabagacad'
-# Colorize tree even when used in pipes
-# typeset -Tgx LS_COLORS ls_colors ':'
-# ls_colors=(
-#   'no=00' 'fi=00' 'di=01;34' 'ln=01;31' 'pi=40;33' 'so=01;35' 'bd=40;33;01'
-# 	'rs=0' 'mh=00' 'do=01;35' 'cd=40;33;01'
-# 	'mi=00' 'su=37' 'sg=30' 'ca=30' 'tw=30'
-# 	'ow=01;33' 'or=40;31;01' 'st=37' 'ex=01;32'
-# 	'*.'{deb,rpm,dmg,pkg}'=01;33'
-# 	'*.'{tar,gz,tgz,7z,t7z,zip,bz{,2},arj,jar,rar,lzh,taz,z,Z}'=01;31'
-# 	'*.'{{m,j}p{,e}g,jpg,gif,bmp,png,svg,tif{,f},tga,p{b,g,p}m,x{b,p}}m,xcf,fli,gl}'=01;36'
-# 	'*.jpg=01;36'
-# 	'*.'{mov,m4{a,b,v},mp{3,4},mp{,e}g,fl{,a}c,ogg,mkv,avi,aac,wav}'=01;35'
-# )
-# typeset -gx zls_colors=(${ls_colors})
-
-# default history settings
-HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
-HISTSIZE=10000
-SAVEHIST=10000
+export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+export HISTSIZE=10000
+export SAVEHIST=10000
 
 #-------------------------------------------------------------------------------
 # Temporary Files
 #-------------------------------------------------------------------------------
 
-if [[ ! -d "$TMPDIR" ]]; then
-  export TMPDIR="/tmp/$LOGNAME"
+if [[ ! -d "${TMPDIR:-}" ]]; then
+  export TMPDIR="/tmp/${LOGNAME:-}"
   # shellcheck disable=SC2174
   mkdir -p -m 700 "$TMPDIR"
 fi
-
-TMPPREFIX="${TMPDIR%/}/zsh"; export TMPPREFIX
+export TMPPREFIX="${TMPDIR%/}/zsh"
 
 
 ################################################################################

@@ -1,6 +1,13 @@
-# shellcheck shell=zsh
+# shellcheck shell=bash disable=SC1090,SC1091,SC2034,SC2296
+#      _             _
+#  ___| | ___   __ _(_)_ __
+# |_  / |/ _ \ / _` | | '_ \
+#  / /| | (_) | (_| | | | | |
+# /___|_|\___/ \__, |_|_| |_|
+#              |___/
+# ===========================
 #
-# ZSH LOGIN
+# Zsh Login configuration file.
 #
 # Executes commands at login (after .zshrc).
 #

@@ -1,6 +1,13 @@
-# shellcheck shell=zsh disable=SC1090,SC1091
+# shellcheck shell=bash disable=SC1090,SC1091,SC2034,SC2296
+#                       __ _ _
+#  _____ __  _ __ ___  / _(_) | ___
+# |_  / '_ \| '__/ _ \| |_| | |/ _ \
+#  / /| |_) | | | (_) |  _| | |  __/
+# /___| .__/|_|  \___/|_| |_|_|\___|
+#     |_|
+# ==================================
 #
-# ZSH PROFILE
+# Zsh Profile configuration file.
 #
 # `.zprofile' is meant as an alternative to `.zlogin' for ksh fans;
 # the two are not intended to be used together,
