@@ -150,6 +150,7 @@ _Some extensions are disabled (commented-out in code)._
 - [x] [Azure Account](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account)
 - [x] [BalanceD Syntax Theme](https://marketplace.visualstudio.com/items?itemName=seantrane.balanced-theme)
 - [x] [BATS (Bash Automated Testing System)](https://marketplace.visualstudio.com/items?itemName=jetmartin.bats)
+- [x] [Bash IDE](https://marketplace.visualstudio.com/items?itemName=mads-hartmann.bash-ide-vscode)
 - [x] [Better Align](https://marketplace.visualstudio.com/items?itemName=chouzz.vscode-better-align)
 - [x] [Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets](https://marketplace.visualstudio.com/items?itemName=thekalinga.bootstrap4-vscode)
 - [x] [Brewfile](https://marketplace.visualstudio.com/items?itemName=sharat.vscode-brewfile)

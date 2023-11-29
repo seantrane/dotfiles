@@ -1,0 +1,106 @@
+// Place your settings in this file to overwrite the default settings
+{
+  "alignment.operatorPadding": "left",
+  "atomKeymap.promptV3Features": true,
+  "cSpell.userWords": [],
+  "editor.cursorStyle": "line-thin",
+  "editor.fontFamily": "Menlo, Monaco, 'Andale Mono', 'Lucida Console', 'Courier New', Courier, monospace",
+  "editor.fontSize": 12,
+  "editor.formatOnPaste": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.renderWhitespace": "boundary",
+  "editor.scrollBeyondLastLine": false,
+  "editor.semanticTokenColorCustomizations": {
+
+  },
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "explorer.confirmDragAndDrop": false,
+  "files.associations": {
+    ".editorconfig": "editorconfig",
+    ".env.example": "dotenv",
+    "*.hcl": "terraform",
+    "*.symlink": "shellscript",
+    "CODEOWNERS": "ignore",
+    "Dockerfile.*": "dockerfile",
+    "config": "editorconfig"
+  },
+  "files.exclude": {
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "files.trimTrailingWhitespace": true,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.currentLine.enabled": false,
+  "gitlens.codeLens.enabled": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "markdown.styles": [
+    "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown.min.css"
+  ],
+  "markdownTablePrettify.columnPadding": 1,
+  "[markdown]": {
+    "editor.defaultFormatter": "darkriszty.markdown-table-prettify"
+  },
+  "python.languageServer": "Default",
+  "redhat.telemetry.enabled": false,
+  "search.exclude": {
+    "**/.bundle": true,
+    "**/.sass-cache": true,
+    "**/bower_components": true,
+    "**/node_modules": true,
+    "./vendor": true
+  },
+  "shellcheck.customArgs": [
+    "-x"
+  ],
+  "selectline.alignment": "right",
+  "selectline.displayFormat": "%d Lines Selected",
+  "selectline.statusbarPriority": 1000,
+  "shellcheck.executablePath": "/opt/homebrew/bin/shellcheck",
+  "telemetry.telemetryLevel": "off",
+  "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.lineHeight": 1.1,
+  "terminal.integrated.scrollback": 10000,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "vsicons.dontShowNewVersionMessage": true,
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "window.restoreWindows": "all",
+  "window.title": "${activeEditorMedium}${separator}${rootName}",
+  "window.zoomLevel": 0,
+  "workbench.colorCustomizations": {
+    "panel.background": "#1c1c1c",
+    "statusBar.background": "#1c1c1c",
+    "terminal.ansiBlack":"#333333",
+    "terminal.ansiBlue":"#8899ff",
+    "terminal.ansiBrightBlack":"#666666",
+    "terminal.ansiBrightBlue":"#88aaff",
+    "terminal.ansiBrightCyan":"#66eeff",
+    "terminal.ansiBrightGreen":"#88ff00",
+    "terminal.ansiBrightMagenta":"#ff00ff",
+    "terminal.ansiBrightRed":"#ff4422",
+    "terminal.ansiBrightWhite":"#ffffff",
+    "terminal.ansiBrightYellow":"#ffdd00",
+    "terminal.ansiCyan":"#66ddee",
+    "terminal.ansiGreen":"#88dd00",
+    "terminal.ansiMagenta":"#cc00cc",
+    "terminal.ansiRed":"#ee2200",
+    "terminal.ansiWhite":"#e1e1e1",
+    "terminal.ansiYellow":"#ffaa00",
+    "terminal.background":"#171717",
+    "terminal.foreground":"#cccccc",
+    "terminalCursor.background":"#cccccc",
+    "terminalCursor.foreground":"#f9f9f9",
+    "titleBar.activeBackground": "#1c1c1c"
+  },
+  "workbench.colorTheme": "BalanceD",
+  "workbench.editor.showTabs": "single",
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.fontAliasing": "auto",
+  "workbench.sideBar.location": "left",
+  "workbench.startupEditor": "newUntitledFile"
+}

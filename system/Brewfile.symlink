@@ -266,6 +266,7 @@ vscode "JerryHong.autofilename" # [AutoFileName](https://marketplace.visualstudi
 vscode "ms-vscode.azure-account" # [Azure Account](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account)
 vscode "seantrane.balanced-theme" # [BalanceD Syntax Theme](https://marketplace.visualstudio.com/items?itemName=seantrane.balanced-theme)
 vscode "jetmartin.bats" # [BATS (Bash Automated Testing System)](https://marketplace.visualstudio.com/items?itemName=jetmartin.bats)
+vscode "mads-hartmann.bash-ide-vscode" # [Bash IDE](https://marketplace.visualstudio.com/items?itemName=mads-hartmann.bash-ide-vscode)
 vscode "chouzz.vscode-better-align" # [Better Align](https://marketplace.visualstudio.com/items?itemName=chouzz.vscode-better-align)
 vscode "thekalinga.bootstrap4-vscode" # [Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets](https://marketplace.visualstudio.com/items?itemName=thekalinga.bootstrap4-vscode)
 vscode "sharat.vscode-brewfile" # [Brewfile](https://marketplace.visualstudio.com/items?itemName=sharat.vscode-brewfile)
