@@ -1,5 +1,18 @@
 # CHANGELOG
 
+# [2.0.0](https://github.com/seantrane/dotfiles/compare/v1.0.2...v2.0.0) (2023-11-29)
+
+
+### Features
+
+* refactor, improve all files/config ([#169](https://github.com/seantrane/dotfiles/issues/169)) ([41cf37c](https://github.com/seantrane/dotfiles/commit/41cf37c8c60ee4ebfa1a2e1bdf517e207e98a1e9))
+
+
+### BREAKING CHANGES
+
+* Many files are permanently removed or altered in ways
+that are very different than the previous iteration.
+
 ## [1.0.2](https://github.com/seantrane/dotfiles/compare/v1.0.1...v1.0.2) (2023-10-24)
 
 
