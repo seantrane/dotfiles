@@ -4,9 +4,9 @@
 
 sync_prefs () {
 
-    DOTOSXINIT=$HOME/.dotfiles/osx/init
+    DOTMACOSINIT=$HOME/.dotfiles/macos/init
     FROMLIB=$HOME/Library
-    TOLIB=$DOTOSXINIT/Library
+    TOLIB=$DOTMACOSINIT/Library
     FROMPREFS=$FROMLIB/Preferences
     TOPREFS=$TOLIB/Preferences
 
@@ -31,7 +31,7 @@ sync_prefs () {
     echo $TOSUBL
     [[ -a "$FROMSUBL/Snippets" ]] && rsync -avz $FROMSUBL/Snippets $TOSUBL
     [[ -a "$FROMSUBL/Themes" ]] && rsync -avz $FROMSUBL/Themes $TOSUBL
-    [[ -a "$FROMSUBL"/Default\ '(OSX)'.sublime-keymap ]] && rsync -avz $FROMSUBL/Default\ '(OSX)'.sublime-keymap $TOSUBL
+    [[ -a "$FROMSUBL"/Default\ '(MACOS)'.sublime-keymap ]] && rsync -avz $FROMSUBL/Default\ '(MACOS)'.sublime-keymap $TOSUBL
     [[ -a "$FROMSUBL/less.sublime-build" ]] && rsync -avz $FROMSUBL/less.sublime-build $TOSUBL
     [[ -a "$FROMSUBL"/Package\ Control.sublime-settings ]] && rsync -avz $FROMSUBL/Package\ Control.sublime-settings $TOSUBL
     [[ -a "$FROMSUBL/phpfmt.sublime-settings" ]] && rsync -avz $FROMSUBL/phpfmt.sublime-settings $TOSUBL
@@ -39,9 +39,9 @@ sync_prefs () {
     [[ -a "$FROMSUBL/Preferences.sublime-settings" ]] && rsync -avz $FROMSUBL/Preferences.sublime-settings $TOSUBL
 
     if test $(command -v tree); then
-        tree $DOTOSXINIT
+        tree $DOTMACOSINIT
     else
-        ls -al $DOTOSXINIT
+        ls -al $DOTMACOSINIT
     fi
 
     echo "...done syncing preferences."

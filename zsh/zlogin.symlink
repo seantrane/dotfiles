@@ -1,5 +1,13 @@
+# shellcheck shell=bash disable=SC1090,SC1091,SC2034,SC2296
+#      _             _
+#  ___| | ___   __ _(_)_ __
+# |_  / |/ _ \ / _` | | '_ \
+#  / /| | (_) | (_| | | | | |
+# /___|_|\___/ \__, |_|_| |_|
+#              |___/
+# ===========================
 #
-# ZSH LOGIN
+# Zsh Login configuration file.
 #
 # Executes commands at login (after .zshrc).
 #
@@ -22,7 +30,7 @@
 # what started GNOME or KDE behind your back when you logged in; things started anew
 # are not login shells. New terminals or new screen windows you open are not login
 # shells either.
-# (Starting a new window in OS X’s Terminal.app seems to count as a login shell, though.)
+# (Starting a new window in macOS’s Terminal.app seems to count as a login shell, though.)
 #
 # Put `~/.zlogin` stuff in the Conditional Configuration section of `~/.zshenv`.
 # See comments in `~/.zshenv` for detailed summary.

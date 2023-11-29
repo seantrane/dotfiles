@@ -6,6 +6,3 @@ sh_user () {
     # shellcheck disable=SC2059
     printf "${ClearNewLine:-} [${Yellow:-} ?? ${Reset:-}]  ${1:-} \\n"
 }
-
-# shellcheck disable=SC2034
-[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_user

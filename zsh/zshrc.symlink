@@ -1,5 +1,10 @@
-#
-# ZSH RC
+# shellcheck shell=bash disable=SC1090,SC1091,SC2034,SC2086,SC2296
+#          _
+#  _______| |__  _ __ ___
+# |_  / __| '_ \| '__/ __|
+#  / /\__ \ | | | | | (__
+# /___|___/_| |_|_|  \___|
+# ========================
 #
 # Zsh run-control file.
 #
@@ -9,12 +14,20 @@
 # Put stuff in conditional section of `~/.zshenv`.
 # See comments in `~/.zshenv` for detailed summary.
 #
-# shellcheck disable=SC1090,SC1091
+# Zsh Reference Card: https://www.bash2zsh.com/zsh_refcard/refcard.pdf
+# ZSH-LOVERS(1): https://grml.org/zsh/zsh-lovers.html
 
-[[ -d "$(brew --prefix)/bin" ]] && export PATH="$(brew --prefix)/bin:$PATH"
+# Fix Shell PATH Issue (overwritten by .zprofile)
+DEFAULT_PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+# remove defaults from beginning of PATH
+PATH="${PATH#"$DEFAULT_PATH:"}"
+# put defaults back at end of PATH
+PATH="$PATH:$DEFAULT_PATH"
 
-########################################################################
-########################################################################
+type "find_files" &> /dev/null || . "$DOTFILES/functions/find_files"
+
+################################################################################
+################################################################################
 ##
 ##  1. SCRIPT / NON-INTERACTIVE / .zshenv
 ##
@@ -22,15 +35,15 @@
 ##  Put your script-only stuff here, otherwise
 ##  this section can be ignored.
 ##
-########################################################################
-if [[ "$SHLVL" -eq 1 && ! -o LOGIN ]]; then
-: ######################################################################
+################################################################################
+if [[ "$SHLVL" -eq 1 ]] && [[ ! -o LOGIN ]]; then
+: ##############################################################################
 # echo "$SHELL"
 
 
 
-########################################################################
-########################################################################
+################################################################################
+################################################################################
 ##
 ##  2. INTERACTIVE / PROMPT / .zshrc
 ##
@@ -38,53 +51,69 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN ]]; then
 ##  If you have a command-prompt, this conditional was met.
 ##  Put stuff here for prompt-based users only.
 ##
-########################################################################
+################################################################################
 else
-: ######################################################################
+: ##############################################################################
 # echo "$SHELL::interactive"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Source/init Prezto.
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
-[[ -f "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && . "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+_zpreztod="${ZDOTDIR:-$HOME}/.zprezto"
+[[ -f "$_zpreztod/init.zsh" ]] && . "$_zpreztod/init.zsh"
 
-# Unalias `nocorrect` completions from: prezto/modules/utility/init.zsh
+# Prezto init will prepend PATH with `~/.gem/ruby/*/bin` directory in
+# `~/.zprezto/modules/ruby/init.zsh`, line 48.
+# These commands will strip this out, as `~/.gem/ruby/*/bin` is already in PATH.
+for _file in $(find_files "${ZDOTDIR:-$HOME}/.gem/ruby" 'bin' 2 'd'); do
+  PATH="${PATH#"${_file}:"}"
+done
+
+# Unalias `nocorrect` completions from: ~/.zprezto/modules/utility/init.zsh
 # unalias mkdir mv mysql rm
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # LOCAL/PRIVATE CONFIG
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
 [[ -f "${ZDOTDIR:-$HOME}/.localrc" ]] && . "${ZDOTDIR:-$HOME}/.localrc"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # ALIASES
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Aliases should only be available to prompt-user (not scripts).
 
 alias reload!='. ~/.zshrc'
 
 # for file in ~/.dotfiles/{git,system}/aliases.sh; do
-_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.sh'))
-for _file_path in ${_find_files_array}; do
-  . "$_file_path"
-done
-unset _file_path _find_files_array
+for _file in $(find_files "$DOTFILES" 'aliases.sh' 2); do . "$_file"; done
 
-# load everything but the path and completion files:
-# for file in ~/.dotfiles/{git,system}/{aliases,*}.zsh; do
-_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name '*.zsh'))
-for _file_path in ${${_find_files_array:#*/path.zsh}:#*/completion.zsh}; do
-  . "$_file_path"
-done
-unset _file_path _find_files_array
+# for file in ~/.dotfiles/{git,system}/aliases.zsh; do
+for _file in $(find_files "$DOTFILES" 'aliases.zsh' 2); do . "$_file"; done
 
 # `~/.aliases` can be used for private aliases.
 [[ -f "${ZDOTDIR:-$HOME}/.aliases" ]] && . "${ZDOTDIR:-$HOME}/.aliases"
+
+# From http://dotfiles.org/~_why/.zshrc
+# Sets the window title nicely no matter where you are
+function title() {
+  # escape '%' chars in $1, make nonprintables visible
+  a=${(V)1//\%/\%\%}
+  # Truncate command, and join lines.
+  a=$(print -Pn "%40>...>$a" | tr -d "\n")
+  case $TERM in
+    screen)
+      print -Pn "\ek$a:$3\e\\" # screen title (in ^A")
+    ;;
+    xterm*|rxvt)
+      print -Pn "\e]2;$2\a" # plain xterm title ($3 for pwd)
+    ;;
+  esac
+}
 
 # moving-or-renaming-multiple-files
 # http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
@@ -96,9 +125,9 @@ alias mmv='noglob zmv -W'
 # http://apt-browse.org/browse/debian/wheezy/main/all/command-not-found/
 [[ -f "/etc/zsh_command_not_found" ]] && . "/etc/zsh_command_not_found"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # TAB COMPLETION
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Disable autocorrect guesses. Happens when typing a wrong
 # command that may look like an existing one.
@@ -114,24 +143,67 @@ expand-or-complete-with-dots() {
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
 
+# fignore() An array containing the suffixes of files to be
+# ignored during filename completion.  However, if completion only
+# generates files with suffixes in this list, then these files are
+# completed anyway.
+typeset -Ua fignore=(
+  .DS_Store
+  __pycache__
+  .zip
+  .tgz
+)
+
+# REPORTTIME: commands whose combined user and system execution
+# times (measured in seconds) are greater than this value have
+# timing statistics printed for them.  Output is suppressed for
+# commands executed within the line editor, including completion;
+# commands explicitly marked with the time keyword still cause
+# the summary to be printed in this case.
+typeset REPORTTIME=5
+
 # initialize autocomplete here, otherwise functions won't be loaded
+# compinit flags are defined as follows
+# -d FILE: dump a cache of compiled completion scripts to FILE
+# -C: skip the security check entirely
+# NOTE: will prevent changes from being made to the completions
+# cached in the dump file
+# -u: silently include all insecure files and directories
+# -i: silently ignore all insecure files and directories
 autoload -U compinit
 compinit -u
 
+# Initialize module to provide compatibility for bash-based completion functions
+# autoload -U +X bashcompinit
+# bashcompinit
+
+# matches case insensitive for lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# pasting with tabs doesn't perform completion
+zstyle ':completion:*' insert-tab pending
+
+# Zsh to use the same colors as ls
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+#-------------------------------------------------------------------------------
+
 # Homebrew-Zsh help reset
-if type "brew" &> /dev/null && [ -f "$(brew --prefix)/share/zsh/help" ]; then
+_zshhelpf="${HOMEBREW_PREFIX:-}/share/zsh/help"
+if [[ -f "$_zshhelpf" ]]; then
   unalias run-help
   autoload run-help
-  HELPDIR="$(brew --prefix)/share/zsh/help"; export HELPDIR
+  export HELPDIR="$_zshhelpf"
 fi
 
 # load every completion after autocomplete loads:
 # for file in ~/.dotfiles/{git,system}/completion.zsh; do
-_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'completion.zsh'))
-for _file_path in ${_find_files_array}; do
-  . "$_file_path"
-done
-unset _file_path _find_files_array
+for _file in $(find_files "$DOTFILES" 'completion.zsh' 2); do . "$_file"; done
+
+# To activate Homebrew-Zsh-completions, add to .zshrc:
+_zshcompf="${HOMEBREW_PREFIX:-}/share/zsh-completions"
+# shellcheck disable=SC2206
+[[ -f "$_zshcompf" ]] && fpath=("$_zshcompf" $fpath)
 
 # z - jump around
 # https://github.com/rupa/z
@@ -140,13 +212,13 @@ unset _file_path _find_files_array
 # that matches ALL of the regexes given on the command line, in order.
 if [[ -f "$HOME/z/z.sh" ]]; then
   . "$HOME/z/z.sh"
-elif type "brew" &> /dev/null && [[ -f "$(brew --prefix)/etc/profile.d/z.sh" ]]; then
-  . "$(brew --prefix)/etc/profile.d/z.sh"
+elif [[ -f "${HOMEBREW_PREFIX:-}/etc/profile.d/z.sh" ]]; then
+  . "${HOMEBREW_PREFIX:-}/etc/profile.d/z.sh"
 fi
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Less - opposite of more
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Less is a program similar to more (1), but which allows
 # backward movement in the file as well as forward movement.
 # Also, less does not have to read the entire input file
@@ -164,38 +236,34 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # if (( $#commands[(i)lesspipe(|.sh)] )); then
 #   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 # fi
-lesspipe_file="$(brew --prefix)/bin/lesspipe.sh"
-[[ -e "$(brew --prefix)/bin/lesspipe" ]] && lesspipe_file="$(brew --prefix)/bin/lesspipe"
-LESSOPEN="|$lesspipe_file %s"; export LESSOPEN                     #(sh like shells)
-type "setenv" &> /dev/null && setenv LESSOPEN "|$lesspipe_file %s" #(csh, tcsh)
+_lesspipe="${HOMEBREW_PREFIX}/bin/lesspipe"
+_lesspipef="$_lesspipe.sh"
+[[ -e "$_lesspipe" ]] && _lesspipef="$_lesspipe"
+LESSOPEN="|$_lesspipef %s"; export LESSOPEN                     #(sh like shell)
+type "setenv" &> /dev/null && setenv LESSOPEN "|$_lesspipef %s" #(csh, tcsh)
 
-#-----------------------------------------------------------------------
-# Travis CI
-#-----------------------------------------------------------------------
-[[ -f "${ZDOTDIR:-$HOME}/.travis/travis.sh" ]] && . "${ZDOTDIR:-$HOME}/.travis/travis.sh"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# LS COLORS
+#-------------------------------------------------------------------------------
+
+[[ -r "$DOTFILES/shell/ls_colors.sh" ]] && . "$DOTFILES/shell/ls_colors.sh"
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+#-------------------------------------------------------------------------------
 # PROMPT OPTIONS
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 autoload -Uz promptinit
 promptinit
 prompt sorin
 
 
-########################################################################
-########################################################################
+################################################################################
+################################################################################
 ##
 ##  THE END: SCRIPT/INTERACTIVE CONDITIONAL CONFIGURATION
 ##
-fi #####################################################################
-########################################################################
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . $(brew --prefix)/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-
-[[ -d "$(brew --prefix)/bin" ]] && export PATH="$(brew --prefix)/bin:$PATH"
+fi #############################################################################
+################################################################################

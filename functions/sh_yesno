@@ -6,6 +6,3 @@ sh_yesno () {
     sh_user "${1:-}"
     sh_text "${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
 }
-
-# shellcheck disable=SC2034
-[[ -z "${ZSH_NAME:-}" ]] && typeset -fx sh_yesno

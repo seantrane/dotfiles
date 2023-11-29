@@ -1,33 +1,38 @@
 #!/usr/bin/env bash
+#  _               _
+# | |__   __ _ ___| |__  _ __ ___
+# | '_ \ / _` / __| '_ \| '__/ __|
+# | |_) | (_| \__ \ | | | | | (__
+# |_.__/ \__,_|___/_| |_|_|  \___|
+# ================================
 #
-# BASH RC
+# Bash Run Control file.
 #
-# Bash run-control file.
 # See table below for processing information.
 #
 # Bash executes A, then B, then C, etc.
 # The B1, B2, B3 means it executes only the first of those files found.
-# +----------------+-----------+-----------+------+
-# |                |Interactive|Interactive|Script|
-# |                |login      |non-login  |      |
-# +----------------+-----------+-----------+------+
-# |/etc/profile    |   A       |           |      |
-# +----------------+-----------+-----------+------+
-# |/etc/bash.bashrc|           |    A      |      |
-# +----------------+-----------+-----------+------+
-# |~/.bashrc       |           |    B      |      |
-# +----------------+-----------+-----------+------+
-# |~/.bash_profile |   B1      |           |      |
-# +----------------+-----------+-----------+------+
-# |~/.bash_login   |   B2      |           |      |
-# +----------------+-----------+-----------+------+
-# |~/.profile      |   B3      |           |      |
-# +----------------+-----------+-----------+------+
-# |BASH_ENV        |           |           |  A   |
-# +----------------+-----------+-----------+------+
-# +----------------+-----------+-----------+------+
-# |~/.bash_logout  |    C      |           |      |
-# +----------------+-----------+-----------+------+
+# +-----------------+-----------+-----------+------+
+# |                 |Interactive|Interactive|Script|
+# |                 |login      |non-login  |      |
+# +-----------------+-----------+-----------+------+
+# |/etc/profile     |   A       |           |      |
+# +-----------------+-----------+-----------+------+
+# |/etc/bash.bashrc |           |    A      |      |
+# +-----------------+-----------+-----------+------+
+# |  ~/.bashrc      |           |    B      |      |
+# +-----------------+-----------+-----------+------+
+# |  ~/.bash_profile|   B1      |           |      |
+# +-----------------+-----------+-----------+------+
+# |  ~/.bash_login  |   B2      |           |      |
+# +-----------------+-----------+-----------+------+
+# |  ~/.profile     |   B3      |           |      |
+# +-----------------+-----------+-----------+------+
+# |BASH_ENV         |           |           |  A   |
+# +-----------------+-----------+-----------+------+
+# +-----------------+-----------+-----------+------+
+# |  ~/.bash_logout |    C      |           |      |
+# +-----------------+-----------+-----------+------+
 #
 # Moral: Put stuff in `~/.bashrc `, make `~/.bash_profile` source it.
 #
@@ -38,40 +43,55 @@
 #
 # shellcheck disable=SC1090,SC1091
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Load `.env` a.k.a. `~/.dotfiles/shell/env.symlink`
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # This file should be loaded first in all shell environments,
 # in the following files; `~/.bashrc` and `~/.zshenv`
 
 # . ~/.env
 [[ -f "$HOME/.env" ]] && . "$HOME/.env"
 
+type "find_files" &> /dev/null || . "$DOTFILES/functions/find_files"
 
-########################################################################
-########################################################################
+################################################################################
+################################################################################
 ##
 ##  GENERAL CONFIGURATION
 ##  (stuff that you always want executed)
 ##
-########################################################################
-########################################################################
+################################################################################
+################################################################################
+
+#-------------------------------------------------------------------------------
+# PATH
+#-------------------------------------------------------------------------------
+
+# for file in ~/.dotfiles/{git,system}/path.sh; do
+for _file in $(find_files "$DOTFILES" 'path.sh' 2); do . "$_file"; done
+
+# for file in ~/.dotfiles/{git,system}/path.bash; do
+for _file in $(find_files "$DOTFILES" 'path.bash' 2); do . "$_file"; done
+
+#-------------------------------------------------------------------------------
+# Functions
+#-------------------------------------------------------------------------------
 
 # autoload every function:
 # for file in ~/.dotfiles/functions/{extract,link_file}; do
-_find_files_array=($(find -H "$DOTFILES/functions" -maxdepth 2 -perm -u+r -type f -name '[A-Za-z0-9\-\_]*'))
-for _file_path in ${_find_files_array}; do
-  . "$_file_path"
+for _file in $(find_files "$DOTFILES" 'aliases.sh' 2); do . "$_file"; done
+
+for _file in $(find_files "$DOTFILES/functions" '[A-Za-z0-9\-\_]*' 2); do
+  . "$_file"
 done
-unset _file_path _find_files_array
 
-########################################################################
+################################################################################
 ##  THE END: GENERAL CONFIGURATION
-########################################################################
+################################################################################
 
 
-########################################################################
-########################################################################
+################################################################################
+################################################################################
 ##
 ##  1. SCRIPT / NON-INTERACTIVE / .bash_env
 ##
@@ -80,15 +100,15 @@ unset _file_path _find_files_array
 ##  Bash scripts typically would not process this file,
 ##  so this section can be ignored unless required.
 ##
-########################################################################
+################################################################################
 if [[ -z "$PS1" ]]; then
 : ######################################################################
 # echo "$SHELL"
 
 
 
-########################################################################
-########################################################################
+################################################################################
+################################################################################
 ##
 ##  2. INTERACTIVE / PROMPT / .bashrc
 ##
@@ -96,36 +116,32 @@ if [[ -z "$PS1" ]]; then
 ##  If you have a command-prompt, this conditional was met.
 ##  Put stuff here for prompt-based users only.
 ##
-########################################################################
+################################################################################
 else
 : ######################################################################
 # echo "$SHELL::interactive"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # USER/MACHINE/SHELL PROFILE
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+
 [[ -f "$DOTFILES/bash/.shell_profile.sh" ]] && . "$DOTFILES/bash/.shell_profile.sh"
 
+#-------------------------------------------------------------------------------
+# HOMEBREW INIT
+#-------------------------------------------------------------------------------
 
-#-----------------------------------------------------------------------
-# HOMEBREW PATH
-#-----------------------------------------------------------------------
-BREW_PREFIX=""
-if type "brew" &> /dev/null; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-  BREW_PREFIX="$(brew --prefix)"
-  [[ ! -d "$BREW_PREFIX" ]] && BREW_PREFIX=""
-fi
+[[ -f "$DOTFILES/brew/init.sh" ]] && . "$DOTFILES/brew/init.sh"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # RUN-CONTROLS
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # GRC colorizes nifty unix tools all over the place
 if type "grc" &> /dev/null; then
   # Homebrew GRC: https://github.com/Homebrew/homebrew/blob/master/Library/Formula/grc.rb
-  if [[ -n "${BREW_PREFIX}" ]] && [[ -f "${BREW_PREFIX}/etc/grc.bashrc" ]]; then
-    . "${BREW_PREFIX}/etc/grc.bashrc"
+  if [[ -n "${HOMEBREW_PREFIX}" ]] && [[ -f "${HOMEBREW_PREFIX}/etc/grc.bashrc" ]]; then
+    . "${HOMEBREW_PREFIX}/etc/grc.bashrc"
   elif [[ -f "/etc/grc.bashrc" ]]; then
     . "/etc/grc.bashrc"
   fi
@@ -136,40 +152,30 @@ fi
 # you'll have access to them in your scripts.
 [[ -f "$HOME/.localrc" ]] && . "$HOME/.localrc"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # PROMPT OPTIONS
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # `~/.bash_prompt` can be used for custom prompt configuration.
 [[ -f "$HOME/.bash_prompt" ]] && . "$HOME/.bash_prompt"
 
-
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # ALIASES
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Aliases should only be available to prompt-user (not scripts).
 
 # for file in ~/.dotfiles/{git,system}/aliases.sh; do
-_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.sh'))
-for _file_path in ${_find_files_array}; do
-  . "$_file_path"
-done
-unset _file_path _find_files_array
+for _file in $(find_files "$DOTFILES" 'aliases.sh' 2); do . "$_file"; done
 
 # for file in ~/.dotfiles/{git,system}/aliases.bash; do
-_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'aliases.bash'))
-for _file_path in ${_find_files_array}; do
-  . "$_file_path"
-done
-unset _file_path _find_files_array
+for _file in $(find_files "$DOTFILES" 'aliases.bash' 2); do . "$_file"; done
 
 # `~/.aliases` can be used for private aliases.
 [[ -f "$HOME/.aliases" ]] && . "$HOME/.aliases"
 
-
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # BASH OPTIONS
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
@@ -187,9 +193,9 @@ for option in autocd globstar; do
   shopt -s "$option" 2> /dev/null
 done
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # TAB COMPLETION
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Only if Bash-version is >= 4
 if [[ ${BASH_VERSION%%[^0-9]*} -ge 4 ]]; then
@@ -197,21 +203,17 @@ if [[ ${BASH_VERSION%%[^0-9]*} -ge 4 ]]; then
   # Add tab completion for many Bash commands
   # Thanks to @tmoitie, adds more tab completion for bash,
   # also when hitting tab twice it will show a list.
-  if [[ -n "${BREW_PREFIX}" ]] && [[ -f "${BREW_PREFIX}/share/bash-completion/bash_completion" ]]; then
-    . "${BREW_PREFIX}/share/bash-completion/bash_completion"
-  elif [[ -n "${BREW_PREFIX}" ]] && [[ -f "${BREW_PREFIX}/share/bash-completion" ]]; then
-    . "${BREW_PREFIX}/share/bash-completion"
+  if [[ -n "${HOMEBREW_PREFIX}" ]] && [[ -f "${HOMEBREW_PREFIX}/share/bash-completion/bash_completion" ]]; then
+    . "${HOMEBREW_PREFIX}/share/bash-completion/bash_completion"
+  elif [[ -n "${HOMEBREW_PREFIX}" ]] && [[ -f "${HOMEBREW_PREFIX}/share/bash-completion" ]]; then
+    . "${HOMEBREW_PREFIX}/share/bash-completion"
   elif [[ -f "/etc/bash_completion" ]]; then
     . "/etc/bash_completion"
   fi
 
   # load every completion after autocomplete loads:
   # for file in ~/.dotfiles/{git,system}/completion.bash; do
-  _find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'completion.bash'))
-  for _file_path in ${_find_files_array}; do
-    . "$_file_path"
-  done
-  unset _file_path _find_files_array
+  for _file in $(find_files "$DOTFILES" 'completion.bash' 2); do . "$_file"; done
 
 fi
 
@@ -222,32 +224,27 @@ fi
 # that matches ALL of the regexes given on the command line, in order.
 if [[ -f "$HOME/z/z.sh" ]]; then
   . "$HOME/z/z.sh"
-elif [[ -n "${BREW_PREFIX}" ]] && [[ -f "${BREW_PREFIX}/etc/profile.d/z.sh" ]]; then
-  . "${BREW_PREFIX}/etc/profile.d/z.sh"
+elif [[ -n "${HOMEBREW_PREFIX}" ]] && [[ -f "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]]; then
+  . "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
 fi
 
-#-----------------------------------------------------------------------
-# Travis CI
-#-----------------------------------------------------------------------
-[[ -f "$HOME/.travis/travis.sh" ]] && . "$HOME/.travis/travis.sh"
 
-
-########################################################################
-########################################################################
+################################################################################
+################################################################################
 ##
 ##  3. LOGIN / .bash_profile / .bash_login
 ##
 ##  This is executed only when it is a login shell.
 ##  Put your `~/.bash_profile` and `~/.bash_login` stuff here.
 ##
-########################################################################
+################################################################################
 if shopt -q login_shell ; then
-: ######################################################################
+: ##############################################################################
 # echo "$SHELL::interactive-login"
 
 
-########################################################################
-########################################################################
+################################################################################
+################################################################################
 ##
 ##  4. NON-LOGIN / .bash_profile
 ##
@@ -256,17 +253,17 @@ if shopt -q login_shell ; then
 ##  That means this can be ignored unless considerations
 ##  are required for NON-LOGIN USERS ONLY.
 ##
-########################################################################
+################################################################################
 else
-: ######################################################################
+: ##############################################################################
 # echo "$SHELL::interactive-nonlogin"
 
 
-########################################################################
-fi #####################################################################
+################################################################################
+fi #############################################################################
 ##
 ##  THE END: CONDITIONAL CONFIGURATION
 ##
-fi #####################################################################
-########################################################################
+fi #############################################################################
+################################################################################
 

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# Find Files
+# A wrapper function for 'find'
+#
+# Examples:
+#   find_files ./directory/path '*.sh'
+
+find_files () {
+  local _find_path="${1:-}"
+  local _find_artifact="${2:-}"
+  local _find_depth="${3:-1}"
+  local _find_type="${4:-f}"
+  local _find_files_array=()
+  # Fail-fast
+  [[ ! -d "$_find_path" ]] && return
+  [[ -z "$_find_artifact" ]] && return
+  # Set IFS for proper word/path splitting
+  local _save_IFS=$IFS # Backup default IFS: $' \t\n'
+  IFS=$'\n'
+  # shellcheck disable=SC2207
+  _find_files_array=($(find -H "$_find_path" -maxdepth "$_find_depth" -perm -u+r -type "$_find_type" -name "$_find_artifact"))
+  IFS=$_save_IFS
+  echo "${_find_files_array[@]}"
+}

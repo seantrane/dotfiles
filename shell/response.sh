@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck shell=bash
 #
 # Shell Response Text/Colors/Helpers
 #
@@ -101,9 +101,9 @@ export BGICyan="${SWITCH}0;106m"
 export BGIWhite="${SWITCH}0;107m"
 export BGIDefault="${SWITCH}0;109m"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Shell Response Helpers
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # ! type "sh_text" &> /dev/null && . "$DOTFILES/functions/sh_text"
 # ! type "sh_user" &> /dev/null && . "$DOTFILES/functions/sh_user"

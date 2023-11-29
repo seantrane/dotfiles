@@ -1,20 +1,27 @@
 #!/usr/bin/env bash
+#  _               _       _             _
+# | |__   __ _ ___| |__   | | ___   __ _(_)_ __
+# | '_ \ / _` / __| '_ \  | |/ _ \ / _` | | '_ \
+# | |_) | (_| \__ \ | | | | | (_) | (_| | | | | |
+# |_.__/ \__,_|___/_| |_| |_|\___/ \__, |_|_| |_|
+#                                  |___/
+# ===============================================
 #
-# BASH LOGIN
+# Bash Login configuration file.
 #
 # Executes commands at login (after .bashrc).
-# 
+#
 # Typically, most users will encounter a login shell only if either:
 #   * they logged in from a tty, not through a GUI
 #   * they logged in remotely, such as through ssh.
-# 
-# If the shell was started any other way, such as through GNOME’s gnome-terminal 
-# or KDE’s konsole, then it is typically not a login shell — the login shell was 
-# what started GNOME or KDE behind your back when you logged in; things started anew 
-# are not login shells. New terminals or new screen windows you open are not login 
+#
+# If the shell was started any other way, such as through GNOME’s gnome-terminal
+# or KDE’s konsole, then it is typically not a login shell — the login shell was
+# what started GNOME or KDE behind your back when you logged in; things started anew
+# are not login shells. New terminals or new screen windows you open are not login
 # shells either.
-# (Starting a new window in OS X’s Terminal.app seems to count as a login shell, though.)
-# 
+# (Starting a new window in macOS’s Terminal.app seems to count as a login shell, though.)
+#
 # Put `~/.bash_login` stuff in the Conditional Configuration section of `~/.bashrc`.
-# 
+#
 # See comments in `~/.bashrc` for detailed summary.

@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+# shellcheck shell=bash
 #
-# Install Zshell
+# Install Zsh (Z shell)
 
 # Shell Support
 # shellcheck disable=SC1090

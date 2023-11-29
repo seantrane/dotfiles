@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1091
 #
 # bootstrap installs things.
 
@@ -8,19 +9,20 @@
 [[ -z "$DOTFILES" ]] && DOTFILES="$HOME/.dotfiles"
 
 if ! type "sh_success" &> /dev/null; then
-  . $DOTFILES/functions/sh_alert
-  . $DOTFILES/functions/sh_error
-  . $DOTFILES/functions/sh_fail
-  . $DOTFILES/functions/sh_info
-  . $DOTFILES/functions/sh_note
-  . $DOTFILES/functions/sh_user
-  . $DOTFILES/functions/sh_success
-  . $DOTFILES/functions/sh_text
+  . "$DOTFILES/functions/sh_alert"
+  . "$DOTFILES/functions/sh_error"
+  . "$DOTFILES/functions/sh_fail"
+  . "$DOTFILES/functions/sh_info"
+  . "$DOTFILES/functions/sh_note"
+  . "$DOTFILES/functions/sh_user"
+  . "$DOTFILES/functions/sh_success"
+  . "$DOTFILES/functions/sh_text"
+  . "$DOTFILES/functions/sh_yesno"
 fi
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # SUDO
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Ask for the administrator password upfront.
 sudo -v
@@ -30,109 +32,133 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 set -e
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # GIT CONFIG
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 setup_gitconfig () {
-    if [ ! -f "$DOTFILES/git/gitconfig.symlink" ]; then
-        sh_info 'Setting up gitconfig.symlink'
-
-        git_credential='cache'
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            git_credential='osxkeychain'
-        fi
-
-        sh_user 'What is your github author name?  (username)'
-        read -r -e git_authorname
-        sh_user 'What is your github author email?  (username@users.noreply.github.com)'
-        read -r -e git_authoremail
-
-        sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" $DOTFILES/git/gitconfig.symlink.example > $DOTFILES/git/gitconfig.symlink
-
-        sh_success 'gitconfig.symlink is now ready for symlinking to ~/.gitconfig'
-    fi
+  if [[ ! -r "$DOTFILES/git/gitconfig.symlink" ]]; then
+    sh_info 'Setting up gitconfig.symlink'
+    # Set Git credential storage.
+    git_credential='cache'
+    [[ "$OSTYPE" == "darwin"* ]] && git_credential='osxkeychain'
+    # Get user inputs.
+    sh_user 'What is your github author name?  (username)'
+    read -r -e git_authorname
+    sh_user 'What is your github author email?  (username@users.noreply.github.com)'
+    read -r -e git_authoremail
+    # Inject Git user info to gitconfig.symlink, using config-template.
+    sed -e "s/AUTHORNAME/$git_authorname/g" \
+        -e "s/AUTHOREMAIL/$git_authoremail/g" \
+        -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" \
+        "$DOTFILES/git/gitconfig.symlink.example" > "$DOTFILES/git/gitconfig.symlink"
+    # Evaluate success
+    [[ -r "$DOTFILES/git/gitconfig.symlink" ]] && \
+      sh_success 'gitconfig.symlink is now ready for symlinking to ~/.gitconfig'
+  else
+    sh_note 'gitconfig.symlink already exists. Please edit manually.'
+  fi
 }
 
-setup_gitconfig
+sh_yesno 'Would you like to configure the '~/.gitconfig' file/symlink?'
+read -r -e _answer
+[[ "$_answer" == "y"* ]] && setup_gitconfig
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # SYMLINK DOTFILES
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
-. $DOTFILES/functions/link_file
-. $DOTFILES/functions/install_dotfiles
+. "$DOTFILES/functions/link_file"
+. "$DOTFILES/functions/install_dotfiles"
 
 install_dotfiles
 
-#-----------------------------------------------------------------------
-# HOMEBREW + GIT + RUBY + base libs/bins
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# HOMEBREW + required dependencies
+#-------------------------------------------------------------------------------
 # Here's is the install list/order:
 #   * Linux libraries/dependencies
-#   * Homebrew (Mac-only)
-#   * Git
-#   * rbenv
-#   * Ruby
-#   * Bundler (Linux-only)
+#   * macOS Xcode Command Line Tools
+#   * Homebrew
 
-. $DOTFILES/brew/install.sh
+. "$DOTFILES/brew/init_install.sh"
+_init_or_install_homebrew
+
+if ! type "brew" &> /dev/null; then
+  sh_error "Install of Homebrew not found."
+  sh_fail "Please install manually. See: https://brew.sh"
+fi
+
+if [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
+  sh_error "HOMEBREW_PREFIX variable not set."
+  sh_fail "Try restarting your shell environment, or reinstalling Homebrew."
+fi
 
 # sh_info "Configuring homebrew permissions to allow multiple admin users."
 # sh_info "Any user from the admin group will be able to manage homebrew."
 
 # declare -a HOMEBREW_DIRS=(
-#     "$(brew --prefix)/Caskroom"
-#     "$(brew --prefix)/Cellar"
-#     "$(brew --prefix)/Homebrew"
-#     "$(brew --prefix)/etc"
-#     "$(brew --prefix)/lib"
-#     "$(brew --prefix)/share"
-#     "$(brew --prefix)/var"
+#   "${HOMEBREW_PREFIX:-}/Caskroom"
+#   "${HOMEBREW_PREFIX:-}/Cellar"
+#   "${HOMEBREW_PREFIX:-}/Homebrew"
+#   "${HOMEBREW_PREFIX:-}/etc"
+#   "${HOMEBREW_PREFIX:-}/lib"
+#   "${HOMEBREW_PREFIX:-}/share"
+#   "${HOMEBREW_PREFIX:-}/var"
 # )
-
 # for brew_dir in "${HOMEBREW_DIRS[@]}"; do
-#     if [[ ! -d "${brew_dir}" ]]; then
-#         sh_info "Creating directory: ${brew_dir}"
-#         mkdir "${brew_dir}"
-#     fi
-#     sh_info "Changing group ownership of directory: ${brew_dir}"
-#     sudo chgrp -R admin "${brew_dir}"
-#     sudo chmod -R g+w "${brew_dir}"
+#   if [[ ! -d "${brew_dir}" ]]; then
+#     sh_info "Creating directory: ${brew_dir}"
+#     mkdir "${brew_dir}"
+#   fi
+#   sh_info "Changing group ownership of directory: ${brew_dir}"
+#   sudo chgrp -R admin "${brew_dir}"
+#   sudo chmod -R g+w "${brew_dir}"
 # done
+# ls -al "${HOMEBREW_PREFIX:-}"
 
-# ls -al "$(brew --prefix)"
+#-------------------------------------------------------------------------------
+# GIT / RUBY
+#-------------------------------------------------------------------------------
 
-. $DOTFILES/git/install.sh
-. $DOTFILES/ruby/install.sh
+[[ ! -d "${HOMEBREW_PREFIX:-}/opt/git" ]] && brew install git
+[[ ! -d "${HOMEBREW_PREFIX:-}/opt/ruby" ]] && brew install ruby
 
-#-----------------------------------------------------------------------
-# Zshell + Prezto
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Zsh + Prezto
+#-------------------------------------------------------------------------------
 
-# We install Prezto first so that it's ready for Zsh.
-. $DOTFILES/prezto/install.sh
-# Install Zshell + Zsh-completions
-. $DOTFILES/zsh/install.sh
-
-#-----------------------------------------------------------------------
-# OS CONDITIONALS
-#-----------------------------------------------------------------------
-
-# If we're on a Mac, let's install and setup homebrew.
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    sh_info "installing dependencies"
-    #if source bin/dot > /tmp/dotfiles-dot 2>&1; then
-    #    sh_success "dependencies installed"
-    #else
-    #    sh_fail "error installing dependencies"
-    #fi
+# Install Prezto first to be ready for Zsh config.
+if [[ ! -d "$HOME/.zprezto" ]]; then
+  sh_info "Installing Prezto to the home directory: ~/.prezto"
+  if type "git" &> /dev/null; then
+    git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
+  elif type "curl" &> /dev/null; then
+    cd || echo
+    curl -LOk https://github.com/sorin-ionescu/prezto/archive/master.zip \
+    && unzip master.zip && mv prezto-master .prezto && rm master.zip
+  fi
 fi
 
-echo ""
+# Install Zsh and Zsh-completions
+if [[ ! -e "${HOMEBREW_PREFIX:-}/bin/zsh" ]]; then
+  sh_info "Install Zsh and Zsh-completions"
+  brew install zsh zsh-completions
+  # Install oh-my-zsh on top of zsh to getting additional functionality
+  # curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+fi
+# Add Zsh to the list of allowed shells
+if [[ -e "${HOMEBREW_PREFIX:-}/bin/zsh" ]] && [[ ! "$(cat /etc/shells)" == *"${HOMEBREW_PREFIX:-}/bin/zsh"* ]]; then
+  sh_info "Adding Zsh to the list of allowed shells (/etc/shells)."
+  sudo bash -c 'echo "$(brew --prefix)/bin/zsh" >> /etc/shells'
+else
+  sh_fail "Error locating Homebrew and/or Zsh. Please install manually."
+fi
 
-sh_success "Bootstrapping complete!"
+echo
 
-sh_alert "Restart your terminal/shell, and take the next step."
+sh_success "Bootstrapping complete."
 
-echo ""
+sh_alert "Restart the terminal and run: ~/.dotfiles/install"
+
+echo

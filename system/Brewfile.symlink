@@ -1,0 +1,350 @@
+########################################################################
+##
+##  Brewfile for developers on MacOS
+##
+##  @see Homebrew Bundle (https://github.com/Homebrew/homebrew-bundle)
+##
+########################################################################
+#
+# Path for Cask Application aliases
+cask_args appdir: "/Applications" # GLOBAL/DEFAULT CONFIG
+# cask_args appdir: "~/Applications", require_sha: true # LOCAL CONFIG
+#
+#-------------------------------------------------------------------------------
+# TAPS
+#-------------------------------------------------------------------------------
+#
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+#
+#-------------------------------------------------------------------------------
+# SYSTEM
+#-------------------------------------------------------------------------------
+#
+# CORE UTILITIES
+#
+brew "coreutils" if OS.mac? # [GNU File, Shell, Text utilities](https://www.gnu.org/software/coreutils)
+brew "moreutils" # [UNIX tools, like Sponge](https://joeyh.name/code/moreutils/)
+brew "findutils" if OS.mac? # [GNU Find, Xargs, Locate](https://www.gnu.org/software/findutils/)
+brew "gcc" if OS.mac? # [GNU compiler collection](https://gcc.gnu.org/)
+#
+# COMPRESSION BINARIES
+#
+brew "bzip2" # [data compressor](https://sourceware.org/bzip2/)
+brew "libzip" # [C library for zip archives](https://libzip.org/)
+brew "p7zip" # [7-Zip file archiver](http://p7zip.sourceforge.net)
+# brew "pigz" # [Parallel gzip](http://www.zlib.net/pigz/)
+brew "zlib" # [lossless compression library](https://zlib.net/)
+# brew "zopfli" # [zlib compatible compressor](https://code.google.com/p/zopfli/)
+#
+# SHELL BINARIES
+#
+brew "bash" # [Bourne-Again SHell (Bash)](https://www.gnu.org/software/bash/)
+brew "bash-completion2"
+brew "grc" # [shell colorization](http://www.man-online.org/page/1-grc/)
+brew "zsh" # [Z shell (Zsh)](https://www.zsh.org/)
+brew "zsh-completions"
+#
+# GIT BINARIES
+#
+brew "git"
+brew "git-lfs" # Git-LFS (Large File Support)
+brew "libgit2" # [C library of Git core methods](https://libgit2.github.com/)
+brew "git-xargs" # [CLI for bulk repos changes + pull requests](https://github.com/gruntwork-io/git-xargs)
+#
+# CORE BINARIES
+#
+brew "ack" # [optimized grep-like search](http://beyondgrep.com)
+brew "curl" # [Get files via HTTP, HTTPS, FTP](https://curl.se)
+brew "gnu-sed", args: ["with-default-names"]
+brew "grep" # [GNU grep, egrep, fgrep](https://www.gnu.org/software/grep/)
+brew "jq" # [command-line JSON processor](https://jqlang.github.io/jq/)
+brew "openssh" # [OpenBSD SSH connectivity tools](https://www.openssh.com)
+brew "openssl" # [Cryptography and SSL/TLS Toolkit](https://openssl.org)
+# brew "vim", args: ["override-system-vi"]
+brew "wget", args: ["with-iri"]
+#
+# POPULAR BINARIES
+#
+brew "imagemagick" # [Image manipulation](https://www.imagemagick.org)
+brew "pass" # [Password management](https://www.passwordstore.org/)
+brew "pv" # [Monitor progress via pipe](https://www.ivarch.com/programs/pv.shtml)
+brew "rename" # [Perl-powered file renamer](http://plasmasturm.org/code/rename)
+brew "screen" # [Terminal multiplexer](https://www.gnu.org/software/screen)
+brew "spark" # [Spark](http://zachholman.com/spark/)
+brew "ssh-copy-id" # [CLI for remote authorized_keys](http://www.openssh.com)
+brew "tree" # [Display file structure](http://mama.indstate.edu/users/ice/tree/)
+#
+# ADDITIONAL BINARIES
+#
+# brew "dnsmasq" # [DNS forwarder, DHCP server](https://thekelleys.org.uk/dnsmasq/doc.html)
+# brew "exiv2" # [EXIF/IPTC metadata manipulation](http://www.exiv2.org)
+brew "jansson" # [C lib for encoding, decoding, manipulating JSON](https://digip.org/jansson/)
+# brew "jp2a" # [Convert JPG to ASCII](https://github.com/Talinx/jp2a)
+# brew "libcaca", args: ["with-imlib2"] # [Convert images to colored ASCII](http://caca.zoy.org/wiki/libcaca)
+# brew "lua" [Lua programming language](http://www.lua.org)
+# brew "lynx" # [Text-based web browser](http://lynx.isc.org)
+brew "readline" # [Library for command-line editing](https://tiswww.case.edu/php/chet/readline/rltop.html)
+# brew "rhino" # [JavaScript engine](https://www.mozilla.org/rhino/)
+# brew "roundup" # [shell script unit testing](https://bmizerany.github.io/roundup)
+# brew "spaceman-diff" # [Diff images from command-line](https://github.com/holman/spaceman-diff)
+# brew "speedtest_cli" # [SpeedTest.net CLI](https://github.com/sivel/speedtest-cli)
+# brew "webkit2png" # [Create web screenshots from terminal](https://www.paulhammond.org/webkit2png/)
+# brew "webp" # [Image compression for web](https://developers.google.com/speed/webp/)
+# brew "xmlto" # [Convert XML to other formats](https://pagure.io/xmlto/)
+# brew "youtube-dl" # [Download YouTube videos from command-line](https://ytdl-org.github.io/youtube-dl/)
+#
+# DEV TOOLS
+#
+brew "awscli"
+brew "cloud-nuke" # [CLI tool to delete all cloud resources](https://github.com/gruntwork-io/cloud-nuke)
+brew "dependency-check" # [OWASP dependency-check](https://owasp.org/www-project-dependency-check/)
+brew "dive" # [Inspection of docker image layers](https://github.com/wagoodman/dive)
+# brew "elixir"
+# brew "erlang"
+# brew "galen"
+brew "gradle"
+brew "helm"
+# brew "heroku"
+brew "kubectl"
+brew "maven"
+# brew "mcrypt"
+# brew "memcached"
+brew "minikube"
+# brew "mongodb"
+# brew "mysql", restart_service: true, link: true, conflicts_with: ["mysql"]
+brew "node"
+brew "p11-kit" # [Lib for PKCS#11 modules](https://p11-glue.freedesktop.org)
+# brew "packer"
+# brew "php"
+# brew "php-code-sniffer"
+# brew "phpunit"
+# brew "postgresql"
+brew "python"
+# brew "rbenv"
+# brew "redis"
+# brew "ruby-build"
+brew "shellcheck" # [ShellCheck](https://github.com/koalaman/shellcheck)
+brew "sqlite"
+brew "terraform"
+brew "terragrunt" # [thin wrapper for Terraform](https://terragrunt.gruntwork.io)
+brew "tflint"
+# brew "vault"
+brew "yarn"
+#
+#-------------------------------------------------------------------------------
+# APPLICATIONS (CASKS)
+#-------------------------------------------------------------------------------
+#
+cask "1password"
+cask "a-better-finder-rename"
+# cask "adobe-creative-cloud"
+# cask "adobe-photoshop-lightroom"
+# cask "adobe-reader"
+cask "alfred"
+# cask "atom"
+# cask "audacity"
+cask "audio-hijack"
+# cask "blue-jeans"
+# cask "citrix-receiver"
+# cask "cyberduck"
+# cask "dash"
+# cask "dash-beta"
+# cask "docker"
+# cask "drobo-dashboard"
+# cask "dropbox"
+# cask "evernote"
+# cask "filezilla"
+# cask "firefox"
+# cask "flash"
+cask "focusrite-control"
+# cask "gimp"
+cask "github"
+# cask "gitkraken"
+# cask "gitx"
+cask "gog-galaxy"
+# cask "google-chrome"
+cask "handbrake"
+cask "imagealpha"
+cask "imageoptim"
+# cask "intellij-idea"
+# cask "intellij-idea-ce"
+cask "iterm2"
+cask "java" unless system "/usr/libexec/java_home --failfast"
+# cask "jenkins"
+# cask "jenkins-lts"
+# cask "jenkins-menu"
+# cask "kaleidoscope"
+# cask "keka"
+cask "keybase"
+cask "krita"
+# cask "little-snitch"
+cask "macpar-deluxe"
+# cask "mamp"
+# cask "microsoft-lync"
+# cask "microsoft-office"
+cask "mongodb-compass"
+cask "musicbrainz-picard"
+cask "native-access"
+cask "nzbget"
+# cask "openoffice"
+# cask "phpstorm"
+cask "postman"
+# cask "screenflow"
+cask "sequel-pro"
+cask "skype"
+cask "slack"
+cask "sourcetree"
+# cask "spectacle"
+# cask "stellarium"
+# cask "sublime-text"
+# cask "svnx"
+# cask "textexpander"
+cask "the-unarchiver"
+# cask "tower"
+# cask "transmission"
+# cask "vagrant"
+cask "virtualbox"
+cask "visual-studio-code"
+cask "vlc"
+# cask "webstorm"
+# cask "whatsapp"
+# cask "wineskin-winery"
+cask "xld"
+# cask "xquartz"
+# cask "xtrafinder"
+cask "zoom"
+#
+#-------------------------------------------------------------------------------
+# FONTS (CASKS)
+#-------------------------------------------------------------------------------
+#
+cask "font-arimo"
+cask "font-dejavu-sans"
+cask "font-fontawesome"
+cask "font-inconsolata"
+cask "font-lora"
+cask "font-open-iconic"
+cask "font-open-sans"
+cask "font-open-sans-condensed"
+cask "font-source-code-pro"
+cask "font-source-sans-pro"
+cask "font-source-serif-pro"
+cask "font-ubuntu"
+#
+#-------------------------------------------------------------------------------
+# MAS (Mac App Store)
+# @see mas-cli https://github.com/mas-cli/mas
+#-------------------------------------------------------------------------------
+#
+brew "mas"
+#
+# mas "1Password", id: 443987910
+mas "Logic Pro", id: 634148309
+#
+#-------------------------------------------------------------------------------
+# Whalebrew
+# @see https://github.com/whalebrew/whalebrew
+#-------------------------------------------------------------------------------
+#
+brew "whalebrew"
+#
+whalebrew "composer/composer" # [PHP Composer](https://getcomposer.org/doc/00-intro.md#docker-image)
+#
+#-------------------------------------------------------------------------------
+# Visual Studio Code Extensions
+# 'vscode --install-extension'
+#-------------------------------------------------------------------------------
+#
+vscode "johnpapa.Angular2" # [Angular Snippets](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)
+vscode "mrmlnc.vscode-apache" # [Apache Conf](https://marketplace.visualstudio.com/items?itemName=mrmlnc.vscode-apache)
+vscode "ms-vscode.atom-keybindings" # [Atom Keymap](https://marketplace.visualstudio.com/items?itemName=ms-vscode.atom-keybindings)
+vscode "formulahendry.auto-close-tag" # [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag)
+vscode "formulahendry.auto-rename-tag" # [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
+vscode "JerryHong.autofilename" # [AutoFileName](https://marketplace.visualstudio.com/items?itemName=JerryHong.autofilename)
+vscode "ms-vscode.azure-account" # [Azure Account](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account)
+vscode "seantrane.balanced-theme" # [BalanceD Syntax Theme](https://marketplace.visualstudio.com/items?itemName=seantrane.balanced-theme)
+vscode "jetmartin.bats" # [BATS (Bash Automated Testing System)](https://marketplace.visualstudio.com/items?itemName=jetmartin.bats)
+vscode "mads-hartmann.bash-ide-vscode" # [Bash IDE](https://marketplace.visualstudio.com/items?itemName=mads-hartmann.bash-ide-vscode)
+vscode "chouzz.vscode-better-align" # [Better Align](https://marketplace.visualstudio.com/items?itemName=chouzz.vscode-better-align)
+vscode "thekalinga.bootstrap4-vscode" # [Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets](https://marketplace.visualstudio.com/items?itemName=thekalinga.bootstrap4-vscode)
+vscode "sharat.vscode-brewfile" # [Brewfile](https://marketplace.visualstudio.com/items?itemName=sharat.vscode-brewfile)
+# vscode "mindaro.mindaro" # [Bridge to Kubernetes](https://marketplace.visualstudio.com/items?itemName=mindaro.mindaro)
+vscode "wmaurer.change-case" # [Change Case](https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case)
+vscode "dlech.chmod" # [chmod](https://marketplace.visualstudio.com/items?itemName=dlech.chmod)
+vscode "formulahendry.code-runner" # [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
+vscode "lafe.contextualduplicate" # [Contextual Duplicate](https://marketplace.visualstudio.com/items?itemName=lafe.contextualduplicate)
+vscode "vscjava.vscode-java-debug" # [Debugger for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug)
+vscode "ms-vscode-remote.remote-containers" # [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+vscode "ms-azuretools.vscode-docker" # [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+vscode "oouo-diogo-perdigao.docthis" # [Document This](https://marketplace.visualstudio.com/items?itemName=oouo-diogo-perdigao.docthis)
+vscode "mikestead.dotenv" # [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
+vscode "EditorConfig.EditorConfig" # [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+vscode "mjmcloug.vscode-elixir" # [Elixir Support for VS Code](https://marketplace.visualstudio.com/items?itemName=mjmcloug.vscode-elixir)
+# vscode "dbaeumer.vscode-eslint" # [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+vscode "jrrdnx.expressionengine" # [ExpressionEngine](https://marketplace.visualstudio.com/items?itemName=jrrdnx.expressionengine)
+vscode "vscjava.vscode-java-pack" # [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
+vscode "mindaro-dev.file-downloader" # [File Downloader](https://marketplace.visualstudio.com/items?itemName=mindaro-dev.file-downloader)
+vscode "sleistner.vscode-fileutils" # [File Utils](https://marketplace.visualstudio.com/items?itemName=sleistner.vscode-fileutils)
+vscode "donjayamanne.githistory" # [Git History](https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory)
+vscode "GitHub.codespaces" # [GitHub Codespaces](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces)
+vscode "codezombiech.gitignore" # [gitignore](https://marketplace.visualstudio.com/items?itemName=codezombiech.gitignore)
+# vscode "golang.go" # [Go](https://marketplace.visualstudio.com/items?itemName=golang.go)
+vscode "kumar-harsh.graphql-for-vscode" # [GraphQL for VSCode](https://marketplace.visualstudio.com/items?itemName=kumar-harsh.graphql-for-vscode)
+vscode "hashicorp.terraform" # [HashiCorp Terraform](https://marketplace.visualstudio.com/items?itemName=hashicorp.terraform)
+vscode "lokalise.i18n-ally" # [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally)
+vscode "VisualStudioExptTeam.intellicode-api-usage-examples" # [IntelliCode API Usage Examples](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.intellicode-api-usage-examples)
+vscode "VisualStudioExptTeam.vscodeintellicode" # [IntelliCode](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
+vscode "ms-python.isort" # [isort](https://marketplace.visualstudio.com/items?itemName=ms-python.isort)
+vscode "xabikos.JasmineSnippets" # [Jasmine code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JasmineSnippets)
+vscode "xabikos.JavaScriptSnippets" # [JavaScript (ES6) code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets)
+vscode "akamud.vscode-javascript-snippet-pack" # [JavaScript Snippet Pack](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-javascript-snippet-pack)
+vscode "ginfuru.ginfuru-vscode-jekyll-syntax" # [Jekyll Syntax Support](https://marketplace.visualstudio.com/items?itemName=ginfuru.ginfuru-vscode-jekyll-syntax)
+vscode "Orta.vscode-jest" # [Jest](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)
+# vscode "ms-kubernetes-tools.vscode-kubernetes-tools" # [Kubernetes](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
+vscode "redhat.java" # [Language Support for Java(TM) by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.java)
+vscode "tomphilbin.lodash-snippets" # [Lodash Snippets](https://marketplace.visualstudio.com/items?itemName=tomphilbin.lodash-snippets)
+vscode "shd101wyy.markdown-preview-enhanced" # [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)
+vscode "bierner.markdown-preview-github-styles" # [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles)
+vscode "darkriszty.markdown-table-prettify" # [Markdown Table Prettifier](https://marketplace.visualstudio.com/items?itemName=darkriszty.markdown-table-prettify)
+vscode "DavidAnson.vscode-markdownlint" # [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+vscode "PKief.material-icon-theme" # [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+vscode "vscjava.vscode-maven" # [Maven for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-maven)
+vscode "Alan.MochaSnippets" # [Mocha Snippets](https://marketplace.visualstudio.com/items?itemName=Alan.MochaSnippets)
+vscode "CodeStream.codestream" # [New Relic CodeStream](https://marketplace.visualstudio.com/items?itemName=CodeStream.codestream)
+vscode "new-relic.nr1" # [New Relic One](https://marketplace.visualstudio.com/items?itemName=new-relic.nr1)
+vscode "joelalejandro.nrql-language" # [New Relic Query Language](https://marketplace.visualstudio.com/items?itemName=joelalejandro.nrql-language)
+vscode "christian-kohler.npm-intellisense" # [npm Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
+vscode "IBM.output-colorizer" # [Output Colorizer](https://marketplace.visualstudio.com/items?itemName=IBM.output-colorizer)
+vscode "christian-kohler.path-intellisense" # [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
+vscode "esbenp.prettier-vscode" # [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+vscode "vscjava.vscode-java-dependency" # [Project Manager for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-dependency)
+vscode "ms-python.vscode-pylance" # [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
+vscode "ms-python.python" # [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+vscode "mechatroner.rainbow-csv" # [Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv)
+vscode "jeppeandersen.raml" # [RAML](https://marketplace.visualstudio.com/items?itemName=jeppeandersen.raml)
+vscode "msjsdiag.vscode-react-native" # [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native)
+vscode "chrmarti.regex" # [Regex Previewer](https://marketplace.visualstudio.com/items?itemName=chrmarti.regex)
+vscode "humao.rest-client" # [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+vscode "stkb.rewrap" # [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap)
+vscode "Shopify.ruby-lsp" # [Ruby LSP](https://marketplace.visualstudio.com/items?itemName=Shopify.ruby-lsp)
+vscode "Syler.sass-indented" # [Sass (.sass only)](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
+vscode "tomoki1207.selectline-statusbar" # [Select Line Status Bar](https://marketplace.visualstudio.com/items?itemName=tomoki1207.selectline-statusbar)
+vscode "DeepInThought.vscode-shell-snippets" # [Shell Snippets](https://marketplace.visualstudio.com/items?itemName=DeepInThought.vscode-shell-snippets)
+vscode "timonwong.shellcheck" # [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
+vscode "maximerouiller.slugify-vscode" # [slugify](https://marketplace.visualstudio.com/items?itemName=maximerouiller.slugify-vscode)
+vscode "stevejpurves.cucumber" # [Snippets and Syntax Highlight for Gherkin (Cucumber)](https://marketplace.visualstudio.com/items?itemName=stevejpurves.cucumber)
+vscode "SonarSource.sonarlint-vscode" # [SonarLint](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode)
+vscode "richie5um2.vscode-sort-json" # [Sort JSON objects](https://marketplace.visualstudio.com/items?itemName=richie5um2.vscode-sort-json)
+vscode "Tyriar.sort-lines" # [Sort lines](https://marketplace.visualstudio.com/items?itemName=Tyriar.sort-lines)
+vscode "run-at-scale.terraform-doc-snippets" # [Terraform doc snippets](https://marketplace.visualstudio.com/items?itemName=run-at-scale.terraform-doc-snippets)
+vscode "vscjava.vscode-java-test" # [Test Runner for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-test)
+vscode "octref.vetur" # [Vetur - Vue tooling for VS Code](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
+vscode "bajdzis.vscode-database" # [VS Code database](https://marketplace.visualstudio.com/items?itemName=bajdzis.vscode-database)
+vscode "jeremyljackson.vs-docblock" # [VS DocBlockr](https://marketplace.visualstudio.com/items?itemName=jeremyljackson.vs-docblock)
+vscode "wingrunr21.vscode-ruby" # [VSCode Ruby](https://marketplace.visualstudio.com/items?itemName=wingrunr21.vscode-ruby)
+vscode "vscode-icons-team.vscode-icons" # [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons)
+vscode "DotJoshJohnson.xml" # [XML Tools](https://marketplace.visualstudio.com/items?itemName=DotJoshJohnson.xml)
+vscode "redhat.vscode-yaml" # [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+vscode "samverschueren.yo" # [yo](https://marketplace.visualstudio.com/items?itemName=samverschueren.yo)

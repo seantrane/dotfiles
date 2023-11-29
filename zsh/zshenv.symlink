@@ -1,7 +1,14 @@
+# shellcheck shell=bash disable=SC1090,SC1091,SC2034,SC2206
+#          _
+#  _______| |__   ___ _ ____   __
+# |_  / __| '_ \ / _ \ '_ \ \ / /
+#  / /\__ \ | | |  __/ | | \ V /
+# /___|___/_| |_|\___|_| |_|\_/
+# ===============================
 #
-# ZSH ENV
+# Zsh environment configuration file.
 #
-# Defines Zshell environment.
+# Startup Files: https://zsh.sourceforge.io/Intro/intro_3.html
 #
 # There are five startup files that zsh will read commands from:
 #   * $ZDOTDIR/.zshenv
@@ -11,7 +18,8 @@
 #   * $ZDOTDIR/.zlogout
 #
 # If ZDOTDIR is not set, then the value of HOME is used; this is the usual case.
-# `.zshenv' is sourced on all invocations of the shell, unless the -f option is set.
+#
+# `.zshenv' is sourced on all invocations of the shell, unless -f option is set.
 # It should contain commands to set the command search path,
 # plus other important environment variables.
 # `.zshenv' should not contain commands that produce output
@@ -29,8 +37,8 @@
 #
 # `.zlogin' is not the place for alias definitions, options,
 # environment variable settings, etc.; as a general rule, it should not
-# change the shell environment at all. Rather, it should be used to
-# set the terminal type and run a series of external commands (fortune, msgs, etc).
+# change the shell environment at all. Rather, it should be used to set
+# the terminal type and run a series of external commands (fortune, msgs, etc).
 #
 # See table below for processing information.
 #
@@ -41,29 +49,29 @@
 # +----------------+-----------+-----------+------+
 # |/etc/zshenv     |    A      |    A      |  A   |
 # +----------------+-----------+-----------+------+
-# |~/.zshenv       |    B      |    B      |  B   |
+# |  ~/.zshenv     |    B      |    B      |  B   | <<< This sets $PATH
 # +----------------+-----------+-----------+------+
-# |/etc/zprofile   |    C      |           |      |
+# |/etc/zprofile   |    C      |           |      | <<< This overwrites $PATH =(
 # +----------------+-----------+-----------+------+
-# |~/.zprofile     |    D      |           |      |
+# |  ~/.zprofile   |    D      |           |      |
 # +----------------+-----------+-----------+------+
 # |/etc/zshrc      |    E      |    C      |      |
 # +----------------+-----------+-----------+------+
-# |~/.zshrc        |    F      |    D      |      |
+# |  ~/.zshrc      |    F      |    D      |      | <<< This resets $PATH
 # +----------------+-----------+-----------+------+
 # |/etc/zlogin     |    G      |           |      |
 # +----------------+-----------+-----------+------+
-# |~/.zlogin       |    H      |           |      |
+# |  ~/.zlogin     |    H      |           |      |
 # +----------------+-----------+-----------+------+
 # +----------------+-----------+-----------+------+
-# |~/.zlogout      |    I      |           |      |
+# |  ~/.zlogout    |    I      |           |      |
 # +----------------+-----------+-----------+------+
 # |/etc/zlogout    |    J      |           |      |
 # +----------------+-----------+-----------+------+
 #
-# Moral: Put stuff in `~/.zshenv`, which is always executed.
-# HOWEVER: Some config may be overwritten by `/etc/zshrc`. So,
-# you have to put some config in `~/.zshrc` (e.g., prompt config).
+# Moral: Put stuff in `~/.zshenv`, that should always be executed.
+# HOWEVER: Some config may be overwritten by `/etc/zprofile` or `/etc/zshrc`.
+# So, you have to put some config in `~/.zshrc` (e.g., prompt config).
 #
 # Use the Conditional Sections as needed:
 #   1. SCRIPT / NON-INTERACTIVE / .zshenv
@@ -73,68 +81,40 @@
 #
 # NOTE: This is different from how Bash is processed (see `~/.bashrc`).
 #
-# shellcheck disable=SC1090,SC1091
+# Zsh Reference Card: https://www.bash2zsh.com/zsh_refcard/refcard.pdf
+# ZSH-LOVERS(1): https://grml.org/zsh/zsh-lovers.html
 
 _SHELL_TYPE="prompt"
 _SHELL_USER="public"
 [[ "$SHLVL" -eq 1 && ! -o LOGIN ]] && _SHELL_TYPE="script"
 [[ -o LOGIN ]] && _SHELL_TYPE="private"
-[[ "$_SHELL_TYPE" = "prompt" ]] && echo "$SHELL::$_SHELL_TYPE-$_SHELL_USER"
+# [[ "$_SHELL_TYPE" = "prompt" ]] && echo "$SHELL::$_SHELL_TYPE-$_SHELL_USER"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Ensure that non-login/non-interactive shell has a defined environment.
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   . "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# HOMEBREW INIT
+#-------------------------------------------------------------------------------
+
+[[ -f "$DOTFILES/brew/init.sh" ]] && . "$DOTFILES/brew/init.sh"
+
+#-------------------------------------------------------------------------------
 # Load `.env` a.k.a. `~/.dotfiles/shell/env.symlink`
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # This file should be loaded first in all shell environments,
 # in the following files; `~/.bashrc` and `~/.zshenv`
 
 [[ -f "${ZDOTDIR:-$HOME}/.env" ]] && . "${ZDOTDIR:-$HOME}/.env"
 
-
-########################################################################
-########################################################################
-##
-##  GENERAL CONFIGURATION
-##  (stuff that you always want executed)
-##
-########################################################################
-########################################################################
-
-# autoload every function:
-# for file in ~/.dotfiles/functions/{extract,link_file}; do
-# _find_files_array=($(find -H "$DOTFILES/functions" -maxdepth 2 -perm -u+r -type f -name '[A-Za-z0-9\-\_]*'))
-# for _file_path in ${_find_files_array}; do
-#   . "$_file_path"
-# done
-# unset _file_path _find_files_array
-
-# shellcheck disable=SC2206
-fpath=("$DOTFILES"/functions $fpath)
-autoload +X sh_alert sh_error sh_fail sh_info sh_note sh_success sh_text sh_user sh_yesno
-
-# PATH="$PATH:$DOTFILES/functions"
-# fpath="$DOTFILES/functions:$fpath"
-
-# for d in $fpath; do
-#   autoload `ls $d`
-# done
-
-# autoload `ls "$DOTFILES/functions"`
-
-# . "$DOTFILES/zsh/fpath.zsh"
-# . "$DOTFILES/zsh/config.zsh"
-
-
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # PATHS
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Set the the list of directories that cd searches.
 # cdpath=(
@@ -150,19 +130,286 @@ autoload +X sh_alert sh_error sh_fail sh_info sh_note sh_success sh_text sh_user
 # Ensure path arrays do not contain duplicates.
 # typeset -gU cdpath fpath mailpath path
 
-#-----------------------------------------------------------------------
-# Temporary Files
-#-----------------------------------------------------------------------
 
-if [[ ! -d "$TMPDIR" ]]; then
-  export TMPDIR="/tmp/$LOGNAME"
+################################################################################
+################################################################################
+##
+##  GENERAL CONFIGURATION
+##  (stuff that you always want executed)
+##
+################################################################################
+################################################################################
+
+# autoload every function:
+fpath=("$DOTFILES"/functions $fpath)
+autoload -U "$DOTFILES"/functions/*(:t)
+
+#-------------------------------------------------------------------------------
+# Changing Directories
+#-------------------------------------------------------------------------------
+
+# `cd` is run if a valid command is not found
+# auto 'cd dir' if you type 'dir'
+setopt AUTO_CD
+
+# `cd` pushes the old directory onto the directory stack
+# This makes cd=pushd
+setopt AUTO_PUSHD
+
+# If arg is not a directory, see if it's a variable, and `cd` to its value
+setopt CDABLE_VARS
+
+# this will ignore multiple directories for the stack.
+setopt PUSHD_IGNORE_DUPS
+
+setopt PUSHD_MINUS
+
+# `pushd` and `popd` will no longer print the directory name
+# No more annoying pushd messages...
+# setopt PUSHD_SILENT
+
+# `pushd` with no arguments act like 'pushd $HOME'
+setopt PUSHD_TO_HOME
+
+#-------------------------------------------------------------------------------
+# Completion
+#-------------------------------------------------------------------------------
+
+# don't expand aliases _before_ completion has finished, like; git comm-[tab]
+setopt complete_aliases
+
+setopt COMPLETE_IN_WORD
+
+# Immediately cycle through options for tab completion
+# setopt MENU_COMPLETE
+
+# Do not beep during listing completions
+setopt NO_LIST_BEEP
+
+#-------------------------------------------------------------------------------
+# Expansion and Globbing
+#-------------------------------------------------------------------------------
+
+# I don't know why I never set this before.
+setopt EXTENDED_GLOB
+
+# If we have a glob this will expand it
+setopt GLOB_COMPLETE
+
+# Case insensitive globbing
+setopt NO_CASE_GLOB
+
+# Be Reasonable!
+setopt NUMERIC_GLOB_SORT
+
+# hows about arrays be awesome?
+# `foo${cool}foo` has foo surrounding all variables, not just first and last.
+setopt RC_EXPAND_PARAM
+
+#-------------------------------------------------------------------------------
+# History
+#-------------------------------------------------------------------------------
+
+# adds history
+setopt APPEND_HISTORY
+
+# Save command timestamps
+setopt EXTENDED_HISTORY
+
+# If the internal history needs to be trimmed to add the current command line,
+# remove the oldest history event that has a duplicate.  You should be sure to
+# set the value of HISTSIZE to a larger number than SAVEHIST in order to give
+# you some room for the duplicated events, otherwise this option will behave
+# just like HIST_IGNORE_ALL_DUPS once the history fills up with unique events.
+setopt HIST_EXPIRE_DUPS_FIRST
+
+# When searching for history entries in the line editor,
+# do not display duplicates of a line previously found,
+# even if the duplicates are not contiguous.
+setopt HIST_FIND_NO_DUPS
+
+# If a new command line being added to the history list duplicates
+# an older one then the older command is removed from the list.
+setopt HIST_IGNORE_ALL_DUPS
+
+# Don't save command if preceded by whitespace
+setopt HIST_IGNORE_SPACE
+
+# Trim unnecessary whitespace from commands in history
+setopt HIST_REDUCE_BLANKS
+
+# allow functions to have local traps
+setopt HIST_VERIFY
+
+# adds history incrementally
+setopt INC_APPEND_HISTORY
+
+# Share command history between active shell sessions
+setopt SHARE_HISTORY
+
+#-------------------------------------------------------------------------------
+# Initialisation
+#-------------------------------------------------------------------------------
+
+# Don't globally export environment variables by default
+# setopt NO_GLOBAL_EXPORT
+
+#-------------------------------------------------------------------------------
+# Input/Output
+#-------------------------------------------------------------------------------
+
+# This will use named dirs when possible
+setopt AUTO_NAME_DIRS
+
+# Output hex numbers in the familiar C syntax (e.g. '0x2f')
+# setopt C_BASES
+
+setopt CORRECT
+
+# don't log out on EOF
+setopt IGNORE_EOF
+
+# Allow comments, even in an the interactive shell
+# setopt INTERACTIVE_COMMENTS
+
+# allow functions to have local options
+setopt LOCAL_OPTIONS
+
+# allow functions to have local traps
+setopt LOCAL_TRAPS
+
+# Keep echo "station" > station from clobbering station
+# don't overwrite files unless forced
+setopt NO_CLOBBER
+
+# Output octal numbers in the familiar C syntax (e.g. '077')
+# setopt OCTAL_ZEROES
+
+# 10 second wait if you do something that will delete everything.
+setopt RM_STAR_WAIT
+
+# Print the exit value of programs with non-zero exit status
+# setopt PRINT_EXIT_VALUE
+
+#-------------------------------------------------------------------------------
+# Job Control
+#-------------------------------------------------------------------------------
+
+# When disowning a process, send a SIGCONT
+# setopt AUTO_CONTINUE
+
+# Single letter commands call `fg`
+# setopt AUTO_RESUME
+
+# List jobs in a verbose format
+# setopt LONG_LIST_JOBS
+
+# zsh sends SIGHUP to running background jobs.
+# setopt NO_HUP config only sends SIGHUP in certain situations.
+setopt NO_HUP
+
+# don't nice background tasks
+setopt NO_BG_NICE
+
+# If I could disable Ctrl-s completely I would!
+setopt NO_FLOW_CONTROL
+
+#-------------------------------------------------------------------------------
+# Prompt
+#-------------------------------------------------------------------------------
+
+# Enable prompt substitution
+setopt PROMPT_SUBST
+
+# Clear right-side prompt upon submission of command
+# setopt TRANSIENT_RPROMPT
+
+#-------------------------------------------------------------------------------
+# Scripts and Functions
+#-------------------------------------------------------------------------------
+
+# Pipe to multiple outputs
+setopt MULTIOS
+
+#-------------------------------------------------------------------------------
+# Shell Emulation
+#-------------------------------------------------------------------------------
+
+# Use a version of `echo` compatible with bash
+# setopt BSD_ECHO
+
+#-------------------------------------------------------------------------------
+# Zle
+#-------------------------------------------------------------------------------
+
+# use magic (this is default, but it can't hurt!)
+# ! DISABLED: can't change option: ZLE
+# setopt ZLE
+
+zle -N newtab
+
+#-------------------------------------------------------------------------------
+
+# In the line editor, the number of matches to list without asking first.
+# If the value is negative, the list will be shown if it spans at most as many
+# lines as given by the absolute value. If set to zero, the shell asks only if
+# the top of the listing would scroll off the screen.
+# typeset -gx LISTMAX=0
+
+# Duration to wait for further input during a key-sequence
+# (in hundredths of a second)
+# typeset -gx KEYTIMEOUT=20
+
+#-------------------------------------------------------------------------------
+
+# Who doesn't want home and end to work?
+bindkey '\e[1~' beginning-of-line
+bindkey '\e[4~' end-of-line
+
+# Incremental search is elite!
+bindkey -M vicmd "/" history-incremental-search-backward
+bindkey -M vicmd "?" history-incremental-search-forward
+
+# Search based on what you typed in already
+bindkey -M vicmd "//" history-beginning-search-backward
+bindkey -M vicmd "??" history-beginning-search-forward
+
+bindkey "\eOP" run-help
+
+# oh wow! This is killer... try it!
+bindkey -M vicmd "q" push-line
+
+# it's like, space AND completion. Gnarlbot.
+bindkey -M viins ' ' magic-space
+
+bindkey '^[^[[D' backward-word
+bindkey '^[^[[C' forward-word
+bindkey '^[[5D' beginning-of-line
+bindkey '^[[5C' end-of-line
+bindkey '^[[3~' delete-char
+bindkey '^[^N' newtab
+bindkey '^?' backward-delete-char
+
+#-------------------------------------------------------------------------------
+# History Settings
+#-------------------------------------------------------------------------------
+
+export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+export HISTSIZE=10000
+export SAVEHIST=10000
+
+#-------------------------------------------------------------------------------
+# Temporary Files
+#-------------------------------------------------------------------------------
+
+if [[ ! -d "${TMPDIR:-}" ]]; then
+  export TMPDIR="/tmp/${LOGNAME:-}"
   # shellcheck disable=SC2174
   mkdir -p -m 700 "$TMPDIR"
 fi
+export TMPPREFIX="${TMPDIR%/}/zsh"
 
-TMPPREFIX="${TMPDIR%/}/zsh"; export TMPPREFIX
 
-
-########################################################################
+################################################################################
 ##  THE END: GENERAL CONFIGURATION
-########################################################################
+################################################################################

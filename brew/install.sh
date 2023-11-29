@@ -35,7 +35,7 @@ if ! type "brew" &> /dev/null; then
     # test "$(uname)" = "Darwin"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         # Homebrew requires Xcode Command Line Tools
-        . "$DOTFILES/osx/install-clt.sh"
+        . "$DOTFILES/macos/install-clt.sh"
         if [[ ! "$XCODE_PATH" ]]; then
             sh_fail "Homebrew requires Xcode Command Line Tools."
         fi
@@ -56,7 +56,7 @@ if type "brew" &> /dev/null; then
     # Setup taps.
     sh_info "Setting up Homebrew taps..."
     brew tap homebrew/bundle
-    # CASKROOM for OS X
+    # CASKROOM for macOS
     if [[ "$OSTYPE" == "darwin"* ]]; then
         brew tap homebrew/cask-fonts
         brew tap homebrew/cask-versions

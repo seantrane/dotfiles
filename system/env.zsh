@@ -1,10 +1,4 @@
-#!/usr/bin/env bash
-
-# Set the default editor
-# export EDITOR="vim";
-# export EDITOR="subl";
-# export EDITOR="atom";
-export EDITOR="code";
+# shellcheck shell=bash
 
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768;
