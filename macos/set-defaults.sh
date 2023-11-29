@@ -4,6 +4,8 @@
 #
 # @see https://macos-defaults.com
 
+_macos_init="${HOME}/.dotfiles/macos/init"
+
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we're about to change
 osascript -e 'tell application "System Preferences" to quit'
@@ -15,7 +17,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ################################################################################
-# User
+__USER_defaults=
 ################################################################################
 
 # Set language and text formats
@@ -30,7 +32,7 @@ sudo systemsetup -settimezone "America/New_York" > /dev/null
 
 
 ################################################################################
-# General UI/UX
+__SYSTEM_defaults=
 ################################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
@@ -99,8 +101,7 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # Remove duplicates in the "Open With" menu (also see `lscleanup` alias)
-_frameworks_path='/System/Library/Frameworks/CoreServices.framework/Frameworks'
-"$_frameworks_path"/LaunchServices.framework/Support/lsregister \
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister \
   -kill -r -domain local -domain system -domain user
 
 # Display ASCII control characters using caret notation in standard text views
@@ -152,7 +153,7 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 
 ################################################################################
-# Desktop
+__DESKTOP_defaults=
 # @see https://macos-defaults.com/#desktop
 ################################################################################
 
@@ -164,7 +165,7 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 
 ################################################################################
-# Energy saving
+__ENERGY_SAVING_defaults=
 ################################################################################
 
 # Enable lid wakeup
@@ -191,35 +192,28 @@ sudo pmset -a standbydelay 86400
 # Never go into computer sleep mode
 sudo systemsetup -setcomputersleep Off > /dev/null
 
+
+################################################################################
+# SSD-specific tweaks
+__SSD_defaults=
+################################################################################
+
+# Disable local Time Machine snapshots
+sudo tmutil disable localsnapshot
+# for older versions:
+# sudo tmutil disablelocal
+
 # Hibernation mode
 # 0: Disable hibernation (speeds up entering sleep mode)
 # 3: Copy RAM to disk so system state can be restored after power failure.
 sudo pmset -a hibernatemode 0
 
 # Remove the sleep image file to save disk space
-sudo rm /private/var/vm/sleepimage
-# Create a zero-byte file instead…
+[[ -e /private/var/vm/sleepimage ]] && sudo rm /private/var/vm/sleepimage
+# Create a zero-byte file instead...
 sudo touch /private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
+# ...and make sure it can't be rewritten
 sudo chflags uchg /private/var/vm/sleepimage
-
-
-################################################################################
-# SSD-specific tweaks
-################################################################################
-
-# Disable local Time Machine snapshots
-sudo tmutil disablelocal
-
-# Disable hibernation (speeds up entering sleep mode)
-sudo pmset -a hibernatemode 0
-
-# # Remove the sleep image file to save disk space
-# sudo rm /Private/var/vm/sleepimage
-# # Create a zero-byte file instead…
-# sudo touch /Private/var/vm/sleepimage
-# # …and make sure it can't be rewritten
-# sudo chflags uchg /Private/var/vm/sleepimage
 
 # Disable the sudden motion sensor as it's not useful for SSDs
 sudo pmset -a sms 0
@@ -227,6 +221,7 @@ sudo pmset -a sms 0
 
 ################################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input
+__TRACKPAD_MOUSE_defaults=
 ################################################################################
 
 # Trackpad: enable tap to click for this user and for the login screen
@@ -280,7 +275,7 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist
 
 
 ################################################################################
-# Security
+__SECURITY_defaults=
 ################################################################################
 
 # Require password immediately after sleep or screen saver begins
@@ -289,7 +284,7 @@ defaults write com.apple.screensaver askForPasswordDelay -int 300 # 5min
 
 
 ################################################################################
-# Screen
+__SCREEN_CAPTURE_defaults=
 # @see https://macos-defaults.com/#screenshots
 ################################################################################
 
@@ -311,7 +306,7 @@ sudo defaults write /Library/Preferences/com.apple.windowserver \
 
 
 ################################################################################
-# Finder
+__FINDER_defaults=
 # @see https://macos-defaults.com/#finder
 ################################################################################
 
@@ -323,9 +318,9 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 
 # Set Desktop as the default location for new Finder windows
 # For other paths, use `PfLo` and `file:///full/path/here/`
-_finder_path="file://${HOME}/Desktop/"
 defaults write com.apple.finder NewWindowTarget -string "PfDe"
-defaults write com.apple.finder NewWindowTargetPath -string "$_finder_path"
+defaults write com.apple.finder NewWindowTargetPath \
+  -string "file://${HOME}/Desktop/"
 
 # Show icons for hard drives, servers, and removable media on the desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
@@ -451,7 +446,7 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 # defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Enable the MacBook Air SuperDrive on any Mac
-sudo nvram boot-args="mbasd=1"
+# sudo nvram boot-args="mbasd=1"
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
@@ -460,8 +455,8 @@ chflags nohidden ~/Library
 sudo chflags nohidden /Volumes
 
 # Remove Dropbox's green checkmark icons in Finder
-file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
-[[ -e "$file" ]] && mv -f "$file" "$file.bak"
+# file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
+# [[ -e "$file" ]] && mv -f "$file" "$file.bak"
 
 # Expand the following File Info panes:
 # "General", "Open with", and "Sharing & Permissions"
@@ -476,7 +471,7 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 
 
 ################################################################################
-# Dock and hot corners
+__DOCK_defaults=
 # @see https://macos-defaults.com/#dock
 # @see https://developer.apple.com/documentation/devicemanagement/dock
 ################################################################################
@@ -681,6 +676,10 @@ defaults write com.apple.dock persistent-others -array-add "<dict>\
   <key>tile-type</key>            <string>directory-tile</string>\
 </dict>"
 
+################################################################################
+__HOT_CORNERS_defaults=
+################################################################################
+
 # Hot corners
 # Possible values:
 #  0: no-op
@@ -713,7 +712,7 @@ defaults write com.apple.dock wvous-bl-corner -int 0
 
 
 ################################################################################
-# Safari & WebKit
+__SAFARI_WEBKIT_defaults=
 # @see https://macos-defaults.com/#safari
 ################################################################################
 
@@ -829,7 +828,7 @@ defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
 
 ################################################################################
-# Mail
+__MAIL_defaults=
 ################################################################################
 
 # Disable send and reply animations in Mail.app
@@ -861,7 +860,7 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 
 
 ################################################################################
-# Spotlight
+__SPOTLIGHT_defaults=
 ################################################################################
 
 # Hide Spotlight tray-icon (and subsequent helper)
@@ -870,8 +869,8 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 # Disable Spotlight indexing for any volume that gets mounted
 # and has not yet been indexed before.
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions \
-  -array "/Volumes"
+# sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions \
+#   -array "/Volumes"
 
 # Change indexing order and disable some search results
 # Yosemite-specific search results (remove them for macOS 10.9 or older):
@@ -913,22 +912,21 @@ sudo mdutil -E /
 
 
 ################################################################################
-# Terminal
+__TERMINAL_defaults=
 ################################################################################
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use a modified version of the BalanceD theme by default in Terminal.app
-TERM_PROFILE='BalanceD';
 CURRENT_PROFILE="$(defaults read com.apple.terminal 'Default Window Settings')"
-if [[ "${CURRENT_PROFILE}" != "${TERM_PROFILE}" ]]; then
-  open "${HOME}/.dotfiles/macos/init/${TERM_PROFILE}.terminal"
+if [[ "${CURRENT_PROFILE}" != "BalanceD" ]]; then
+  open "${_macos_init}/BalanceD.terminal"
   sleep 1; # Wait a bit to make sure the theme is loaded
   defaults write com.apple.terminal \
-    'Default Window Settings' -string "${TERM_PROFILE}"
+    'Default Window Settings' -string "BalanceD"
   defaults write com.apple.terminal \
-    'Startup Window Settings' -string "${TERM_PROFILE}"
+    'Startup Window Settings' -string "BalanceD"
 fi
 
 # Enable "focus follows mouse" for Terminal.app and all X11 apps
@@ -945,7 +943,28 @@ fi
 
 
 ################################################################################
-# Time Machine
+__ITERM_defaults=
+################################################################################
+
+# Install the BalanceD theme for iTerm
+open "${_macos_init}/BalanceD.itermcolors"
+
+# Don’t display the annoying prompt when quitting iTerm
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+
+################################################################################
+__VSCODE_settings="Library/Application Support/Code/User/settings.json"
+################################################################################
+
+# Copy VS Code Settings
+if [[ -f "${_macos_init}/${__VSCODE_settings}" ]]; then
+  cp -af "${_macos_init}/${__VSCODE_settings}" "${HOME}/${__VSCODE_settings}"
+fi
+
+
+################################################################################
+__TIME_MACHINE_defaults=
 ################################################################################
 
 # Prevent Time Machine from prompting to use new hard drives as backup volume
@@ -956,7 +975,7 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 
 ################################################################################
-# Activity Monitor
+__ACTIVITY_MONITOR_defaults=
 ################################################################################
 
 # Show the main window when launching Activity Monitor
@@ -975,6 +994,7 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 ################################################################################
 # Address Book, TextEdit, and Disk Utility
+__ADDRESS_TEXT_DISK_defaults=
 ################################################################################
 
 # Enable the debug menu in Address Book
@@ -995,7 +1015,7 @@ defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
 
 
 ################################################################################
-# Mac App Store
+__MAC_APP_STORE_defaults=
 ################################################################################
 
 # Enable the WebKit Developer Tools in the Mac App Store
@@ -1027,7 +1047,7 @@ defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
 
 ################################################################################
-# Photos
+__PHOTOS_defaults=
 ################################################################################
 
 # Prevent Photos from opening automatically when devices are plugged in
@@ -1035,7 +1055,7 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 
 ################################################################################
-# Messages
+__MESSAGES_defaults=
 ################################################################################
 
 # Disable automatic emoji substitution (i.e. use plain text smileys)
@@ -1052,21 +1072,19 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings \
 
 
 ################################################################################
-# Terminal / iTerm
+__SIZEUP_defaults=
 ################################################################################
 
-# Install the BalanceD theme for Terminal
-open "$HOME"/.dotfiles/macos/init/BalanceD.terminal
+# Start SizeUp at login
+# defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true
 
-# Install the BalanceD theme for iTerm
-open "$HOME"/.dotfiles/macos/init/BalanceD.itermcolors
-
-# Don’t display the annoying prompt when quitting iTerm
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+# Don’t show the preferences window on next start
+# defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
 
 
 ################################################################################
 # Google Chrome & Google Chrome Canary
+__GOOGLE_CHROME_defaults=
 ################################################################################
 
 # Allow installing user scripts via GitHub Gist or Userscripts.org
@@ -1097,31 +1115,23 @@ defaults write com.google.Chrome.canary \
 
 
 ################################################################################
-# SizeUp.app
-################################################################################
-
-# Start SizeUp at login
-# defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true
-
-# Don’t show the preferences window on next start
-# defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
-
-
-################################################################################
 # Google Update Stopper
+__GOOGLE_UPDATE_defaults="Library/Google/GoogleSoftwareUpdate/GoogleSoftwareUpdate.bundle/Contents/Resources/GoogleSoftwareUpdateAgent.app/Contents/Resources/install.py"
 ################################################################################
 
-_gupdate_file="Library/Google/GoogleSoftwareUpdate/GoogleSoftwareUpdate.bundle/Contents/Resources/GoogleSoftwareUpdateAgent.app/Contents/Resources/install.py"
 # Remove global update-agent
-[[ -f "/$_gupdate_file" ]] && sudo "/$_gupdate_file" --uninstall
+[[ -f "/$__GOOGLE_UPDATE_defaults" ]] && \
+  sudo "/$__GOOGLE_UPDATE_defaults" --uninstall
 # Remove local update-agent
-[[ -f "$HOME/$_gupdate_file" ]] && sudo "$HOME/$_gupdate_file" --uninstall
+[[ -f "$HOME/$__GOOGLE_UPDATE_defaults" ]] && \
+  sudo "$HOME/$__GOOGLE_UPDATE_defaults" --uninstall
 # Void the update-checker
 defaults write com.google.Keystone.Agent checkInterval 0
 
 
 ################################################################################
 # Keep additonal commands separate so diff in future is easy
+__additional_defaults=
 ################################################################################
 
 # Menu bar: Set date and time format e.g. Sun 11 Aug 16:55
