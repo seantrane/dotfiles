@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.0.1](https://github.com/seantrane/dotfiles/compare/v2.0.0...v2.0.1) (2024-10-17)
+
+
+### Bug Fixes
+
+* improve macos defaults ([469869a](https://github.com/seantrane/dotfiles/commit/469869add698ce96b52f1dd2bcec549001f21b8a))
+
 # [2.0.0](https://github.com/seantrane/dotfiles/compare/v1.0.2...v2.0.0) (2023-11-29)
 
 
