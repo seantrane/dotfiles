@@ -126,7 +126,7 @@ brew "python"
 # brew "redis"
 # brew "ruby-build"
 brew "shellcheck" # [ShellCheck](https://github.com/koalaman/shellcheck)
-brew "sqlite"
+# brew "sqlite"
 brew "terraform"
 brew "terragrunt" # [thin wrapper for Terraform](https://terragrunt.gruntwork.io)
 brew "tflint"
@@ -151,7 +151,7 @@ cask "audio-hijack"
 # cask "cyberduck"
 # cask "dash"
 # cask "dash-beta"
-# cask "docker"
+cask "docker"
 # cask "drobo-dashboard"
 # cask "dropbox"
 # cask "evernote"
@@ -249,6 +249,24 @@ mas "Logic Pro", id: 634148309
 #-------------------------------------------------------------------------------
 #
 brew "whalebrew"
+#
+# @see https://github.com/whalebrew/whalebrew-packages
+# whalebrew "whalebrew/awscli"
+# whalebrew "whalebrew/awslogs"
+# whalebrew "whalebrew/azure-cli"
+# whalebrew "whalebrew/ffmpeg"
+# whalebrew "whalebrew/helm"
+# whalebrew "whalebrew/graphviz"
+# whalebrew "whalebrew/imagemagick"
+# whalebrew "whalebrew/kubectl"
+# whalebrew "whalebrew/kubeseal"
+# whalebrew "whalebrew/openshift-cli-v2"
+# whalebrew "whalebrew/packer"
+# whalebrew "whalebrew/php"
+# whalebrew "whalebrew/terraform-docs"
+# whalebrew "whalebrew/terraform"
+# whalebrew "whalebrew/tflint"
+# whalebrew "whalebrew/tfsec"
 #
 whalebrew "composer/composer" # [PHP Composer](https://getcomposer.org/doc/00-intro.md#docker-image)
 #
