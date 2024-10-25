@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.0.4](https://github.com/seantrane/dotfiles/compare/v2.0.3...v2.0.4) (2024-10-25)
+
+
+### Bug Fixes
+
+* update brewfile ([dcf1475](https://github.com/seantrane/dotfiles/commit/dcf1475f7f95ecefad60131df2cf739760eecdc5))
+
 ## [2.0.3](https://github.com/seantrane/dotfiles/compare/v2.0.2...v2.0.3) (2024-10-25)
 
 
