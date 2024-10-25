@@ -2,50 +2,66 @@
 {
   "alignment.operatorPadding": "left",
   "atomKeymap.promptV3Features": true,
-  "cSpell.userWords": [],
+  "cSpell.userWords": [
+    "dependabot",
+    "healthcheck",
+    "roadmap",
+    "shellcheck"
+  ],
   "editor.cursorStyle": "line-thin",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "Menlo, Monaco, 'Andale Mono', 'Lucida Console', 'Courier New', Courier, monospace",
   "editor.fontSize": 12,
   "editor.formatOnPaste": false,
+  "editor.hover.delay": 800,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.renderWhitespace": "boundary",
   "editor.scrollBeyondLastLine": false,
-  "editor.semanticTokenColorCustomizations": {
-
-  },
   "editor.suggestSelection": "first",
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
   "explorer.confirmDragAndDrop": false,
   "files.associations": {
+    "./docs/*.md": "jekyll",
+    "./docs/**/*.html": "jekyll",
+    "./docs/README.md": "markdown",
     ".editorconfig": "editorconfig",
     ".env.example": "dotenv",
     "*.hcl": "terraform",
+    "*.json.tftpl": "jsonc",
     "*.symlink": "shellscript",
+    "**/*.github.io/*.md": "jekyll",
+    "**/*.github.io/**/*.html": "jekyll",
+    "**/*.github.io/CONTRIBUTING.md": "markdown",
+    "**/*.github.io/README.md": "markdown",
     "CODEOWNERS": "ignore",
-    "Dockerfile.*": "dockerfile",
-    "config": "editorconfig"
+    "config": "editorconfig",
+    "Dockerfile.*": "dockerfile"
   },
+  "files.eol": "\n",
   "files.exclude": {
     "**/.svn": true,
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true
   },
+  "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
+  "git.ignoreLimitWarning": true,
+  "git.path": [
+    "/opt/homebrew/bin/git",
+    "/usr/local/bin/git",
+    "/usr/bin/git"
+  ],
   "gitlens.hovers.currentLine.over": "line",
   "gitlens.currentLine.enabled": false,
   "gitlens.codeLens.enabled": false,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "markdown.styles": [
-    "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown.min.css"
+    "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.7.0/github-markdown-light.min.css"
   ],
-  "markdownTablePrettify.columnPadding": 1,
-  "[markdown]": {
-    "editor.defaultFormatter": "darkriszty.markdown-table-prettify"
-  },
+  "prettier.jsxSingleQuote": true,
+  "prettier.printWidth": 100,
+  "prettier.singleQuote": true,
   "python.languageServer": "Default",
   "redhat.telemetry.enabled": false,
   "search.exclude": {
@@ -55,46 +71,76 @@
     "**/node_modules": true,
     "./vendor": true
   },
-  "shellcheck.customArgs": [
-    "-x"
-  ],
   "selectline.alignment": "right",
   "selectline.displayFormat": "%d Lines Selected",
   "selectline.statusbarPriority": 1000,
+  "shellcheck.customArgs": [
+    "-x"
+  ],
   "shellcheck.executablePath": "/opt/homebrew/bin/shellcheck",
+  "sonarlint.rules": {
+    "Web:TableWithoutCaptionCheck": {
+      "level": "off"
+    },
+    "Web:BoldAndItalicTagsCheck": {
+      "level": "off"
+    }
+  },
   "telemetry.telemetryLevel": "off",
   "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.lineHeight": 1.1,
+  "terminal.integrated.profiles.osx": {
+    "bash": {
+      "id": "bash",
+      "title": "Bourne Shell",
+      "extensionIdentifier": "bash",
+      "path": [
+        "/opt/homebrew/bin/bash",
+        "/usr/local/bin/bash",
+        "/usr/bin/bash"
+      ]
+    },
+    "zsh": {
+      "id": "zsh",
+      "title": "Zshell",
+      "extensionIdentifier": "zsh",
+      "path": [
+        "/opt/homebrew/bin/zsh",
+        "/usr/local/bin/zsh",
+        "/usr/bin/zsh"
+      ]
+    },
+  },
   "terminal.integrated.scrollback": 10000,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vsicons.dontShowNewVersionMessage": true,
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "window.restoreWindows": "all",
   "window.title": "${activeEditorMedium}${separator}${rootName}",
-  "window.zoomLevel": 0,
   "workbench.colorCustomizations": {
     "panel.background": "#1c1c1c",
     "statusBar.background": "#1c1c1c",
-    "terminal.ansiBlack":"#333333",
-    "terminal.ansiBlue":"#8899ff",
-    "terminal.ansiBrightBlack":"#666666",
-    "terminal.ansiBrightBlue":"#88aaff",
-    "terminal.ansiBrightCyan":"#66eeff",
-    "terminal.ansiBrightGreen":"#88ff00",
-    "terminal.ansiBrightMagenta":"#ff00ff",
-    "terminal.ansiBrightRed":"#ff4422",
-    "terminal.ansiBrightWhite":"#ffffff",
-    "terminal.ansiBrightYellow":"#ffdd00",
-    "terminal.ansiCyan":"#66ddee",
-    "terminal.ansiGreen":"#88dd00",
-    "terminal.ansiMagenta":"#cc00cc",
-    "terminal.ansiRed":"#ee2200",
-    "terminal.ansiWhite":"#e1e1e1",
-    "terminal.ansiYellow":"#ffaa00",
-    "terminal.background":"#171717",
-    "terminal.foreground":"#cccccc",
-    "terminalCursor.background":"#cccccc",
-    "terminalCursor.foreground":"#f9f9f9",
+    "terminal.ansiBlack": "#333333",
+    "terminal.ansiBlue": "#44bbff",
+    "terminal.ansiBrightBlack": "#777777",
+    "terminal.ansiBrightBlue": "#66bbff",
+    "terminal.ansiBrightCyan": "#00ffff",
+    "terminal.ansiBrightGreen": "#88ff00",
+    "terminal.ansiBrightMagenta": "#ff00ff",
+    "terminal.ansiBrightRed": "#ff3300",
+    "terminal.ansiBrightWhite": "#F9F9F9",
+    "terminal.ansiBrightYellow": "#ffdd00",
+    "terminal.ansiCyan": "#00eeee",
+    "terminal.ansiGreen": "#88ee00",
+    "terminal.ansiMagenta": "#ee00ee",
+    "terminal.ansiRed": "#ee2200",
+    "terminal.ansiWhite": "#F8F8F8",
+    "terminal.ansiYellow": "#ffcc00",
+    "terminal.background": "#191919",
+    "terminal.foreground": "#dddddd",
+    "terminalCursor.background": "#eeeeee",
+    "terminalCursor.foreground": "#eeeeee",
     "titleBar.activeBackground": "#1c1c1c"
   },
   "workbench.colorTheme": "BalanceD",
@@ -102,5 +148,51 @@
   "workbench.editor.tabSizing": "shrink",
   "workbench.fontAliasing": "auto",
   "workbench.sideBar.location": "left",
-  "workbench.startupEditor": "newUntitledFile"
+  "workbench.startupEditor": "newUntitledFile",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "Jota0222.multi-formatter",
+    "multiFormatter.formatterList": [
+      "esbenp.prettier-vscode",
+      "darkriszty.markdown-table-prettify"
+    ],
+    "editor.formatOnSave": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
 }
