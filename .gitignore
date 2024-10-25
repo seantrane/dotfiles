@@ -93,4 +93,15 @@ node_modules
 .terraform
 .terraform.lock.hcl
 terraform.tfstate
+terraform.tfstate.backup
 terraform.tfstate.d
+
+# overrides #
+!/tests/ls_colors/.env
+!/tests/ls_colors/.localrc
+!/tests/ls_colors/*.dmg
+!/tests/ls_colors/*.exe
+!/tests/ls_colors/*.log
+!/tests/ls_colors/*.tar
+!/tests/ls_colors/*.tgz
+!/tests/ls_colors/*.zip
