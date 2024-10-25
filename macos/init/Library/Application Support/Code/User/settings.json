@@ -34,6 +34,7 @@
     "**/*.github.io/**/*.html": "jekyll",
     "**/*.github.io/CONTRIBUTING.md": "markdown",
     "**/*.github.io/README.md": "markdown",
+    "Brewfile.symlink": "ruby",
     "CODEOWNERS": "ignore",
     "config": "editorconfig",
     "Dockerfile.*": "dockerfile"
