@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.0.5](https://github.com/seantrane/dotfiles/compare/v2.0.4...v2.0.5) (2024-10-26)
+
+
+### Bug Fixes
+
+* update vs-code settings, docs ([f4a026a](https://github.com/seantrane/dotfiles/commit/f4a026a785488c4b307c971d56082572ef3b8b04))
+
 ## [2.0.4](https://github.com/seantrane/dotfiles/compare/v2.0.3...v2.0.4) (2024-10-25)
 
 
