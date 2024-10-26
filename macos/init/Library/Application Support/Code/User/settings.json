@@ -60,6 +60,7 @@
   "markdown.styles": [
     "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.7.0/github-markdown-light.min.css"
   ],
+  "markdownTablePrettify.columnPadding": 1,
   "prettier.jsxSingleQuote": true,
   "prettier.printWidth": 100,
   "prettier.singleQuote": true,
@@ -119,6 +120,7 @@
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "window.restoreWindows": "all",
   "window.title": "${activeEditorMedium}${separator}${rootName}",
+  "window.zoomLevel": 0,
   "workbench.colorCustomizations": {
     "panel.background": "#1c1c1c",
     "statusBar.background": "#1c1c1c",

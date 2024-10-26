@@ -115,7 +115,7 @@ There are a few special files in the hierarchy.
 `dot` is a simple script that updates dependencies, packages, sets sane macOS
 defaults, and so on. Tweak this script, and occasionally run `dot` from
 time to time to keep your environment fresh and up-to-date. You can find
-this script in `bin/`.
+this script in the `bin/` directory.
 
 ---
 
@@ -139,26 +139,29 @@ this script in `bin/`.
 
 ### Visual Studio Code Extensions
 
-_Some extensions are disabled (commented-out in code)._
+_Some extensions may be disabled (commented-out in code)._
 
 - [x] [Angular Snippets](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)
 - [x] [Apache Conf](https://marketplace.visualstudio.com/items?itemName=mrmlnc.vscode-apache)
+- [x] [AsciiDoc support](https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode)
 - [x] [Atom Keymap](https://marketplace.visualstudio.com/items?itemName=ms-vscode.atom-keybindings)
 - [x] [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag)
 - [x] [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
 - [x] [AutoFileName](https://marketplace.visualstudio.com/items?itemName=JerryHong.autofilename)
-- [x] [Azure Account](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account)
+- [x] [autopep8 Python formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.autopep8)
 - [x] [BalanceD Syntax Theme](https://marketplace.visualstudio.com/items?itemName=seantrane.balanced-theme)
 - [x] [BATS (Bash Automated Testing System)](https://marketplace.visualstudio.com/items?itemName=jetmartin.bats)
 - [x] [Bash IDE](https://marketplace.visualstudio.com/items?itemName=mads-hartmann.bash-ide-vscode)
 - [x] [Better Align](https://marketplace.visualstudio.com/items?itemName=chouzz.vscode-better-align)
+- [x] [Black Formatter for Python](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter)
 - [x] [Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets](https://marketplace.visualstudio.com/items?itemName=thekalinga.bootstrap4-vscode)
 - [x] [Brewfile](https://marketplace.visualstudio.com/items?itemName=sharat.vscode-brewfile)
-- [ ] [Bridge to Kubernetes](https://marketplace.visualstudio.com/items?itemName=mindaro.mindaro)
+- [x] [Bridge to Kubernetes](https://marketplace.visualstudio.com/items?itemName=mindaro.mindaro)
 - [x] [Change Case](https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case)
 - [x] [chmod](https://marketplace.visualstudio.com/items?itemName=dlech.chmod)
 - [x] [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
 - [x] [Contextual Duplicate](https://marketplace.visualstudio.com/items?itemName=lafe.contextualduplicate)
+- [x] [Cucumber (Gherkin) Syntax and Snippets](https://marketplace.visualstudio.com/items?itemName=stevejpurves.cucumber)
 - [x] [Debugger for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug)
 - [x] [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 - [x] [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
@@ -166,7 +169,7 @@ _Some extensions are disabled (commented-out in code)._
 - [x] [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
 - [x] [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [x] [Elixir Support for VS Code](https://marketplace.visualstudio.com/items?itemName=mjmcloug.vscode-elixir)
-- [ ] [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [x] [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [x] [ExpressionEngine](https://marketplace.visualstudio.com/items?itemName=jrrdnx.expressionengine)
 - [x] [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
 - [x] [File Downloader](https://marketplace.visualstudio.com/items?itemName=mindaro-dev.file-downloader)
@@ -174,7 +177,8 @@ _Some extensions are disabled (commented-out in code)._
 - [x] [Git History](https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory)
 - [x] [GitHub Codespaces](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces)
 - [x] [gitignore](https://marketplace.visualstudio.com/items?itemName=codezombiech.gitignore)
-- [ ] [Go](https://marketplace.visualstudio.com/items?itemName=golang.go)
+- [x] [Go](https://marketplace.visualstudio.com/items?itemName=golang.go)
+- [x] [Gradle for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-gradle)
 - [x] [GraphQL for VSCode](https://marketplace.visualstudio.com/items?itemName=kumar-harsh.graphql-for-vscode)
 - [x] [HashiCorp Terraform](https://marketplace.visualstudio.com/items?itemName=hashicorp.terraform)
 - [x] [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally)
@@ -186,7 +190,7 @@ _Some extensions are disabled (commented-out in code)._
 - [x] [JavaScript Snippet Pack](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-javascript-snippet-pack)
 - [x] [Jekyll Syntax Support](https://marketplace.visualstudio.com/items?itemName=ginfuru.ginfuru-vscode-jekyll-syntax)
 - [x] [Jest](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)
-- [ ] [Kubernetes](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
+- [x] [Kubernetes](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
 - [x] [Language Support for Java(TM) by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.java)
 - [x] [Lodash Snippets](https://marketplace.visualstudio.com/items?itemName=tomphilbin.lodash-snippets)
 - [x] [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)
@@ -196,6 +200,7 @@ _Some extensions are disabled (commented-out in code)._
 - [x] [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
 - [x] [Maven for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-maven)
 - [x] [Mocha Snippets](https://marketplace.visualstudio.com/items?itemName=Alan.MochaSnippets)
+- [x] [Multiple Formatters](https://marketplace.visualstudio.com/items?itemName=Jota0222.multi-formatter)
 - [x] [New Relic CodeStream](https://marketplace.visualstudio.com/items?itemName=CodeStream.codestream)
 - [x] [New Relic One](https://marketplace.visualstudio.com/items?itemName=new-relic.nr1)
 - [x] [New Relic Query Language](https://marketplace.visualstudio.com/items?itemName=joelalejandro.nrql-language)
@@ -212,13 +217,11 @@ _Some extensions are disabled (commented-out in code)._
 - [x] [Regex Previewer](https://marketplace.visualstudio.com/items?itemName=chrmarti.regex)
 - [x] [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 - [x] [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap)
-- [x] [Ruby LSP](https://marketplace.visualstudio.com/items?itemName=Shopify.ruby-lsp)
 - [x] [Sass (.sass only)](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
 - [x] [Select Line Status Bar](https://marketplace.visualstudio.com/items?itemName=tomoki1207.selectline-statusbar)
 - [x] [Shell Snippets](https://marketplace.visualstudio.com/items?itemName=DeepInThought.vscode-shell-snippets)
 - [x] [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
 - [x] [slugify](https://marketplace.visualstudio.com/items?itemName=maximerouiller.slugify-vscode)
-- [x] [Snippets and Syntax Highlight for Gherkin (Cucumber)](https://marketplace.visualstudio.com/items?itemName=stevejpurves.cucumber)
 - [x] [SonarLint](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode)
 - [x] [Sort JSON objects](https://marketplace.visualstudio.com/items?itemName=richie5um2.vscode-sort-json)
 - [x] [Sort lines](https://marketplace.visualstudio.com/items?itemName=Tyriar.sort-lines)
@@ -227,17 +230,17 @@ _Some extensions are disabled (commented-out in code)._
 - [x] [Vetur - Vue tooling for VS Code](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
 - [x] [VS Code database](https://marketplace.visualstudio.com/items?itemName=bajdzis.vscode-database)
 - [x] [VS DocBlockr](https://marketplace.visualstudio.com/items?itemName=jeremyljackson.vs-docblock)
-- [x] [VSCode Ruby](https://marketplace.visualstudio.com/items?itemName=wingrunr21.vscode-ruby)
 - [x] [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons)
 - [x] [XML Tools](https://marketplace.visualstudio.com/items?itemName=DotJoshJohnson.xml)
 - [x] [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+- [x] [yapf Python formatter](https://marketplace.visualstudio.com/items?itemName=eeyore.yapf)
 - [x] [yo](https://marketplace.visualstudio.com/items?itemName=samverschueren.yo)
 
 ---
 
 ## Thanks <a id="thanks"></a>
 
-Big thanks goes out to [Zach Holman](https://github.com/holman), whose [dotfiles](https://github.com/holman/dotfiles)  were so awesome, I had to fork them. Zach forked his from [Ryan Bates](https://github.com/ryanb)' [dotfiles](https://github.com/ryanb/dotfiles).  I am grateful for their efforts. Zach wrote [a post on the subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/)  that I encourage reading.
+Big thanks goes out to [Zach Holman](https://github.com/holman), whose [dotfiles](https://github.com/holman/dotfiles) were so awesome, I had to fork them. Zach forked his from [Ryan Bates](https://github.com/ryanb)' [dotfiles](https://github.com/ryanb/dotfiles). I am grateful for their efforts. Zach wrote [a post on the subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/) that I encourage reading.
 
 I've also learned and depend on techniques from other dotfiles; [Mathias Bynens](https://github.com/mathiasbynens/dotfiles), [Paul Irish](https://github.com/paulirish/dotfiles), and [Simon Owen](https://github.com/s10wen/dotfiles) who also wrote a [great article](http://code.tutsplus.com/tutorials/setting-up-a-mac-dev-machine-from-zero-to-hero-with-dotfiles--net-35449) on the subject.
 
