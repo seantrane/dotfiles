@@ -2,9 +2,14 @@
 #
 # Sets reasonable macOS defaults.
 #
+# This file is long and confusing. Sections are separated by comment blocks
+# with empty variables to enable shortcuts via IDE Outline window.
+#
+# @see https://mths.be/macos
 # @see https://macos-defaults.com
+# @see https://real-world-systems.com/docs/defaults.txt.html
 
-_macos_init="${HOME}/.dotfiles/macos/init"
+_macos_init="${DOTFILES:-"$HOME/.dotfiles"}/macos/init"
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we're about to change
@@ -36,17 +41,18 @@ __SYSTEM_defaults=
 ################################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-# sudo scutil --set ComputerName "0x73313077656E"
-# sudo scutil --set HostName "0x73313077656E"
-# sudo scutil --set LocalHostName "0x73313077656E"
+# sudo scutil --set ComputerName "0x6D746873"
+# sudo scutil --set HostName "0x6D746873"
+# sudo scutil --set LocalHostName "0x6D746873"
 # sudo defaults write \
 #   /Library/Preferences/SystemConfiguration/com.apple.smb.server \
-#   NetBIOSName -string "0x73313077656E"
+#   NetBIOSName -string "0x6D746873"
 
 # Set standby delay to 24 hours (default is 1 hour)
 # sudo pmset -a standbydelay 86400
 
 # Disable the sound effects on boot
+# sudo nvram SystemAudioVolume=" "
 sudo nvram SystemAudioVolume=%00
 
 # Disable power chime (sound when plugging in a cable)

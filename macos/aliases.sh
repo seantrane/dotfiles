@@ -26,7 +26,7 @@ alias dns="scutil --dns"
 alias dnsreload="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist; sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist"
 
 # Flush Directory Service cache
-#alias flush="sudo dscacheutil -flushcache && killall -HUP mDNSResponder"
+# alias flush="sudo dscacheutil -flushcache && killall -HUP mDNSResponder"
 alias flush="sudo dscacheutil -flushcache;sudo discoveryutil mdnsflushcache;sudo discoveryutil udnsflushcaches;echo 'caches flushed'"
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
@@ -42,9 +42,9 @@ command -v sha1sum > /dev/null || alias sha1sum="shasum"
 alias chimeoff="defaults write com.apple.PowerChime ChimeOnNoHardware -bool true; defaults write com.apple.PowerChime ChimeOnAllHardware -bool false; sudo defaults write com.apple.PowerChime ChimeOnNoHardware -bool true; sudo defaults write com.apple.PowerChime ChimeOnAllHardware -bool false; sudo nvram StartupMute=%01; killall PowerChime || return 0"
 
 # JavaScriptCore REPL
-#jscbin="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc";
-#[ -e "${jscbin}" ] && alias jsc="${jscbin}";
-#unset jscbin;
+# jscbin="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc"
+# [ -e "${jscbin}" ] && alias jsc="${jscbin}"
+# unset jscbin
 
 # Trim new lines and copy to clipboard
 alias cc="tr -d '\n' | pbcopy"
@@ -71,7 +71,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias urlencode="python -c \"import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);\""
 
 # Merge PDF files
-# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
+# Usage: mergepdf -o output.pdf input{1,2,3}.pdf
 alias mergepdf="/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py"
 
 # Disable Spotlight
