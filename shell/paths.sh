@@ -1,7 +1,6 @@
-# shellcheck shell=bash
+# shellcheck shell=bash disable=SC1090,SC1091
 #
 # PATH / MANPATH exports
-#
 # Defines the $PATH export/variable for shell environments.
 
 type "find_files" &> /dev/null || . "$DOTFILES/functions/find_files"
@@ -32,19 +31,22 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # LOAD DOTFILES PATHS:
 # for file in ~/.dotfiles/{git,system}/path.sh; do
-_find_files_array=($(find -H "$DOTFILES" -maxdepth 2 -perm -u+r -type f -name 'path.sh'))
-for _file_path in "${_find_files_array[@]}"; do
-  . "$_file_path"
-done
-unset _file_path _find_files_array
+for _file in $(find_files "$DOTFILES" 'path.sh' 2); do . "$_file"; done; unset _file
 
 # CUSTOM/USER PATHS
 # `~/.path` can be used to extend `$PATH`.
-# shellcheck disable=SC1090
 [[ -f "$HOME/.path" ]] && . "$HOME/.path"
 
-# Ensure Homebrew path comes first
-export PATH="/opt/homebrew/bin:$PATH"
+#-------------------------------------------------------------------------------
+# HOMEBREW
+#-------------------------------------------------------------------------------
+
+# Homebrew init.
+[[ -f "$DOTFILES/brew/init_install.sh" ]] && . "$DOTFILES/brew/init_install.sh" \
+  && _init_homebrew
+
+# Homebrew path must come first to override system binaries.
+export PATH="${HOMEBREW_PREFIX:-/usr/local}/bin:$PATH"
 
 #-------------------------------------------------------------------------------
 # HELP DOCS/MANUALS

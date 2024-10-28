@@ -6,6 +6,12 @@
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
+function chshell {
+  grep -q "${HOMEBREW_PREFIX:-}/bin/${1:-zsh}" "/etc/shells" \
+    || echo "${HOMEBREW_PREFIX:-}/bin/${1:-zsh}" >> /etc/shells
+  chsh -s "${HOMEBREW_PREFIX:-}/bin/${1:-zsh}"
+}
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."

@@ -1,7 +1,6 @@
 # shellcheck shell=bash disable=SC1090,SC1091
 #
 # EXPORTS
-#
 # Defines exports/variables for bash scripting environment.
 
 #-------------------------------------------------------------------------------

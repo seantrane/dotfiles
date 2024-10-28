@@ -17,7 +17,7 @@ fi
 # Use GNU ls, if installed by Homebrew.
 # Always use color output for `ls`.
 if [[ -r "${HOMEBREW_PREFIX:-}/bin/gls" ]]; then
-  alias ls="command ${HOMEBREW_PREFIX:-}/bin/gls ${colorflag}"
+  alias ls="command ${HOMEBREW_PREFIX:-}/bin/gls --color=always --group-directories-first"
 else
   alias ls="command ls ${colorflag}"
 fi
