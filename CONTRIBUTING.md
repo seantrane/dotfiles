@@ -86,52 +86,61 @@ git clone https://github.com/seantrane/dotfiles.git dotfiles && cd dotfiles
 ## Dotfiles File Structure Explained
 
 ```text
-~/
-├─ .dotfiles/                                   * TBD
-│  ├─ bash/                                     * TBD
-│  ├─ bin/                                      * TBD
-│  ├─ brew/                                     * TBD
-│  ├─ functions/                                * TBD
-│  ├─ git/                                      * TBD
-│  ├─ macos/                                    * TBD
-│  ├─ script/                                   * TBD
-│  ├─ shell/                                    * TBD
-│  ├─ system/                                   * TBD
-│  ├─ user/                                     * TBD
-│  └─ zsh/                                      * TBD
+~/.dotfiles/                  * dotfiles directory
 │
-└─ cli                                          * TBD
+├─ bash/                      * Bash config, env, profile, rc, etc.
+├─ bin/                       * Binary scripts (loaded into shell PATH)
+├─ brew/                      * Homebrew config, installers, inits
+├─ functions/                 * Shell functions (loaded into shell PATH)
+├─ git/                       * Git config
+├─ macos/                     * macOS config, defaults, prefs, aliases, etc.
+├─ script/                    * Shell scripts for installing, maintaining dotfiles
+├─ shell/                     * Shell config (common settings for all shells)
+├─ system/                    * System/OS config, aliases, paths, etc.
+├─ user/                      * User config, aliases, local rc's
+├─ zsh/                       * Zsh config, env, profile, rc, etc.
+│
+├─ cli                        * CI/CD CLI
+└─ run                        * "run" helper script
 ```
 
 ## Zsh configuration process
 
+**Legend:**
+
+| icon | description           |
+|-----:|:----------------------|
+|   👉 | symlinked file        |
+|   ⭐️ | very important file   |
+| 👀👤 | user file (if exists) |
+
 1. **`/etc/zshenv`**
 2. `~/.zshenv` 👉 `~/.dotfiles/zsh/zshenv.symlink` ⭐️
-    - `~/.zprofile` 👉 `~/.dotfiles/zsh/zprofile.symlink`
-      - _`~/.profile`_ 👀👤
-    - `~/.dotfiles/brew/paths.sh`
-    - `~/.env` 👉 `~/.dotfiles/system/env.symlink`
-      - `~/.dotfiles/shell/response.sh` ⭐️
-      - `~/.dotfiles/shell/paths.sh` ⭐️
-        - `~/.dotfiles/**/path.{sh,zsh}` ⭐️
-        - _`~/.path`_ 👀👤
-      - `~/.dotfiles/shell/exports.sh` ⭐️
-      - `~/.dotfiles/shell/functions.sh`
-        - _`~/.rvm/scripts/rvm`_
-        - _`~/.functions`_ 👀👤
-      - `~/.dotfiles/functions/*` ⭐️
+   - `~/.zprofile` 👉 `~/.dotfiles/zsh/zprofile.symlink`
+     - _`~/.profile`_ 👀👤
+   - `~/.dotfiles/brew/paths.sh`
+   - `~/.env` 👉 `~/.dotfiles/system/env.symlink`
+     - `~/.dotfiles/shell/response.sh` ⭐️
+     - `~/.dotfiles/shell/paths.sh` ⭐️
+       - `~/.dotfiles/**/path.{sh,zsh}` ⭐️
+       - _`~/.path`_ 👀👤
+     - `~/.dotfiles/shell/exports.sh` ⭐️
+     - `~/.dotfiles/shell/functions.sh`
+       - _`~/.rvm/scripts/rvm`_
+       - _`~/.functions`_ 👀👤
+     - `~/.dotfiles/functions/*` ⭐️
 3. **`/etc/zprofile`** 🛑
 4. `~/.zprofile` 👉 `~/.dotfiles/zsh/zprofile.symlink` ⭐️
-    - _`~/.profile`_ 👀👤
+   - _`~/.profile`_ 👀👤
 5. **`/etc/zshrc`**
 6. `~/.zshrc` 👉 `~/.dotfiles/zsh/zshrc.symlink` ⭐️
-    - _`~/.zprezto/init.zsh`_
-    - _`~/.localrc`_ 👀👤
-    - `~/.dotfiles/**/aliases.{sh,zsh}` ⭐️
-    - _`~/.aliases`_ 👀👤
-    - _`/etc/zsh_command_not_found`_
-    - `~/.dotfiles/**/completion.zsh` ⭐️
-    - _`~/z/z.sh` || `/opt/homebrew/etc/profile.d/z.sh`_
+   - _`~/.zprezto/init.zsh`_
+   - _`~/.localrc`_ 👀👤
+   - `~/.dotfiles/**/aliases.{sh,zsh}` ⭐️
+   - _`~/.aliases`_ 👀👤
+   - _`/etc/zsh_command_not_found`_
+   - `~/.dotfiles/**/completion.zsh` ⭐️
+   - _`~/z/z.sh` || `/opt/homebrew/etc/profile.d/z.sh`_
 7. **`/etc/zlogin`**
 8. `~/.zlogin` 👉 `~/.dotfiles/zsh/zlogin.symlink`
 9. **`/etc/zlogout`**

@@ -7,6 +7,7 @@
 ## Table of Contents
 
 - [About the dotfiles](#about)
+- [Fork It _or Clone It_](forkit)
 - [Install](#install)
 - [Usage](#usage)
 - [Thanks](#thanks)
@@ -19,41 +20,45 @@
 
 ## About the dotfiles <a id="about"></a>
 
-These are my dotfiles, the child of many influences, primarily [Zach Holman](https://github.com/holman)'s [dotfiles](https://github.com/holman/dotfiles), who I owe a great deal of credit to.
+These are _my_ dotfiles. The child of many influences, primarily [Zach Holman](https://github.com/holman)'s [dotfiles](https://github.com/holman/dotfiles), who I owe a great deal of credit to.
 
-See [Thanks section](#thanks) for full credits.
+_See [Thanks section](#thanks) for full credits._
 
 This is a highly organized and adaptive _dotfiles_ approach. Instead of using a limited set of bloated files, this approach is topic-centric and uses a folder-file structure to allow more effective customization, and diff-tracking.
+
+These dotfiles are meant to support both MacOS and Linux at the same time. I use both regularly and prefer a consistent experience. However, most installs use [Homebrew](https://brew.sh) and will not work if Homebrew does not support the OS.
+
+---
+
+## Fork It _or Clone It_ <a id="forkit"></a>
+
+Although one _could_ run the install instructions right from this repo, one _should_ fork or clone the repo into one's own Git provider, first. Then change all references below, from `github.com/seantrane/dotfiles` to `your.com/profile/repo`. Doing that will ensure all changes are committed to one's dotfiles repo.
+
+---
 
 ## Install <a id="install"></a>
 
 ### Step 1
 
-Extract the contents of this repository to `~/.dotfiles`.
-
-1(a). If you are starting from a fresh OS install, without Git, run this:
+Extract the contents of the repository to `~/.dotfiles`. The command below will either use `git`, if available, or `curl` to clone the repo to that location.
 
 ```sh
-cd; curl -LOk https://github.com/seantrane/dotfiles/archive/main.zip; unzip main.zip; mv dotfiles-main .dotfiles; rm main.zip;
-```
-
-1(b). If you have Git installed, run this instead:
-
-```sh
-git clone https://github.com/seantrane/dotfiles.git ~/.dotfiles
+if type "git" &> /dev/null; then git clone https://github.com/seantrane/dotfiles.git ~/.dotfiles; else cd; curl -LOk https://github.com/seantrane/dotfiles/archive/main.zip; unzip main.zip; mv dotfiles-main .dotfiles; rm main.zip; fi
 ```
 
 ### Step 2
 
-Every file can be edited or removed as you please, but there are few primary files you may want to focus on.
+Every file can be edited or removed as one pleases, but there are few primary files to focus on. Every file is heavily commented and should be intuitive to follow. Learn more about [file structure and processing, in contributing docs](https://github.com/seantrane/dotfiles/blob/main/CONTRIBUTING.md#file-structure).
 
-Edit the `zsh/zpreztorc.symlink`, for Prezto configuration.
+> :eyes: **Note: Editing [Brewfile.symlink](system/Brewfile.symlink) file is a must.** Because it contains _my_ software preferences that others may not want. In fact, when I use my dotfiles between work and personal machines, this is the only file I really change.
 
-Edit the `zsh/zshenv.symlink`, for Zsh configuration.
-
-Edit the `macos/set-defaults.sh`, for your macOS preferences.
-
-Edit the `system/Brewfile.symlink`, for your preferred software and macOS apps.
+1. [Edit `system/Brewfile.symlink`](system/Brewfile.symlink), for preferred software, resources, and anything else that can be installed using [Homebrew Bundle](https://github.com/Homebrew/homebrew-bundle#readme).
+2. [Edit `macos/set-defaults.sh`](macos/set-defaults.sh), for [macOS defaults](https://macos-defaults.com), preferences.
+3. [Edit `system/Gemfile.symlink`](system/Gemfile.symlink), for global Ruby gems.
+4. [Edit `script/install`](script/install), for OS-specific installs, global Node.js/npm dependencies.
+5. (Optional) [Edit `zsh/zpreztorc.symlink`](zsh/zpreztorc.symlink), for [Prezto](https://github.com/sorin-ionescu/prezto#readme) configuration.
+6. (Optional) [Edit `zsh/zshenv.symlink`](zsh/zshenv.symlink) and [`zsh/zshrc.symlink`](zsh/zshrc.symlink), for [Zsh](https://zsh.sourceforge.io) configuration.
+7. (Optional) [Edit `bash/bashrc.symlink`](bash/bashrc.symlink), for [Bash](https://zsh.sourceforge.io) configuration.
 
 ### Step 3
 
@@ -76,18 +81,22 @@ This process will...
 
 ### Step 4
 
-After restarting your terminal/shell, run all installers.
+After restarting the terminal/shell, run all installers.
 
 ```sh
 ~/.dotfiles/script/install
 ```
 
-This will not only install all of your [components](#components),
-but it will also install your chosen apps/casks in `macos/install-casks.sh`.
-
 ### Step 5
 
-Restart your terminal/shell.
+Restart the terminal/shell.
+
+### (Optional) Step 6
+
+1. Attention [Oh My Zsh](https://ohmyz.sh) users. I prefer to use [Prezto](https://github.com/sorin-ionescu/prezto#readme) because it's faster and lightweight. Oh My Zsh can be easily swapped by editing the ["Source/init Prezto" section of `zsh/zshrc.symlink`](zsh/zshrc.symlink).
+2. The Bash environment resembles the Zsh + Prezto environment as much as possible so that it's more seamless in moments when using Bash. Type `bash` at the Zsh-command-line to enter Bash shell, followed by `exit` when finished. If Bash is the preferred default, one can run `chsh -s "${HOMEBREW_PREFIX:-}/bin/bash"` or `chshell bash`, and update IDE preferences.
+
+---
 
 ## Usage <a id="usage"></a>
 
@@ -160,8 +169,10 @@ _Some extensions may be disabled (commented-out in code)._
 - [x] [Change Case](https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case)
 - [x] [chmod](https://marketplace.visualstudio.com/items?itemName=dlech.chmod)
 - [x] [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
+- [x] [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 - [x] [Contextual Duplicate](https://marketplace.visualstudio.com/items?itemName=lafe.contextualduplicate)
 - [x] [Cucumber (Gherkin) Syntax and Snippets](https://marketplace.visualstudio.com/items?itemName=stevejpurves.cucumber)
+- [x] [Cuelang](https://marketplace.visualstudio.com/items?itemName=nickgo.cuelang)
 - [x] [Debugger for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug)
 - [x] [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 - [x] [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
@@ -211,6 +222,7 @@ _Some extensions may be disabled (commented-out in code)._
 - [x] [Project Manager for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-dependency)
 - [x] [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
 - [x] [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+- [x] [Python Debugger](https://marketplace.visualstudio.com/items?itemName=ms-python.debugpy)
 - [x] [Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv)
 - [x] [RAML](https://marketplace.visualstudio.com/items?itemName=jeppeandersen.raml)
 - [x] [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native)
