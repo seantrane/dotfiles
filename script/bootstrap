@@ -39,13 +39,15 @@ set -e
 setup_gitconfig () {
   if [[ ! -r "$DOTFILES/git/gitconfig.symlink" ]]; then
     sh_info 'Setting up gitconfig.symlink'
+    sh_note 'These will be user-default (most commonly used) settings.'
+    sh_note 'Repos can overwrite user-defaults in respective .git/config files.'
     # Set Git credential storage.
     git_credential='cache'
     [[ "$OSTYPE" == "darwin"* ]] && git_credential='osxkeychain'
     # Get user inputs.
-    sh_user 'What is your github author name?  (username)'
+    sh_user 'What is your git author name?  (username)'
     read -r -e git_authorname
-    sh_user 'What is your github author email?  (username@users.noreply.github.com)'
+    sh_user 'What is your git author email?  (username@users.noreply.github.com)'
     read -r -e git_authoremail
     # Inject Git user info to gitconfig.symlink, using config-template.
     sed -e "s/AUTHORNAME/$git_authorname/g" \
@@ -76,7 +78,7 @@ install_dotfiles
 #-------------------------------------------------------------------------------
 # HOMEBREW + required dependencies
 #-------------------------------------------------------------------------------
-# Here's is the install list/order:
+# Install list/order:
 #   * Linux libraries/dependencies
 #   * macOS Xcode Command Line Tools
 #   * Homebrew
@@ -151,8 +153,17 @@ fi
 if [[ -e "${HOMEBREW_PREFIX:-}/bin/zsh" ]] && [[ ! "$(cat /etc/shells)" == *"${HOMEBREW_PREFIX:-}/bin/zsh"* ]]; then
   sh_info "Adding Zsh to the list of allowed shells (/etc/shells)."
   sudo bash -c 'echo "$(brew --prefix)/bin/zsh" >> /etc/shells'
-else
-  sh_fail "Error locating Homebrew and/or Zsh. Please install manually."
+fi
+if [[ -e "${HOMEBREW_PREFIX:-}/bin/zsh" ]] && [[ ! "$(cat /etc/shells)" == *"${HOMEBREW_PREFIX:-}/bin/zsh"* ]]; then
+  sh_alert "Failed to add Zsh to list of allowed shells (/etc/shells). Run this manually and restart terminal."
+  sh_text "echo \"\$(brew --prefix)/bin/zsh\" >> /etc/shells"
+fi
+
+# Validate installs/inits
+if [[ ! -e "${HOMEBREW_PREFIX:-}/bin/zsh" ]] && [[ -d "${HOMEBREW_PREFIX:-}" ]]; then
+  sh_fail "Error installing Zsh. Please install manually: brew install zsh zsh-completions"
+elif [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
+  sh_fail "Error installing/initiating/locating Homebrew. Please install manually: https://brew.sh"
 fi
 
 echo

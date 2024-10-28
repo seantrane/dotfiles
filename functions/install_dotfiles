@@ -17,16 +17,15 @@ install_dotfiles () {
     _alias="$HOME/.$(basename "${_source%.*}")"
     printf "\033[2K\r\n [\033[0;34m .. \033[0m]  Attempting to link %s to %s \n" "$_alias" "$_source"
     # $DOTFILEDIR/functions/link_file "$_source" "$_alias"
+    skip=false
 
-    if [ -f "$_alias" ] || [ -d "$_alias" ] || [ "$_alias" ]; then
+    if [[ -f "$_alias" ]] || [[ -d "$_alias" ]]; then
 
-      if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
+      if [[ "$overwrite_all" == "false" ]] && [[ "$backup_all" == "false" ]] && [ "$skip_all" == "false" ]; then
 
-        current_source="$(readlink "$_alias")"
-
-        if [ "$current_source" == "$_source" ]; then
+        if cmp -s "$_alias" "$_source"; then
           printf "\033[2K\r\n [\033[0;36m ** \033[0m] \033[0;36m Link/file already exists: %s \033[0m \n" "$_alias"
-          skip=true;
+          skip=true
         else
           printf "\033[2K\r\n [\033[0;33m ?? \033[0m]  File already exists: %s (%s), what do you want to do?\n\
           [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all? \n" "$_alias" "$(basename "$_source")"
@@ -55,25 +54,26 @@ install_dotfiles () {
       backup=${backup:-$backup_all}
       skip=${skip:-$skip_all}
 
-      if [ "$overwrite" == "true" ]; then
+      if [[ "$overwrite" == "true" ]]; then
         rm -rf "$_alias"
         printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Removed %s \033[0m \n" "$_alias"
       fi
 
-      if [ "$backup" == "true" ]; then
+      if [[ "$backup" == "true" ]]; then
         mv "$_alias" "${_alias}.backup"
         printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Moved %s to %s.backup \033[0m \n" "$_alias" "$_alias"
       fi
 
-      if [ "$skip" == "true" ]; then
+      if [[ "$skip" == "true" ]]; then
         printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Skipped %s \033[0m \n" "$_source"
       fi
     fi
 
     # "false" or empty
-    if [ "$skip" != "true" ]; then
-      ln -s "$_source" "$_alias"
-      printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Linked %s to %s \033[0m \n" "$_alias" "$_source"
+    if [[ "$skip" != "true" ]]; then
+      printf "\033[2K\r\n [\033[0;34m .. \033[0m]  Running ln -s %s %s \n" "$_source" "$_alias"
+      ln -s "$_source" "$_alias" || printf "\033[2K\r\n [\033[0;31m !! \033[0m] \033[0;31m Failed to link %s to %s \033[0m \n" "$_alias" "$_source"
+      [[ -e "$_alias" ]] && printf "\033[2K\r\n [\033[0;32m OK \033[0m] \033[0;32m Linked %s to %s \033[0m \n" "$_alias" "$_source"
     fi
 
   done
