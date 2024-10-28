@@ -3,16 +3,6 @@
 # System Command Tab Completions for Zsh
 
 ################################################################################
-# Git
-################################################################################
-
-# Uses git's autocompletion for inner commands. Assumes an install of git's
-# bash `git-completion` script at $completion below (this is where Homebrew
-# tosses it, at least).
-[[ -f "$HOMEBREW_PREFIX/share/zsh/site-functions/_git" ]] && \
-    . "$HOMEBREW_PREFIX/share/zsh/site-functions/_git"
-
-################################################################################
 # rbenv
 ################################################################################
 # https://github.com/sstephenson/rbenv/blob/master/completions/rbenv.zsh

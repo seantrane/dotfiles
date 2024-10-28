@@ -214,9 +214,13 @@ fi
 for _file in $(find_files "$DOTFILES" 'completion.zsh' 2); do . "$_file"; done
 
 # To activate Homebrew-Zsh-completions, add to .zshrc:
-_zshcompf="${HOMEBREW_PREFIX:-}/share/zsh-completions"
-# shellcheck disable=SC2206
-[[ -f "$_zshcompf" ]] && fpath=("$_zshcompf" $fpath)
+if type brew &>/dev/null; then
+  FPATH=${HOMEBREW_PREFIX:-}/share/zsh/site-functions:$FPATH
+  FPATH=${HOMEBREW_PREFIX:-}/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 # z - jump around
 # https://github.com/rupa/z
