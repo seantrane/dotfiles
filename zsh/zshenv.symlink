@@ -102,13 +102,17 @@ fi
 # HOMEBREW INIT
 #-------------------------------------------------------------------------------
 
-[[ -f "$DOTFILES/brew/init.sh" ]] && . "$DOTFILES/brew/init.sh"
+# [[ -f "$DOTFILES/brew/init_install.sh" ]] && . "$DOTFILES/brew/init_install.sh" \
+#   && _init_homebrew
 
 #-------------------------------------------------------------------------------
 # Load `.env` a.k.a. `~/.dotfiles/shell/env.symlink`
 #-------------------------------------------------------------------------------
 # This file should be loaded first in all shell environments,
-# in the following files; `~/.bashrc` and `~/.zshenv`
+# in the following files; `~/.bashrc` and `~/.zshenv`.
+# It is required in `~/.zshenv` so script-shell-env uses user bin/functions.
+# It is required a 2nd time, here in `~/.zshrc`, because `/etc/zprofile`
+# overwrites the PATH variable before `~/.zshrc` is executed. =(
 
 [[ -f "${ZDOTDIR:-$HOME}/.env" ]] && . "${ZDOTDIR:-$HOME}/.env"
 

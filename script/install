@@ -13,10 +13,31 @@ for _file in $(find_files "$DOTFILES" 'install.sh' 2); do
   . "$_file"
 done
 
-# Run before Ruby Gem installs
-# . "$DOTFILES/ruby/gem-update.sh"
-# Run after Ruby Gem installs
-# . "$DOTFILES/ruby/rehash.sh"
+# Homebrew installs
+if type "brew" &> /dev/null; then
+  # Install deps/apps using Brewfile
+  if [[ -r "$HOME/.Brewfile" ]]; then
+    export HOMEBREW_BUNDLE_FILE="$HOME/.Brewfile"
+    brew bundle install --global
+    brew bundle check
+  fi
+  # Remove outdated versions from the cellar.
+  brew cleanup
+fi
+
+# Node.js/npm installs
+if type "npm" &> /dev/null; then
+  npm install -g \
+    cucumber \
+    serverless \
+    yo \
+    ;
+fi
+
+# Ruby/Bundler installs
+if type "bundle" &> /dev/null && [[ -r "$HOME/.Gemfile" ]]; then
+  (cd && bundle install --gemfile="$HOME/.Gemfile")
+fi
 
 #-------------------------------------------------------------------------------
 # OS-specific Installs
@@ -54,33 +75,6 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 
   : # macOS (Darwin)
-
-  # Homebrew installs
-  if type "brew" &> /dev/null; then
-    # Install deps/apps using Brewfile
-    if [[ -r "$HOME/.Brewfile" ]]; then
-      export HOMEBREW_BUNDLE_FILE="$HOME/.Brewfile"
-      brew bundle install --global
-      brew bundle check
-    fi
-    # Remove outdated versions from the cellar.
-    brew cleanup
-  fi
-
-  # Node.js/npm installs
-  if type "npm" &> /dev/null; then
-    npm install -g \
-      cucumber \
-      less \
-      serverless \
-      yo \
-      ;
-  fi
-
-  # Ruby/Bundler installs
-  if type "bundle" &> /dev/null && [[ -r "$HOME/.Gemfile" ]]; then
-    (cd && bundle install --gemfile="$HOME/.Gemfile")
-  fi
 
   # Set macOS defaults
   # This should only be run once Apps/Casks have been installed.

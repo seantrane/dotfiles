@@ -14,8 +14,10 @@
 #-------------------------------------------------------------------------------
 
 # shellcheck disable=SC1091
-[[ -z "$SHELLSUPPORT" ]] && \
-. "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
+[[ -z "${SHELLSUPPORT:-}" ]] && {
+  [[ -s "${DOTFILES:-"$HOME/.dotfiles"}/shell/response.sh" ]] \
+   && . "${DOTFILES:-"$HOME/.dotfiles"}/shell/response.sh"
+}
 
 #-------------------------------------------------------------------------------
 # CONSTANTS
@@ -150,8 +152,8 @@ _set_homebrew_prefix () {
     if [[ "$OSTYPE" == "darwin"* ]]; then
       # macOS Intel
       HOMEBREW_PREFIX="/usr/local"
-      [[ "$(sysctl -n machdep.cpu.brand_string)" =~ "Apple" ]] && \
       # Apple Silicon
+      [[ "$(sysctl -n machdep.cpu.brand_string)" =~ "Apple" ]] && \
       HOMEBREW_PREFIX="/opt/homebrew"
     elif [[ "$OSTYPE" == "linux-gnu" ]]; then
       # Linux

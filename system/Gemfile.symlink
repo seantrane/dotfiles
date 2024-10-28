@@ -1,3 +1,7 @@
+#!/usr/bin/env ruby
+#
+# shellcheck disable=SC1071,SC1091
+
 source 'https://rubygems.org'
 
 # Gems here

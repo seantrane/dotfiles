@@ -26,6 +26,18 @@ PATH="$PATH:$DEFAULT_PATH"
 
 type "find_files" &> /dev/null || . "$DOTFILES/functions/find_files"
 
+#-------------------------------------------------------------------------------
+# Load `.env` a.k.a. `~/.dotfiles/shell/env.symlink`
+#-------------------------------------------------------------------------------
+# This file should be loaded first in all shell environments,
+# in the following files; `~/.bashrc` and `~/.zshenv`.
+# It is required in `~/.zshenv` so script-shell-env uses user bin/functions.
+# It is required a 2nd time, here in `~/.zshrc`, because `/etc/zprofile`
+# overwrites the PATH variable before `~/.zshrc` is executed. =(
+
+[[ -f "${ZDOTDIR:-$HOME}/.env" ]] && . "${ZDOTDIR:-$HOME}/.env"
+
+
 ################################################################################
 ################################################################################
 ##
@@ -136,6 +148,7 @@ unsetopt CORRECT
 # This bunch of code displays red dots when autocompleting
 # a command with the tab key, "Oh-my-zsh"-style.
 expand-or-complete-with-dots() {
+  # shellcheck disable=2028
   echo -n "\e[31m......\e[0m"
   zle expand-or-complete
   zle redisplay

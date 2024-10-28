@@ -67,7 +67,7 @@ brew "wget", args: ["with-iri"]
 #
 # POPULAR BINARIES
 #
-brew "imagemagick" # [Image manipulation](https://www.imagemagick.org)
+# brew "imagemagick" # [Image manipulation](https://www.imagemagick.org)
 brew "pass" # [Password management](https://www.passwordstore.org/)
 brew "pv" # [Monitor progress via pipe](https://www.ivarch.com/programs/pv.shtml)
 brew "rename" # [Perl-powered file renamer](http://plasmasturm.org/code/rename)
@@ -104,6 +104,7 @@ brew "dive" # [Inspection of docker image layers](https://github.com/wagoodman/d
 # brew "elixir"
 # brew "erlang"
 # brew "galen"
+brew "go"
 brew "gradle"
 brew "helm"
 # brew "heroku"
@@ -141,8 +142,7 @@ brew "yq" # [lightweight YAML, JSON, XML processor](https://github.com/mikefarah
 cask "1password"
 cask "a-better-finder-rename"
 # cask "adobe-creative-cloud"
-# cask "adobe-photoshop-lightroom"
-# cask "adobe-reader"
+# cask "adobe-acrobat-reader"
 cask "alfred"
 # cask "atom"
 # cask "audacity"
@@ -158,7 +158,6 @@ cask "docker"
 # cask "evernote"
 # cask "filezilla"
 # cask "firefox"
-# cask "flash"
 cask "focusrite-control"
 # cask "gimp"
 cask "github"
@@ -242,7 +241,12 @@ cask "font-ubuntu"
 brew "mas"
 #
 # mas "1Password", id: 443987910
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
 mas "Logic Pro", id: 634148309
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
 #
 #-------------------------------------------------------------------------------
 # Whalebrew
@@ -251,14 +255,16 @@ mas "Logic Pro", id: 634148309
 #
 brew "whalebrew"
 #
+whalebrew "directory"
+#
 # @see https://github.com/whalebrew/whalebrew-packages
 # whalebrew "whalebrew/awscli"
 # whalebrew "whalebrew/awslogs"
 # whalebrew "whalebrew/azure-cli"
-# whalebrew "whalebrew/ffmpeg"
+whalebrew "whalebrew/ffmpeg"
 # whalebrew "whalebrew/helm"
-# whalebrew "whalebrew/graphviz"
-# whalebrew "whalebrew/imagemagick"
+whalebrew "whalebrew/graphviz"
+whalebrew "whalebrew/imagemagick"
 # whalebrew "whalebrew/kubectl"
 # whalebrew "whalebrew/kubeseal"
 # whalebrew "whalebrew/openshift-cli-v2"
@@ -295,8 +301,10 @@ vscode "mindaro.mindaro" # [Bridge to Kubernetes](https://marketplace.visualstud
 vscode "wmaurer.change-case" # [Change Case](https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case)
 vscode "dlech.chmod" # [chmod](https://marketplace.visualstudio.com/items?itemName=dlech.chmod)
 vscode "formulahendry.code-runner" # [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
+vscode "streetsidesoftware.code-spell-checker" # [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 vscode "lafe.contextualduplicate" # [Contextual Duplicate](https://marketplace.visualstudio.com/items?itemName=lafe.contextualduplicate)
 vscode "stevejpurves.cucumber" # [Cucumber (Gherkin) Syntax and Snippets](https://marketplace.visualstudio.com/items?itemName=stevejpurves.cucumber)
+vscode "nickgo.cuelang" # [Cuelang](https://marketplace.visualstudio.com/items?itemName=nickgo.cuelang)
 vscode "vscjava.vscode-java-debug" # [Debugger for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug)
 vscode "ms-vscode-remote.remote-containers" # [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 vscode "ms-azuretools.vscode-docker" # [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
@@ -346,6 +354,7 @@ vscode "esbenp.prettier-vscode" # [Prettier - Code formatter](https://marketplac
 vscode "vscjava.vscode-java-dependency" # [Project Manager for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-dependency)
 vscode "ms-python.vscode-pylance" # [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
 vscode "ms-python.python" # [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+vscode "ms-python.debugpy" # [Python Debugger](https://marketplace.visualstudio.com/items?itemName=ms-python.debugpy)
 vscode "mechatroner.rainbow-csv" # [Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv)
 vscode "jeppeandersen.raml" # [RAML](https://marketplace.visualstudio.com/items?itemName=jeppeandersen.raml)
 vscode "msjsdiag.vscode-react-native" # [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native)
