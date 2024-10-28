@@ -6,8 +6,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
-      day: 'tuesday'
-      time: '09:00'
-      timezone: 'UTC'
+      day: 'sunday'
+      time: '12:00'
+      timezone: 'Etc/UTC'
     labels:
       - 'type: chore'
