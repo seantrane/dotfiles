@@ -1,5 +1,19 @@
 # CHANGELOG
 
+# [2.1.0](https://github.com/seantrane/dotfiles/compare/v2.0.5...v2.1.0) (2024-10-28)
+
+
+### Bug Fixes
+
+* improve shell config ([6430dd4](https://github.com/seantrane/dotfiles/commit/6430dd45b71aa0b967e85e816316d2be2886c4c8))
+* resolve isssues in dotfiles bootstrap process ([759739c](https://github.com/seantrane/dotfiles/commit/759739c0644e92f5c1a2ad83ba40759fb0236261))
+* update macos defaults ([3fc7f85](https://github.com/seantrane/dotfiles/commit/3fc7f85e70a56c845cb8ea72e0fbb03af649c681))
+
+
+### Features
+
+* improve bootstrap, install process ([8fe2803](https://github.com/seantrane/dotfiles/commit/8fe2803311643a5d62615a8fa5bc3dcc89e8615d))
+
 ## [2.0.5](https://github.com/seantrane/dotfiles/compare/v2.0.4...v2.0.5) (2024-10-26)
 
 
