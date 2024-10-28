@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.1.1](https://github.com/seantrane/dotfiles/compare/v2.1.0...v2.1.1) (2024-10-28)
+
+
+### Bug Fixes
+
+* resolve zsh completions errors ([85d127a](https://github.com/seantrane/dotfiles/commit/85d127a2bbafc647d5c3f635569576c86908475c))
+
 # [2.1.0](https://github.com/seantrane/dotfiles/compare/v2.0.5...v2.1.0) (2024-10-28)
 
 
