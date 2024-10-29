@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.1.2](https://github.com/seantrane/dotfiles/compare/v2.1.1...v2.1.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* resolve shell linting issues ([a94ed3c](https://github.com/seantrane/dotfiles/commit/a94ed3c769507a7b7f73baeaa6a25be115771f13))
+
 ## [2.1.1](https://github.com/seantrane/dotfiles/compare/v2.1.0...v2.1.1) (2024-10-28)
 
 
