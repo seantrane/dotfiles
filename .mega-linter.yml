@@ -19,7 +19,7 @@ ENABLE:
   # - KUBERNETES
   - MARKDOWN
   # - OPENAPI
-  - PYTHON
+  # - PYTHON
   - REPOSITORY
   # - TERRAFORM
   # - XML
@@ -59,7 +59,7 @@ BASH_SHFMT_FILTER_REGEX_INCLUDE: '(bin/*|scripts/*)'
 EXCLUDED_DIRECTORIES: ['.git', '.terraform', 'megalinter-reports', 'node_modules']
 FLAVOR_SUGGESTIONS: false
 FORMATTERS_DISABLE_ERRORS: false
-JSON_JSONLINT_FILTER_REGEX_EXCLUDE: '(\.devcontainer/|\.vscode/)'
+JSON_JSONLINT_FILTER_REGEX_EXCLUDE: '(\.devcontainer/|\.vscode/|macos/init/Library/|tests/)'
 MARKDOWN_MARKDOWN_LINK_CHECK_DISABLE_ERRORS: true
 PRINT_ALL_FILES: false
 PRINT_ALPACA: false
@@ -73,6 +73,8 @@ REPORTERS_MARKDOWN_TYPE: simple
 REPOSITORY_TRIVY_ARGUMENTS:
   - '--db-repository'
   - 'public.ecr.aws/aquasecurity/trivy-db:2'
+  - '--java-db-repository'
+  - 'public.ecr.aws/aquasecurity/trivy-java-db:1'
   - '--skip-dirs'
   - '.devcontainer'
   - '--skip-dirs'
@@ -82,7 +84,7 @@ REPOSITORY_TRIVY_ARGUMENTS:
   - '--skip-dirs'
   - 'node_modules'
   - '--skip-files'
-  - '/Dockerfile.test,/Dockerfile.example'
+  - 'Dockerfile.test'
 SHOW_ELAPSED_TIME: true
 SHOW_SKIPPED_LINTERS: false
 YAML_PRETTIER_FILTER_REGEX_EXCLUDE: '(\.github/workflows)'

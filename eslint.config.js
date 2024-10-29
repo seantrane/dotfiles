@@ -9,7 +9,13 @@ module.exports = [
       Atomics: 'readonly',
       SharedArrayBuffer: 'readonly',
     },
-    ignorePatterns: ['!.*', '.devcontainer/*', '.vscode/*', '**/node_modules/.*'],
+    ignorePatterns: [
+      '!.*',
+      '.devcontainer/*',
+      '.vscode/*',
+      '**/node_modules/*',
+      '**/Library/Application Support/Code/User/*',
+    ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
       ecmaVersion: 2018,

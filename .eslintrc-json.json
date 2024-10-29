@@ -14,7 +14,8 @@
     },
     {
       "files": [
-        "*.jsonc"
+        "*.jsonc",
+        "**/Library/Application Support/Code/User/*"
       ],
       "extends": [
         "plugin:jsonc/recommended-with-jsonc"

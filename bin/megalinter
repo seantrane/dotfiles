@@ -5,11 +5,86 @@
 #
 # Run in directory with mega-linter.yml: megalinter
 # Run a specific version of MegaLinter: megalinter v8
+#
+# shellcheck disable=SC2034
+
+function trivy_cache_primer() {
+  TRIVY_CACHE_DIR="${HOME:-/tmp/lint}/.cache/trivy"
+  _CACHE_TIMER="_cache-timer"
+  _TRIVY_DB_REPO="public.ecr.aws/aquasecurity/trivy-db:2"
+  _TRIVY_JAVA_DB_REPO="public.ecr.aws/aquasecurity/trivy-java-db:1"
+  _TRIVY_CHECKS_REPO="ghcr.io/aquasecurity/trivy-checks:1"
+  _TRIVY_DB_CACHE_PATH="${TRIVY_CACHE_DIR}/db"
+  _TRIVY_JAVA_DB_CACHE_PATH="${TRIVY_CACHE_DIR}/java-db"
+  _TRIVY_CHECKS_CACHE_PATH="${TRIVY_CACHE_DIR}/checks"
+  # Create cache directory, if it doesn't exist.
+  [[ ! -d "$TRIVY_CACHE_DIR" ]] && mkdir -p "$TRIVY_CACHE_DIR"
+  # Delete outdated cache-timers.
+  find "$TRIVY_CACHE_DIR" -name "*$_CACHE_TIMER" -type f -mtime +1 -delete
+  # Trivy Vulnerability DB
+  # If cache-timer doesn't exist, or cache is empty, prime the cache.
+  if [[ ! -e "${_TRIVY_DB_CACHE_PATH}${_CACHE_TIMER}" ]] || [[ -z "$(ls -A "$_TRIVY_DB_CACHE_PATH")" ]]; then
+    rm -rf "$_TRIVY_DB_CACHE_PATH" "${_TRIVY_DB_CACHE_PATH}${_CACHE_TIMER}"
+    mkdir -p "$_TRIVY_DB_CACHE_PATH"
+    (
+      cd "$TRIVY_CACHE_DIR" || echo ""
+      echo "Pulling Trivy Vulnerability DB and storing in cache."
+      oras pull "$_TRIVY_DB_REPO" &&
+        tar -xzf db.tar.gz -C "$_TRIVY_DB_CACHE_PATH" &&
+        rm -f db.tar.gz
+    )
+    # Reset the cache-timer, if cache is not empty.
+    [[ -n "$(ls -A "$_TRIVY_DB_CACHE_PATH")" ]] && touch "${_TRIVY_DB_CACHE_PATH}${_CACHE_TIMER}"
+  fi
+  # Trivy Java Index DB
+  # If cache-timer doesn't exist, or cache is empty, prime the cache.
+  if [[ ! -e "${_TRIVY_JAVA_DB_CACHE_PATH}${_CACHE_TIMER}" ]] || [[ -z "$(ls -A "$_TRIVY_JAVA_DB_CACHE_PATH")" ]]; then
+    rm -rf "$_TRIVY_JAVA_DB_CACHE_PATH" "${_TRIVY_JAVA_DB_CACHE_PATH}${_CACHE_TIMER}"
+    mkdir -p "$_TRIVY_JAVA_DB_CACHE_PATH"
+    (
+      cd "$TRIVY_CACHE_DIR" || echo ""
+      echo "Pulling Trivy Java Index DB and storing in cache."
+      oras pull "$_TRIVY_JAVA_DB_REPO" &&
+        tar -xzf javadb.tar.gz -C "$_TRIVY_JAVA_DB_CACHE_PATH" &&
+        rm -f javadb.tar.gz
+    )
+    # Reset the cache-timer, if cache is not empty.
+    [[ -n "$(ls -A "$_TRIVY_JAVA_DB_CACHE_PATH")" ]] && touch "${_TRIVY_JAVA_DB_CACHE_PATH}${_CACHE_TIMER}"
+  fi
+  # Trivy Checks Bundle
+  # If cache-timer doesn't exist, or cache is empty, prime the cache.
+  if [[ ! -e "${_TRIVY_CHECKS_CACHE_PATH}${_CACHE_TIMER}" ]] || [[ -z "$(ls -A "$_TRIVY_CHECKS_CACHE_PATH")" ]]; then
+    rm -rf "$_TRIVY_CHECKS_CACHE_PATH" "${_TRIVY_CHECKS_CACHE_PATH}${_CACHE_TIMER}"
+    mkdir -p "$_TRIVY_CHECKS_CACHE_PATH"
+    (
+      cd "$TRIVY_CACHE_DIR" || echo ""
+      echo "Pulling Trivy Checks Bundle and storing in cache."
+      oras pull "$_TRIVY_CHECKS_REPO" &&
+        tar -xzf bundle.tar.gz -C "$_TRIVY_CHECKS_CACHE_PATH" &&
+        rm -f bundle.tar.gz
+    )
+    # Reset the cache-timer, if cache is not empty.
+    [[ -n "$(ls -A "$_TRIVY_CHECKS_CACHE_PATH")" ]] && touch "${_TRIVY_CHECKS_CACHE_PATH}${_CACHE_TIMER}"
+  fi
+  # output cache file list for debugging.
+  echo "Contents of Trivy cache directory: $TRIVY_CACHE_DIR"
+  ls -lahF "$TRIVY_CACHE_DIR"
+}
 
 if [ "$(whoami)" == "runner" ]; then
   : #  echo "Don't execute in GitHub Actions workflow runs."
 else
+  trivy_cache_primer
+  # Clean up previous reports directory.
+  [[ -d "$(pwd)/megalinter-reports" ]] && rm -rf "$(pwd)/megalinter-reports"
+  # Run MegaLinter with cache enabled.
   docker run --rm \
     -v /var/run/docker.sock:/var/run/docker.sock:rw \
-    -v "$(pwd)":/tmp/lint:rw oxsecurity/megalinter:"${1:-v7}"
+    -v "$(pwd)":/tmp/lint:rw \
+    -v "$HOME/.cache/trivy":/tmp/lint/.cache/trivy:rw \
+    -e "TRIVY_CACHE_DIR=/tmp/lint/.cache/trivy" \
+    -e "TRIVY_SKIP_DB_UPDATE=true" \
+    -e "TRIVY_SKIP_JAVA_DB_UPDATE=true" \
+    -e "TRIVY_SKIP_CHECK_UPDATE=true" \
+    "oxsecurity/megalinter:${1:-v7}"
 fi
