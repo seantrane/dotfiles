@@ -7,8 +7,8 @@
 # Requires 'rsyncit' function.
 
 # Shell Support
-# shellcheck disable=SC1090
-! type "rsyncit" &> /dev/null && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/functions/rsyncit"
+# shellcheck disable=SC1090,SC1091
+! type "rsyncit" &>/dev/null && . "$(cd "${BASH_SOURCE%/*}/.." && pwd)/functions/rsyncit"
 
 export EXTERNAL_VOLUME="/Volumes/My"
 
@@ -24,7 +24,7 @@ export WEBSTORM_CODESTYLES_PATH="Library/Preferences/WebStorm2017.1/codestyles"
 export WEBSTORM_COLORS_PATH="Library/Preferences/WebStorm2017.1/colors"
 export WEBSTORM_KEYMAPS_PATH="Library/Preferences/WebStorm2017.1/keymaps"
 
-if type "rsyncit" &> /dev/null; then
+if type "rsyncit" &>/dev/null; then
 
   declare -a SYNC_PATHS=(
     "PROJECTS_PATH"

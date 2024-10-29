@@ -8,5 +8,9 @@
 #
 #   git nuke add-git-nuke
 
-git branch -D $1
-git push origin :$1
+if [[ -n "${1:-}" ]]; then
+  git branch -D "$1"
+  git push origin :"$1"
+else
+  echo "Please provide Git branch name."
+fi

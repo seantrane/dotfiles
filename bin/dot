@@ -6,8 +6,11 @@
 # Run it periodically to make sure you're on the latest releases.
 
 # Shell Support
-# shellcheck disable=SC1090
-. "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
+# shellcheck disable=SC1090,SC1091
+[[ -z "${SHELLSUPPORT:-}" ]] && {
+  [[ -s "${DOTFILES:-"$HOME/.dotfiles"}/shell/response.sh" ]] &&
+    . "${DOTFILES:-"$HOME/.dotfiles"}/shell/response.sh"
+}
 
 #-------------------------------------------------------------------------------
 # OS-specific Updates
@@ -15,89 +18,73 @@
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
-    : # Linux
+  : # Linux
 
-    # Linuxbrew updates
-    if type "brew" &> /dev/null; then
-        sh_info "Updating Linuxbrew and all packages/etc."
-        brew update
-        brew upgrade
-        brew cleanup
-    fi
+  if type "apt-get" &>/dev/null; then
 
-    if type "apt-get" &> /dev/null; then
+    : # Debian or Ubuntu:
 
-        : # Debian or Ubuntu:
+  elif type "yum" &>/dev/null; then
 
-    elif type "yum" &> /dev/null; then
+    : # Fedora, CentOS or Red Hat:
 
-        : # Fedora, CentOS or Red Hat:
-
-    fi
+  fi
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 
-    : # Mac OS
+  : # Mac OS
 
-    # macOS Software Update
-    action=
-    sh_user "Do you want to run macOS Software Update?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
-    read -r -n 1 action
-    case "$action" in
-        y )
-            sh_info "Running macOS Software Update..."
-            sudo softwareupdate -i -a
-            ;;
-        * )
-            sh_info "Skipping macOS Software Update."
-            ;;
-    esac
+  # macOS Software Update
+  action=
+  sh_user "Do you want to run macOS Software Update?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
+  read -r -n 1 action
+  case "$action" in
+  y)
+    sh_info "Running macOS Software Update..."
+    sudo softwareupdate -i -a
+    ;;
+  *)
+    sh_info "Skipping macOS Software Update."
+    ;;
+  esac
 
-    # (Re)Set defaults
-    action=
-    sh_user "Do you want to overwrite macOS defaults?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
-    read -r -n 1 action
-    case "$action" in
-        y )
-            sh_info "Overwriting macOS defaults..."
-            # shellcheck disable=SC1090
-            . "$DOTFILES/macos/set-defaults.sh"
-            ;;
-        * )
-            sh_info "Skipping macOS defaults."
-            ;;
-    esac
+  # (Re)Set defaults
+  action=
+  sh_user "Do you want to overwrite macOS defaults?  ${Underline:-}y${Reset:-}es / ${Underline:-}n${Reset:-}o"
+  read -r -n 1 action
+  case "$action" in
+  y)
+    sh_info "Overwriting macOS defaults..."
+    # shellcheck disable=SC1090
+    . "$DOTFILES/macos/set-defaults.sh"
+    ;;
+  *)
+    sh_info "Skipping macOS defaults."
+    ;;
+  esac
 
-    # TODO: Copy macOS app prefs for backup/reinstall purposes.
-    # source $DOTFILES/macos/copy-prefs.sh
-
-    # Homebrew updates
-    if type "brew" &> /dev/null; then
-        sh_info "Updating Homebrew and all packages/casks/etc."
-        brew update
-        brew upgrade
-        brew cleanup
-    fi
+  # TODO: Copy macOS app prefs for backup/reinstall purposes.
+  # source $DOTFILES/macos/copy-prefs.sh
 
 elif [[ "$OSTYPE" == "cygwin" ]]; then
 
-    : # POSIX compatibility layer and Linux environment emulation for Windows
+  : # POSIX compatibility layer and Linux environment emulation for Windows
 
 elif [[ "$OSTYPE" == "msys" ]]; then
 
-    : # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+  : # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
 
 elif [[ "$OSTYPE" == "win32" ]]; then
 
-    : # Windows (32-bit) (...this may not work...)
+  : # Windows (32-bit) (...this may not work...)
 
 elif [[ "$OSTYPE" == "freebsd"* ]]; then
 
-    : # FreeBSD
+  : # FreeBSD
 
 else
 
-    : # Unknown OS
+  : # Unknown OS
 
 fi
 
@@ -105,36 +92,43 @@ fi
 # Software/Package Updates
 #-------------------------------------------------------------------------------
 
-# RVM updates
-if type "rvm" &> /dev/null; then
-    sh_info "Updating RVM/etc."
-    rvm get stable
-    rvm reload
-    rvm upgrade
+# Homebrew updates
+if type "brew" &>/dev/null; then
+  sh_info "Updating Homebrew and all packages/etc."
+  brew update
+  brew upgrade
+  brew cleanup
 fi
 
-# Node.js updates
-if type "npm" &> /dev/null; then
-    sh_info "Updating Node.js and all packages/etc."
-    npm cache clean -g -f
-    npm install -g npm@latest
-    npm update -g
-    npm cache clean -g -f
+# RVM updates
+if type "rvm" &>/dev/null; then
+  sh_info "Updating RVM/etc."
+  rvm get stable
+  rvm reload
+  rvm upgrade
 fi
 
 # Ruby Gem updates
-if type "gem" &> /dev/null; then
-    sh_info "Updating Ruby Gems."
-    sudo gem update --system
-    sudo gem update
+if type "gem" &>/dev/null; then
+  sh_info "Updating Ruby Gems."
+  sudo gem update --system
+  sudo gem update
+fi
+
+# Node.js updates
+if type "npm" &>/dev/null; then
+  sh_info "Updating Node.js and all packages/etc."
+  npm cache clean -g -f
+  npm install -g npm@latest
+  npm update -g
+  npm cache clean -g -f
 fi
 
 # Composer updates
-if type "composer" &> /dev/null; then
-    sh_info "Updating Composer and all packages/etc."
-    composer clear-cache
-    composer self-update
-    composer update
-    composer clear-cache
+if type "composer" &>/dev/null; then
+  sh_info "Updating Composer and all packages/etc."
+  composer clear-cache
+  composer self-update
+  composer update
+  composer clear-cache
 fi
-

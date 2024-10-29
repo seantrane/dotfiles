@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# shellcheck disable=all
 
 HELP = <<EOS
 git-wtf displays the state of your repository in a readable, easy-to-scan

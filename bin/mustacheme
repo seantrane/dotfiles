@@ -33,22 +33,20 @@ output=/tmp/mustacheme
 rm -rf $output
 mkdir $output
 
-if [[ $1 == http* ]]
-then
-  wget $1 -O /tmp/mustache-download.gif
+if [[ $1 == http* ]]; then
+  wget "$1" -O /tmp/mustache-download.gif
   file=/tmp/mustache-download.gif
 else
   file="$1"
 fi
 
 # Blow apart the GIF
-convert $1 -coalesce $output/frame_%03d.gif
+convert "$file" -coalesce $output/frame_%03d.gif
 
 # Mustache each frame
-for frame in $output/*.gif
-do
-  url=$(cloudapp $frame | grep Uploaded | awk '{print substr($0, index($0, "http://"))}')
-  url="$url/$(basename $frame)"
+for frame in "$output"/*.gif; do
+  url=$(cloudapp "$frame" | grep Uploaded | awk '{print substr($0, index($0, "http://"))}')
+  url="$url/$(basename "$frame")"
   wget "http://mustachify.me/?src=$url" -O "$frame-stache"
 done
 

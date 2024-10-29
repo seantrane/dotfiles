@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# shellcheck disable=all
 
 ## git-rank-contributors: a simple script to trace through the logs and
 ## rank contributors by the total size of the diffs they're responsible for.
