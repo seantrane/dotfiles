@@ -7,7 +7,6 @@
 - [Guidelines](#guidelines)
 - [Pull Requests](#pull-requests)
 - [Clone the Repository](#clone-repo)
-- [Install Dependencies](#install-dependencies)
 - [File Structure](#file-structure)
 
 ---
