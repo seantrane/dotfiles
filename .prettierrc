@@ -1,7 +1,23 @@
 {
   "printWidth": 100,
-  "trailingComma": "es5",
-  "tabWidth": 2,
-  "semi": false,
-  "singleQuote": true
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": [
+        "*.jsonc",
+        ".devcontainer/*.json",
+        ".devcontainer/**/*.json",
+        ".vscode/*.json"
+      ],
+      "options": {
+        "parser": "jsonc"
+      }
+    },
+    {
+      "files": "*.json5",
+      "options": {
+        "parser": "json5"
+      }
+    }
+  ]
 }
