@@ -35,6 +35,18 @@
     "color": "fbca04"
   },
   {
+    "name": "effort: 20",
+    "color": "fb4e04"
+  },
+  {
+    "name": "effort: 50",
+    "color": "fb0435"
+  },
+  {
+    "name": "effort: 100",
+    "color": "fb04b1"
+  },
+  {
     "name": "good first issue",
     "color": "7057ff",
     "description": "Good for newcomers.",
