@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# MegaLinter via Docker CLI
+# https://megalinter.io/latest/install-docker/
+#
+# Run in directory with mega-linter.yml: megalinter
+# Run a specific version of MegaLinter: megalinter v8
+
+if [ "$(whoami)" == "runner" ]; then
+  : #  echo "Don't execute in GitHub Actions workflow runs."
+else
+  docker run --rm \
+    -v /var/run/docker.sock:/var/run/docker.sock:rw \
+    -v "$(pwd)":/tmp/lint:rw oxsecurity/megalinter:"${1:-v7}"
+fi

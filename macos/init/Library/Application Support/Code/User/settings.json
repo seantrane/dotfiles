@@ -60,7 +60,7 @@
   "markdown.styles": [
     "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.7.0/github-markdown-light.min.css"
   ],
-  "markdownTablePrettify.columnPadding": 1,
+  "markdownTablePrettify.columnPadding": 0,
   "prettier.jsxSingleQuote": true,
   "prettier.printWidth": 100,
   "prettier.singleQuote": true,
