@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.1.3](https://github.com/seantrane/dotfiles/compare/v2.1.2...v2.1.3) (2024-10-29)
+
+
+### Bug Fixes
+
+* add trivy-caching to megalinter, fix linting errors ([c2aa2a2](https://github.com/seantrane/dotfiles/commit/c2aa2a2d2a957dca38afd554ba275257eb37c256))
+
 ## [2.1.2](https://github.com/seantrane/dotfiles/compare/v2.1.1...v2.1.2) (2024-10-29)
 
 
