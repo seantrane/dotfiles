@@ -19,7 +19,11 @@ osascript -e 'tell application "System Preferences" to quit'
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
 
 ################################################################################
 __USER_defaults=
@@ -33,8 +37,7 @@ defaults write NSGlobalDomain AppleMetricUnits -bool false
 defaults write NSGlobalDomain AppleTemperatureUnit -string "Fahrenheit"
 
 # Set the timezone; see `systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "America/New_York" > /dev/null
-
+sudo systemsetup -settimezone "America/New_York" >/dev/null
 
 ################################################################################
 __SYSTEM_defaults=
@@ -161,7 +164,6 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 # Disable smart dashes as they're annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
-
 ################################################################################
 __DESKTOP_defaults=
 # @see https://macos-defaults.com/#desktop
@@ -172,7 +174,6 @@ __DESKTOP_defaults=
 # rm -rf ~/Library/Application Support/Dock/desktoppicture.db
 # sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
 # sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
-
 
 ################################################################################
 __ENERGY_SAVING_defaults=
@@ -200,8 +201,7 @@ sudo pmset -b sleep 5
 sudo pmset -a standbydelay 86400
 
 # Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
-
+sudo systemsetup -setcomputersleep Off >/dev/null
 
 ################################################################################
 # SSD-specific tweaks
@@ -227,7 +227,6 @@ sudo chflags uchg /private/var/vm/sleepimage
 
 # Disable the sudden motion sensor as it's not useful for SSDs
 sudo pmset -a sms 0
-
 
 ################################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input
@@ -283,7 +282,6 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 # Stop iTunes from responding to the keyboard media keys
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist
 
-
 ################################################################################
 __SECURITY_defaults=
 ################################################################################
@@ -291,7 +289,6 @@ __SECURITY_defaults=
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 300 # 5min
-
 
 ################################################################################
 __SCREEN_CAPTURE_defaults=
@@ -313,7 +310,6 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 1
 # Enable HiDPI display modes (requires restart)
 sudo defaults write /Library/Preferences/com.apple.windowserver \
   DisplayResolutionEnabled -bool true
-
 
 ################################################################################
 __FINDER_defaults=
@@ -478,7 +474,6 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
   OpenWith -bool true \
   Preview -bool true \
   Privileges -bool true
-
 
 ################################################################################
 __DOCK_defaults=
@@ -720,7 +715,6 @@ defaults write com.apple.dock wvous-tr-corner -int 0
 defaults write com.apple.dock wvous-br-corner -int 0
 defaults write com.apple.dock wvous-bl-corner -int 0
 
-
 ################################################################################
 __SAFARI_WEBKIT_defaults=
 # @see https://macos-defaults.com/#safari
@@ -754,7 +748,7 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 
 # Allow hitting the Backspace key to go to the previous page in history
 # defaults write com.apple.Safari \
-  # com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled \
+# com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled \
 #   -bool true
 
 # Hide Safari's bookmarks bar by default
@@ -836,7 +830,6 @@ defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 # Update extensions automatically
 defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
-
 ################################################################################
 __MAIL_defaults=
 ################################################################################
@@ -867,7 +860,6 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 # Disable automatic spell checking
 # defaults write com.apple.mail SpellCheckingBehavior \
 #   -string "NoSpellCheckingEnabled"
-
 
 ################################################################################
 __SPOTLIGHT_defaults=
@@ -920,7 +912,6 @@ sudo mdutil -i on /
 # Rebuild the index from scratch
 sudo mdutil -E /
 
-
 ################################################################################
 __TERMINAL_defaults=
 ################################################################################
@@ -932,7 +923,7 @@ defaults write com.apple.terminal StringEncodings -array 4
 CURRENT_PROFILE="$(defaults read com.apple.terminal 'Default Window Settings')"
 if [[ "${CURRENT_PROFILE}" != "BalanceD" ]]; then
   open "${_macos_init}/BalanceD.terminal"
-  sleep 1; # Wait a bit to make sure the theme is loaded
+  sleep 1 # Wait a bit to make sure the theme is loaded
   defaults write com.apple.terminal \
     'Default Window Settings' -string "BalanceD"
   defaults write com.apple.terminal \
@@ -951,7 +942,6 @@ fi
 # Disable the annoying line marks
 # defaults write com.apple.Terminal ShowLineMarks -int 0
 
-
 ################################################################################
 __ITERM_defaults=
 ################################################################################
@@ -959,19 +949,21 @@ __ITERM_defaults=
 # Install the BalanceD theme for iTerm
 open "${_macos_init}/BalanceD.itermcolors"
 
-# Don’t display the annoying prompt when quitting iTerm
+# Don't display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
-
 
 ################################################################################
 __VSCODE_settings="Library/Application Support/Code/User/settings.json"
 ################################################################################
 
 # Copy VS Code Settings
-if [[ -f "${_macos_init}/${__VSCODE_settings}" ]]; then
+if [[ -f "${_macos_init}/${__VSCODE_settings}" ]] && [[ ! -f "${HOME}/${__VSCODE_settings}" ]]; then
   cp -af "${_macos_init}/${__VSCODE_settings}" "${HOME}/${__VSCODE_settings}"
+else
+  echo "There appears to be a vscode user settings file already. Setting must be copied manually."
+  echo ".dotfiles vscode-settings: ${_macos_init}/${__VSCODE_settings}"
+  echo "user's vscode-settings: ${HOME}/${__VSCODE_settings}"
 fi
-
 
 ################################################################################
 __TIME_MACHINE_defaults=
@@ -981,8 +973,7 @@ __TIME_MACHINE_defaults=
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
-
+hash tmutil &>/dev/null && sudo tmutil disablelocal
 
 ################################################################################
 __ACTIVITY_MONITOR_defaults=
@@ -1000,7 +991,6 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 0
 # Sort Activity Monitor results by CPU usage
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
-
 
 ################################################################################
 # Address Book, TextEdit, and Disk Utility
@@ -1022,7 +1012,6 @@ defaults write com.apple.DiskUtility advanced-image-options -bool true
 
 # Auto-play videos when opened with QuickTime Player
 defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
-
 
 ################################################################################
 __MAC_APP_STORE_defaults=
@@ -1055,14 +1044,12 @@ defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 # Allow the App Store to reboot machine on macOS updates
 # defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
 
-
 ################################################################################
 __PHOTOS_defaults=
 ################################################################################
 
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
-
 
 ################################################################################
 __MESSAGES_defaults=
@@ -1080,7 +1067,6 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings \
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings \
   -dict-add "continuousSpellCheckingEnabled" -bool false
 
-
 ################################################################################
 __SIZEUP_defaults=
 ################################################################################
@@ -1090,7 +1076,6 @@ __SIZEUP_defaults=
 
 # Don’t show the preferences window on next start
 # defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
-
 
 ################################################################################
 # Google Chrome & Google Chrome Canary
@@ -1123,21 +1108,19 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 defaults write com.google.Chrome.canary \
   PMPrintingExpandedStateForPrint2 -bool true
 
-
 ################################################################################
 # Google Update Stopper
 __GOOGLE_UPDATE_defaults="Library/Google/GoogleSoftwareUpdate/GoogleSoftwareUpdate.bundle/Contents/Resources/GoogleSoftwareUpdateAgent.app/Contents/Resources/install.py"
 ################################################################################
 
 # Remove global update-agent
-[[ -f "/$__GOOGLE_UPDATE_defaults" ]] && \
+[[ -f "/$__GOOGLE_UPDATE_defaults" ]] &&
   sudo "/$__GOOGLE_UPDATE_defaults" --uninstall
 # Remove local update-agent
-[[ -f "$HOME/$__GOOGLE_UPDATE_defaults" ]] && \
+[[ -f "$HOME/$__GOOGLE_UPDATE_defaults" ]] &&
   sudo "$HOME/$__GOOGLE_UPDATE_defaults" --uninstall
 # Void the update-checker
 defaults write com.google.Keystone.Agent checkInterval 0
-
 
 ################################################################################
 # Keep additonal commands separate so diff in future is easy
@@ -1149,7 +1132,6 @@ __additional_defaults=
 
 # Menu bar: Set date and time format e.g. Sun Aug 11 4:55 pm
 defaults write com.apple.menuextra.clock DateFormat -string "EEE MMM d h:mm a"
-
 
 ################################################################################
 # Kill affected applications
@@ -1173,6 +1155,6 @@ _kill_apps=(
   # "Terminal"
 )
 for app in "${_kill_apps[@]}"; do
-  killall "$app" > /dev/null 2>&1
+  killall "$app" >/dev/null 2>&1
 done
 echo "Done. Note that some changes require a logout/restart to take effect."
