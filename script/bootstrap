@@ -74,9 +74,7 @@ read -r -e _answer
 # SYMLINK DOTFILES
 #-------------------------------------------------------------------------------
 
-. "$DOTFILES/functions/link_file"
 . "$DOTFILES/functions/install_dotfiles"
-
 install_dotfiles
 
 #-------------------------------------------------------------------------------
@@ -100,35 +98,12 @@ if [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
   sh_fail "Try restarting your shell environment, or reinstalling Homebrew."
 fi
 
-# sh_info "Configuring homebrew permissions to allow multiple admin users."
-# sh_info "Any user from the admin group will be able to manage homebrew."
-
-# declare -a HOMEBREW_DIRS=(
-#   "${HOMEBREW_PREFIX:-}/Caskroom"
-#   "${HOMEBREW_PREFIX:-}/Cellar"
-#   "${HOMEBREW_PREFIX:-}/Homebrew"
-#   "${HOMEBREW_PREFIX:-}/etc"
-#   "${HOMEBREW_PREFIX:-}/lib"
-#   "${HOMEBREW_PREFIX:-}/share"
-#   "${HOMEBREW_PREFIX:-}/var"
-# )
-# for brew_dir in "${HOMEBREW_DIRS[@]}"; do
-#   if [[ ! -d "${brew_dir}" ]]; then
-#     sh_info "Creating directory: ${brew_dir}"
-#     mkdir "${brew_dir}"
-#   fi
-#   sh_info "Changing group ownership of directory: ${brew_dir}"
-#   sudo chgrp -R admin "${brew_dir}"
-#   sudo chmod -R g+w "${brew_dir}"
-# done
-# ls -al "${HOMEBREW_PREFIX:-}"
-
 #-------------------------------------------------------------------------------
 # GIT / RUBY
 #-------------------------------------------------------------------------------
 
-[[ ! -d "${HOMEBREW_PREFIX:-}/opt/git" ]] && brew install git
-[[ ! -d "${HOMEBREW_PREFIX:-}/opt/ruby" ]] && brew install ruby
+[[ ! -d "$(brew --prefix git)" ]] && brew install git
+[[ ! -d "$(brew --prefix ruby)" ]] && brew install ruby
 
 #-------------------------------------------------------------------------------
 # Zsh + Prezto
@@ -169,6 +144,28 @@ if [[ ! -e "${HOMEBREW_PREFIX:-}/bin/zsh" ]] && [[ -d "${HOMEBREW_PREFIX:-}" ]];
 elif [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
   sh_fail "Error installing/initiating/locating Homebrew. Please install manually: https://brew.sh"
 fi
+
+#-------------------------------------------------------------------------------
+# Full install of Xcode is required to compile dependencies.
+#-------------------------------------------------------------------------------
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  : # macOS (Darwin)
+  # Install Homebrew MAS (Mac AppStore)
+  brew install mas
+  # Install Xcode via MAS
+  if mas install 497799835; then
+    # open Xcode and enter login to finish install.
+    open /Applications/Xcode.app
+    sh_note "You must open, login to Xcode for successful install."
+  else
+    sh_alert "Failed to install Xcode. Please install Xcode manually before running dotfiles/install: https://apps.apple.com/app/xcode/id497799835"
+  fi
+fi
+
+#-------------------------------------------------------------------------------
+# Wrap-up
+#-------------------------------------------------------------------------------
 
 echo
 
