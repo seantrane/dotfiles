@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [2.1.4](https://github.com/seantrane/dotfiles/compare/v2.1.3...v2.1.4) (2024-10-30)
+
+
+### Bug Fixes
+
+* enable shfmt in vscode ([a576f8a](https://github.com/seantrane/dotfiles/commit/a576f8ada66db29503a1b9c22163f10286293a47))
+* include functions dir for megalinter scans ([4d032cb](https://github.com/seantrane/dotfiles/commit/4d032cbf7034d9d8686b7fd1008acff17751046b))
+* refactor scripts failing shellcheck/shfmt tests ([b6a16c4](https://github.com/seantrane/dotfiles/commit/b6a16c4645f2b2d6d0fdb36121041629e1c07b88))
+
 ## [2.1.3](https://github.com/seantrane/dotfiles/compare/v2.1.2...v2.1.3) (2024-10-29)
 
 
