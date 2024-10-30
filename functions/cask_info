@@ -2,7 +2,7 @@
 #
 # Homebrew Cask Info
 
-cask_info () {
+cask_info() {
   echo "Homebrew Cask Info..."
   if [[ "$1" ]]; then
     brew cask info "$1"

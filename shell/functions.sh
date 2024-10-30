@@ -10,8 +10,8 @@
 # HELPER FUNCTIONS
 #-------------------------------------------------------------------------------
 
-! type "link_file" &> /dev/null && . "$DOTFILES/functions/link_file"
-! type "lowercase" &> /dev/null && . "$DOTFILES/functions/lowercase"
+! type "link_file" &>/dev/null && . "$DOTFILES/functions/link_file"
+! type "lowercase" &>/dev/null && . "$DOTFILES/functions/lowercase"
 
 #-------------------------------------------------------------------------------
 # RVM

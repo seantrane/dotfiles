@@ -2,6 +2,6 @@
 #
 # convert string to lowercase
 
-lowercase () {
-    echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
+lowercase() {
+  echo "${1:-}" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
 }

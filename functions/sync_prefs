@@ -2,48 +2,45 @@
 #
 # sync preferences
 
-sync_prefs () {
+sync_prefs() {
+  DOTMACOSINIT="$HOME/.dotfiles/macos/init"
+  FROMLIB="$HOME/Library"
+  TOLIB="$DOTMACOSINIT/Library"
+  FROMPREFS="$FROMLIB/Preferences"
+  TOPREFS="$TOLIB/Preferences"
 
-    DOTMACOSINIT=$HOME/.dotfiles/macos/init
-    FROMLIB=$HOME/Library
-    TOLIB=$DOTMACOSINIT/Library
-    FROMPREFS=$FROMLIB/Preferences
-    TOPREFS=$TOLIB/Preferences
+  echo "Syncing preferences..."
 
-    echo "Syncing preferences..."
+  echo "Syncing WebIDE 9.0 (PhpStorm) prefs..."
+  FROMWEBIDE90="$FROMPREFS/WebIde90"
+  TOWEBIDE90="$TOPREFS/WebIde90"
+  [[ -e "$FROMWEBIDE90/codestyles" ]] && rsync -avz "$FROMWEBIDE90/codestyles" "$TOWEBIDE90"
+  [[ -e "$FROMWEBIDE90/colors" ]] && rsync -avz "$FROMWEBIDE90/colors" "$TOWEBIDE90"
+  [[ -e "$FROMWEBIDE90/fileTemplates" ]] && rsync -avz "$FROMWEBIDE90/fileTemplates" "$TOWEBIDE90"
+  [[ -e "$FROMWEBIDE90/inspection" ]] && rsync -avz "$FROMWEBIDE90/inspection" "$TOWEBIDE90"
+  [[ -e "$FROMWEBIDE90/keymaps" ]] && rsync -avz "$FROMWEBIDE90/keymaps" "$TOWEBIDE90"
+  [[ -e "$FROMWEBIDE90/templates" ]] && rsync -avz "$FROMWEBIDE90/templates" "$TOWEBIDE90"
+  [[ -e "$FROMWEBIDE90/disabled_plugins.txt" ]] && rsync -avz "$FROMWEBIDE90/disabled_plugins.txt" "$TOWEBIDE90"
+  [[ -e "$FROMWEBIDE90/installed.txt" ]] && rsync -avz "$FROMWEBIDE90/installed.txt" "$TOWEBIDE90"
 
-    echo "Syncing WebIDE 9.0 (PhpStorm) prefs..."
-    FROMWEBIDE90=$FROMPREFS/WebIde90
-    TOWEBIDE90=$TOPREFS/WebIde90
-    [[ -a "$FROMWEBIDE90/codestyles" ]] && rsync -avz $FROMWEBIDE90/codestyles $TOWEBIDE90
-    [[ -a "$FROMWEBIDE90/colors" ]] && rsync -avz $FROMWEBIDE90/colors $TOWEBIDE90
-    [[ -a "$FROMWEBIDE90/fileTemplates" ]] && rsync -avz $FROMWEBIDE90/fileTemplates $TOWEBIDE90
-    [[ -a "$FROMWEBIDE90/inspection" ]] && rsync -avz $FROMWEBIDE90/inspection $TOWEBIDE90
-    [[ -a "$FROMWEBIDE90/keymaps" ]] && rsync -avz $FROMWEBIDE90/keymaps $TOWEBIDE90
-    [[ -a "$FROMWEBIDE90/templates" ]] && rsync -avz $FROMWEBIDE90/templates $TOWEBIDE90
-    [[ -a "$FROMWEBIDE90/disabled_plugins.txt" ]] && rsync -avz $FROMWEBIDE90/disabled_plugins.txt $TOWEBIDE90
-    [[ -a "$FROMWEBIDE90/installed.txt" ]] && rsync -avz $FROMWEBIDE90/installed.txt $TOWEBIDE90
+  echo "Syncing Sublime Text 3 prefs..."
+  FROMSUBL=$(cd "$FROMLIB/Application Support/Sublime Text 3/Packages/User" && pwd)
+  TOSUBL=$(cd "$TOLIB/Application Support/Sublime Text 3/Packages/User" && pwd)
+  echo "$FROMSUBL"
+  echo "$TOSUBL"
+  [[ -e "$FROMSUBL/Snippets" ]] && rsync -avz "$FROMSUBL/Snippets" "$TOSUBL"
+  [[ -e "$FROMSUBL/Themes" ]] && rsync -avz "$FROMSUBL/Themes" "$TOSUBL"
+  [[ -e "$FROMSUBL/Default '(MACOS)'.sublime-keymap" ]] && rsync -avz "$FROMSUBL/Default '(MACOS)'.sublime-keymap" "$TOSUBL"
+  [[ -e "$FROMSUBL/less.sublime-build" ]] && rsync -avz "$FROMSUBL/less.sublime-build" "$TOSUBL"
+  [[ -e "$FROMSUBL/Package Control.sublime-settings" ]] && rsync -avz "$FROMSUBL/Package Control.sublime-settings" "$TOSUBL"
+  [[ -e "$FROMSUBL/phpfmt.sublime-settings" ]] && rsync -avz "$FROMSUBL/phpfmt.sublime-settings" "$TOSUBL"
+  [[ -e "$FROMSUBL/PlainTasks.sublime-settings" ]] && rsync -avz "$FROMSUBL/PlainTasks.sublime-settings" "$TOSUBL"
+  [[ -e "$FROMSUBL/Preferences.sublime-settings" ]] && rsync -avz "$FROMSUBL/Preferences.sublime-settings" "$TOSUBL"
 
-    echo "Syncing Sublime Text 3 prefs..."
-    FROMSUBL=$( cd $FROMLIB/Application\ Support/Sublime\ Text\ 3/Packages/User && pwd )
-    TOSUBL=$( cd $TOLIB/Application\ Support/Sublime\ Text\ 3/Packages/User && pwd )
-    echo $FROMSUBL
-    echo $TOSUBL
-    [[ -a "$FROMSUBL/Snippets" ]] && rsync -avz $FROMSUBL/Snippets $TOSUBL
-    [[ -a "$FROMSUBL/Themes" ]] && rsync -avz $FROMSUBL/Themes $TOSUBL
-    [[ -a "$FROMSUBL"/Default\ '(MACOS)'.sublime-keymap ]] && rsync -avz $FROMSUBL/Default\ '(MACOS)'.sublime-keymap $TOSUBL
-    [[ -a "$FROMSUBL/less.sublime-build" ]] && rsync -avz $FROMSUBL/less.sublime-build $TOSUBL
-    [[ -a "$FROMSUBL"/Package\ Control.sublime-settings ]] && rsync -avz $FROMSUBL/Package\ Control.sublime-settings $TOSUBL
-    [[ -a "$FROMSUBL/phpfmt.sublime-settings" ]] && rsync -avz $FROMSUBL/phpfmt.sublime-settings $TOSUBL
-    [[ -a "$FROMSUBL/PlainTasks.sublime-settings" ]] && rsync -avz $FROMSUBL/PlainTasks.sublime-settings $TOSUBL
-    [[ -a "$FROMSUBL/Preferences.sublime-settings" ]] && rsync -avz $FROMSUBL/Preferences.sublime-settings $TOSUBL
-
-    if test $(command -v tree); then
-        tree $DOTMACOSINIT
-    else
-        ls -al $DOTMACOSINIT
-    fi
-
-    echo "...done syncing preferences."
-
+  if test "$(command -v tree)"; then
+    tree "$DOTMACOSINIT"
+  else
+    ls -al "$DOTMACOSINIT"
+  fi
+  echo "...done syncing preferences."
 }

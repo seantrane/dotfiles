@@ -12,7 +12,8 @@
 # Returns:
 #   None
 #######################################
-run_or_fail () {
+run_or_fail() {
+  local cmd
   cmd=$(echo "$*" | tr '\n' ' ' | sed 's/.$//')
   echo "Running (\`${cmd}\`), or failing..."
   if "$@"; then

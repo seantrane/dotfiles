@@ -3,10 +3,10 @@
 # `a` with no arguments opens the current directory in Atom Editor, otherwise
 # opens the given location
 
-a () {
-    if [ $# -eq 0 ]; then
-        atom .;
-    else
-        atom "$@";
-    fi;
+a() {
+  if [ $# -eq 0 ]; then
+    atom .
+  else
+    atom "$@"
+  fi
 }

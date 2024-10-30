@@ -3,8 +3,8 @@
 # Homebrew Cask Install
 # Supports install and reinstalling casks.
 
-cask_install () {
-  if ! type "brew" &> /dev/null; then
+cask_install() {
+  if ! type "brew" &>/dev/null; then
     echo "'brew' command not found."
     return 1
   fi

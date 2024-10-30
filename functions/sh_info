@@ -2,7 +2,7 @@
 #
 # Shell Response Helper: INFO
 
-sh_info () {
-    # shellcheck disable=SC2059
-    printf "${ClearNewLine:-} [${Blue:-} .. ${Reset:-}]  ${1:-} \\n"
+sh_info() {
+  # shellcheck disable=SC2059
+  printf "${ClearNewLine:-} [${Blue:-} .. ${Reset:-}]  ${1:-} \\n"
 }

@@ -6,7 +6,7 @@
 # Examples:
 #   find_files ./directory/path '*.sh'
 
-find_files () {
+find_files() {
   local _find_path="${1:-}"
   local _find_artifact="${2:-}"
   local _find_depth="${3:-1}"

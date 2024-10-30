@@ -3,33 +3,36 @@
 # Create a .icns iconset from a Filename.png
 # Creates icon-set directory with multi-sized PNGs, using `iconutil` to make ICNS file
 
-makeicns () {
-    local pngFile="${@}.png";
-    if [ -f "$pngFile" ]; then
-        # Make iconset directory
-        local Iconset="${@%/}.iconset";
-        mkdir "${Iconset}";
-        echo "Temporary Iconset directory created.";
-        sips -z 16 16     "${pngFile}" --out "${Iconset}/icon_16x16.png"
-        sips -z 32 32     "${pngFile}" --out "${Iconset}/icon_16x16@2x.png"
-        sips -z 32 32     "${pngFile}" --out "${Iconset}/icon_32x32.png"
-        sips -z 64 64     "${pngFile}" --out "${Iconset}/icon_32x32@2x.png"
-        sips -z 128 128   "${pngFile}" --out "${Iconset}/icon_128x128.png"
-        sips -z 256 256   "${pngFile}" --out "${Iconset}/icon_128x128@2x.png"
-        sips -z 256 256   "${pngFile}" --out "${Iconset}/icon_256x256.png"
-        sips -z 512 512   "${pngFile}" --out "${Iconset}/icon_256x256@2x.png"
-        sips -z 512 512   "${pngFile}" --out "${Iconset}/icon_512x512.png"
-        cp "${pngFile}" "${Iconset}/icon_512x512@2x.png";
-        echo "Icons created.";
-        iconutil -c icns "${Iconset}";
-        if [ -f "${@%/}.icns" ]; then
-            echo "${@%/}.icns file created successfully.";
-        else
-            echo "Iconset file (${@%/}.icns) may not have been created successfully.";
-        fi
-        rm -R "${Iconset}";
-        echo "Iconset directory removed.";
+makeicns() {
+  local pngFile Iconset _basename _filename
+  pngFile="${1:-}"
+  _basename="$(basename "$pngFile")"
+  _filename="${_basename::-4}"
+  if [[ -f "$pngFile" ]]; then
+    # Make iconset directory
+    Iconset="${_filename}.iconset"
+    mkdir "${Iconset}"
+    echo "Temporary Iconset directory created."
+    sips -z 16 16 "${pngFile}" --out "${Iconset}/icon_16x16.png"
+    sips -z 32 32 "${pngFile}" --out "${Iconset}/icon_16x16@2x.png"
+    sips -z 32 32 "${pngFile}" --out "${Iconset}/icon_32x32.png"
+    sips -z 64 64 "${pngFile}" --out "${Iconset}/icon_32x32@2x.png"
+    sips -z 128 128 "${pngFile}" --out "${Iconset}/icon_128x128.png"
+    sips -z 256 256 "${pngFile}" --out "${Iconset}/icon_128x128@2x.png"
+    sips -z 256 256 "${pngFile}" --out "${Iconset}/icon_256x256.png"
+    sips -z 512 512 "${pngFile}" --out "${Iconset}/icon_256x256@2x.png"
+    sips -z 512 512 "${pngFile}" --out "${Iconset}/icon_512x512.png"
+    cp "${pngFile}" "${Iconset}/icon_512x512@2x.png"
+    echo "Icons created."
+    iconutil -c icns "${Iconset}"
+    if [ -f "${_filename}.icns" ]; then
+      echo "${_filename}.icns file created successfully."
     else
-        echo "Valid PNG file could not be found; ${pngFile}";
+      echo "Iconset file (${_filename}.icns) may not have been created successfully."
     fi
+    rm -R "${Iconset}"
+    echo "Iconset directory removed."
+  else
+    echo "Valid PNG file could not be found; ${pngFile}"
+  fi
 }

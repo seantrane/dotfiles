@@ -16,22 +16,19 @@
 # Returns:
 #   SEMVER
 #######################################
-git_release_to_semver () {
-
+git_release_to_semver() {
+  local gitBranchName semver
   gitBranchName=$(
-    git symbolic-ref --quiet --short HEAD 2> /dev/null ||
-    git rev-parse --short HEAD 2> /dev/null ||
-    echo '(unknown)'
-  );
-
+    git symbolic-ref --quiet --short HEAD 2>/dev/null ||
+      git rev-parse --short HEAD 2>/dev/null ||
+      echo '(unknown)'
+  )
   semver=$(
-    echo ${gitBranchName} |
-    grep "^release\/[0-9]\+\.[0-9]\+\.[0-9]\+$" |
-    sed 's/^release\///' |
-    sort -t. -k 1,1n -k 2,2n -k 3,3n |
-    tail -1
-  );
-
-  echo $semver
-
+    echo "${gitBranchName}" |
+      grep "^release\/[0-9]\+\.[0-9]\+\.[0-9]\+$" |
+      sed 's/^release\///' |
+      sort -t. -k 1,1n -k 2,2n -k 3,3n |
+      tail -1
+  )
+  echo "$semver"
 }

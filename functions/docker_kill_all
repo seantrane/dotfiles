@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 #
 # Kill all running Docker containers
+# shellcheck disable=SC2046
 
-docker_kill_all () {
-
-  [[ "$(docker ps -q)" ]] && docker kill $(docker ps -q) < /dev/null 2> /dev/null
+docker_kill_all() {
+  [[ "$(docker ps -q)" ]] && docker kill $(docker ps -q) </dev/null 2>/dev/null
 
   docker ps -a
-
 }

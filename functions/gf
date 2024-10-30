@@ -2,7 +2,6 @@
 #
 # gf <branch> = git checkout -b <branch>
 
-gf () {
-    local branch=$1
-    git checkout -b $branch origin/$branch
+gf() {
+  git checkout -b "${1:-}" "origin/${1:-}"
 }

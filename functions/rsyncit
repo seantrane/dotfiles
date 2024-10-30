@@ -5,10 +5,8 @@
 #   rsyncit up "${HOME}/Documents/" "/Volumes/DriveName/Documents"
 #   rsyncit down "/Volumes/DriveName/Documents/" "${HOME}/Documents"
 
-rsyncit () {
-
-  FLAGS=()
-
+rsyncit() {
+  local FLAGS=()
   if [[ "${1:-}" != "up" ]] && [[ "${1:-}" != "down" ]]; then
     echo "ERROR: Specify 'up' or 'down' as the first argument."
     return 1
@@ -18,12 +16,10 @@ rsyncit () {
       FLAGS+=(--delete-excluded)
     fi
   fi
-
   if [[ -z "${2:-}" ]]; then
     echo "ERROR: Specify a source path as the second argument."
     return 1
   fi
-
   if [[ -z "${3:-}" ]]; then
     echo "ERROR: Specify a destination path as the third or last argument."
     return 1

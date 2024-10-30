@@ -3,8 +3,8 @@
 # Homebrew Cask Upgrades
 # Supports iterative/optional upgrading of all installed casks.
 
-cask_upgrade () {
-  if ! type "brew" &> /dev/null; then
+cask_upgrade() {
+  if ! type "brew" &>/dev/null; then
     echo "'brew' command not found."
     return 1
   fi
@@ -28,21 +28,21 @@ cask_upgrade () {
     brew cask info "$cask_name"
     select ynx in "Yes" "No" "Exit"; do
       case $ynx in
-        [yY] | [yY][Ee][Ss] )
-          echo "Uninstalling $cask_name"
-          brew cask uninstall --force "$cask_name"
-          echo "Re-installing $cask_name"
-          brew cask install "$cask_name"
-          break
-          ;;
-        [nN] | [n|N][O|o] )
-          echo "Skipping $cask_name"
-          break
-          ;;
-        * )
-          echo "Exiting brew-cask-upgrade"
-          return
-          ;;
+      [yY] | [yY][Ee][Ss])
+        echo "Uninstalling $cask_name"
+        brew cask uninstall --force "$cask_name"
+        echo "Re-installing $cask_name"
+        brew cask install "$cask_name"
+        break
+        ;;
+      [nN] | [n | N][O | o])
+        echo "Skipping $cask_name"
+        break
+        ;;
+      *)
+        echo "Exiting brew-cask-upgrade"
+        return
+        ;;
       esac
     done
   done

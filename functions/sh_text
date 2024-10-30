@@ -2,7 +2,7 @@
 #
 # Shell Response Helper: TEXT
 
-sh_text () {
-    # shellcheck disable=SC2059
-    printf "${ClearLine:-}         ${1:-} \\n"
+sh_text() {
+  # shellcheck disable=SC2059
+  printf "${ClearLine:-}         ${1:-} \\n"
 }

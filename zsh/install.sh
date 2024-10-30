@@ -4,10 +4,10 @@
 
 # Shell Support
 # shellcheck disable=SC1090,SC1091
-[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
+[[ -z "$SHELLSUPPORT" ]] && . "$(cd "${BASH_SOURCE%/*}/.." && pwd)/shell/support.sh"
 
 sh_info "Installing/updating Zshell + zsh-completions..."
-if type "brew" &> /dev/null; then
+if type "brew" &>/dev/null; then
   # Install Zsh and Zsh completions
   brew install zsh zsh-completions
   # Install oh-my-zsh on top of zsh to getting additional functionality
@@ -15,19 +15,19 @@ if type "brew" &> /dev/null; then
   # Add the new shell to the list of allowed shells
   if [ -e "$(brew --prefix)/bin/zsh" ]; then
     sh_info "Adding Zsh to your allowed shells (/etc/shells)..."
-    if type "tee" &> /dev/null; then
+    if type "tee" &>/dev/null; then
       sudo tee -a /etc/shells <<<"$(brew --prefix)/bin/zsh"
     else
       sudo bash -c 'echo "$(brew --prefix)/bin/zsh" >> /etc/shells'
     fi
   fi
-elif type "apt-get" &> /dev/null; then
+elif type "apt-get" &>/dev/null; then
   sudo apt-get -y install zsh
-elif type "yum" &> /dev/null; then
+elif type "yum" &>/dev/null; then
   sudo yum install zsh
 fi
 
-if type "zsh" &> /dev/null; then
+if type "zsh" &>/dev/null; then
   sh_success "$(zsh --version) installed: $(command -v zsh)"
   # Make Zsh your default shell.
   # This will not work if Zsh is not in your authorized shells list (/etc/shells).
@@ -35,12 +35,12 @@ if type "zsh" &> /dev/null; then
   sh_yesno "Make Zsh your default shell?"
   read -r -n 1 action
   case "$action" in
-    y )
-      sh_info "Make Zsh your default shell..."
-      sh_note "This will not work if Zsh is not in your authorized shells list (/etc/shells)."
-      chsh -s "$(brew --prefix)/bin/zsh"
-      sh_alert "Restart your terminal to apply changes."
-      ;;
+  y)
+    sh_info "Make Zsh your default shell..."
+    sh_note "This will not work if Zsh is not in your authorized shells list (/etc/shells)."
+    chsh -s "$(brew --prefix)/bin/zsh"
+    sh_alert "Restart your terminal to apply changes."
+    ;;
   esac
 
   sh_note "Your active shell is: $SHELL"

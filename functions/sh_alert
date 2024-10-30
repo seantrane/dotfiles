@@ -2,7 +2,7 @@
 #
 # Shell Response Helper: ALERT
 
-sh_alert () {
-    # shellcheck disable=SC2059
-    printf "${ClearNewLine:-} [${Yellow:-} !! ${Reset:-}]  ${Yellow:-}${1:-}${Reset:-} \\n"
+sh_alert() {
+  # shellcheck disable=SC2059
+  printf "${ClearNewLine:-} [${Yellow:-} !! ${Reset:-}]  ${Yellow:-}${1:-}${Reset:-} \\n"
 }

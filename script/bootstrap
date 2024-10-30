@@ -4,11 +4,11 @@
 # bootstrap installs things.
 
 # Shell Support
-[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
+[[ -z "$SHELLSUPPORT" ]] && . "$(cd "${BASH_SOURCE%/*}/.." && pwd)/shell/support.sh"
 
 [[ -z "$DOTFILES" ]] && DOTFILES="$HOME/.dotfiles"
 
-if ! type "sh_success" &> /dev/null; then
+if ! type "sh_success" &>/dev/null; then
   . "$DOTFILES/functions/sh_alert"
   . "$DOTFILES/functions/sh_error"
   . "$DOTFILES/functions/sh_fail"
@@ -28,7 +28,11 @@ fi
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
 
 set -e
 
@@ -36,7 +40,7 @@ set -e
 # GIT CONFIG
 #-------------------------------------------------------------------------------
 
-setup_gitconfig () {
+setup_gitconfig() {
   if [[ ! -r "$DOTFILES/git/gitconfig.symlink" ]]; then
     sh_info 'Setting up gitconfig.symlink'
     sh_note 'These will be user-default (most commonly used) settings.'
@@ -51,11 +55,11 @@ setup_gitconfig () {
     read -r -e git_authoremail
     # Inject Git user info to gitconfig.symlink, using config-template.
     sed -e "s/AUTHORNAME/$git_authorname/g" \
-        -e "s/AUTHOREMAIL/$git_authoremail/g" \
-        -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" \
-        "$DOTFILES/git/gitconfig.symlink.example" > "$DOTFILES/git/gitconfig.symlink"
+      -e "s/AUTHOREMAIL/$git_authoremail/g" \
+      -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" \
+      "$DOTFILES/git/gitconfig.symlink.example" >"$DOTFILES/git/gitconfig.symlink"
     # Evaluate success
-    [[ -r "$DOTFILES/git/gitconfig.symlink" ]] && \
+    [[ -r "$DOTFILES/git/gitconfig.symlink" ]] &&
       sh_success 'gitconfig.symlink is now ready for symlinking to ~/.gitconfig'
   else
     sh_note 'gitconfig.symlink already exists. Please edit manually.'
@@ -86,7 +90,7 @@ install_dotfiles
 . "$DOTFILES/brew/init_install.sh"
 _init_or_install_homebrew
 
-if ! type "brew" &> /dev/null; then
+if ! type "brew" &>/dev/null; then
   sh_error "Install of Homebrew not found."
   sh_fail "Please install manually. See: https://brew.sh"
 fi
@@ -133,12 +137,12 @@ fi
 # Install Prezto first to be ready for Zsh config.
 if [[ ! -d "$HOME/.zprezto" ]]; then
   sh_info "Installing Prezto to the home directory: ~/.prezto"
-  if type "git" &> /dev/null; then
+  if type "git" &>/dev/null; then
     git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
-  elif type "curl" &> /dev/null; then
+  elif type "curl" &>/dev/null; then
     cd || echo
-    curl -LOk https://github.com/sorin-ionescu/prezto/archive/master.zip \
-    && unzip master.zip && mv prezto-master .prezto && rm master.zip
+    curl -LOk https://github.com/sorin-ionescu/prezto/archive/master.zip &&
+      unzip master.zip && mv prezto-master .prezto && rm master.zip
   fi
 fi
 

@@ -14,14 +14,14 @@
 # Returns:
 #   None
 #######################################
-docker_clean () {
+docker_clean() {
 
   if [[ "${1:-}" != "" ]] && [[ "$(docker ps -aqf "name=${1:-}")" != "" ]]; then
-    docker kill "${1:-}" < /dev/null 2> /dev/null
+    docker kill "${1:-}" </dev/null 2>/dev/null
     docker ps -a
-    docker rm -f "${1:-}" < /dev/null 2> /dev/null
+    docker rm -f "${1:-}" </dev/null 2>/dev/null
     docker ps
-    [[ "${2:-}" != "" ]] && docker rmi -f "${2:-}" < /dev/null 2> /dev/null
+    [[ "${2:-}" != "" ]] && docker rmi -f "${2:-}" </dev/null 2>/dev/null
     docker images
     docker ps -a
   else
@@ -30,9 +30,9 @@ docker_clean () {
     PREV_IMAGES="$(docker images -aq)"
     # shellcheck disable=SC2206
     PREV_IMAGE_IDS=(${PREV_IMAGE_IDS[@]})
-    docker kill "${PREV_CONTAINER_ID}" < /dev/null 2> /dev/null
+    docker kill "${PREV_CONTAINER_ID}" </dev/null 2>/dev/null
     docker ps -a
-    docker rm -f "${PREV_CONTAINER_ID}" < /dev/null 2> /dev/null
+    docker rm -f "${PREV_CONTAINER_ID}" </dev/null 2>/dev/null
     docker ps
   fi
 
