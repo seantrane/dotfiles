@@ -14,7 +14,7 @@ cask_args appdir: "/Applications" # GLOBAL/DEFAULT CONFIG
 # TAPS
 #-------------------------------------------------------------------------------
 #
-tap "homebrew/cask"
+# tap "homebrew/cask" # "Tapping homebrew/cask is no longer typically necessary."
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 #
@@ -27,12 +27,12 @@ tap "homebrew/cask-versions"
 brew "coreutils" if OS.mac? # [GNU File, Shell, Text utilities](https://www.gnu.org/software/coreutils)
 brew "moreutils" # [UNIX tools, like Sponge](https://joeyh.name/code/moreutils/)
 brew "findutils" if OS.mac? # [GNU Find, Xargs, Locate](https://www.gnu.org/software/findutils/)
-brew "gcc" if OS.mac? # [GNU compiler collection](https://gcc.gnu.org/)
+# brew "gcc" if OS.mac? # !!! NO BOTTLE [GNU compiler collection](https://gcc.gnu.org/)
 #
 # COMPRESSION BINARIES
 #
 brew "bzip2" # [data compressor](https://sourceware.org/bzip2/)
-brew "libzip" # [C library for zip archives](https://libzip.org/)
+# brew "libzip" # !!! NO BOTTLE [C library for zip archives](https://libzip.org/)
 brew "p7zip" # [7-Zip file archiver](http://p7zip.sourceforge.net)
 # brew "pigz" # [Parallel gzip](http://www.zlib.net/pigz/)
 brew "zlib" # [lossless compression library](https://zlib.net/)
@@ -40,36 +40,36 @@ brew "zlib" # [lossless compression library](https://zlib.net/)
 #
 # SHELL BINARIES
 #
-brew "bash" # [Bourne-Again SHell (Bash)](https://www.gnu.org/software/bash/)
-brew "bash-completion2"
+# brew "bash" # !!! NO BOTTLE [Bourne-Again SHell (Bash)](https://www.gnu.org/software/bash/)
+brew "bash-completion@2"
 brew "grc" # [shell colorization](http://www.man-online.org/page/1-grc/)
 brew "zsh" # [Z shell (Zsh)](https://www.zsh.org/)
 brew "zsh-completions"
 #
 # GIT BINARIES
 #
-brew "git"
-brew "git-lfs" # Git-LFS (Large File Support)
-brew "libgit2" # [C library of Git core methods](https://libgit2.github.com/)
+# brew "git" # !!! NO BOTTLE
+# brew "git-lfs" # !!! NO BOTTLE Git-LFS (Large File Support)
+# brew "libgit2" # !!! NO BOTTLE !!! FAILS [C library of Git core methods](https://libgit2.github.com/)
 brew "git-xargs" # [CLI for bulk repos changes + pull requests](https://github.com/gruntwork-io/git-xargs)
 #
 # CORE BINARIES
 #
 brew "ack" # [optimized grep-like search](http://beyondgrep.com)
-brew "curl" # [Get files via HTTP, HTTPS, FTP](https://curl.se)
-brew "gnu-sed", args: ["with-default-names"]
+  # brew "curl" # [Get files via HTTP, HTTPS, FTP](https://curl.se)
+brew "gnu-sed" if OS.mac?
 brew "grep" # [GNU grep, egrep, fgrep](https://www.gnu.org/software/grep/)
 brew "jq" # [command-line JSON processor](https://jqlang.github.io/jq/)
-brew "openssh" # [OpenBSD SSH connectivity tools](https://www.openssh.com)
-brew "openssl" # [Cryptography and SSL/TLS Toolkit](https://openssl.org)
+# brew "openssh" # !!! NO BOTTLE !!! FAILS [OpenBSD SSH connectivity tools](https://www.openssh.com)
+# brew "openssl" # !!! NO BOTTLE !!! FAILS? [Cryptography and SSL/TLS Toolkit](https://openssl.org)
 # brew "vim", args: ["override-system-vi"]
-brew "wget", args: ["with-iri"]
+brew "wget" if OS.mac?
 #
 # POPULAR BINARIES
 #
 # brew "imagemagick" # [Image manipulation](https://www.imagemagick.org)
 brew "pass" # [Password management](https://www.passwordstore.org/)
-brew "pv" # [Monitor progress via pipe](https://www.ivarch.com/programs/pv.shtml)
+# brew "pv" # !!! NO BOTTLE [Monitor progress via pipe](https://www.ivarch.com/programs/pv.shtml)
 brew "rename" # [Perl-powered file renamer](http://plasmasturm.org/code/rename)
 brew "screen" # [Terminal multiplexer](https://www.gnu.org/software/screen)
 brew "spark" # [Spark](http://zachholman.com/spark/)
@@ -97,41 +97,39 @@ brew "readline" # [Library for command-line editing](https://tiswww.case.edu/php
 #
 # DEV TOOLS
 #
-brew "awscli"
-brew "cloud-nuke" # [CLI tool to delete all cloud resources](https://github.com/gruntwork-io/cloud-nuke)
-brew "dependency-check" # [OWASP dependency-check](https://owasp.org/www-project-dependency-check/)
+# brew "awscli" # !!! NO BOTTLE !!! HANGS
+# brew "cloud-nuke" # [CLI tool to delete all cloud resources](https://github.com/gruntwork-io/cloud-nuke)
+# brew "dependency-check" # # !!! REQUIRES XCODE [OWASP dependency-check](https://owasp.org/www-project-dependency-check/)
 brew "dive" # [Inspection of docker image layers](https://github.com/wagoodman/dive)
 # brew "elixir"
 # brew "erlang"
 # brew "galen"
-brew "go"
-brew "gradle"
-brew "helm"
+# brew "go" # !!! NO BOTTLE
+# brew "gradle" # !!! REQUIRES XCODE
 # brew "heroku"
-brew "kubectl"
-brew "maven"
+# brew "maven" # !!! REQUIRES XCODE
 # brew "mcrypt"
 # brew "memcached"
-brew "minikube"
 # brew "mongodb"
 # brew "mysql", restart_service: true, link: true, conflicts_with: ["mysql"]
-brew "node"
+# brew "node" # !!! NO BOTTLE
+brew "opentofu"
 brew "oras" # [push/pull OCI Artifacts to/from OCI Registries](https://oras.land/docs/)
 brew "p11-kit" # [Lib for PKCS#11 modules](https://p11-glue.freedesktop.org)
-brew "packer"
+# brew "packer" # !!! DISABLED BECAUSE OF BSL (license)
 # brew "php"
 # brew "php-code-sniffer"
 # brew "phpunit"
 # brew "postgresql"
-brew "python"
+# brew "python" # !!! NO BOTTLE
 # brew "rbenv"
 # brew "redis"
 # brew "ruby-build"
 brew "shellcheck" # [ShellCheck](https://github.com/koalaman/shellcheck)
 # brew "sqlite"
-brew "terraform"
-brew "terragrunt" # [thin wrapper for Terraform](https://terragrunt.gruntwork.io)
-brew "tflint"
+# brew "terraform" # !!! DISABLED BECAUSE OF BSL (license)
+# brew "terragrunt" # !!! NO BOTTLE [thin wrapper for Terraform](https://terragrunt.gruntwork.io)
+# brew "tflint"
 # brew "vault"
 brew "yarn"
 brew "yq" # [lightweight YAML, JSON, XML processor](https://github.com/mikefarah/yq)
@@ -153,7 +151,7 @@ cask "audio-hijack"
 # cask "cyberduck"
 # cask "dash"
 # cask "dash-beta"
-cask "docker"
+# cask "docker" # !!! NO BOTTLE
 # cask "drobo-dashboard"
 # cask "dropbox"
 # cask "evernote"
@@ -172,7 +170,6 @@ cask "imageoptim"
 # cask "intellij-idea"
 # cask "intellij-idea-ce"
 cask "iterm2"
-cask "java" unless system "/usr/libexec/java_home --failfast"
 # cask "jenkins"
 # cask "jenkins-lts"
 # cask "jenkins-menu"
@@ -181,21 +178,23 @@ cask "java" unless system "/usr/libexec/java_home --failfast"
 cask "keybase"
 cask "krita"
 # cask "little-snitch"
-cask "macpar-deluxe"
+# cask "macpar-deluxe" # !!! ONLY for Intel macOS
 # cask "mamp"
 # cask "microsoft-lync"
 # cask "microsoft-office"
+# cask "microsoft-openjdk" # opensource replacement for java, openjdk
 cask "mongodb-compass"
-cask "musicbrainz-picard"
+# cask "musicbrainz-picard" # !!! ONLY for Intel macOS
 cask "native-access"
 cask "nzbget"
 # cask "openoffice"
 # cask "phpstorm"
 cask "postman"
+cask "rancher" # also adds docker, compose, helm, k8s, etc.
 # cask "screenflow"
 cask "sequel-pro"
 cask "skype"
-cask "slack"
+# cask "slack"
 cask "sourcetree"
 # cask "spectacle"
 # cask "stellarium"
@@ -222,16 +221,16 @@ cask "zoom"
 #-------------------------------------------------------------------------------
 #
 cask "font-arimo"
-cask "font-dejavu-sans"
+# cask "font-dejavu-sans" # MISSING
 cask "font-fontawesome"
 cask "font-inconsolata"
 cask "font-lora"
 cask "font-open-iconic"
 cask "font-open-sans"
-cask "font-open-sans-condensed"
+# cask "font-open-sans-condensed" # MISSING
 cask "font-source-code-pro"
-cask "font-source-sans-pro"
-cask "font-source-serif-pro"
+# cask "font-source-sans-pro" # MISSING
+# cask "font-source-serif-pro" # MISSING
 cask "font-ubuntu"
 #
 #-------------------------------------------------------------------------------
@@ -285,7 +284,7 @@ whalebrew "composer/composer" # [PHP Composer](https://getcomposer.org/doc/00-in
 #
 vscode "johnpapa.Angular2" # [Angular Snippets](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)
 vscode "mrmlnc.vscode-apache" # [Apache Conf](https://marketplace.visualstudio.com/items?itemName=mrmlnc.vscode-apache)
-vscode "asciidoctor/asciidoctor-vscode" # [AsciiDoc support](https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode)
+vscode "asciidoctor.asciidoctor-vscode" # [AsciiDoc support](https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode)
 vscode "ms-vscode.atom-keybindings" # [Atom Keymap](https://marketplace.visualstudio.com/items?itemName=ms-vscode.atom-keybindings)
 vscode "formulahendry.auto-close-tag" # [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag)
 vscode "formulahendry.auto-rename-tag" # [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)

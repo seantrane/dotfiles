@@ -3,9 +3,9 @@
 # Run all dotfiles installers.
 # shellcheck disable=SC1090,SC1091
 
-[[ ! -d "${DOTFILES:-}" ]] && DOTFILES=$( cd "${BASH_SOURCE%/*}/.." && pwd )
+[[ ! -d "${DOTFILES:-}" ]] && DOTFILES=$(cd "${BASH_SOURCE%/*}/.." && pwd)
 
-type "find_files" &> /dev/null || . "$DOTFILES/functions/find_files"
+type "find_files" &>/dev/null || . "$DOTFILES/functions/find_files"
 
 # Install all other dot-packages
 # find the installers and run them iteratively
@@ -14,28 +14,47 @@ for _file in $(find_files "$DOTFILES" 'install.sh' 2); do
 done
 
 # Homebrew installs
-if type "brew" &> /dev/null; then
-  # Install deps/apps using Brewfile
+if type "brew" &>/dev/null; then
+  # Sadly, many dependecies cannot be installed by Homebrew Bundle
+  # because there is "... (no bottle for Apple Silicon)".
+  # However, in most cases, `brew install [formula]` does work.
+  # There is no workaround for this except to install manually.
+  # When there are finally "bottles for Apple Silicon",
+  # the workaround below can be refactored accordingly.
+  brew install \
+    bash \
+    curl \
+    gcc \
+    libzip \
+    git \
+    git-lfs \
+    curl \
+    pv \
+    node \
+    ;
+  # Install deps/apps using Brewfile (Homebrew Bundle)
   if [[ -r "$HOME/.Brewfile" ]]; then
-    export HOMEBREW_BUNDLE_FILE="$HOME/.Brewfile"
-    brew bundle install --global
-    brew bundle check
+    (
+      cd && brew bundle --global --file "$HOME/.Brewfile"
+      brew bundle check
+    )
   fi
   # Remove outdated versions from the cellar.
   brew cleanup
 fi
 
 # Node.js/npm installs
-if type "npm" &> /dev/null; then
+if type "npm" &>/dev/null; then
   npm install -g \
     cucumber \
     serverless \
     yo \
     ;
+  npm cache clean -g -f
 fi
 
 # Ruby/Bundler installs
-if type "bundle" &> /dev/null && [[ -r "$HOME/.Gemfile" ]]; then
+if type "bundle" &>/dev/null && [[ -r "$HOME/.Gemfile" ]]; then
   (cd && bundle install --gemfile="$HOME/.Gemfile")
 fi
 
@@ -51,11 +70,11 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
 
   : # Linux
 
-  if type "apt-get" &> /dev/null; then
+  if type "apt-get" &>/dev/null; then
 
     : # Debian or Ubuntu:
 
-  elif type "yum" &> /dev/null; then
+  elif type "yum" &>/dev/null; then
 
     : # Fedora, CentOS or Red Hat:
 
