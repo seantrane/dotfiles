@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [2.1.6](https://github.com/seantrane/dotfiles/compare/v2.1.5...v2.1.6) (2024-10-30)
+
+
+### Bug Fixes
+
+* add giticons alias for prompt icon descriptions ([17cf27c](https://github.com/seantrane/dotfiles/commit/17cf27c5813ef0195e9e65447bbed2dfb9a3a789))
+* add xcode installation scripting ([655d0a7](https://github.com/seantrane/dotfiles/commit/655d0a702c093a85584adae0be5ad23328f0ffd8))
+* clean up install issues, update dependency lists ([3b55215](https://github.com/seantrane/dotfiles/commit/3b55215e0c60eb529a7a427f882056a32e68e2c8))
+* protect vscode-settings from overwrite ([0e393c6](https://github.com/seantrane/dotfiles/commit/0e393c6d11154545eab0c3974d3aa21d024c140c))
+
 ## [2.1.5](https://github.com/seantrane/dotfiles/compare/v2.1.4...v2.1.5) (2024-10-30)
 
 
