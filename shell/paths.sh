@@ -3,7 +3,7 @@
 # PATH / MANPATH exports
 # Defines the $PATH export/variable for shell environments.
 
-type "find_files" &> /dev/null || . "$DOTFILES/functions/find_files"
+type "find_files" &>/dev/null || . "$DOTFILES/functions/find_files"
 
 #-------------------------------------------------------------------------------
 # BINARIES/SCRIPTS
@@ -31,22 +31,33 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # LOAD DOTFILES PATHS:
 # for file in ~/.dotfiles/{git,system}/path.sh; do
-for _file in $(find_files "$DOTFILES" 'path.sh' 2); do . "$_file"; done; unset _file
-
-# CUSTOM/USER PATHS
-# `~/.path` can be used to extend `$PATH`.
-[[ -f "$HOME/.path" ]] && . "$HOME/.path"
+for _file in $(find_files "$DOTFILES" 'path.sh' 2); do . "$_file"; done
+unset _file
 
 #-------------------------------------------------------------------------------
 # HOMEBREW
 #-------------------------------------------------------------------------------
 
 # Homebrew init.
-[[ -f "$DOTFILES/brew/init_install.sh" ]] && . "$DOTFILES/brew/init_install.sh" \
-  && _init_homebrew
+[[ -f "$DOTFILES/brew/init_install.sh" ]] && . "$DOTFILES/brew/init_install.sh" &&
+  _init_homebrew
 
 # Homebrew path must come first to override system binaries.
 export PATH="${HOMEBREW_PREFIX:-/usr/local}/bin:$PATH"
+
+#-------------------------------------------------------------------------------
+# RANCHER
+#-------------------------------------------------------------------------------
+
+# Rancher - finally, so Rancher can control docker, kubectl, helm, etc.
+[[ -d "$HOME/.rd/bin" ]] && export PATH="$HOME/.rd/bin:$PATH"
+
+#-------------------------------------------------------------------------------
+# CUSTOM/USER PATHS
+#-------------------------------------------------------------------------------
+
+# `~/.path` can be used to extend `$PATH`.
+[[ -f "$HOME/.path" ]] && . "$HOME/.path"
 
 #-------------------------------------------------------------------------------
 # HELP DOCS/MANUALS
@@ -61,7 +72,7 @@ export PATH="${HOMEBREW_PREFIX:-/usr/local}/bin:$PATH"
 # CLEANUP PATH, MANPATH - Ensure arrays do not contain duplicates.
 #-------------------------------------------------------------------------------
 
-if type "awk" &> /dev/null; then
+if type "awk" &>/dev/null; then
   PATH=$(echo -n "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
   export PATH
 

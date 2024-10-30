@@ -2,10 +2,10 @@
 #
 # PATH inclusions
 
-[[ ! -d "${DOTFILES:-}" ]] && DOTFILES=$( cd "${BASH_SOURCE%/*}/.." && pwd )
+[[ ! -d "${DOTFILES:-}" ]] && DOTFILES=$(cd "${BASH_SOURCE%/*}/.." && pwd)
 
 # shellcheck disable=SC1091
-type "find_files" &> /dev/null || . "$DOTFILES/functions/find_files"
+type "find_files" &>/dev/null || . "$DOTFILES/functions/find_files"
 
 _brewd="${HOMEBREW_PREFIX:-/usr/local}"
 
@@ -58,7 +58,7 @@ _gitd="$_brewd/opt/git"
 
 _golangd="$_brewd/opt/golang"
 _gohomed="$HOME/go"
-if type "go" &> /dev/null; then
+if type "go" &>/dev/null; then
   mkdir -p "$_gohomed"/{bin,src,pkg}
   GOPATH="$_gohomed"
   [[ -d "$_golangd/libexec" ]] && GOROOT="$_golangd/libexec"
@@ -75,8 +75,8 @@ _javad="$_brewd/opt/openjdk"
 _jvmd="/Library/Java/JavaVirtualMachines"
 if [[ -d "$_javad/bin" ]]; then
   # For the system Java wrappers to find this JDK, symlink it with:
-  if [[ -d "$_jvmd" ]] && [[ ! -e "$_jvmd/openjdk.jdk" ]] \
-        && [[ -e "$_javad/libexec/openjdk.jdk" ]]; then
+  if [[ -d "$_jvmd" ]] && [[ ! -e "$_jvmd/openjdk.jdk" ]] &&
+    [[ -e "$_javad/libexec/openjdk.jdk" ]]; then
     sudo ln -sfn "$_javad/libexec/openjdk.jdk" "$_jvmd/openjdk.jdk"
   fi
   # openjdk is keg-only, which means it was not symlinked into $(brew --prefix),
@@ -125,8 +125,7 @@ if [[ -d "$_rubyd/bin" ]]; then
   # For pkg-config to find ruby you may need to set:
   [[ -d "$_rubyd/lib/pkgconfig" ]] && PKG_CONFIG_PATH="$_rubyd/lib/pkgconfig"
   # By default, binaries installed by gem will be placed into:
-  for _file in $(find_files "${HOMEBREW_PREFIX:-}/lib/ruby/gems" 'bin' 2 'd')
-  do
+  for _file in $(find_files "${HOMEBREW_PREFIX:-}/lib/ruby/gems" 'bin' 2 'd'); do
     PATH="$_file:$PATH"
   done
 fi
@@ -161,7 +160,7 @@ _terrad="$_brewd/opt/terraform"
 # Yarn
 ################################################################################
 
-type "yarn" &> /dev/null && PATH="$(yarn global bin):$PATH"
+type "yarn" &>/dev/null && PATH="$(yarn global bin):$PATH"
 
 ################################################################################
 # Homebrew
@@ -170,8 +169,8 @@ type "yarn" &> /dev/null && PATH="$(yarn global bin):$PATH"
 # Add Linuxbrew PATHs (to your .bashrc or .zshrc):
 _lbrewd="$HOME/.linuxbrew"
 if [[ -d "$_lbrewd" ]]; then
-      PATH="$_lbrewd/bin:$PATH"
-   MANPATH="$_lbrewd/share/man:$MANPATH"
+  PATH="$_lbrewd/bin:$PATH"
+  MANPATH="$_lbrewd/share/man:$MANPATH"
   INFOPATH="$_lbrewd/share/info:$INFOPATH"
 fi
 
