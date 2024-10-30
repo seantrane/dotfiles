@@ -8,7 +8,7 @@
 #
 # shellcheck disable=SC2034
 
-function trivy_cache_primer() {
+trivy_cache_primer() {
   TRIVY_CACHE_DIR="${HOME:-/tmp/lint}/.cache/trivy"
   _CACHE_TIMER="_cache-timer"
   _TRIVY_DB_REPO="public.ecr.aws/aquasecurity/trivy-db:2"
@@ -71,20 +71,24 @@ function trivy_cache_primer() {
   ls -lahF "$TRIVY_CACHE_DIR"
 }
 
-if [ "$(whoami)" == "runner" ]; then
-  : #  echo "Don't execute in GitHub Actions workflow runs."
-else
-  trivy_cache_primer
-  # Clean up previous reports directory.
-  [[ -d "$(pwd)/megalinter-reports" ]] && rm -rf "$(pwd)/megalinter-reports"
-  # Run MegaLinter with cache enabled.
-  docker run --rm \
-    -v /var/run/docker.sock:/var/run/docker.sock:rw \
-    -v "$(pwd)":/tmp/lint:rw \
-    -v "$HOME/.cache/trivy":/tmp/lint/.cache/trivy:rw \
-    -e "TRIVY_CACHE_DIR=/tmp/lint/.cache/trivy" \
-    -e "TRIVY_SKIP_DB_UPDATE=true" \
-    -e "TRIVY_SKIP_JAVA_DB_UPDATE=true" \
-    -e "TRIVY_SKIP_CHECK_UPDATE=true" \
-    "oxsecurity/megalinter:${1:-v7}"
-fi
+main() {
+  if [ "$(whoami)" == "runner" ]; then
+    : #  echo "Don't execute in GitHub Actions workflow runs."
+  else
+    trivy_cache_primer
+    # Clean up previous reports directory.
+    [[ -d "$(pwd)/megalinter-reports" ]] && rm -rf "$(pwd)/megalinter-reports"
+    # Run MegaLinter with cache enabled.
+    docker run --rm \
+      -v /var/run/docker.sock:/var/run/docker.sock:rw \
+      -v "$(pwd)":/tmp/lint:rw \
+      -v "$HOME/.cache/trivy":/tmp/lint/.cache/trivy:rw \
+      -e "TRIVY_CACHE_DIR=/tmp/lint/.cache/trivy" \
+      -e "TRIVY_SKIP_DB_UPDATE=true" \
+      -e "TRIVY_SKIP_JAVA_DB_UPDATE=true" \
+      -e "TRIVY_SKIP_CHECK_UPDATE=true" \
+      "oxsecurity/megalinter:${1:-v8}"
+  fi
+}
+
+main "$@"

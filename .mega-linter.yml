@@ -49,13 +49,13 @@ DISABLE_LINTERS:
   - TERRAFORM_KICS
   - TERRAFORM_TERRASCAN
 BASH_EXEC_FILE_EXTENSIONS: ['']
-BASH_EXEC_FILTER_REGEX_INCLUDE: '(bin/*|scripts/*)'
+BASH_EXEC_FILTER_REGEX_INCLUDE: '(bin/*|functions/*|scripts/*)'
 BASH_SHELLCHECK_FILE_EXTENSIONS: ['', '.sh', '.bash', '.dash', '.ksh']
 BASH_SHELLCHECK_FILTER_REGEX_EXCLUDE: '.gitkeep'
-BASH_SHELLCHECK_FILTER_REGEX_INCLUDE: '(bin/*|scripts/*)'
+BASH_SHELLCHECK_FILTER_REGEX_INCLUDE: '(bin/*|functions/*|scripts/*)'
 BASH_SHFMT_FILE_EXTENSIONS: ['', '.sh', '.bash', '.dash', '.ksh']
 BASH_SHFMT_FILTER_REGEX_EXCLUDE: '(.gitkeep|bin/git-rank-contributors|bin/git-wtf|bin/gitio|bin/res)'
-BASH_SHFMT_FILTER_REGEX_INCLUDE: '(bin/*|scripts/*)'
+BASH_SHFMT_FILTER_REGEX_INCLUDE: '(bin/*|functions/*|scripts/*)'
 EXCLUDED_DIRECTORIES: ['.git', '.terraform', 'megalinter-reports', 'node_modules']
 FLAVOR_SUGGESTIONS: false
 FORMATTERS_DISABLE_ERRORS: false
