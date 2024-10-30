@@ -35,25 +35,25 @@ zstyle ':prezto:*:*' color 'yes'
 #   'history-substring-search' \
 #   'prompt'
 zstyle ':prezto:load' pmodule \
-    'environment' \
-    'terminal' \
-    'editor' \
-    'history' \
-    'directory' \
-    'spectrum' \
-    'utility' \
-    'completion' \
-    'homebrew' \
-    'osx' \
-    'ruby' \
-    'rails' \
-    'git' \
-    'node' \
-    'rsync' \
-    'archive' \
-    'syntax-highlighting' \
-    'history-substring-search' \
-    'prompt'
+  'environment' \
+  'terminal' \
+  'editor' \
+  'history' \
+  'directory' \
+  'spectrum' \
+  'utility' \
+  'completion' \
+  'homebrew' \
+  'osx' \
+  'ruby' \
+  'rails' \
+  'git' \
+  'node' \
+  'rsync' \
+  'archive' \
+  'syntax-highlighting' \
+  'history-substring-search' \
+  'prompt'
 
 #-------------------------------------------------------------------------------
 # Editor
@@ -108,16 +108,19 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 # Auto set to 'off' on dumb terminals.
 zstyle ':prezto:module:prompt' theme 'sorin'
 
-# Definitions for prompt-git-icons:
-#   - The 'square' signifies that there are untracked changes.
-#   - The '=' signifies there are unmergerd changes.
-#   - The '->' signifies that something has been renamed.
-#   - The '6-pointed blue star' signifies that there is a modification.
-#   - The 'red X' signifies that something has been deleted.
-#   - The 'green +' signifies that something is added.
-#   - The 'blue 5-pointed star' signifies that something is stashed.
-#   - The 'arrow pointing down' means you are behind.
-#   - The 'arrow pointing up' means you are ahead.
+alias giticons="echo \"
+Definitions for prompt-git-icons:
+
+'->'                  : renamed files
+'red X'               : deleted files
+'green +'             : new/added files
+'6-pointed blue star' : modified files
+'square'              : untracked changes
+'='                   : unmerged changes
+'blue 5-pointed star' : stashed changes
+'arrow pointed down'  : branch is behind
+'arrow pointed up'    : branch is ahead
+\""
 
 #-------------------------------------------------------------------------------
 # Ruby
