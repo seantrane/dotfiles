@@ -20,7 +20,7 @@ trivy_cache_primer() {
   # Create cache directory, if it doesn't exist.
   [[ ! -d "$TRIVY_CACHE_DIR" ]] && mkdir -p "$TRIVY_CACHE_DIR"
   # Delete outdated cache-timers.
-  find "$TRIVY_CACHE_DIR" -name "*$_CACHE_TIMER" -type f -mtime +1 -delete
+  find "$TRIVY_CACHE_DIR" -name "*$_CACHE_TIMER" -type f -mtime 1 -delete
   # Trivy Vulnerability DB
   # If cache-timer doesn't exist, or cache is empty, prime the cache.
   if [[ ! -e "${_TRIVY_DB_CACHE_PATH}${_CACHE_TIMER}" ]] || [[ -z "$(ls -A "$_TRIVY_DB_CACHE_PATH")" ]]; then

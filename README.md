@@ -94,7 +94,7 @@ Restart the terminal/shell.
 ### (Optional) Step 6
 
 1. Attention [Oh My Zsh](https://ohmyz.sh) users. I prefer to use [Prezto](https://github.com/sorin-ionescu/prezto#readme) because it's faster and lightweight. Oh My Zsh can be easily swapped by editing the ["Source/init Prezto" section of `zsh/zshrc.symlink`](zsh/zshrc.symlink).
-2. The Bash environment resembles the Zsh + Prezto environment as much as possible so that it's more seamless in moments when using Bash. Type `bash` at the Zsh-command-line to enter Bash shell, followed by `exit` when finished. If Bash is the preferred default, one can run `chsh -s "${HOMEBREW_PREFIX:-}/bin/bash"` or `chshell bash`, and update IDE preferences.
+2. The Bash environment resembles the Zsh + Prezto environment as much as possible so that it's more seamless in moments when using Bash. Type `bash` at the Zsh-command-line to enter Bash shell, followed by `exit` when finished. If Bash is the preferred default, one can run `chsh -s "$(brew --prefix)/bin/bash"` or `chshell bash`, and update IDE preferences.
 
 ---
 
