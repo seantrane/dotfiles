@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.1.7](https://github.com/seantrane/dotfiles/compare/v2.1.6...v2.1.7) (2024-10-30)
+
+
+### Bug Fixes
+
+* add rancher bin to path, to override container utilities ([df53bda](https://github.com/seantrane/dotfiles/commit/df53bda9ab640c0fd640f9beb4d359b22c695256))
+
 ## [2.1.6](https://github.com/seantrane/dotfiles/compare/v2.1.5...v2.1.6) (2024-10-30)
 
 
