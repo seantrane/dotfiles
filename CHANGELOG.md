@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.1.5](https://github.com/seantrane/dotfiles/compare/v2.1.4...v2.1.5) (2024-10-30)
+
+
+### Bug Fixes
+
+* improve trivy-caching invalidation ([a3422c3](https://github.com/seantrane/dotfiles/commit/a3422c3f058358121e995d31e10878d0d1292451))
+
 ## [2.1.4](https://github.com/seantrane/dotfiles/compare/v2.1.3...v2.1.4) (2024-10-30)
 
 
