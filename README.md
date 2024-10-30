@@ -233,6 +233,7 @@ _Some extensions may be disabled (commented-out in code)._
 - [x] [Select Line Status Bar](https://marketplace.visualstudio.com/items?itemName=tomoki1207.selectline-statusbar)
 - [x] [Shell Snippets](https://marketplace.visualstudio.com/items?itemName=DeepInThought.vscode-shell-snippets)
 - [x] [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
+- [x] [shfmt](https://marketplace.visualstudio.com/items?itemName=mkhl.shfmt)
 - [x] [slugify](https://marketplace.visualstudio.com/items?itemName=maximerouiller.slugify-vscode)
 - [x] [SonarLint](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode)
 - [x] [Sort JSON objects](https://marketplace.visualstudio.com/items?itemName=richie5um2.vscode-sort-json)

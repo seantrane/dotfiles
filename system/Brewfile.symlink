@@ -366,6 +366,7 @@ vscode "Syler.sass-indented" # [Sass (.sass only)](https://marketplace.visualstu
 vscode "tomoki1207.selectline-statusbar" # [Select Line Status Bar](https://marketplace.visualstudio.com/items?itemName=tomoki1207.selectline-statusbar)
 vscode "DeepInThought.vscode-shell-snippets" # [Shell Snippets](https://marketplace.visualstudio.com/items?itemName=DeepInThought.vscode-shell-snippets)
 vscode "timonwong.shellcheck" # [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
+vscode "mkhl.shfmt" # [shfmt](https://marketplace.visualstudio.com/items?itemName=mkhl.shfmt)
 vscode "maximerouiller.slugify-vscode" # [slugify](https://marketplace.visualstudio.com/items?itemName=maximerouiller.slugify-vscode)
 vscode "SonarSource.sonarlint-vscode" # [SonarLint](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode)
 vscode "richie5um2.vscode-sort-json" # [Sort JSON objects](https://marketplace.visualstudio.com/items?itemName=richie5um2.vscode-sort-json)
