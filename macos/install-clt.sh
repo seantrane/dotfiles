@@ -3,11 +3,11 @@
 # Install Command Line Tools for Xcode
 
 # Shell Support
-# shellcheck disable=SC1090
-[[ -z "$SHELLSUPPORT" ]] && . "$( cd "${BASH_SOURCE%/*}/.." && pwd )/shell/support.sh"
+# shellcheck disable=SC1090,SC1091
+[[ -z "$SHELLSUPPORT" ]] && . "$(cd "${BASH_SOURCE%/*}/.." && pwd)/shell/support.sh"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  if type "xcode-select" &> /dev/null; then
+  if type "xcode-select" &>/dev/null; then
     XCODE_PATH=$(xcode-select -p)
     if [[ "$XCODE_PATH" == "/Applications/Xcode.app"* ]]; then
       sh_success "Xcode is installed:"
@@ -30,7 +30,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     sh_fail "This operation requires Xcode Command Line Tools."
   fi
   # Check gcc for successful installation.
-  if type "gcc" &> /dev/null; then
+  if type "gcc" &>/dev/null; then
     sh_success "gcc is installed. Check configuration:"
     echo
     gcc --version

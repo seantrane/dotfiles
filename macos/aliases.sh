@@ -11,10 +11,7 @@ alias defw="defaults write"
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update="(cd; sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm cache clean -g -f; npm install -g npm@latest; npm update -g; npm cache clean -g -f; sudo gem update --system; sudo gem update)"
-alias brewupdate="brew update; brew upgrade; brew cleanup"
 alias macupdate="sudo softwareupdate -i -a"
-alias nodeupdate="(cd; npm cache clean -g -f; brew update node --without-npm; npm install -g npm@latest; npm update -g; npm cache clean -g -f)"
-alias rubyupdate="sudo gem update --system; sudo gem update"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -33,10 +30,10 @@ alias flush="sudo dscacheutil -flushcache;sudo discoveryutil mdnsflushcache;sudo
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
 # macOS has no `md5sum`, so use `md5` as a fallback
-command -v md5sum > /dev/null || alias md5sum="md5"
+command -v md5sum >/dev/null || alias md5sum="md5"
 
 # macOS has no `sha1sum`, so use `shasum` as a fallback
-command -v sha1sum > /dev/null || alias sha1sum="shasum"
+command -v sha1sum >/dev/null || alias sha1sum="shasum"
 
 # Disable power chime (sound when plugging in a cable, or at startup)
 alias chimeoff="defaults write com.apple.PowerChime ChimeOnNoHardware -bool true; defaults write com.apple.PowerChime ChimeOnAllHardware -bool false; sudo defaults write com.apple.PowerChime ChimeOnNoHardware -bool true; sudo defaults write com.apple.PowerChime ChimeOnAllHardware -bool false; sudo nvram StartupMute=%01; killall PowerChime || return 0"

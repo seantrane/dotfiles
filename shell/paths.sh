@@ -42,15 +42,23 @@ unset _file
 [[ -f "$DOTFILES/brew/init_install.sh" ]] && . "$DOTFILES/brew/init_install.sh" &&
   _init_homebrew
 
+# Add Linuxbrew PATHs (to your .bashrc or .zshrc):
+_lbrewd="$HOME/.linuxbrew"
+if [[ -d "$_lbrewd" ]]; then
+  PATH="$_lbrewd/bin:$PATH"
+  MANPATH="$_lbrewd/share/man:$MANPATH"
+  INFOPATH="$_lbrewd/share/info:$INFOPATH"
+fi
+
 # Homebrew path must come first to override system binaries.
-export PATH="${HOMEBREW_PREFIX:-/usr/local}/bin:$PATH"
+PATH="${HOMEBREW_PREFIX:-/usr/local}/bin:$PATH"
 
 #-------------------------------------------------------------------------------
 # RANCHER
 #-------------------------------------------------------------------------------
 
 # Rancher - finally, so Rancher can control docker, kubectl, helm, etc.
-[[ -d "$HOME/.rd/bin" ]] && export PATH="$HOME/.rd/bin:$PATH"
+[[ -d "$HOME/.rd/bin" ]] && PATH="$HOME/.rd/bin:$PATH"
 
 #-------------------------------------------------------------------------------
 # CUSTOM/USER PATHS
@@ -63,10 +71,10 @@ export PATH="${HOMEBREW_PREFIX:-/usr/local}/bin:$PATH"
 # HELP DOCS/MANUALS
 #-------------------------------------------------------------------------------
 
-[[ -d "${HOMEBREW_PREFIX:-}/man" ]] && export MANPATH="${HOMEBREW_PREFIX:-}/man:$MANPATH"
+[[ -d "${HOMEBREW_PREFIX:-}/man" ]] && MANPATH="${HOMEBREW_PREFIX:-}/man:$MANPATH"
 
 # .local manuals:
-[[ -d "$HOME/.local/man" ]] && export MANPATH="$HOME/.local/man:$MANPATH"
+[[ -d "$HOME/.local/man" ]] && MANPATH="$HOME/.local/man:$MANPATH"
 
 #-------------------------------------------------------------------------------
 # CLEANUP PATH, MANPATH - Ensure arrays do not contain duplicates.
@@ -74,8 +82,9 @@ export PATH="${HOMEBREW_PREFIX:-/usr/local}/bin:$PATH"
 
 if type "awk" &>/dev/null; then
   PATH=$(echo -n "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
-  export PATH
 
   MANPATH=$(echo -n "$MANPATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
-  export MANPATH
 fi
+
+export LDFLAGS CPPFLAGS PKG_CONFIG_PATH
+export PATH MANPATH INFOPATH

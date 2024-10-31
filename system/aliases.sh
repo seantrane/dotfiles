@@ -12,5 +12,5 @@ alias h="history"
 alias j="jobs"
 
 alias brewupdate='brew update; brew upgrade; brew cleanup'
-alias nodeupdate='(cd; npm cache clean -g -f; brew update node --without-npm; npm install -g npm@latest; npm update -g; npm cache clean -g -f)'
+alias nodeupdate='(cd; npm cache clean -g -f; brew upgrade node; npm install -g npm@latest; npm update -g; npm cache clean -g -f)'
 alias rubyupdate='sudo gem update --system; sudo gem update'

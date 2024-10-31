@@ -7,8 +7,8 @@
 alias reload="exec $SHELL -l"
 
 function chshell {
-  grep -q "${HOMEBREW_PREFIX:-}/bin/${1:-zsh}" "/etc/shells" \
-    || echo "${HOMEBREW_PREFIX:-}/bin/${1:-zsh}" >> /etc/shells
+  grep -q "${HOMEBREW_PREFIX:-}/bin/${1:-zsh}" "/etc/shells" ||
+    echo "${HOMEBREW_PREFIX:-}/bin/${1:-zsh}" >>/etc/shells
   chsh -s "${HOMEBREW_PREFIX:-}/bin/${1:-zsh}"
 }
 
@@ -27,8 +27,11 @@ alias sudo='my_sudo '
 function my_sudo {
   while [[ $# -gt 0 ]]; do
     case "$1" in
-    command) shift ; break ;;
-    nocorrect|noglob) shift ;;
+    command)
+      shift
+      break
+      ;;
+    nocorrect | noglob) shift ;;
     *) break ;;
     esac
   done
@@ -59,7 +62,7 @@ alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
 
 # Canonical hex dump; some systems have this symlinked
-command -v hd > /dev/null || alias hd="hexdump -C"
+command -v hd >/dev/null || alias hd="hexdump -C"
 
 # Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
 # (useful when executing time-consuming commands)

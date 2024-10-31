@@ -22,14 +22,14 @@
 #
 # iTerm → Profiles → Text → use 13pt Menlo/Monaco with 1.1 vertical spacing.
 
-if [[ $COLORTERM = gnome-* ]] && [[ $TERM = xterm ]] && infocmp gnome-256color &> /dev/null; then
+if [[ $COLORTERM = gnome-* ]] && [[ $TERM = xterm ]] && infocmp gnome-256color &>/dev/null; then
   export TERM="gnome-256color"
 elif infocmp xterm-256color >/dev/null 2>&1; then
   export TERM="xterm-256color"
 fi
 
-if tput setaf 1 &> /dev/null; then
-  tput sgr0; # reset colors
+if tput setaf 1 &>/dev/null; then
+  tput sgr0 # reset colors
   bold=$(tput bold)
   reset=$(tput sgr0)
   # Default (http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html)
@@ -122,20 +122,30 @@ yellow="\[$yellow\]"
 #   Active git branch and icons representing git status...
 #   git:main 2◀︎ ▶︎1 (3) M T A D R C U ? ! $
 ################################################################################
-prompt_git () {
+prompt_git() {
   local working_dir_path="${1:-$PWD}"
   local git_icons=''
   local branch_name=''
   local change_count
   # Check if the current directory is in a Git repository.
-  if type "git" &> /dev/null && [[ "$(cd "$working_dir_path"; git rev-parse --is-inside-work-tree &> /dev/null; echo ${?})" == '0' ]]; then
+  if type "git" &>/dev/null && [[ "$(
+    cd "$working_dir_path"
+    git rev-parse --is-inside-work-tree &>/dev/null
+    echo ${?}
+  )" == '0' ]]; then
     # check if the current directory is in .git before running git checks
-    if [[ "$(cd "$working_dir_path"; git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]]; then
+    if [[ "$(
+      cd "$working_dir_path"
+      git rev-parse --is-inside-git-dir 2>/dev/null
+    )" == 'false' ]]; then
       # Ensure the index is up to date.
-      git update-index --really-refresh -q &> /dev/null
+      git update-index --really-refresh -q &>/dev/null
       # Get git status output, in parse-ready format.
       # Info: https://git-scm.com/docs/git-status
-      git_status_output="$(cd "$working_dir_path" || return; git status -b --show-stash --porcelain -u --ignore-submodules --ahead-behind --renames)"
+      git_status_output="$(
+        cd "$working_dir_path" || return
+        git status -b --show-stash --porcelain -u --ignore-submodules --ahead-behind --renames
+      )"
       git_status_output_branch="$(echo "${git_status_output}" | head -1)"
       git_status_output_changes="$(echo "${git_status_output}" | tail -n +2)"
       [[ -n "$git_status_output_changes" ]] && change_count="$(echo "${git_status_output_changes}" | wc -l)"
@@ -157,39 +167,39 @@ prompt_git () {
       fi
       [[ "$change_count" -gt 0 ]] && branch_name+=" ${gray}(${change_count})"
       # Modified in index / work tree changed since index.
-      if [[ "$git_status_output" =~ .*M[\ MTD]\ .+ ]] \
-      || [[ "$git_status_output" =~ .*[\ MTARC]M\ .+ ]]; then
+      if [[ "$git_status_output" =~ .*M[\ MTD]\ .+ ]] ||
+        [[ "$git_status_output" =~ .*[\ MTARC]M\ .+ ]]; then
         git_icons+=" ${yellow}M"
       fi
       # File type changed in index. File type changed in work tree since index.
-      if [[ "$git_status_output" =~ .*T[\ MTD]\ .+ ]] \
-      || [[ "$git_status_output" =~ .*[\ MTARC]T\ .+ ]]; then
+      if [[ "$git_status_output" =~ .*T[\ MTD]\ .+ ]] ||
+        [[ "$git_status_output" =~ .*[\ MTARC]T\ .+ ]]; then
         git_icons+=" ${purple}T"
       fi
       # Added from index, work tree.
-      if [[ "$git_status_output" =~ .*A[\ MTDU]\ .+ ]] \
-      || [[ "$git_status_output" =~ .*[AU]A\ .+ ]]; then
+      if [[ "$git_status_output" =~ .*A[\ MTDU]\ .+ ]] ||
+        [[ "$git_status_output" =~ .*[AU]A\ .+ ]]; then
         git_icons+=" ${green}A"
         [[ "$git_status_output" =~ .*UA\ .+ ]] && git_icons+="⬆︎" # unmerged, added by them
         [[ "$git_status_output" =~ .*AU\ .+ ]] && git_icons+="⬇︎" # unmerged, added by us
-        [[ "$git_status_output" =~ .*AA\ .+ ]] && git_icons+="⬍" # unmerged, both added
+        [[ "$git_status_output" =~ .*AA\ .+ ]] && git_icons+="⬍"  # unmerged, both added
       fi
       # Deleted from index, work tree.
-      if [[ "$git_status_output" =~ .*D[\ DU]\ .+ ]] \
-      || [[ "$git_status_output" =~ .*[\ MTARC]D\ .+ ]]; then
+      if [[ "$git_status_output" =~ .*D[\ DU]\ .+ ]] ||
+        [[ "$git_status_output" =~ .*[\ MTARC]D\ .+ ]]; then
         git_icons+=" ${red}D"
         [[ "$git_status_output" =~ .*UD\ .+ ]] && git_icons+="⬆︎" # unmerged, deleted by them
         [[ "$git_status_output" =~ .*DU\ .+ ]] && git_icons+="⬇︎" # unmerged, deleted by us
-        [[ "$git_status_output" =~ .*DD\ .+ ]] && git_icons+="⬍" # unmerged, both deleted
+        [[ "$git_status_output" =~ .*DD\ .+ ]] && git_icons+="⬍"  # unmerged, both deleted
       fi
       # Renamed in index, work tree.
-      if [[ "$git_status_output" =~ .*R[\ MTD]\ .+ ]] \
-      || [[ "$git_status_output" =~ .*\ R\ .+ ]]; then
+      if [[ "$git_status_output" =~ .*R[\ MTD]\ .+ ]] ||
+        [[ "$git_status_output" =~ .*\ R\ .+ ]]; then
         git_icons+=" ${orange}R"
       fi
       # Copied in index, work tree.
-      if [[ "$git_status_output" =~ .*C[\ MTD]\ .+ ]] \
-      || [[ "$git_status_output" =~ .*\ C\ .+ ]]; then
+      if [[ "$git_status_output" =~ .*C[\ MTD]\ .+ ]] ||
+        [[ "$git_status_output" =~ .*\ C\ .+ ]]; then
         git_icons+=" ${gray}C"
       fi
       # Unmerged, both modified.
@@ -199,8 +209,11 @@ prompt_git () {
       # Ignored files.
       [[ "$git_status_output" =~ .*\!\!\ .+ ]] && git_icons+=" ${dkgray}!"
       # Stashed files.
-      if [[ "$git_status_output" =~ .*stash\ [0-9]+.* ]] \
-      || [[ $(cd "$working_dir_path"; git rev-parse --verify refs/stash &> /dev/null) ]]; then
+      if [[ "$git_status_output" =~ .*stash\ [0-9]+.* ]] ||
+        [[ $(
+          cd "$working_dir_path"
+          git rev-parse --verify refs/stash &>/dev/null
+        ) ]]; then
         git_icons+=" ${blue}$"
       fi
 
@@ -218,11 +231,13 @@ prompt_git () {
     # Get the short symbolic ref.
     # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
     # Otherwise, just give up.
-    [[ -z "$branch_name" ]] && branch_name="$(cd "$working_dir_path" || return; \
-      git symbolic-ref --quiet --short HEAD 2> /dev/null || \
-      git rev-parse --short HEAD 2> /dev/null || \
-      git branch | tail -c +3 || \
-      echo '(unknown)')"
+    [[ -z "$branch_name" ]] && branch_name="$(
+      cd "$working_dir_path" || return
+      git symbolic-ref --quiet --short HEAD 2>/dev/null ||
+        git rev-parse --short HEAD 2>/dev/null ||
+        git branch | tail -c +3 ||
+        echo '(unknown)'
+    )"
 
     echo "${violet}git${white}:${green}${branch_name}${git_icons}${reset}"
   fi
@@ -235,16 +250,16 @@ prompt_git () {
 PSUSERHOST="${gray}"
 # Highlight the user name when logged in as root.
 [[ "${USER:-}" == "root" ]] && PSUSERHOST="${red}"
-PSUSERHOST+=${USER:-$(id -un 2> /dev/null || echo "\u")}
+PSUSERHOST+=${USER:-$(id -un 2>/dev/null || echo "\u")}
 PSUSERHOST+="${dkgray} @ "
 # Highlight the hostname when connected via SSH.
 [[ "${SSH_TTY:-}" ]] && PSUSERHOST+="${bold}${red}"
-PSUSERHOST+=${HOST:-${HOSTNAME:-$(hostname 2> /dev/null || echo "\h")}}
+PSUSERHOST+=${HOST:-${HOSTNAME:-$(hostname 2>/dev/null || echo "\h")}}
 [[ "${SSH_TTY:-}" ]] && {
-  PSUSERHOST+=-${UARCH:-${HOSTTYPE:-$(uname -p 2> /dev/null)}}
-  PSUSERHOST+=-${UMACH:-${MACHTYPE:-$(uname -m 2> /dev/null)}}
+  PSUSERHOST+=-${UARCH:-${HOSTTYPE:-$(uname -p 2>/dev/null)}}
+  PSUSERHOST+=-${UMACH:-${MACHTYPE:-$(uname -m 2>/dev/null)}}
 }
-PSUSERHOST+=" ${dkgray}(${UTYPE:-${OSTYPE:-$(uname 2> /dev/null)}})${reset}"
+PSUSERHOST+=" ${dkgray}(${UTYPE:-${OSTYPE:-$(uname 2>/dev/null)}})${reset}"
 
 #-------------------------------------------------------------------------------
 # PROMPT
@@ -313,10 +328,10 @@ function prompt_right() {
 function prompt() {
   local working_dir_path="$PWD"
   local compensate=9
-  if tput cols &> /dev/null; then
-    PS1=$(printf "\n%s%*s\r%s\n%s\n%s" "$(prompt_time)" "$(( $(tput cols) + compensate ))" "$(prompt_right)" "${PSTITLE:-}" "$(prompt_userhost)" "$(prompt_main "$working_dir_path")" 2> /dev/null)
+  if tput cols &>/dev/null; then
+    PS1=$(printf "\n%s%*s\r%s\n%s\n%s" "$(prompt_time)" "$(($(tput cols) + compensate))" "$(prompt_right)" "${PSTITLE:-}" "$(prompt_userhost)" "$(prompt_main "$working_dir_path")" 2>/dev/null)
   else
-    PS1=$(printf "%s\n%s %s\n%s" "${PSTITLE:-}" "$(prompt_time)" "$(prompt_userhost)" "$(prompt_main "$working_dir_path")" 2> /dev/null)
+    PS1=$(printf "%s\n%s %s\n%s" "${PSTITLE:-}" "$(prompt_time)" "$(prompt_userhost)" "$(prompt_main "$working_dir_path")" 2>/dev/null)
   fi
   # export PS1
 }

@@ -19,20 +19,20 @@ fi
 # Use VIM, by default
 EDITOR="vim"
 VISUAL="$EDITOR"
-if type "code" &> /dev/null; then
+if type "code" &>/dev/null; then
   # Use VS Code, if available
   EDITOR="code"
   VISUAL="$EDITOR"
-elif type "nvim" &> /dev/null; then
+elif type "nvim" &>/dev/null; then
   # Use Neovim, if available
   EDITOR="nvim"
   VISUAL="$EDITOR"
   alias vi="nvim"
-elif ! type "vim" &> /dev/null && type "nano" &> /dev/null; then
+elif ! type "vim" &>/dev/null && type "nano" &>/dev/null; then
   # Use Nano, as a fallback
   EDITOR="nano"
   VISUAL="$EDITOR"
-elif ! type "vim" &> /dev/null && type "pico" &> /dev/null; then
+elif ! type "vim" &>/dev/null && type "pico" &>/dev/null; then
   # Use Pico, as a fallback
   EDITOR="pico"
   VISUAL="$EDITOR"

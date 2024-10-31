@@ -12,7 +12,6 @@
 # . ~/.env
 [[ -f "$HOME/.env" ]] && . "$HOME/.env"
 
-
 # Shortcut to this file is $SHELLSUPPORT
 # This variable is used for support-file-conditionals
 export SHELLSUPPORT="$DOTSHELL/support.sh"

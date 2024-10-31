@@ -9,7 +9,7 @@
 #-------------------------------------------------------------------------------
 # Detect which `ls` flavor is in use.
 # FreeBSD, older versions of macOS, have different ls command.
-if ls --color > /dev/null 2>&1; then
+if ls --color >/dev/null 2>&1; then
   colorflag="--color=always"
 else
   colorflag="-G"
@@ -22,7 +22,7 @@ else
   alias ls="command ls ${colorflag}"
 fi
 # Set time style flag, according to `ls` flavor.
-if [[ ! -r "${HOMEBREW_PREFIX:-}/bin/gls" ]] && ls -T > /dev/null 2>&1; then
+if [[ ! -r "${HOMEBREW_PREFIX:-}/bin/gls" ]] && ls -T >/dev/null 2>&1; then
   timeflag="-T"
 else
   timeflag="--time-style=long-iso"
