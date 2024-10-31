@@ -359,6 +359,7 @@ vscode "mechatroner.rainbow-csv" # [Rainbow CSV](https://marketplace.visualstudi
 vscode "jeppeandersen.raml" # [RAML](https://marketplace.visualstudio.com/items?itemName=jeppeandersen.raml)
 vscode "msjsdiag.vscode-react-native" # [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native)
 vscode "chrmarti.regex" # [Regex Previewer](https://marketplace.visualstudio.com/items?itemName=chrmarti.regex)
+vscode "ms-vscode-remote.vscode-remote-extensionpack" # [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 vscode "humao.rest-client" # [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 vscode "stkb.rewrap" # [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap)
 vscode "Syler.sass-indented" # [Sass (.sass only)](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)

@@ -227,6 +227,7 @@ _Some extensions may be disabled (commented-out in code)._
 - [x] [RAML](https://marketplace.visualstudio.com/items?itemName=jeppeandersen.raml)
 - [x] [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native)
 - [x] [Regex Previewer](https://marketplace.visualstudio.com/items?itemName=chrmarti.regex)
+- [x] [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 - [x] [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 - [x] [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap)
 - [x] [Sass (.sass only)](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
