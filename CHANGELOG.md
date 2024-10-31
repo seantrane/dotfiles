@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [2.1.8](https://github.com/seantrane/dotfiles/compare/v2.1.7...v2.1.8) (2024-10-31)
+
+
+### Bug Fixes
+
+* add remote-development extension to vscode ([d17ca31](https://github.com/seantrane/dotfiles/commit/d17ca31b8ecd54b01293ea344fe18e494c5690b4))
+* clean up install aliases, shell formatting ([398c6c5](https://github.com/seantrane/dotfiles/commit/398c6c5cc8287ed3e77f1873dda17cec83037dbd))
+
 ## [2.1.7](https://github.com/seantrane/dotfiles/compare/v2.1.6...v2.1.7) (2024-10-30)
 
 
