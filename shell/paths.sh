@@ -53,6 +53,9 @@ fi
 # Homebrew path must come first to override system binaries.
 PATH="${HOMEBREW_PREFIX:-/usr/local}/bin:$PATH"
 
+# Whalebrew binaries, when available, should override Homebrew.
+[[ -d "/opt/whalebrew/bin" ]] && PATH="/opt/whalebrew/bin:$PATH"
+
 #-------------------------------------------------------------------------------
 # RANCHER
 #-------------------------------------------------------------------------------
