@@ -2,6 +2,7 @@
 {
   "alignment.operatorPadding": "left",
   "atomKeymap.promptV3Features": true,
+  "codestream.serverUrl": "https://codestream-api-v2-us1.service.newrelic.com",
   "cSpell.userWords": [
     "dependabot",
     "healthcheck",
