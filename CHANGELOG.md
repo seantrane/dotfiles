@@ -1,5 +1,24 @@
 # CHANGELOG
 
+# [2.2.0](https://github.com/seantrane/dotfiles/compare/v2.1.8...v2.2.0) (2024-11-01)
+
+
+### Bug Fixes
+
+* add codestream vscode setting ([1b3e1c5](https://github.com/seantrane/dotfiles/commit/1b3e1c5efa34f0e26de5b2cfd75718be7972da34))
+* add missing to brewfile, hide others ([ff696b2](https://github.com/seantrane/dotfiles/commit/ff696b2925fcff82ac90ec0f257ec49ef8f58e5c))
+* add whalebrew bin to path ([06f5725](https://github.com/seantrane/dotfiles/commit/06f572544fffa55a5723cdb778dfd051c45cee9f))
+* improve megalinter bin ([ccc857e](https://github.com/seantrane/dotfiles/commit/ccc857ed54d9aedd18fd03ffb3ed64e3dce7b1a4))
+* update mac dock icon for system-settings ([92ebcc1](https://github.com/seantrane/dotfiles/commit/92ebcc1131dc8acc8ce20f6b339b4776c1fc1196))
+
+
+### Features
+
+* add awscli bin ([aed785e](https://github.com/seantrane/dotfiles/commit/aed785ee1fd8fe7884d0024712e102f156484944))
+* add opentofu bin ([6a0daae](https://github.com/seantrane/dotfiles/commit/6a0daae8b87da97378c79678bfa4736aaa15051d))
+* add ssh_keygen bin ([e102b3b](https://github.com/seantrane/dotfiles/commit/e102b3b84c94af95d65ca0e4ef3f102837e4526b))
+* add superlinter bin ([fe4e419](https://github.com/seantrane/dotfiles/commit/fe4e419f9627623a251d3b3df3c152b0930e8ac5))
+
 ## [2.1.8](https://github.com/seantrane/dotfiles/compare/v2.1.7...v2.1.8) (2024-10-31)
 
 
