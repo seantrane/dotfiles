@@ -586,10 +586,10 @@ defaults write com.apple.dock persistent-apps -array-add "<dict>\
     <key>file-data</key>\
     <dict>\
       <key>_CFURLString</key>\
-      <string>file:///System/Applications/System%20Preferences.app/</string>\
+      <string>file:///System/Applications/System%20Settings.app/</string>\
       <key>_CFURLStringType</key> <integer>15</integer>\
     </dict>\
-    <key>file-label</key>         <string>System Preferences</string>\
+    <key>file-label</key>         <string>System Settings</string>\
     <key>file-type</key>          <integer>41</integer>\
     <key>is-beta</key>            <false/>\
   </dict>\
