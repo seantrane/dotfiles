@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Running GitHub Super-Linter Locally
+# https://github.com/github/super-linter/blob/main/docs/run-linter-locally.md
+
+export SUPERLINTER_IMAGE="${SUPERLINTER_IMAGE:-"github/super-linter"}"
+export SUPERLINTER_VERSION="${SUPERLINTER_VERSION:-"slim-latest"}"
+
+main() {
+  if [ "$(whoami)" == "runner" ]; then
+    : #  echo "Don't execute in GitHub Actions workflow runs."
+  else
+    local OPTS=()
+    OPTS+=(--rm)
+    [[ -z "$PS1" ]] && OPTS+=(-it)
+    OPTS+=(-e RUN_LOCAL=true)
+    OPTS+=(-v "$(pwd):/tmp/lint")
+    [[ -e "$(pwd)/.github/super-linter.env" ]] &&
+      OPTS+=(--env-file "$(pwd)/.github/super-linter.env")
+    docker run "${OPTS[@]}" "${SUPERLINTER_IMAGE}:${SUPERLINTER_VERSION}" "$@"
+  fi
+}
+
+main "$@"
