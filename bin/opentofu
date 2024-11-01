@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Run OpenTofu as Docker Image
+# https://opentofu.org/docs/intro/install/docker/
+
+export OPENTOFU_IMAGE="${OPENTOFU_IMAGE:-"ghcr.io/opentofu/opentofu"}"
+export OPENTOFU_VERSION="${OPENTOFU_VERSION:-"latest-$(uname -m)"}"
+
+main() {
+  if [ "$(whoami)" == "runner" ]; then
+    : #  echo "Don't execute in GitHub Actions workflow runs."
+  else
+    local OPTS=()
+    OPTS+=(--rm)
+    [[ -z "$PS1" ]] && OPTS+=(-it)
+    OPTS+=(--workdir /srv/workspace)
+    OPTS+=(--mount "type=bind,source=$(pwd),target=/srv/workspace")
+    docker run "${OPTS[@]}" "${OPENTOFU_IMAGE}:${OPENTOFU_VERSION}" "$@"
+  fi
+}
+
+main "$@"
