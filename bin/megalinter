@@ -8,6 +8,9 @@
 #
 # shellcheck disable=SC2034
 
+export MEGALINTER_IMAGE="${MEGALINTER_IMAGE:-"oxsecurity/megalinter"}"
+export MEGALINTER_VERSION="${MEGALINTER_VERSION:-"v8"}"
+
 trivy_cache_primer() {
   TRIVY_CACHE_DIR="${HOME:-/tmp/lint}/.cache/trivy"
   _CACHE_TIMER="_cache-timer"
@@ -79,15 +82,17 @@ main() {
     # Clean up previous reports directory.
     [[ -d "$(pwd)/megalinter-reports" ]] && rm -rf "$(pwd)/megalinter-reports"
     # Run MegaLinter with cache enabled.
-    docker run --rm \
-      -v /var/run/docker.sock:/var/run/docker.sock:rw \
-      -v "$(pwd)":/tmp/lint:rw \
-      -v "$HOME/.cache/trivy":/tmp/lint/.cache/trivy:rw \
-      -e "TRIVY_CACHE_DIR=/tmp/lint/.cache/trivy" \
-      -e "TRIVY_SKIP_DB_UPDATE=true" \
-      -e "TRIVY_SKIP_JAVA_DB_UPDATE=true" \
-      -e "TRIVY_SKIP_CHECK_UPDATE=true" \
-      "oxsecurity/megalinter:${1:-v8}"
+    local OPTS=()
+    OPTS+=(--rm)
+    [[ -z "$PS1" ]] && OPTS+=(-it)
+    OPTS+=(-v /var/run/docker.sock:/var/run/docker.sock:rw)
+    OPTS+=(-v "$(pwd):/tmp/lint:rw")
+    OPTS+=(-v "$HOME/.cache/trivy:/tmp/lint/.cache/trivy:rw")
+    OPTS+=(-e "TRIVY_CACHE_DIR=/tmp/lint/.cache/trivy")
+    OPTS+=(-e "TRIVY_SKIP_DB_UPDATE=true")
+    OPTS+=(-e "TRIVY_SKIP_JAVA_DB_UPDATE=true")
+    OPTS+=(-e "TRIVY_SKIP_CHECK_UPDATE=true")
+    docker run "${OPTS[@]}" "${MEGALINTER_IMAGE}:${MEGALINTER_VERSION}" "$@"
   fi
 }
 
