@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Run OpenTofu as Docker Image
+# https://opentofu.org/docs/intro/install/docker/
+
+export AWSCLI_IMAGE="${AWSCLI_IMAGE:-"public.ecr.aws/aws-cli/aws-cli"}"
+export AWSCLI_VERSION="${AWSCLI_VERSION:-"latest"}"
+
+main() {
+  if [ "$(whoami)" == "runner" ]; then
+    : #  echo "Don't execute in GitHub Actions workflow runs."
+  else
+    local OPTS=()
+    OPTS+=(--rm)
+    [[ -z "$PS1" ]] && OPTS+=(-it)
+    OPTS+=(-v ~/.aws:/root/.aws)
+    OPTS+=(-v "$(pwd):/aws")
+    [[ -n "${AWS_PROFILE:-}" ]] && OPTS+=(-e "AWS_PROFILE=$AWS_PROFILE")
+    docker run "${OPTS[@]}" "${AWSCLI_IMAGE}:${AWSCLI_VERSION}" "$@"
+  fi
+}
+
+main "$@"
