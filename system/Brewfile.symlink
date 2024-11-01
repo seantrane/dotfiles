@@ -101,19 +101,21 @@ brew "readline" # [Library for command-line editing](https://tiswww.case.edu/php
 # brew "cloud-nuke" # [CLI tool to delete all cloud resources](https://github.com/gruntwork-io/cloud-nuke)
 # brew "dependency-check" # # !!! REQUIRES XCODE [OWASP dependency-check](https://owasp.org/www-project-dependency-check/)
 brew "dive" # [Inspection of docker image layers](https://github.com/wagoodman/dive)
+brew "docker"
 # brew "elixir"
 # brew "erlang"
 # brew "galen"
 # brew "go" # !!! NO BOTTLE
 # brew "gradle" # !!! REQUIRES XCODE
 # brew "heroku"
+brew "kubectl"
 # brew "maven" # !!! REQUIRES XCODE
 # brew "mcrypt"
 # brew "memcached"
 # brew "mongodb"
 # brew "mysql", restart_service: true, link: true, conflicts_with: ["mysql"]
 # brew "node" # !!! NO BOTTLE
-brew "opentofu"
+# brew "opentofu"
 brew "oras" # [push/pull OCI Artifacts to/from OCI Registries](https://oras.land/docs/)
 brew "p11-kit" # [Lib for PKCS#11 modules](https://p11-glue.freedesktop.org)
 # brew "packer" # !!! DISABLED BECAUSE OF BSL (license)
@@ -152,6 +154,7 @@ cask "audio-hijack"
 # cask "dash"
 # cask "dash-beta"
 # cask "docker" # !!! NO BOTTLE
+cask "drawio"
 # cask "drobo-dashboard"
 # cask "dropbox"
 # cask "evernote"
@@ -261,10 +264,10 @@ whalebrew "directory"
 # whalebrew "whalebrew/awscli"
 # whalebrew "whalebrew/awslogs"
 # whalebrew "whalebrew/azure-cli"
-whalebrew "whalebrew/ffmpeg"
+# whalebrew "whalebrew/ffmpeg"
 # whalebrew "whalebrew/helm"
-whalebrew "whalebrew/graphviz"
-whalebrew "whalebrew/imagemagick"
+# whalebrew "whalebrew/graphviz"
+# whalebrew "whalebrew/imagemagick"
 # whalebrew "whalebrew/kubectl"
 # whalebrew "whalebrew/kubeseal"
 # whalebrew "whalebrew/openshift-cli-v2"
