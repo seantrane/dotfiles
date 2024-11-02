@@ -1,0 +1,126 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
+{
+  "name": "@seantrane/dotfiles/devcontainer",
+  "build": {
+    // Docker context path is relative to the devcontainer.json file.
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh/config_shared,target=/root/.ssh/config,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.ssh/known_hosts,target=/root/.ssh/known_hosts,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.ssh/id_rsa_shared,target=/root/.ssh/id_rsa_shared,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.ssh/id_rsa_shared.pub,target=/root/.ssh/id_rsa_shared.pub,type=bind,consistency=cached"
+  ],
+  // "shutdownAction": "none",
+  "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
+  "workspaceFolder": "${localWorkspaceFolder}",
+  // Set the container environment variables in local.
+  // "runArgs": ["--env-file", ".env"],
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "version": "latest",
+      "moby": false,
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "akamud.vscode-javascript-snippet-pack",
+        "bajdzis.vscode-database",
+        "bierner.markdown-preview-github-styles",
+        "chouzz.vscode-better-align",
+        "christian-kohler.npm-intellisense",
+        "christian-kohler.path-intellisense",
+        "chrmarti.regex",
+        "codezombiech.gitignore",
+        "darkriszty.markdown-table-prettify",
+        "davidanson.vscode-markdownlint",
+        "dbaeumer.vscode-eslint",
+        "deepinthought.vscode-shell-snippets",
+        "dlech.chmod",
+        "donjayamanne.githistory",
+        "dotjoshjohnson.xml",
+        "editorconfig.editorconfig",
+        "eeyore.yapf",
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "formulahendry.code-runner",
+        "ginfuru.ginfuru-vscode-jekyll-syntax",
+        "github.codespaces",
+        "golang.go",
+        "hashicorp.terraform",
+        "humao.rest-client",
+        "ibm.output-colorizer",
+        "jeremyljackson.vs-docblock",
+        "jerryhong.autofilename",
+        "jetmartin.bats",
+        "joelalejandro.nrql-language",
+        "jota0222.multi-formatter",
+        "kumar-harsh.graphql-for-vscode",
+        "lafe.contextualduplicate",
+        "mads-hartmann.bash-ide-vscode",
+        "maximerouiller.slugify-vscode",
+        "mechatroner.rainbow-csv",
+        "mikestead.dotenv",
+        "mindaro-dev.file-downloader",
+        "mindaro.mindaro",
+        "mkhl.shfmt",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ms-python.autopep8",
+        "ms-python.black-formatter",
+        "ms-python.debugpy",
+        "ms-python.isort",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode-remote.vscode-remote-extensionpack",
+        "new-relic.nr1",
+        "oouo-diogo-perdigao.docthis",
+        "redhat.vscode-yaml",
+        "richie5um2.vscode-sort-json",
+        "run-at-scale.terraform-doc-snippets",
+        "shd101wyy.markdown-preview-enhanced",
+        "sleistner.vscode-fileutils",
+        "sonarsource.sonarlint-vscode",
+        "stkb.rewrap",
+        "timonwong.shellcheck",
+        "tomoki1207.selectline-statusbar",
+        "tomphilbin.lodash-snippets",
+        "tyriar.sort-lines",
+        "visualstudioexptteam.intellicode-api-usage-examples",
+        "visualstudioexptteam.vscodeintellicode",
+        "wmaurer.change-case",
+        "xabikos.javascriptsnippets"
+      ],
+      "settings": {
+        "remote.autoForwardPorts": false
+      }
+    }
+  },
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    22
+  ],
+  // Use 'onCreateCommand' to run commands after the container is created.
+  "postCreateCommand": {
+    "apt": "apt-get update && apt-get clean && rm -rf /var/lib/apt/lists/*",
+    "npm": "npm install",
+    "set-permissions": "chown $(id -u -n):$(id -g -n) ~/.ssh/config && chmod 644 ~/.ssh/config && chmod 400 ~/.ssh/id_rsa_shared"
+  },
+  // "portsAttributes": {"3000": {"label": "Application port"}},
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  "remoteUser": "root"
+}

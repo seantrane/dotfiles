@@ -1,0 +1,98 @@
+{
+  "alignment.operatorPadding": "left",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "files.associations": {
+    "./docs/*.md": "jekyll",
+    "./docs/**/*.html": "jekyll",
+    "./docs/README.md": "markdown",
+    ".editorconfig": "editorconfig",
+    ".env.example": "dotenv",
+    "*.hcl": "terraform",
+    "*.json.tftpl": "jsonc",
+    "*.symlink": "shellscript",
+    "**/*.github.io/*.md": "jekyll",
+    "**/*.github.io/**/*.html": "jekyll",
+    "**/*.github.io/CONTRIBUTING.md": "markdown",
+    "**/*.github.io/README.md": "markdown",
+    "Brewfile.symlink": "ruby",
+    "CODEOWNERS": "ignore",
+    "config": "editorconfig",
+    "Dockerfile.*": "dockerfile"
+  },
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "markdown.styles": [
+    "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.7.0/github-markdown-light.min.css"
+  ],
+  "markdownTablePrettify.columnPadding": 1,
+  "prettier.configPath": ".prettierrc",
+  "python.languageServer": "Default",
+  "search.exclude": {
+    "**/.bundle": true,
+    "**/.sass-cache": true,
+    "**/bower_components": true,
+    "**/node_modules": true,
+    "./vendor": true
+  },
+  "selectline.alignment": "right",
+  "selectline.displayFormat": "%d Lines Selected",
+  "selectline.statusbarPriority": 1000,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "Jota0222.multi-formatter",
+    "multiFormatter.formatterList": [
+      "esbenp.prettier-vscode",
+      "darkriszty.markdown-table-prettify"
+    ],
+    "editor.formatOnSave": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "mkhl.shfmt",
+    "editor.formatOnSave": true
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
+}
