@@ -264,7 +264,7 @@ I've also learned and depend on techniques from other dotfiles; [Mathias Bynens]
 
 ## Support <a id="support"></a>
 
-[Submit an issue](https://github.com/seantrane/dotfiles/issues/new), in which you should provide as much detail as necessary for your issue.
+[Submit an issue](https://github.com/seantrane/dotfiles/issues/new/choose), in which you should provide as much detail as necessary for your issue.
 
 ### Bugs
 
