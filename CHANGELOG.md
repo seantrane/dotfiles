@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.2.2](https://github.com/seantrane/dotfiles/compare/v2.2.1...v2.2.2) (2024-11-02)
+
+
+### Bug Fixes
+
+* rename zsh installer file to prevent double-install ([eca6f3d](https://github.com/seantrane/dotfiles/commit/eca6f3dfd00af45c97d7dc8e4736cd0d5f9c0d70))
+
 ## [2.2.1](https://github.com/seantrane/dotfiles/compare/v2.2.0...v2.2.1) (2024-11-02)
 
 
