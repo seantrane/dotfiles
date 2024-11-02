@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [2.2.1](https://github.com/seantrane/dotfiles/compare/v2.2.0...v2.2.1) (2024-11-02)
+
+
+### Bug Fixes
+
+* consolidate system, user aliases ([6151d64](https://github.com/seantrane/dotfiles/commit/6151d640ca7aef64dc3ccbb0333b929866fdf9d2))
+* improve vs-code terminal path settings ([ad26f09](https://github.com/seantrane/dotfiles/commit/ad26f09f306e203a555133687644f6d59c1f4f8f))
+
 # [2.2.0](https://github.com/seantrane/dotfiles/compare/v2.1.8...v2.2.0) (2024-11-01)
 
 
