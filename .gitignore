@@ -105,3 +105,5 @@ terraform.tfstate.d
 !/tests/ls_colors/*.tar
 !/tests/ls_colors/*.tgz
 !/tests/ls_colors/*.zip
+
+gitconfig.symlink
