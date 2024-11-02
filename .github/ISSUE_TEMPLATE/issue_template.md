@@ -1,5 +1,5 @@
 ---
-name: Issue Template
+name: Issue template
 about: A standard issue template.
 
 ---

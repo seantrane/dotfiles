@@ -1,3 +1,8 @@
+---
+name: DevOps Checklist
+about: Create a checklist for production readiness.
+---
+
 # Production Readiness Checklist
 
 An _issue template_ based on Gruntwork's [Production Readiness Checklist](https://gruntwork.io/devops-checklist/). This checklist is your guide to the best practices for deploying secure, scalable, and highly available infrastructure in AWS. Before you go live, go through each item, and make sure you haven't missed anything important!

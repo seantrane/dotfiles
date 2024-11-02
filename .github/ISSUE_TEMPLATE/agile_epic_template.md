@@ -1,3 +1,8 @@
+---
+name: Agile Epic template
+about: An issue template formatted as an Agile Epic.
+---
+
 # [Epic summary]
 
 <!--- https://www.atlassian.com/agile/project-management/epics -->

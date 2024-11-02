@@ -1,0 +1,25 @@
+---
+name: Repository Request Form
+description: Submit a request to create a New Repository.
+title: 'create repo from template'
+assignees:
+  - everything-as-code-squad
+body:
+  - type: input
+    id: repo
+    attributes:
+      label: New Repository
+      description: Name of new repository (to be created).
+      placeholder: my-new-repo
+    validations:
+      required: true
+  - type: dropdown
+    id: template
+    attributes:
+      label: Template Repository
+      description: Template repository used to create new repository.
+      options:
+        - template-repository
+        - terraform-aws-template
+    validations:
+      required: true

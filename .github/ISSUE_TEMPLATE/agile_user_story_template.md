@@ -1,3 +1,8 @@
+---
+name: Agile User Story template
+about: An issue template formatted as an Agile User Story.
+---
+
 # [Story summary]
 
 <!--- https://www.atlassian.com/agile/project-management/user-stories -->
