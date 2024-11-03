@@ -13,8 +13,8 @@ main() {
     local OPTS=()
     OPTS+=(--rm)
     [[ -z "$PS1" ]] && OPTS+=(-it)
-    OPTS+=(-e RUN_LOCAL=true)
     OPTS+=(-v "$(pwd):/tmp/lint")
+    OPTS+=(-e RUN_LOCAL=true)
     [[ -e "$(pwd)/.github/super-linter.env" ]] &&
       OPTS+=(--env-file "$(pwd)/.github/super-linter.env")
     docker run "${OPTS[@]}" "${SUPERLINTER_IMAGE}:${SUPERLINTER_VERSION}" "$@"
