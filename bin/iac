@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#
+# Dockerized IaC framework for Terraform, OpenTofu and Terragrunt
+# https://github.com/devops-infra/docker-terragrunt
+#
+# [list of installed software](https://github.com/devops-infra/docker-terragrunt#additional-software-available-in-all-images)
+#
+# Implement commands using aliases:
+#
+# alias format-hcl="iac format-hcl"
+# alias aws="iac aws"
+# alias az="iac az"
+# alias cloudflared="iac cloudflared"
+# alias dot="iac dot"
+# alias hcledit="iac hcledit"
+# alias hub="iac hub"
+# alias gcloud="iac gcloud"
+# alias go="iac go"
+# alias sops="iac sops"
+# alias terraform="iac terraform"
+# alias terragrunt="iac terragrunt"
+# alias tflint="iac tflint"
+# alias tofu="iac tofu"
+# alias yc="iac yc"
+
+export DEVOPS_AWS_IMAGE="${DEVOPS_AWS_IMAGE:-"devopsinfra/docker-terragrunt"}"
+export OPENTOFU_VERSION="${OPENTOFU_VERSION:-"1.8.4"}"
+export TERRAGRUNT_VERSION="${TERRAGRUNT_VERSION:-"0.68.5"}"
+export CLOUD_API="${CLOUD_API:-"aws"}" # aws, azure, gcp, yc
+export CLOUD_SDK="${CLOUD_SDK:-"ot"}"  # ot, tf (for OpenTofu or Terraform)
+export DEVOPS_AWS_VERSION="${DEVOPS_AWS_VERSION:-"${CLOUD_API}-${CLOUD_SDK}-${OPENTOFU_VERSION}-tg-${TERRAGRUNT_VERSION}"}"
+
+main() {
+  if [ "$(whoami)" == "runner" ]; then
+    : #  echo "Don't execute in GitHub Actions workflow runs."
+  else
+    local OPTS=()
+    OPTS+=(--rm)
+    [[ -z "$PS1" ]] && OPTS+=(-it)
+    OPTS+=(-u "$(id -u):$(id -g)")
+    OPTS+=(-v "$(pwd):/data")
+    [[ -e ~/.gitconfig ]] && OPTS+=(-v ~/.gitconfig:/root/.gitconfig)
+    [[ -e ~/.ssh/id_rsa_shared ]] && OPTS+=(-v ~/.ssh/id_rsa_shared:/root/.ssh/id_rsa)
+    [[ -e ~/.aws/credentials ]] && OPTS+=(-v ~/.aws/credentials:/root/.aws/credentials)
+    [[ -n "${AWS_PROFILE:-}" ]] && OPTS+=(-e "AWS_PROFILE=$AWS_PROFILE")
+    [[ -n "${AWS_DEFAULT_REGION:-}" ]] && OPTS+=(-e "AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}")
+    [[ -n "${AWS_ACCESS_KEY_ID:-}" ]] && OPTS+=(-e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}")
+    [[ -n "${AWS_SECRET_ACCESS_KEY:-}" ]] && OPTS+=(-e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}")
+    [[ -n "${AWS_SESSION_TOKEN:-}" ]] && OPTS+=(-e "AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}")
+    docker run "${OPTS[@]}" "${DEVOPS_AWS_IMAGE}:${DEVOPS_AWS_VERSION}" "$@"
+  fi
+}
+
+main "$@"

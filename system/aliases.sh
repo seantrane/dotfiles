@@ -11,6 +11,31 @@ alias h="history"
 alias j="jobs"
 
 #-------------------------------------------------------------------------------
+# ~/.dotfiles/bin aliases
+#-------------------------------------------------------------------------------
+
+alias magick="imagemagick"
+alias mega="megalinter"
+alias lint="megalinter"
+
+# IAC Docker aliases:
+alias format-hcl="iac format-hcl"
+alias aws="iac aws"
+alias az="iac az"
+alias cloudflared="iac cloudflared"
+alias dot="iac dot"
+alias hcledit="iac hcledit"
+alias hub="iac hub"
+alias gcloud="iac gcloud"
+# alias go="iac go"
+alias sops="iac sops"
+alias terraform="iac terraform"
+alias terragrunt="iac terragrunt"
+alias tflint="iac tflint"
+alias tofu="iac tofu"
+alias yc="iac yc"
+
+#-------------------------------------------------------------------------------
 # Update aliases
 #-------------------------------------------------------------------------------
 
