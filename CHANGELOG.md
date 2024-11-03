@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# [2.3.0](https://github.com/seantrane/dotfiles/compare/v2.2.2...v2.3.0) (2024-11-03)
+
+
+### Features
+
+* add iac bin, enable cli aliases ([6d8fbc3](https://github.com/seantrane/dotfiles/commit/6d8fbc3a7a519c459f29f0c0465cf821dda25271))
+* add imagemagick bin ([2a458e0](https://github.com/seantrane/dotfiles/commit/2a458e0a2166a49ad667c0febc7056147e569522))
+* add packer bin ([9795cc0](https://github.com/seantrane/dotfiles/commit/9795cc0b8e3bfa64020a53160415856c8126b12e))
+* add superlinter bin ([d0b704c](https://github.com/seantrane/dotfiles/commit/d0b704c7e7a78caf16815ed71e9abaaa5e54ca7c))
+
 ## [2.2.2](https://github.com/seantrane/dotfiles/compare/v2.2.1...v2.2.2) (2024-11-02)
 
 
