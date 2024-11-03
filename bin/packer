@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Run Packer as Docker Image
+# https://hub.docker.com/r/hashicorp/packer/
+
+export PACKER_IMAGE="${PACKER_IMAGE:-"hashicorp/packer"}"
+export PACKER_VERSION="${PACKER_VERSION:-"latest"}"
+
+main() {
+  if [ "$(whoami)" == "runner" ]; then
+    : #  echo "Don't execute in GitHub Actions workflow runs."
+  else
+    local OPTS=()
+    OPTS+=(--rm)
+    [[ -z "$PS1" ]] && OPTS+=(-it)
+    OPTS+=(-v "$(pwd):/workspace")
+    OPTS+=(-w /workspace)
+    docker run "${OPTS[@]}" "${PACKER_IMAGE}:${PACKER_VERSION}" "$@"
+  fi
+}
+
+main "$@"
