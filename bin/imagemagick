@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Run ImageMagick as Docker Image
+# https://github.com/dooman87/imagemagick-docker
+# https://usage.imagemagick.org/basics/
+
+export IMAGEMAGICK_IMAGE="${IMAGEMAGICK_IMAGE:-"dpokidov/imagemagick"}"
+export IMAGEMAGICK_VERSION="${IMAGEMAGICK_VERSION:-"latest"}"
+
+main() {
+  local OPTS=()
+  OPTS+=(--rm)
+  # [[ -z "$PS1" ]] && OPTS+=(-it)
+  OPTS+=(-v "$(pwd):/imgs")
+  docker run "${OPTS[@]}" "${IMAGEMAGICK_IMAGE}:${IMAGEMAGICK_VERSION}" "$@"
+}
+
+main "$@"
