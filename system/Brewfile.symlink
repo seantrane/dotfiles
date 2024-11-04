@@ -107,8 +107,8 @@ brew "docker"
 # brew "galen"
 # brew "go" # !!! NO BOTTLE
 # brew "gradle" # !!! REQUIRES XCODE
-brew "kubectl"
 brew "helm"
+brew "kubectl"
 # brew "maven" # !!! REQUIRES XCODE
 # brew "mcrypt"
 # brew "memcached"
