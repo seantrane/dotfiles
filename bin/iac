@@ -23,22 +23,30 @@
 # alias tofu="iac tofu"
 # alias yc="iac yc"
 
-export DEVOPS_AWS_IMAGE="${DEVOPS_AWS_IMAGE:-"devopsinfra/docker-terragrunt"}"
 export OPENTOFU_VERSION="${OPENTOFU_VERSION:-"1.8.4"}"
-export TERRAGRUNT_VERSION="${TERRAGRUNT_VERSION:-"0.68.5"}"
+export TERRAFORM_VERSION="${TERRAFORM_VERSION:-"1.9.8"}"
+export TERRAGRUNT_VERSION="${TERRAGRUNT_VERSION:-"0.68.7"}"
 export CLOUD_API="${CLOUD_API:-"aws"}" # aws, azure, gcp, yc
-export CLOUD_SDK="${CLOUD_SDK:-"ot"}"  # ot, tf (for OpenTofu or Terraform)
-export DEVOPS_AWS_VERSION="${DEVOPS_AWS_VERSION:-"${CLOUD_API}-${CLOUD_SDK}-${OPENTOFU_VERSION}-tg-${TERRAGRUNT_VERSION}"}"
 
 main() {
   if [ "$(whoami)" == "runner" ]; then
     : #  echo "Don't execute in GitHub Actions workflow runs."
   else
+    # Image platform.
+    _MACH="${UMACH:-${MACHTYPE:-$(uname -m 2>/dev/null)}}"
+    _PLATFORM="linux/$_MACH"
+    [[ "${UTYPE:-}" == "darwin"* ]] && _PLATFORM="aarch64/$_MACH"
+    # OpenTofu (default) or Terraform.
+    _SDK_TAG="ot-${OPENTOFU_VERSION}"
+    [[ "${*}" == "terraform "* ]] && _SDK_TAG="tf-${TERRAFORM_VERSION}"
+    _IMAGE_TAG="${CLOUD_API}-${_SDK_TAG}-tg-${TERRAGRUNT_VERSION}"
+    # Build/run options.
     local OPTS=()
     OPTS+=(--rm)
     [[ -z "$PS1" ]] && OPTS+=(-it)
     OPTS+=(-u "$(id -u):$(id -g)")
     OPTS+=(-v "$(pwd):/data")
+    # OPTS+=(--platform "$_PLATFORM")
     [[ -e ~/.gitconfig ]] && OPTS+=(-v ~/.gitconfig:/root/.gitconfig)
     [[ -e ~/.ssh/id_rsa_shared ]] && OPTS+=(-v ~/.ssh/id_rsa_shared:/root/.ssh/id_rsa)
     [[ -e ~/.aws/credentials ]] && OPTS+=(-v ~/.aws/credentials:/root/.aws/credentials)
@@ -47,7 +55,9 @@ main() {
     [[ -n "${AWS_ACCESS_KEY_ID:-}" ]] && OPTS+=(-e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}")
     [[ -n "${AWS_SECRET_ACCESS_KEY:-}" ]] && OPTS+=(-e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}")
     [[ -n "${AWS_SESSION_TOKEN:-}" ]] && OPTS+=(-e "AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}")
-    docker run "${OPTS[@]}" "${DEVOPS_AWS_IMAGE}:${DEVOPS_AWS_VERSION}" "$@"
+    # Uncomment to debug the final command.
+    # echo "docker run ${OPTS[*]} devopsinfra/docker-terragrunt:${_IMAGE_TAG} ${*}"
+    docker run "${OPTS[@]}" "devopsinfra/docker-terragrunt:${_IMAGE_TAG}" "$@"
   fi
 }
 
