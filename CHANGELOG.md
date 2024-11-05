@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [2.3.1](https://github.com/seantrane/dotfiles/compare/v2.3.0...v2.3.1) (2024-11-05)
+
+
+### Bug Fixes
+
+* disable command causing error for users without sudo access ([6334259](https://github.com/seantrane/dotfiles/commit/633425958e03294f42b068c4e711d20bd338f1c0))
+* improve iac bin to toggle between opentofu/terraform images ([ff8ff6f](https://github.com/seantrane/dotfiles/commit/ff8ff6f49e0124e18c94fceb5b5e3bd793478209))
+
 # [2.3.0](https://github.com/seantrane/dotfiles/compare/v2.2.2...v2.3.0) (2024-11-03)
 
 
