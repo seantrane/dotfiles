@@ -74,11 +74,11 @@ fi
 _javad="$_brewd/opt/openjdk"
 _jvmd="/Library/Java/JavaVirtualMachines"
 if [[ -d "$_javad/bin" ]]; then
-  # For the system Java wrappers to find this JDK, symlink it with:
-  if [[ -d "$_jvmd" ]] && [[ ! -e "$_jvmd/openjdk.jdk" ]] &&
-    [[ -e "$_javad/libexec/openjdk.jdk" ]]; then
-    sudo ln -sfn "$_javad/libexec/openjdk.jdk" "$_jvmd/openjdk.jdk"
-  fi
+  # For system Java wrappers to find this JDK, symlink it (sudo/admin required):
+  # if [[ -d "$_jvmd" ]] && [[ ! -e "$_jvmd/openjdk.jdk" ]] &&
+  #   [[ -e "$_javad/libexec/openjdk.jdk" ]]; then
+  #   sudo ln -sfn "$_javad/libexec/openjdk.jdk" "$_jvmd/openjdk.jdk"
+  # fi
   # openjdk is keg-only, which means it was not symlinked into $(brew --prefix),
   # because macOS provides similar software and installing this software in
   # parallel can cause all kinds of trouble.
