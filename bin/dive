@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Run Dive as Docker Image
+# https://github.com/wagoodman/dive
+
+export DIVE_IMAGE="${DIVE_IMAGE:-"wagoodman/dive"}"
+export DIVE_VERSION="${DIVE_VERSION:-"latest"}"
+
+main() {
+  local OPTS=()
+  OPTS+=(--rm)
+  # OPTS+=(-q)
+  [[ -t 0 ]] && OPTS+=(-it) # terminal
+  OPTS+=(-v /var/run/docker.sock:/var/run/docker.sock)
+  OPTS+=(-v "$(pwd):$(pwd)")
+  OPTS+=(-w "$(pwd)")
+  # When running dive with the environment variable CI=true then
+  # the dive UI will be bypassed and will instead analyze your docker image,
+  # giving it a pass/fail indication via return code.
+  # https://github.com/wagoodman/dive#ci-integration
+  [[ "$(whoami)" == "runner" ]] && OPTS+=(-e "CI=true")
+  # https://github.com/wagoodman/dive#ui-configuration
+  [[ -r "$HOME/.dive.yaml" ]] && OPTS+=(-v "$HOME/.dive.yaml":"$HOME/.dive.yaml")
+  docker run "${OPTS[@]}" "${DIVE_IMAGE}:${DIVE_VERSION}" "$@"
+}
+
+main "$@"

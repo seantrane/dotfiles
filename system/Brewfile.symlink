@@ -100,7 +100,7 @@ brew "readline" # [Library for command-line editing](https://tiswww.case.edu/php
 # brew "awscli" # !!! NO BOTTLE !!! HANGS
 # brew "cloud-nuke" # [CLI tool to delete all cloud resources](https://github.com/gruntwork-io/cloud-nuke)
 # brew "dependency-check" # !!! REQUIRES XCODE [OWASP dependency-check](https://jeremylong.github.io/DependencyCheck/)
-brew "dive" # [Inspection of docker image layers](https://github.com/wagoodman/dive)
+# brew "dive" # [Inspection of docker image layers](https://github.com/wagoodman/dive)
 brew "docker"
 # brew "elixir"
 # brew "erlang"
