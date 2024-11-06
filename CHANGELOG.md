@@ -1,5 +1,17 @@
 # CHANGELOG
 
+# [2.4.0](https://github.com/seantrane/dotfiles/compare/v2.3.1...v2.4.0) (2024-11-06)
+
+
+### Bug Fixes
+
+* fix conditional for -it flag in bin-scripts ([d6a9a63](https://github.com/seantrane/dotfiles/commit/d6a9a63ee4d1d823080a3c62c57578b9ded8c734))
+
+
+### Features
+
+* add dive bin script ([f5c8ca0](https://github.com/seantrane/dotfiles/commit/f5c8ca0244a8d84e0385568e7f385400be4c7bda))
+
 ## [2.3.1](https://github.com/seantrane/dotfiles/compare/v2.3.0...v2.3.1) (2024-11-05)
 
 
