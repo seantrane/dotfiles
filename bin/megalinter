@@ -84,7 +84,8 @@ main() {
     # Run MegaLinter with cache enabled.
     local OPTS=()
     OPTS+=(--rm)
-    [[ -z "$PS1" ]] && OPTS+=(-it)
+    # OPTS+=(-q)
+    [[ -t 0 ]] && OPTS+=(-it) # terminal
     OPTS+=(-v /var/run/docker.sock:/var/run/docker.sock:rw)
     OPTS+=(-v "$(pwd):/tmp/lint:rw")
     OPTS+=(-v "$HOME/.cache/trivy:/tmp/lint/.cache/trivy:rw")

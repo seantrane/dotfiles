@@ -10,7 +10,8 @@ export IMAGEMAGICK_VERSION="${IMAGEMAGICK_VERSION:-"latest"}"
 main() {
   local OPTS=()
   OPTS+=(--rm)
-  # [[ -z "$PS1" ]] && OPTS+=(-it)
+  # OPTS+=(-q)
+  # [[ -t 0 ]] && OPTS+=(-it) # terminal
   OPTS+=(-v "$(pwd):/imgs")
   docker run "${OPTS[@]}" "${IMAGEMAGICK_IMAGE}:${IMAGEMAGICK_VERSION}" "$@"
 }

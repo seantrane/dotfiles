@@ -35,7 +35,7 @@ main() {
     # Image platform.
     _MACH="${UMACH:-${MACHTYPE:-$(uname -m 2>/dev/null)}}"
     _PLATFORM="linux/$_MACH"
-    [[ "${UTYPE:-}" == "darwin"* ]] && _PLATFORM="aarch64/$_MACH"
+    # [[ "${UTYPE:-}" == "darwin"* ]] && _PLATFORM="aarch64/$_MACH"
     # OpenTofu (default) or Terraform.
     _SDK_TAG="ot-${OPENTOFU_VERSION}"
     [[ "${*}" == "terraform "* ]] && _SDK_TAG="tf-${TERRAFORM_VERSION}"
@@ -43,10 +43,12 @@ main() {
     # Build/run options.
     local OPTS=()
     OPTS+=(--rm)
-    [[ -z "$PS1" ]] && OPTS+=(-it)
+    # OPTS+=(-q)
+    [[ -t 0 ]] && OPTS+=(-it) # terminal
+    # [[ ! -t 0 ]] && OPTS+=(-q)   # script
     OPTS+=(-u "$(id -u):$(id -g)")
     OPTS+=(-v "$(pwd):/data")
-    # OPTS+=(--platform "$_PLATFORM")
+    OPTS+=(--platform "$_PLATFORM")
     [[ -e ~/.gitconfig ]] && OPTS+=(-v ~/.gitconfig:/root/.gitconfig)
     [[ -e ~/.ssh/id_rsa_shared ]] && OPTS+=(-v ~/.ssh/id_rsa_shared:/root/.ssh/id_rsa)
     [[ -e ~/.aws/credentials ]] && OPTS+=(-v ~/.aws/credentials:/root/.aws/credentials)

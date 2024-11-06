@@ -12,7 +12,8 @@ main() {
   else
     local OPTS=()
     OPTS+=(--rm)
-    [[ -z "$PS1" ]] && OPTS+=(-it)
+    # OPTS+=(-q)
+    [[ -t 0 ]] && OPTS+=(-it) # terminal
     OPTS+=(-v "$(pwd):/tmp/lint")
     OPTS+=(-e RUN_LOCAL=true)
     [[ -e "$(pwd)/.github/super-linter.env" ]] &&

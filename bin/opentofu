@@ -12,7 +12,8 @@ main() {
   else
     local OPTS=()
     OPTS+=(--rm)
-    [[ -z "$PS1" ]] && OPTS+=(-it)
+    # OPTS+=(-q)
+    [[ -t 0 ]] && OPTS+=(-it) # terminal
     OPTS+=(-w /srv/workspace)
     OPTS+=(--mount "type=bind,source=$(pwd),target=/srv/workspace")
     docker run "${OPTS[@]}" "${OPENTOFU_IMAGE}:${OPENTOFU_VERSION}" "$@"
