@@ -16,6 +16,7 @@ main() {
     [[ -t 0 ]] && OPTS+=(-it) # terminal
     OPTS+=(-v "$(pwd):/workspace")
     OPTS+=(-w /workspace)
+    OPTS+=(--name "${PWD##*/}-packer-${PACKER_VERSION}")
     docker run "${OPTS[@]}" "${PACKER_IMAGE}:${PACKER_VERSION}" "$@"
   fi
 }

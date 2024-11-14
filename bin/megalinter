@@ -93,6 +93,7 @@ main() {
     OPTS+=(-e "TRIVY_SKIP_DB_UPDATE=true")
     OPTS+=(-e "TRIVY_SKIP_JAVA_DB_UPDATE=true")
     OPTS+=(-e "TRIVY_SKIP_CHECK_UPDATE=true")
+    OPTS+=(--name "${PWD##*/}-megalinter-${MEGALINTER_VERSION}")
     docker run "${OPTS[@]}" "${MEGALINTER_IMAGE}:${MEGALINTER_VERSION}" "$@"
   fi
 }

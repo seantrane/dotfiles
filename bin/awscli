@@ -17,6 +17,7 @@ main() {
     OPTS+=(-v ~/.aws:/root/.aws)
     OPTS+=(-v "$(pwd):/aws")
     [[ -n "${AWS_PROFILE:-}" ]] && OPTS+=(-e "AWS_PROFILE=$AWS_PROFILE")
+    OPTS+=(--name "${PWD##*/}-awscli-${AWSCLI_VERSION}")
     docker run "${OPTS[@]}" "${AWSCLI_IMAGE}:${AWSCLI_VERSION}" "$@"
   fi
 }

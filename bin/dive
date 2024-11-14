@@ -21,6 +21,7 @@ main() {
   [[ "$(whoami)" == "runner" ]] && OPTS+=(-e "CI=true")
   # https://github.com/wagoodman/dive#ui-configuration
   [[ -r "$HOME/.dive.yaml" ]] && OPTS+=(-v "$HOME/.dive.yaml":"$HOME/.dive.yaml")
+  OPTS+=(--name "${PWD##*/}-dive-${DIVE_VERSION}")
   docker run "${OPTS[@]}" "${DIVE_IMAGE}:${DIVE_VERSION}" "$@"
 }
 

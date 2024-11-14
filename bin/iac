@@ -57,6 +57,7 @@ main() {
     [[ -n "${AWS_ACCESS_KEY_ID:-}" ]] && OPTS+=(-e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}")
     [[ -n "${AWS_SECRET_ACCESS_KEY:-}" ]] && OPTS+=(-e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}")
     [[ -n "${AWS_SESSION_TOKEN:-}" ]] && OPTS+=(-e "AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}")
+    OPTS+=(--name "${PWD##*/}-iac-${_IMAGE_TAG}")
     # Uncomment to debug the final command.
     # echo "docker run ${OPTS[*]} devopsinfra/docker-terragrunt:${_IMAGE_TAG} ${*}"
     docker run "${OPTS[@]}" "devopsinfra/docker-terragrunt:${_IMAGE_TAG}" "$@"

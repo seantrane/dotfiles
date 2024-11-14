@@ -13,6 +13,7 @@ main() {
   # OPTS+=(-q)
   # [[ -t 0 ]] && OPTS+=(-it) # terminal
   OPTS+=(-v "$(pwd):/imgs")
+  OPTS+=(--name "${PWD##*/}-imagemagick-${IMAGEMAGICK_VERSION}")
   docker run "${OPTS[@]}" "${IMAGEMAGICK_IMAGE}:${IMAGEMAGICK_VERSION}" "$@"
 }
 

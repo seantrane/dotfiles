@@ -18,6 +18,7 @@ main() {
     OPTS+=(-e RUN_LOCAL=true)
     [[ -e "$(pwd)/.github/super-linter.env" ]] &&
       OPTS+=(--env-file "$(pwd)/.github/super-linter.env")
+    OPTS+=(--name "${PWD##*/}-superlinter-${SUPERLINTER_VERSION}")
     docker run "${OPTS[@]}" "${SUPERLINTER_IMAGE}:${SUPERLINTER_VERSION}" "$@"
   fi
 }

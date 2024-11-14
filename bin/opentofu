@@ -16,6 +16,7 @@ main() {
     [[ -t 0 ]] && OPTS+=(-it) # terminal
     OPTS+=(-w /srv/workspace)
     OPTS+=(--mount "type=bind,source=$(pwd),target=/srv/workspace")
+    OPTS+=(--name "${PWD##*/}-opentofu-${OPENTOFU_VERSION}")
     docker run "${OPTS[@]}" "${OPENTOFU_IMAGE}:${OPENTOFU_VERSION}" "$@"
   fi
 }
