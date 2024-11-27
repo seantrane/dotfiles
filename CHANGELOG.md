@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.4.1](https://github.com/seantrane/dotfiles/compare/v2.4.0...v2.4.1) (2024-11-27)
+
+
+### Bug Fixes
+
+* add container-name to containerized binary scripts ([723b9fb](https://github.com/seantrane/dotfiles/commit/723b9fbdfef24fc726220e09d05b9c8dc3fa661d))
+
 # [2.4.0](https://github.com/seantrane/dotfiles/compare/v2.3.1...v2.4.0) (2024-11-06)
 
 
