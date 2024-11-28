@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [2.4.2](https://github.com/seantrane/dotfiles/compare/v2.4.1...v2.4.2) (2024-11-28)
+
+
+### Bug Fixes
+
+* add init branch main to gitconfig ([5ec1a98](https://github.com/seantrane/dotfiles/commit/5ec1a980405baa06c4a0c11a3176ae559ad0ece6))
+* improve list directories aliases (lsd, lsdl) ([9732348](https://github.com/seantrane/dotfiles/commit/97323485ab7be1ebebbc00051242e27e08920ac1))
+* prevent .cache dir from syncing to pwd ([8f41090](https://github.com/seantrane/dotfiles/commit/8f4109037b171abe0f31b4b2cc170cabd9a02b35))
+* update vscode settings, keybindings ([94d5587](https://github.com/seantrane/dotfiles/commit/94d55870ecd733f5aac33fa357b5bae760d7c59e))
+
 ## [2.4.1](https://github.com/seantrane/dotfiles/compare/v2.4.0...v2.4.1) (2024-11-27)
 
 
