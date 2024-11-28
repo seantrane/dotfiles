@@ -4,10 +4,37 @@
   "atomKeymap.promptV3Features": true,
   "codestream.serverUrl": "https://codestream-api-v2-us1.service.newrelic.com",
   "cSpell.userWords": [
+    "CODEOWNERS",
+    "codestream",
+    "commitizen",
+    "commitlint",
+    "cssuite",
     "dependabot",
+    "devbox",
+    "gemrc",
+    "hcledit",
     "healthcheck",
+    "jmeter",
+    "kscript",
+    "liquibase",
+    "localrc",
+    "localtime",
+    "markdownlint",
+    "mongorc",
+    "opensource",
+    "opentofu",
     "roadmap",
-    "shellcheck"
+    "sdkman",
+    "serverlessrc",
+    "shellcheck",
+    "sonarlint",
+    "springboot",
+    "Terragrunt",
+    "tflint",
+    "venv",
+    "virtualenv",
+    "zoneinfo",
+    "Zshell"
   ],
   "editor.cursorStyle": "line-thin",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -38,7 +65,9 @@
     "Brewfile.symlink": "ruby",
     "CODEOWNERS": "ignore",
     "config": "editorconfig",
-    "Dockerfile.*": "dockerfile"
+    "Dockerfile.*": "dockerfile",
+    "gitconfig.symlink": "editorconfig",
+    "gitconfig.symlink.example": "editorconfig"
   },
   "files.eol": "\n",
   "files.exclude": {
@@ -53,7 +82,8 @@
   "git.path": [
     "/opt/homebrew/bin/git",
     "/usr/local/bin/git",
-    "/usr/bin/git"
+    "/usr/bin/git",
+    "/bin/git"
   ],
   "gitlens.hovers.currentLine.over": "line",
   "gitlens.currentLine.enabled": false,
@@ -67,6 +97,9 @@
   "prettier.singleQuote": true,
   "python.languageServer": "Default",
   "redhat.telemetry.enabled": false,
+  "rewrap.doubleSentenceSpacing": false,
+  "rewrap.wholeComment": false,
+  "rewrap.wrappingColumn": 80,
   "search.exclude": {
     "**/.bundle": true,
     "**/.sass-cache": true,

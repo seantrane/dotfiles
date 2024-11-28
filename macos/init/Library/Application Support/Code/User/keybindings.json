@@ -1,0 +1,15 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+  {
+    "key": "cmd+shift+d",
+    "command": "lafe.duplicateCode"
+  },
+  {
+    "key": "alt+cmd+a",
+    "command": "wwm.aligncode"
+  },
+  {
+    "key": "ctrl+shift+q",
+    "command": "rewrap.rewrapComment"
+  },
+]
