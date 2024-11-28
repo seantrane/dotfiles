@@ -34,8 +34,13 @@ alias la="ls -lahF ${timeflag}"
 # List, rescursively, all files colorized in long format, including dot files.
 alias lsr="ls -lahFR ${timeflag}"
 # List only directories
-alias lsd="ls -d ${timeflag} */"
-alias lsdl="ls -dl ${timeflag} */"
+if type sed &>/dev/null; then
+  alias lsd="ls -AhF ${timeflag} | sed '/[^\/]$/d'"
+  alias lsdl="ls -lAhF ${timeflag} | sed '/^[-l]/d'"
+else
+  alias lsd="ls -d ${timeflag} */"
+  alias lsdl="ls -dl ${timeflag} */"
+fi
 
 #-------------------------------------------------------------------------------
 # LSCOLORS
