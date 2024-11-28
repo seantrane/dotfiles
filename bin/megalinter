@@ -23,7 +23,7 @@ trivy_cache_primer() {
   # Create cache directory, if it doesn't exist.
   [[ ! -d "$TRIVY_CACHE_DIR" ]] && mkdir -p "$TRIVY_CACHE_DIR"
   # Delete outdated cache-timers.
-  find "$TRIVY_CACHE_DIR" -name "*$_CACHE_TIMER" -type f -mtime 1 -delete
+  find "$TRIVY_CACHE_DIR" -name "*$_CACHE_TIMER" -type f -mmin +1440 -delete
   # Trivy Vulnerability DB
   # If cache-timer doesn't exist, or cache is empty, prime the cache.
   if [[ ! -e "${_TRIVY_DB_CACHE_PATH}${_CACHE_TIMER}" ]] || [[ -z "$(ls -A "$_TRIVY_DB_CACHE_PATH")" ]]; then
@@ -88,8 +88,8 @@ main() {
     [[ -t 0 ]] && OPTS+=(-it) # terminal
     OPTS+=(-v /var/run/docker.sock:/var/run/docker.sock:rw)
     OPTS+=(-v "$(pwd):/tmp/lint:rw")
-    OPTS+=(-v "$HOME/.cache/trivy:/tmp/lint/.cache/trivy:rw")
-    OPTS+=(-e "TRIVY_CACHE_DIR=/tmp/lint/.cache/trivy")
+    OPTS+=(-v "$HOME/.cache/trivy:/tmp/megalinter/.cache/trivy:rw")
+    OPTS+=(-e "TRIVY_CACHE_DIR=/tmp/megalinter/.cache/trivy")
     OPTS+=(-e "TRIVY_SKIP_DB_UPDATE=true")
     OPTS+=(-e "TRIVY_SKIP_JAVA_DB_UPDATE=true")
     OPTS+=(-e "TRIVY_SKIP_CHECK_UPDATE=true")
