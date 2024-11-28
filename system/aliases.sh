@@ -39,17 +39,17 @@ alias yc="iac yc"
 # Update aliases
 #-------------------------------------------------------------------------------
 
-alias brewupdate='brew update; brew upgrade; brew cleanup;'
+alias brewupdate='brew update; brew upgrade; brew cleanup'
 alias nodeupdate='(cd; npm cache clean -g -f; brew upgrade node; npm install -g npm@latest; npm update -g; npm cache clean -g -f)'
 alias npmupdate="(cd; npm cache clean -g -f; npm install -g npm@latest; npm update -g; npm cache clean -g -f)"
-alias rubyupdate='sudo gem update --system; sudo gem update;'
+alias rubyupdate='sudo gem update --system; sudo gem update'
 
 #-------------------------------------------------------------------------------
 # Node/npm aliases
 #-------------------------------------------------------------------------------
 
-alias npmlistg="npm list -g --depth=0 </dev/null 2>/dev/null;"
-alias npmlist="npm list --depth=0 </dev/null 2>/dev/null;"
+alias npmlistg="npm list -g --depth=0 </dev/null 2>/dev/null"
+alias npmlist="npm list --depth=0 </dev/null 2>/dev/null"
 
 #-------------------------------------------------------------------------------
 # Docker aliases
@@ -77,7 +77,7 @@ alias dreset="docker ps -a; docker compose stop </dev/null 2>/dev/null; docker k
 alias binstall="bundle install"
 alias bjbuild="bundle exec jekyll build --incremental"
 alias bjserve="bundle exec jekyll serve --incremental --watch"
-alias bjbs="bjbuild; bjserve"
+alias bjbs="bjbuild && bjserve"
 
 #-------------------------------------------------------------------------------
 # PHP/Composer/Laravel aliases
