@@ -46,7 +46,7 @@ fi
 # Node.js/npm installs
 if type "npm" &>/dev/null; then
   npm install -g \
-    cucumber \
+    @cucumber/cucumber \
     serverless \
     yo \
     ;

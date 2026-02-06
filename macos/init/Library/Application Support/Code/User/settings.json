@@ -1,14 +1,39 @@
 // Place your settings in this file to overwrite the default settings
 {
-  "alignment.operatorPadding": "left",
-  "atomKeymap.promptV3Features": true,
+  "asciidoc.antora.showEnableAntoraPrompt": false,
+  "betterAlign.alignAfterTypeEnter": false,
+  "betterAlign.operatorPadding": "right",
+  "betterAlign.surroundSpace": {
+    "colon": [
+      -1,
+      1
+    ],
+    "assignment": [
+      1,
+      1
+    ],
+    "arrow": [
+      1,
+      1
+    ],
+    "comment": 2
+  },
+  "betterOpenEditors.ShowPackageInfo": false,
+  "betterOpenEditors.PackagePatterns": "**/Code/*/*",
   "codestream.serverUrl": "https://codestream-api-v2-us1.service.newrelic.com",
+  "cSpell.enabledNotifications": {
+    "Average Word Length too Long": false,
+    "Lines too Long": false,
+    "Maximum Word Length Exceeded": false
+  },
   "cSpell.userWords": [
+    "archiveme",
     "CODEOWNERS",
     "codestream",
     "commitizen",
     "commitlint",
     "cssuite",
+    "deleteme",
     "dependabot",
     "devbox",
     "gemrc",
@@ -36,12 +61,14 @@
     "zoneinfo",
     "Zshell"
   ],
+  "docker.extension.enableComposeLanguageServer": false,
   "editor.cursorStyle": "line-thin",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "Menlo, Monaco, 'Andale Mono', 'Lucida Console', 'Courier New', Courier, monospace",
   "editor.fontSize": 12,
   "editor.formatOnPaste": false,
   "editor.hover.delay": 800,
+  "editor.linkedEditing": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.renderWhitespace": "boundary",
   "editor.scrollBeyondLastLine": false,
@@ -50,16 +77,19 @@
   "editor.wordWrap": "on",
   "explorer.confirmDragAndDrop": false,
   "files.associations": {
-    "./docs/*.md": "jekyll",
-    "./docs/**/*.html": "jekyll",
-    "./docs/README.md": "markdown",
+    "**/docs/*.md": "liquid",
+    "**/docs/**/*.html": "liquid",
+    "**/docs/README.md": "markdown",
+    "**/src/*.md": "liquid",
+    "**/src/**/*.html": "liquid",
+    "**/src/README.md": "markdown",
     ".editorconfig": "editorconfig",
     ".env.example": "dotenv",
     "*.hcl": "terraform",
     "*.json.tftpl": "jsonc",
     "*.symlink": "shellscript",
-    "**/*.github.io/*.md": "jekyll",
-    "**/*.github.io/**/*.html": "jekyll",
+    "**/*.github.io/*.md": "liquid",
+    "**/*.github.io/**/*.html": "liquid",
     "**/*.github.io/CONTRIBUTING.md": "markdown",
     "**/*.github.io/README.md": "markdown",
     "Brewfile.symlink": "ruby",
@@ -85,13 +115,17 @@
     "/usr/bin/git",
     "/bin/git"
   ],
-  "gitlens.hovers.currentLine.over": "line",
-  "gitlens.currentLine.enabled": false,
-  "gitlens.codeLens.enabled": false,
+  "html.format.templating": true,
+  "html.format.unformatted": "pre,samp",
+  // "java.format.settings.profile": "GoogleStyle",
+  // "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
   "markdown.styles": [
-    "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.7.0/github-markdown-light.min.css"
+    "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown-light.min.css"
   ],
   "markdownTablePrettify.columnPadding": 0,
+  "markdownTablePrettify.maxTextLength": 2000000,
+  "opentofu.experimentalFeatures.prefillRequiredFields": true,
+  "opentofu.experimentalFeatures.validateOnSave": true,
   "prettier.jsxSingleQuote": true,
   "prettier.printWidth": 100,
   "prettier.singleQuote": true,
@@ -101,11 +135,22 @@
   "rewrap.wholeComment": false,
   "rewrap.wrappingColumn": 80,
   "search.exclude": {
+    "**/_site": true,
     "**/.bundle": true,
+    "**/.jekyll-cache": true,
+    "**/.jekyll-metadata": true,
     "**/.sass-cache": true,
+    "**/*.log": true,
+    "**/*.tmp": true,
     "**/bower_components": true,
     "**/node_modules": true,
-    "./vendor": true
+    "**/Thumbs.db": true,
+    "**/tmp": true,
+    "**/vendor/bundle": true,
+    "**/vendor/cache": true,
+    "**/vendor/gem-cache": true,
+    "**/vendor/gems": true,
+    "**/vendor/ruby": true
   },
   "selectline.alignment": "right",
   "selectline.displayFormat": "%d Lines Selected",
@@ -114,6 +159,9 @@
     "-x"
   ],
   "shellcheck.executablePath": "/opt/homebrew/bin/shellcheck",
+  "shfmt.executablePath": "/opt/homebrew/bin/shfmt",
+  "sonarlint.automaticAnalysis": false,
+  "sonarlint.pathToNodeExecutable": "/opt/homebrew/bin/node",
   "sonarlint.rules": {
     "Web:TableWithoutCaptionCheck": {
       "level": "off"
@@ -152,6 +200,10 @@
   },
   "terminal.integrated.scrollback": 10000,
   "typescript.updateImportsOnFileMove.enabled": "always",
+  "vscode-kubernetes.helm-path-mac": "/Users/seantrane/.rd/bin/helm",
+  "vscode-kubernetes.helm-path": "/Users/seantrane/.rd/bin/helm",
+  "vscode-kubernetes.kubectl-path-mac": "/Users/seantrane/.rd/bin/kubectl",
+  "vscode-kubernetes.kubectl-path": "/Users/seantrane/.rd/bin/kubectl",
   "vsicons.dontShowNewVersionMessage": true,
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "window.restoreWindows": "all",
@@ -186,13 +238,24 @@
   "workbench.editor.showTabs": "single",
   "workbench.editor.tabSizing": "shrink",
   "workbench.fontAliasing": "auto",
+  "workbench.iconTheme": "material-icon-theme",
   "workbench.sideBar.location": "left",
   "workbench.startupEditor": "newUntitledFile",
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[css][sass][scss]": {
+    "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter",
     "editor.formatOnSave": true
   },
-  "[javascript]": {
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": true
+  },
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java"
+    // "editor.defaultFormatter": "Robinsstudio.prettier-java-formatter"
+    // ,
+    // "editor.formatOnSave": true
+  },
+  "[javascript|javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
@@ -202,15 +265,22 @@
   },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.detectIndentation": false
   },
   "[markdown]": {
     "editor.defaultFormatter": "Jota0222.multi-formatter",
+    "files.trimTrailingWhitespace": false,
     "multiFormatter.formatterList": [
       "esbenp.prettier-vscode",
       "darkriszty.markdown-table-prettify"
     ],
     "editor.formatOnSave": true
+  },
+  "[opentofu][opentofu-vars]": {
+    "editor.defaultFormatter": "opentofu.vscode-opentofu",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
   },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter",
@@ -220,17 +290,12 @@
     "editor.defaultFormatter": "mkhl.shfmt",
     "editor.formatOnSave": true
   },
-  "[terraform]": {
-    "editor.defaultFormatter": "hashicorp.terraform",
+  "[terragrunt]": {
+    "editor.defaultFormatter": "SeemsCloud.terragrunt-hcl-formatter",
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file"
   },
-  "[terraform-vars]": {
-    "editor.defaultFormatter": "hashicorp.terraform",
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "file"
-  },
-  "[typescript]": {
+  "[typescript|typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },

@@ -21,4 +21,4 @@ jobs:
   release:
     uses: seantrane/engineering/.github/workflows/semantic-release.yml@main
     secrets:
-      GH_TOKEN: ${{ secrets.GH_PAT }}
+      GH_TOKEN: ${{ secrets.GH_PAT || secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}

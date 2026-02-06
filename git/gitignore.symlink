@@ -1,7 +1,7 @@
 # Environments #
 ################
-.env
-!.env.example
+/.env
+/!.env.example
 
 # Compiled source #
 ###################

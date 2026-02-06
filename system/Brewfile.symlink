@@ -140,14 +140,14 @@ brew "yq" # [lightweight YAML, JSON, XML processor](https://github.com/mikefarah
 # APPLICATIONS (CASKS)
 #-------------------------------------------------------------------------------
 #
-cask "1password"
+# cask "1password"
 cask "a-better-finder-rename"
 # cask "adobe-creative-cloud"
 # cask "adobe-acrobat-reader"
-cask "alfred"
+# cask "alfred"
 # cask "atom"
 # cask "audacity"
-cask "audio-hijack"
+# cask "audio-hijack"
 # cask "blue-jeans"
 # cask "citrix-receiver"
 # cask "cyberduck"
@@ -165,7 +165,7 @@ cask "focusrite-control"
 cask "github"
 # cask "gitkraken"
 # cask "gitx"
-cask "gog-galaxy"
+# cask "gog-galaxy"
 # cask "google-chrome"
 cask "handbrake"
 cask "imagealpha"
@@ -179,7 +179,7 @@ cask "iterm2"
 # cask "kaleidoscope"
 # cask "keka"
 cask "keybase"
-cask "krita"
+# cask "krita"
 # cask "little-snitch"
 # cask "macpar-deluxe" # !!! ONLY for Intel macOS
 # cask "mamp"
@@ -188,8 +188,8 @@ cask "krita"
 # cask "microsoft-openjdk" # opensource replacement for java, openjdk
 cask "mongodb-compass"
 # cask "musicbrainz-picard" # !!! ONLY for Intel macOS
-cask "native-access"
-cask "nzbget"
+# cask "native-access"
+# cask "nzbget"
 # cask "openoffice"
 # cask "phpstorm"
 cask "postman"
@@ -208,7 +208,7 @@ cask "the-unarchiver"
 # cask "tower"
 # cask "transmission"
 # cask "vagrant"
-cask "virtualbox"
+# cask "virtualbox"
 cask "visual-studio-code"
 cask "vlc"
 # cask "webstorm"
@@ -244,12 +244,14 @@ cask "font-ubuntu"
 brew "mas"
 #
 # mas "1Password", id: 443987910
-mas "GarageBand", id: 682658836
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
-mas "Logic Pro", id: 634148309
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
+# mas "GarageBand", id: 682658836
+# mas "iMovie", id: 408981434
+# mas "Keynote", id: 409183694
+# mas "Logic Pro", id: 634148309
+# mas "Numbers", id: 409203825
+# mas "Pages", id: 409201541
+#
+mas "Sony | Sound Connect"id1168502924
 #
 #-------------------------------------------------------------------------------
 # Whalebrew

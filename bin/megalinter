@@ -86,6 +86,8 @@ main() {
     OPTS+=(--rm)
     # OPTS+=(-q)
     [[ -t 0 ]] && OPTS+=(-it) # terminal
+    [[ -e ~/.ssh/config_shared ]] && OPTS+=(-v ~/.ssh/config_shared:/root/.ssh/config)
+    [[ -e ~/.ssh/id_rsa_shared ]] && OPTS+=(-v ~/.ssh/id_rsa_shared:/root/.ssh/id_rsa_shared)
     OPTS+=(-v /var/run/docker.sock:/var/run/docker.sock:rw)
     OPTS+=(-v "$(pwd):/tmp/lint:rw")
     OPTS+=(-v "$HOME/.cache/trivy:/tmp/megalinter/.cache/trivy:rw")

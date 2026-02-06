@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Run a command, via local directories first, then the environment/PATH.
-# shellcheck disable=SC2145
+# shellcheck disable=SC2145,SC1090
 
 set -e
 
@@ -16,22 +16,24 @@ set -e
 # Returns:
 #   None
 ################################################################################
-run () {
+run() {
   local id="${1:-}"
   if [[ -n "${id}" ]]; then
     # Try to execute local scripts first.
-    if   [[ -x "./${id}" ]]; then
+    if [[ -x "./${id}" ]]; then
       "./$@"
     elif [[ -x "./bin/${id}" ]]; then
       "./bin/$@"
     elif [[ -x "./scripts/${id}" ]]; then
       "./scripts/$@"
-    elif [[ -x "./functions/${id}" ]]; then
-      "./functions/$@"
-    elif [[ -x "./scripts/aliases/${id}" ]]; then
-      "./scripts/aliases/$@"
+    elif [[ -r "./scripts/${id}.sh" ]]; then
+      . "./scripts/${id}.sh"
+      "$@"
     elif [[ -x "./scripts/functions/${id}" ]]; then
       "./scripts/functions/$@"
+    elif [[ -r "./scripts/functions/${id}.sh" ]]; then
+      . "./scripts/functions/${id}.sh"
+      "$@"
     else
       # Or pass it to the command line.
       "$@"

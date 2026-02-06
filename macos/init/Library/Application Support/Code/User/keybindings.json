@@ -12,4 +12,52 @@
     "key": "ctrl+shift+q",
     "command": "rewrap.rewrapComment"
   },
+  {
+    "key": "cmd+alt+.",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus",
+    "args": {
+      "snippet": " * ${TM_SELECTED_TEXT}\n$0"
+    }
+  },
+  {
+    "key": "alt+shift+c",
+    "command": "findInCurrentFile",
+    "args": {
+      "description": "toggle starred block comments in selections",
+      "preCommands": "expandLineSelection",
+      "replace": [
+        "$${",
+        "const startRegex = /^\\s*\\/\\*\\*\\s*/m;", // for /** start to block
+        // "const startRegex = /^\\s*\\/\\*\\s*/m;",  // for /*  start to block
+        "const endRegex   = /^\\s*\\*\\/\\s*?$/m;",
+        "let lines = `${selectedText}`.split('\\n');",
+        "if (lines.at(-1) === '') lines.splice(-1,1);",
+        "const isReversed = vscode.window.activeTextEditor.selection.isReversed;",
+        // isReversed =  bottom-up selection
+        "let firstLineNumber = vscode.window.activeTextEditor.selection.active.line;",
+        "if (!isReversed) firstLineNumber = vscode.window.activeTextEditor.selection.anchor.line;",
+        // get entire line of text - to far left
+        "const firstLine = document.lineAt(firstLineNumber).text;",
+        "const regex = /\\s*/g;",
+        "const leadingSpaces = firstLine.match(regex)[0];",
+        "if ( startRegex.test(lines[0]) && endRegex.test(lines.at(-1)) ) {", // so have an entire block comment
+        "lines.shift();", // remove first '/*'  or '/*' line
+        "lines.splice(-1,1);", // remove last  ' */' line
+        "return lines.flatMap(line => `${line.replace(' * ', '')}`).join('\\n') + `\\n`;", // remove ' * ' from each line start
+        "}",
+        "else {",
+        "let str = leadingSpaces + `/** \\n`;", // for /** start to block
+        // "let str = leadingSpaces + `/* \\n`;",      // for /* start to block
+        "str += lines.flatMap(line => leadingSpaces + ` * ` + line.substring(leadingSpaces.length)).join('\\n');",
+        "str += `\\n`;",
+        "return str + leadingSpaces + ` */` + `\\n`;",
+        "}",
+        "}$$"
+      ],
+      "restrictFind": "selections", // need this since there is no find
+      "postCommands": "cancelSelection"
+    }
+    // can use "when" clauses to restrict to certain languages
+  },
 ]
